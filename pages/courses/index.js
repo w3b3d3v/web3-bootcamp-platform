@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Head from 'next/head'
 import Layout from '../../components/layout'
+import { getAllCourses } from '../../lib/courses'
 
-export default function Courses() {
+export default function Courses({ allCourses }) {
   return (
     <Layout>
       <Head>
@@ -17,6 +18,30 @@ export default function Courses() {
           <a>Voltar para home</a>
         </Link>
       </h2>
+
+      <ul className="grid">
+        {allCourses.map((c) => {
+          return (
+            <li key={c.id} className="card">
+              <Link href={"/courses/" + c.id}>
+                <a>
+                  {c.title}
+                </a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
     </Layout>
   );
 }
+
+export async function getStaticProps() {
+  const allCourses = await getAllCourses()
+  return {
+    props: {
+      allCourses
+    }
+  }
+}
+
