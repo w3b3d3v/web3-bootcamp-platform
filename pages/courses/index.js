@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import { getAllCourses } from '../../lib/courses'
@@ -28,6 +29,7 @@ export default function Courses({ allCourses }) {
                   {c.title}
                 </a>
               </Link>
+              <p><Image src={c.image_url} width="200%" height="200%"></Image></p>
             </li>
           )
         })}
