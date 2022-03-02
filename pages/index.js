@@ -1,5 +1,5 @@
-import Head from "next/head";
-import Link from "next/link";
+import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -23,14 +23,15 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Feito com ❤️ &nbsp;por <img src="/favicon.svg" alt="web3dev" className="logo" />
+          Feito com ❤️ &nbsp;por{' '}
+          <img src="/favicon.svg" alt="web3dev" className="logo" />
         </a>
       </footer>
 
       <style jsx>{`
         .container {
           min-height: 100vh;
-          padding: 0 0.5rem;
+          padding: 0 0.5rem;w
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -84,7 +85,6 @@ export default function Home() {
         .logo {
           height: 2em;
         }
-
       `}</style>
 
       <style jsx global>{`
@@ -102,5 +102,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  );
+  )
 }
