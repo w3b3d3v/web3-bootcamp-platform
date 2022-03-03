@@ -1,20 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Router from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 
-function authPage() {
-  const { user, login, logout, loginGoogle } = useAuth()
+function signUpPage() {
+  const { user, signup, logout, loginGoogle } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
   const { register, handleSubmit } = useForm()
-
-  const onLoginSubmit = (data) => login(data)
-  const onLoginError = (errors, e) => {
+  // const onSubmit = (data) => console.log('enviado do form', data)
+  const onSignUpSubmit = (data) => signup(data)
+  const onSignUpError = (errors, e) => {
     toast.error(errors, e, {
       position: 'top-right',
       autoClose: 5000,
@@ -38,26 +37,26 @@ function authPage() {
               web3dev
             </h2>
           </div>
-          <div className="w-full rounded bg-white px-6 py-6 shadow-lg sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
+          <div className="w-full rounded bg-white px-2 py-6 shadow-lg sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
             <p
               tabIndex={0}
               className="text-2xl font-extrabold leading-6 text-gray-800 focus:outline-none"
             >
-              Entre na sua conta
+              Registre sua conta
             </p>
             <p
               tabIndex={0}
               className="mt-4 text-sm font-medium leading-none text-gray-500 focus:outline-none"
             >
-              Não tem uma conta?{' '}
+              Já tem uma conta?{' '}
               <Link
-                href="/auth/signup"
+                href="/auth"
                 className="cursor-pointer text-sm font-medium leading-none text-gray-800 hover:text-gray-500 hover:underline focus:text-gray-500 focus:underline focus:outline-none"
               >
-                Registre-se agora!
+                Entre agora!
               </Link>
             </p>
-            <form onSubmit={handleSubmit(onLoginSubmit, onLoginError)}>
+            <form onSubmit={handleSubmit(onSignUpSubmit, onSignUpError)}>
               <div className="pt-6">
                 <label
                   htmlFor="email"
@@ -147,7 +146,7 @@ function authPage() {
                   className="w-full rounded border bg-green-700 py-4 text-sm font-semibold leading-none text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2"
                   type="submit"
                 >
-                  Entrar
+                  Registrar
                 </button>
               </div>
             </form>
@@ -208,4 +207,4 @@ function authPage() {
   )
 }
 
-export default authPage
+export default signUpPage

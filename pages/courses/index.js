@@ -3,18 +3,21 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import { getAllCourses } from '../../lib/courses'
-import { useReducer } from 'react'
+import Router from 'next/router'
 
 import useAuth from '../../hooks/useAuth'
 
 export default function Courses({ allCourses }) {
   const { user } = useAuth()
+
   return (
     <Layout>
       <Head>
         <title>Lista de Cursos: </title>
       </Head>
-      <h1 className="text-3xl font-bold underline">Lista de Cursos2! {user?.email}</h1>
+      <h1 className="text-3xl font-bold underline">
+        Lista de Cursos2! {user?.email}
+      </h1>
 
       <h2 className="text-2xl font-bold">
         <Link href="/">

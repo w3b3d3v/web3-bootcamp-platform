@@ -5,7 +5,6 @@ import { AuthProvider } from '../context/AuthContext'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// import Navbar from '../components/Navbar'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -14,9 +13,6 @@ function MyApp({ Component, pageProps }) {
         <title>Web3Dev Bootcamp Plataform</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-
-      {/* <Navbar /> */}
-
       <Component {...pageProps} />
       <ToastContainer />
     </AuthProvider>
