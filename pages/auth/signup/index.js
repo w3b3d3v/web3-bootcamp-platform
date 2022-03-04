@@ -6,12 +6,13 @@ import { toast } from 'react-toastify'
 
 import useAuth from '../../../hooks/useAuth'
 
+import { withPublic } from '../../../hooks/route'
+
 function signUpPage() {
   const { user, signup, logout, loginGoogle } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
   const { register, handleSubmit } = useForm()
-  // const onSubmit = (data) => console.log('enviado do form', data)
   const onSignUpSubmit = (data) => signup(data)
   const onSignUpError = (errors, e) => {
     toast.error(errors, e, {
@@ -24,8 +25,6 @@ function signUpPage() {
       progress: undefined,
     })
   }
-
-  if (user) Router.push('/courses')
 
   return (
     <>
@@ -207,4 +206,4 @@ function signUpPage() {
   )
 }
 
-export default signUpPage
+export default withPublic(signUpPage)

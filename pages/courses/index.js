@@ -3,11 +3,12 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import { getAllCourses } from '../../lib/courses'
-import Router from 'next/router'
 
 import useAuth from '../../hooks/useAuth'
 
-export default function Courses({ allCourses }) {
+import { withProtected } from '../../hooks/route'
+
+function Courses({ allCourses }) {
   const { user } = useAuth()
 
   return (
@@ -51,3 +52,5 @@ export async function getStaticProps() {
     },
   }
 }
+
+export default withProtected(Courses)

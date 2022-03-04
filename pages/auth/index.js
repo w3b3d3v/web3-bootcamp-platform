@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 
 import useAuth from '../../hooks/useAuth'
 
+import { withPublic } from '../../hooks/route'
+
 function authPage() {
   const { user, login, logout, loginGoogle } = useAuth()
   const [showpass, setShowPass] = useState(false)
@@ -25,8 +27,6 @@ function authPage() {
       progress: undefined,
     })
   }
-
-  if (user) Router.push('/courses')
 
   return (
     <>
@@ -208,4 +208,4 @@ function authPage() {
   )
 }
 
-export default authPage
+export default withPublic(authPage)

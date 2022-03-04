@@ -4,7 +4,9 @@ import ReactMarkdown from 'react-markdown'
 import Link from 'next/link'
 import { getAllCourses } from '../../lib/courses'
 
-export default function Course({ course }) {
+import { withProtected } from '../../hooks/route'
+
+function Course({ course }) {
   return (
     <Layout>
       <h2 className="text-2xl font-bold">
@@ -47,3 +49,5 @@ export async function getStaticPaths() {
     fallback: false,
   }
 }
+
+export default Course

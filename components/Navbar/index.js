@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
+import ThemeSwitch from '../ThemeSwitch'
 
 export default function Navbar() {
   const navbarLinks = [
@@ -93,6 +94,7 @@ export default function Navbar() {
                       </h2>
                     </>
                   </a>
+                  <ThemeSwitch />
                 </div>
               </div>
               <div className="flex">
@@ -159,7 +161,7 @@ export default function Navbar() {
                     <div className="relative my-2 md:mr-6">
                       <a
                         href="/auth"
-                        className="rounded border border-green-600 bg-green-500 px-5 py-2 text-xs text-black transition duration-150 ease-in-out hover:bg-green-700 focus:outline-none"
+                        className="rounded border bg-green-300 px-5 py-2 text-xs text-black transition duration-150 ease-in-out hover:bg-green-400 focus:outline-none"
                       >
                         Acessar Plataforma
                       </a>
@@ -244,6 +246,7 @@ export default function Navbar() {
                               </h2>
                             </>
                           </a>
+                          <ThemeSwitch />
                         </div>
                         <div
                           id="cross"
