@@ -134,7 +134,7 @@ export default function Navbar() {
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
                             className="h-10 w-10 rounded-full object-cover"
-                            src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_2.png"
+                            src={user.photoUrl || "https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_2.png"}
                             alt="logo"
                           />
                         </div>
