@@ -50,4 +50,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default Course
+export default withProtected(Course)

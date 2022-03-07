@@ -22,14 +22,14 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="h-full w-full bg-gray-200">
-        <nav className="hidden bg-white shadow xl:block">
-          <div className="container mx-auto px-6 py-2 xl:py-0">
+      <div className="container relative mx-auto h-full w-full items-center gap-8 bg-gray-200 px-32 dark:bg-black-200">
+        <nav className="bg-white hidden xl:block">
+          <div className="container mx-auto py-2 xl:py-0">
             <div className="flex items-center justify-between">
               <div className="inset-y-0 left-0 flex items-center xl:hidden">
                 <div className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition duration-150 ease-in-out hover:text-gray-100 focus:outline-none">
                   <div className="visible xl:hidden">
-                    <ul className="absolute left-0 right-0 mt-8 hidden rounded border-r bg-white p-2 shadow md:mt-8">
+                    <ul className="bg-white absolute left-0 right-0 mt-8 hidden rounded border-r p-2 shadow md:mt-8">
                       {navbarLinks.map((link) => (
                         <li
                           key={link.name}
@@ -117,7 +117,7 @@ export default function Navbar() {
                         onClick={() => setProfile(!profile)}
                       >
                         {profile && (
-                          <ul className="absolute right-0 top-0 mt-16 w-40 rounded border-r bg-white p-2 shadow ">
+                          <ul className="bg-white absolute right-0 top-0 mt-16 w-40 rounded border-r p-2 shadow ">
                             <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
                               <div className="flex items-center">
                                 <span className="ml-2">Meu perfil</span>
@@ -131,7 +131,7 @@ export default function Navbar() {
                             </li>
                           </ul>
                         )}
-                        <div className="flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:border-white focus:outline-none">
+                        <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
                             className="h-10 w-10 rounded-full object-cover"
                             src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_2.png"
@@ -161,7 +161,7 @@ export default function Navbar() {
                     <div className="relative my-2 md:mr-6">
                       <a
                         href="/auth"
-                        className="rounded border bg-green-300 px-5 py-2 text-xs text-black transition duration-150 ease-in-out hover:bg-green-400 focus:outline-none"
+                        className="text-black rounded border bg-green-300 px-5 py-2 text-xs transition duration-150 ease-in-out hover:bg-green-400 focus:outline-none"
                       >
                         Acessar Plataforma
                       </a>
@@ -173,7 +173,7 @@ export default function Navbar() {
           </div>
         </nav>
         <nav>
-          <div className="fixed top-0 z-40 flex w-full items-center justify-between bg-white py-4 px-6 xl:hidden">
+          <div className="bg-white fixed top-0 z-40 flex w-full items-center justify-between py-4 px-6 xl:hidden">
             <div className="w-24">
               <Image width={42} height={42} src="/assets/img/logo_icon.svg" />
             </div>
@@ -224,7 +224,7 @@ export default function Navbar() {
               className="h-full w-full bg-gray-800 opacity-50"
               onClick={() => setShow(!show)}
             />
-            <div className="fixed top-0 z-40 h-full w-64 flex-col justify-between overflow-y-auto bg-white pb-4 shadow transition duration-150 ease-in-out xl:hidden">
+            <div className="bg-white fixed top-0 z-40 h-full w-64 flex-col justify-between overflow-y-auto pb-4 shadow transition duration-150 ease-in-out xl:hidden">
               <div className="h-full px-6">
                 <div className="flex h-full w-full flex-col justify-between">
                   <div>
