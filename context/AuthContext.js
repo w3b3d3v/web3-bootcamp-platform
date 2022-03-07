@@ -14,6 +14,8 @@ import {
 
 import { auth } from '../firebase/initFirebase.js'
 
+import { getUserFromFirestore, createUserinFirestore } from '../lib/user.js'
+
 const AuthContext = createContext()
 
 const formatUser = async (user) => ({
@@ -24,6 +26,16 @@ const formatUser = async (user) => ({
   provider: user.providerData[0].providerId,
   photoUrl: user.photoURL,
 })
+
+const toastParameters = {
+  position: 'top-right',
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
@@ -53,69 +65,41 @@ export function AuthProvider({ children }) {
   }
 
   const signup = (data) => {
-    try {
-      setLoading(true)
-      createUserWithEmailAndPassword(auth, data.email, data.password)
-        .then((userCredential) => {
-          setUser(userCredential.user)
-          Router.push('/courses')
-          toast.success('Registrado com sucesso!', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+    setLoading(true)
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        setUser(userCredential.user)
+        createUserinFirestore(userCredential.user)
+        Router.push('/courses')
+        toast.success('Registrado com sucesso!', {
+          toastParameters,
         })
-        .catch((error) => {
-          toast.error('Algo deu errado, tente novamente!', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+      })
+      .catch((error) => {
+        toast.error('Algo deu errado, tente novamente!', {
+          toastParameters,
         })
-    } finally {
-      setLoading(false)
-    }
+      })
+      .finally(() => setLoading(false))
   }
 
   const login = (data) => {
-    try {
-      setLoading(true)
-      signInWithEmailAndPassword(auth, data.email, data.password)
-        .then((userCredential) => {
-          setUser(userCredential.user)
-          Router.push('/courses')
-          toast.success('Você entrou com sucesso!', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+    setLoading(true)
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        setUser(userCredential.user)
+        getUserFromFirestore(userCredential.user)
+        Router.push('/courses')
+        toast.success('Você entrou com sucesso!', {
+          toastParameters,
         })
-        .catch((error) => {
-          toast.error('Algo deu errado, tente novamente!', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+      })
+      .catch((error) => {
+        toast.error('Algo deu errado, tente novamente!', {
+          toastParameters,
         })
-    } finally {
-      setLoading(false)
-    }
+      })
+      .finally(() => setLoading(false))
   }
 
   const loginGoogle = async () => {
@@ -127,15 +111,12 @@ export function AuthProvider({ children }) {
         const token = credential.accessToken
         // The signed-in user info.
         const user = result.user
+
+        getUserFromFirestore(user)
+
         Router.push('/courses')
         toast.success('Você entrou com sucesso!', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+          toastParameters,
         })
       })
       .catch((error) => {
@@ -147,13 +128,7 @@ export function AuthProvider({ children }) {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error)
         toast.error('Algo de errado aconteceu.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+          toastParameters,
         })
       })
   }
@@ -165,25 +140,13 @@ export function AuthProvider({ children }) {
       handleUser(false)
     } catch (error) {
       toast.error('Algo de errado aconteceu.', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        toastParameters,
       })
     } finally {
       setLoading(false)
       toast.success('Você saiu!', {
         icon: '👋',
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        toastParameters,
       })
     }
   }

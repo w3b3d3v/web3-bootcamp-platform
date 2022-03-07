@@ -14,13 +14,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <main>
-        <Button>teste eee</Button>
-
         <div className="container relative mx-auto items-center gap-8 px-32 md:flex">
           <div className="text-color w-full pt-16 md:w-1/3 lg:pt-32 xl:pt-12">
             <h1 className="f-f-l w-11/12 text-4xl font-extrabold text-gray-900 md:text-4xl lg:w-11/12 lg:text-6xl xl:w-full xl:text-6xl">
               Build, review and ship with ease
             </h1>
+            <Button>teste eee</Button>
+
             <div className="f-f-r pb-20 pt-10 text-base sm:pb-0 lg:text-base xl:pt-6">
               <h2>
                 The next big thing starts here. Start building with Prodify and

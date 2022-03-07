@@ -15,6 +15,7 @@ export default function Navbar() {
       href: 'https://discord.gg/PNrGSajVf8',
     },
   ]
+
   const [show, setShow] = useState(null)
   const [profile, setProfile] = useState(false)
 
@@ -22,7 +23,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="container relative mx-auto h-full w-full items-center gap-8 bg-gray-200 px-32 dark:bg-black-200">
+      <div className="container relative z-50 mx-auto h-full w-full items-center gap-8 bg-gray-200 dark:bg-black-200">
         <nav className="bg-white hidden xl:block">
           <div className="container mx-auto py-2 xl:py-0">
             <div className="flex items-center justify-between">
@@ -36,7 +37,11 @@ export default function Navbar() {
                           className="mt-2 flex cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none xl:hidden"
                         >
                           <div className="flex items-center">
-                            <span className="ml-2 font-bold">{link.name}</span>
+                            <Link href={link.href}>
+                              <span className="ml-2 font-bold">
+                                {link.name}
+                              </span>
+                            </Link>
                           </div>
                         </li>
                       ))}
@@ -120,7 +125,9 @@ export default function Navbar() {
                           <ul className="bg-white absolute right-0 top-0 mt-16 w-40 rounded border-r p-2 shadow ">
                             <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
                               <div className="flex items-center">
-                                <span className="ml-2">Meu perfil</span>
+                                <Link href="/profile">
+                                  <span className="ml-2">Meu perfil</span>
+                                </Link>
                               </div>
                             </li>
 
@@ -134,8 +141,10 @@ export default function Navbar() {
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
                             className="h-10 w-10 rounded-full object-cover"
-                            src={user.photoUrl || "https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_2.png"}
-                            alt="logo"
+                            src={
+                              user?.photoUrl || '/assets/img/default_avatar.svg'
+                            }
+                            alt="profile-pic"
                           />
                         </div>
                         <div className="ml-2 text-gray-600">
@@ -175,7 +184,18 @@ export default function Navbar() {
         <nav>
           <div className="bg-white fixed top-0 z-40 flex w-full items-center justify-between py-4 px-6 xl:hidden">
             <div className="w-24">
-              <Image width={42} height={42} src="/assets/img/logo_icon.svg" />
+              <a href="/" className="flex items-center justify-center">
+                <>
+                  <Image
+                    width={42}
+                    height={42}
+                    src="/assets/img/logo_icon.svg"
+                  />
+                  <h2 className="hidden pl-3 text-xl font-bold leading-normal text-gray-700 sm:block">
+                    web3dev
+                  </h2>
+                </>
+              </a>
             </div>
             <div className="flex items-center">
               <div className="relative mr-6 ">
@@ -322,10 +342,13 @@ export default function Navbar() {
                       <div className="flex w-full items-center justify-between pt-1">
                         <div className="flex items-center">
                           <img
+                            className="h-10 w-10 rounded-full object-cover"
+                            src={
+                              user?.photoUrl || '/assets/img/default_avatar.svg'
+                            }
                             alt="profile-pic"
-                            src="https://tuk-cdn.s3.amazonaws.com/assets/components/boxed_layout/bl_1.png"
-                            className="h-8 w-8 rounded-md"
                           />
+
                           <p className=" ml-2 text-base leading-4 text-gray-800">
                             Jane Doe
                           </p>
