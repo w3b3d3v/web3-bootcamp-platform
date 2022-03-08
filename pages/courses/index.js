@@ -7,6 +7,7 @@ import { getAllCourses } from '../../lib/courses'
 import useAuth from '../../hooks/useAuth'
 
 import { withProtected } from '../../hooks/route'
+import Card from '../../components/Card'
 
 function Courses({ allCourses }) {
   const { user } = useAuth()
@@ -16,30 +17,24 @@ function Courses({ allCourses }) {
       <Head>
         <title>Lista de Cursos: </title>
       </Head>
-      <h1 className="text-3xl font-bold underline">
-        Lista de Cursos2! {user?.email}
-      </h1>
-
-      <h2 className="text-2xl font-bold">
-        <Link href="/">
-          <a>Voltar para home</a>
-        </Link>
-      </h2>
-
-      <ul className="grid">
-        {allCourses.map((c) => {
-          return (
-            <li key={c.id} className="card">
-              <Link href={'/courses/' + c.id}>
-                <a>{c.title}</a>
-              </Link>
-              <p>
-                <Image src={c.image_url} width="200%" height="200%"></Image>
-              </p>
-            </li>
-          )
-        })}
-      </ul>
+      <div className="lg container flex justify-center px-6 pt-6 sm:px-6 md:flex md:px-6 lg:px-32">
+        <ul className="grid grid-flow-row grid-cols-3 gap-4 overflow-hidden">
+          {allCourses.map((c) => {
+            console.log('c', c)
+            return (
+              <>
+                <Card
+                  key={c?.id}
+                  id={c?.id}
+                  img={c?.image_url}
+                  title={c?.title}
+                  desc={c?.description}
+                />
+              </>
+            )
+          })}
+        </ul>
+      </div>
     </Layout>
   )
 }

@@ -23,14 +23,15 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="container relative z-50 mx-auto h-full w-full items-center gap-8 bg-gray-200 dark:bg-black-200">
-        <nav className="bg-white hidden xl:block">
+      <div className="container relative z-50 mx-auto h-full w-full items-center gap-8 px-6 dark:bg-black-200 sm:px-6 md:flex md:px-6 lg:px-32">
+        {/* Desktop Navbar */}
+        <nav className="relative hidden w-full xl:block">
           <div className="container mx-auto py-2 xl:py-0">
             <div className="flex items-center justify-between">
               <div className="inset-y-0 left-0 flex items-center xl:hidden">
                 <div className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition duration-150 ease-in-out hover:text-gray-100 focus:outline-none">
                   <div className="visible xl:hidden">
-                    <ul className="bg-white absolute left-0 right-0 mt-8 hidden rounded border-r p-2 shadow md:mt-8">
+                    <ul className="absolute left-0 right-0 mt-8 hidden rounded border-r bg-white-100 p-2 shadow md:mt-8">
                       {navbarLinks.map((link) => (
                         <li
                           key={link.name}
@@ -113,6 +114,14 @@ export default function Navbar() {
                       {link?.name}
                     </a>
                   ))}
+                  {user ? (
+                    <a
+                      href="/courses"
+                      className="flex items-center px-5 py-6 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+                    >
+                      Cursos
+                    </a>
+                  ) : null}
                 </div>
                 <div className="hidden items-center xl:flex">
                   {user ? (
@@ -122,7 +131,7 @@ export default function Navbar() {
                         onClick={() => setProfile(!profile)}
                       >
                         {profile && (
-                          <ul className="bg-white absolute right-0 top-0 mt-16 w-40 rounded border-r p-2 shadow ">
+                          <ul className="absolute right-0 top-0 mt-16 w-40 rounded border-r bg-white-100 p-2 shadow ">
                             <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
                               <div className="flex items-center">
                                 <Link href="/profile">
@@ -167,7 +176,7 @@ export default function Navbar() {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative my-2 md:mr-6">
+                    <div className="relative my-2">
                       <a
                         href="/auth"
                         className="text-black rounded border bg-green-300 px-5 py-2 text-xs transition duration-150 ease-in-out hover:bg-green-400 focus:outline-none"
@@ -182,7 +191,7 @@ export default function Navbar() {
           </div>
         </nav>
         <nav>
-          <div className="bg-white fixed top-0 z-40 flex w-full items-center justify-between py-4 px-6 xl:hidden">
+          <div className="bg-white-100-100 fixed top-0 z-40 flex w-full items-center justify-between py-4 px-6 xl:hidden">
             <div className="w-24">
               <a href="/" className="flex items-center justify-center">
                 <>
@@ -236,15 +245,15 @@ export default function Navbar() {
           <div
             className={
               show
-                ? 'absolute z-40 h-full w-full translate-x-0  transform  xl:hidden '
-                : '   absolute z-40 h-full w-full -translate-x-full  transform xl:hidden'
+                ? 'absolute z-50 h-full w-full translate-x-0  transform  xl:hidden '
+                : '   absolute z-50 h-full w-full -translate-x-full  transform xl:hidden'
             }
           >
             <div
               className="h-full w-full bg-gray-800 opacity-50"
               onClick={() => setShow(!show)}
             />
-            <div className="bg-white fixed top-0 z-40 h-full w-64 flex-col justify-between overflow-y-auto pb-4 shadow transition duration-150 ease-in-out xl:hidden">
+            <div className="fixed top-0 z-40 h-auto w-64 flex-col justify-between overflow-y-auto bg-white-100 pb-4 shadow transition duration-150 ease-in-out xl:hidden">
               <div className="h-full px-6">
                 <div className="flex h-full w-full flex-col justify-between">
                   <div>
@@ -350,7 +359,7 @@ export default function Navbar() {
                           />
 
                           <p className=" ml-2 text-base leading-4 text-gray-800">
-                            Jane Doe
+                            {user?.email}
                           </p>
                         </div>
                         <ul className="flex">

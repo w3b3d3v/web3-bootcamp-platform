@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/layout'
+import { withProtected } from '../../hooks/route'
 import useAuth from '../../hooks/useAuth'
 
-export default function Profile() {
+function Profile() {
   const { user } = useAuth()
 
   return (
@@ -19,3 +20,5 @@ export default function Profile() {
     </Layout>
   )
 }
+
+export default withProtected(Profile)
