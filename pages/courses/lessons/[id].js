@@ -1,6 +1,5 @@
-import Layout from '../../components/layout'
-
-import { withProtected } from '../../hooks/route'
+import Layout from '../../../components/layout'
+import { withProtected } from '../../../hooks/route'
 
 function Lessons({ lesson }) {
   return (

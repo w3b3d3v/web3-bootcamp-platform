@@ -14,12 +14,12 @@ export default function ThemeSwitch() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="rounded-full bg-black p-2 text-white dark:bg-white dark:text-black"
+      className="bg-black text-white dark:bg-white dark:text-black rounded-full p-2"
     >
       {theme === 'light' ? (
-        <MoonIcon className="h-5 w-5 text-blue-500" />
+        <MoonIcon className="h-5 w-5 text-primary-300" />
       ) : (
-        <SunIcon className="h-5 w-5 text-blue-500" />
+        <SunIcon className="h-5 w-5 text-primary-300" />
       )}
     </button>
   )

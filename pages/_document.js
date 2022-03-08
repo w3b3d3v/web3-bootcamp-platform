@@ -7,13 +7,17 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
           <link
             href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="bg-white-100 dark:bg-black-300">
           <Main />
           <NextScript />
         </body>

@@ -28,7 +28,7 @@ function signUpPage() {
 
   return (
     <>
-      <div className="bg-gray-50">
+      <div className="bg-gray-50 dark:bg-black-300">
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
           <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">
             <Image src="/assets/img/logo_icon.svg" width={42} height={42} />
@@ -36,30 +36,32 @@ function signUpPage() {
               web3dev
             </h2>
           </div>
-          <div className="w-full rounded bg-white px-2 py-6 shadow-lg sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
+          <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
             <p
               tabIndex={0}
-              className="text-2xl font-extrabold leading-6 text-gray-800 focus:outline-none"
+              className="text-2xl font-extrabold leading-6 focus:outline-none dark:text-white-100"
             >
               Registre sua conta
             </p>
             <p
               tabIndex={0}
-              className="mt-4 text-sm font-medium leading-none text-gray-500 focus:outline-none"
+              className="mt-3 text-sm font-medium leading-none text-black-100 focus:outline-none dark:text-gray-300"
             >
               Já tem uma conta?{' '}
               <Link
                 href="/auth"
-                className="cursor-pointer text-sm font-medium leading-none text-gray-800 hover:text-gray-500 hover:underline focus:text-gray-500 focus:underline focus:outline-none"
+                className="cursor-pointer text-sm font-medium leading-none text-primary-300 hover:text-gray-500 hover:no-underline focus:text-gray-500 focus:no-underline focus:outline-none dark:text-primary-300"
               >
-                Entre agora!
+                <span className="cursor-pointer text-primary-300 transition duration-150 ease-in-out hover:text-primary-400 dark:text-primary-300">
+                  Entre agora!
+                </span>
               </Link>
             </p>
             <form onSubmit={handleSubmit(onSignUpSubmit, onSignUpError)}>
               <div className="pt-6">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium leading-none text-gray-800"
+                  className="text-sm font-medium leading-none text-black-300 dark:text-white-100"
                 >
                   {' '}
                   E-mail{' '}
@@ -81,7 +83,7 @@ function signUpPage() {
               <div className="mt-6 w-full">
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium leading-none text-gray-800"
+                  className="text-sm font-medium leading-none text-black-300 dark:text-white-100"
                 >
                   {' '}
                   Senha{' '}
@@ -142,7 +144,7 @@ function signUpPage() {
               <div className="mt-8">
                 <button
                   role="button"
-                  className="w-full rounded border bg-green-700 py-4 text-sm font-semibold leading-none text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2"
+                  className="w-full rounded bg-primary-300 py-4 text-sm font-semibold leading-none text-white-100 transition duration-150 ease-in-out hover:bg-primary-400 focus:outline-none focus:ring-0 focus:ring-primary-300 focus:ring-offset-2 dark:text-black-300"
                   type="submit"
                 >
                   Registrar
@@ -161,7 +163,7 @@ function signUpPage() {
             <button
               aria-label="Continue com google"
               role="button"
-              className="flex w-full items-center rounded-lg border border-gray-700 p-3 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1"
+              className="flex w-full items-center rounded-lg border border-gray-700 p-3 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-white-100 dark:hover:bg-black-100"
               onClick={() => loginGoogle()}
             >
               <svg
@@ -188,9 +190,7 @@ function signUpPage() {
                   fill="#EB4335"
                 />
               </svg>
-              <p className="ml-4 text-base font-medium text-gray-700">
-                Entrar com Google
-              </p>
+              <p className="ml-4 text-base font-medium ">Entrar com Google</p>
             </button>
           </div>
           <div className="ml-8 mt-6 md:mt-0 md:w-1/2 lg:ml-16 xl:w-1/3">
