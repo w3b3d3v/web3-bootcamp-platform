@@ -23,7 +23,7 @@ export default function Button({
           ? secondaryButton
           : primaryButton
       }
-      onClick={onClick}
+      onClick={onClick || null}
     >
       {children}
     </button>

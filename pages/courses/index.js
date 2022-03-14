@@ -24,18 +24,16 @@ function Courses({ allCourses }) {
         <ul className="grid grid-flow-row grid-cols-1 gap-8 overflow-hidden sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3">
           {allCourses.map((c) => {
             return (
-              <>
-                <Card
-                  active={c?.active}
-                  key={c?.id}
-                  id={c?.id}
-                  img={c?.image_url}
-                  title={c?.title}
-                  desc={c?.description}
-                  difficulty={c?.difficulty}
-                  duration={c?.duration}
-                />
-              </>
+              <Card
+                key={c?.id}
+                active={c?.active}
+                id={c?.id}
+                img={c?.image_url}
+                title={c?.title}
+                desc={c?.description}
+                difficulty={c?.difficulty}
+                duration={c?.duration}
+              />
             )
           })}
         </ul>

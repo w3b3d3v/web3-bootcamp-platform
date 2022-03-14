@@ -8,7 +8,10 @@ import ThemeSwitch from '../ThemeSwitch'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
+import { useSession } from 'next-auth/react'
+
 export default function Navbar() {
+  const { data: session, status } = useSession()
   const navbarLinks = [
     {
       name: 'Fórum',
@@ -29,7 +32,7 @@ export default function Navbar() {
     <>
       <div className="h-full ">
         {/* Code block starts */}
-        <nav className="hidden bg-white-100 dark:bg-black-300 xl:block">
+        <nav className="hidden bg-gray-50 dark:bg-black-300 xl:block">
           <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
             <div className="flex items-center justify-between">
               <div className="inset-y-0 left-0 flex items-center xl:hidden">
@@ -38,97 +41,34 @@ export default function Navbar() {
                     <ul className="absolute left-0 right-0 mt-8 hidden rounded border-r bg-white-100 p-2 shadow md:mt-8">
                       <li className="mt-2 flex cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none xl:hidden">
                         <div className="flex items-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-grid"
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <rect x={4} y={4} width={6} height={6} rx={1} />
-                            <rect x={14} y={4} width={6} height={6} rx={1} />
-                            <rect x={4} y={14} width={6} height={6} rx={1} />
-                            <rect x={14} y={14} width={6} height={6} rx={1} />
-                          </svg>
-                          <span className="ml-2 font-bold">Dashbeoard</span>
+                          <span className="ml-2 font-bold">Dashboard</span>
                         </div>
                       </li>
                       <li className="flex cursor-pointer flex-col justify-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none xl:hidden">
                         <div className="flex items-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-puzzle"
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
-                          </svg>
                           <span className="ml-2 font-bold">Products</span>
                         </div>
                       </li>
                       <li className="flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none xl:hidden">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="icon icon-tabler icon-tabler-compass"
-                          width={20}
-                          height={20}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 16 10 10 16 8 14 14 8 16" />
-                          <circle cx={12} cy={12} r={9} />
-                        </svg>
                         <span className="ml-2 font-bold">Performance</span>
                       </li>
-                      <li className="flex flex cursor-pointer items-center border-b border-gray-300 pt-2 pb-4 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none xl:hidden">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="icon icon-tabler icon-tabler-code"
-                          width={20}
-                          height={20}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="7 8 3 12 7 16" />
-                          <polyline points="17 8 21 12 17 16" />
-                          <line x1={14} y1={4} x2={10} y2={20} />
-                        </svg>
+                      <li className="flex cursor-pointer items-center border-b border-gray-300 pt-2 pb-4 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none xl:hidden">
                         <span className="ml-2 font-bold">Deliverables</span>
                       </li>
                       <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
                         <div className="flex items-center">
                           <div className="focus:border-white flex w-12 cursor-pointer rounded border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                             <img
-                              className="h-10 w-10 rounded object-cover"
-                              src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_1.png"
-                              alt="logo"
+                              className="h-10 w-10 rounded-full object-cover"
+                              src={
+                                user?.photoUrl ||
+                                '/assets/img/default_avatar.svg'
+                              }
+                              alt="profile-pic"
                             />
                           </div>
                           <p className="ml-2 cursor-pointer text-sm">
-                            Jane Doe
+                            {user?.displayName}
                           </p>
                           <div className="text-white relative sm:ml-2">
                             <svg
@@ -172,7 +112,6 @@ export default function Navbar() {
                       </li>
                     </ul>
                     <svg
-                      onclick="MenuHandler(this,true)"
                       aria-haspopup="true"
                       aria-label="Main Menu"
                       xmlns="http://www.w3.org/2000/svg"
@@ -191,10 +130,7 @@ export default function Navbar() {
                       <line x1={4} y1={16} x2={20} y2={16} />
                     </svg>
                   </div>
-                  <div
-                    className="close-m-menu hidden text-gray-700"
-                    onclick="MenuHandler(this,false)"
-                  >
+                  <div className="close-m-menu hidden text-gray-700">
                     <svg
                       aria-label="Close"
                       xmlns="http://www.w3.org/2000/svg"
@@ -282,7 +218,9 @@ export default function Navbar() {
                           <img
                             className="h-10 w-10 rounded-full object-cover"
                             src={
-                              user?.photoUrl || '/assets/img/default_avatar.svg'
+                              user?.photoUrl ||
+                              session?.user?.image ||
+                              '/assets/img/default_avatar.svg'
                             }
                             alt="profile-pic"
                           />
@@ -319,7 +257,7 @@ export default function Navbar() {
           </div>
         </nav>
         <nav>
-          <div className="fixed top-0 z-40 flex w-full items-center justify-between bg-white-100 py-4 px-6 dark:bg-black-300 xl:hidden">
+          <div className="fixed top-0 z-40 flex w-full items-center justify-between bg-gray-50 py-4 px-6 dark:bg-black-300 xl:hidden">
             <div>
               <a href="/" className="flex items-center">
                 <>
@@ -362,7 +300,11 @@ export default function Navbar() {
                     <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src={user?.photoUrl || '/assets/img/default_avatar.svg'}
+                        src={
+                          user?.photoUrl ||
+                          session?.user?.image ||
+                          '/assets/img/default_avatar.svg'
+                        }
                         alt="profile-pic"
                       />
                     </div>
@@ -519,12 +461,15 @@ export default function Navbar() {
                                 className="h-10 w-10 rounded-full object-cover"
                                 src={
                                   user?.photoUrl ||
+                                  session?.user?.image ||
                                   '/assets/img/default_avatar.svg'
                                 }
                                 alt="profile-pic"
                               />
                               <p className=" ml-2 text-base leading-4 text-gray-800">
-                                {user?.displayName}
+                                {user?.displayName ||
+                                  session?.user?.name ||
+                                  user?.uid}
                               </p>
                             </a>
                           </div>

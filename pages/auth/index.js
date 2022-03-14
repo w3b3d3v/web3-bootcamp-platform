@@ -34,7 +34,7 @@ function authPage() {
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
           <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">
             <Image src="/assets/img/logo_icon.svg" width={42} height={42} />
-            <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 sm:block">
+            <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
               web3dev
             </h2>
           </div>

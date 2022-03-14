@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import Button from '../../components/Button'
@@ -19,12 +18,14 @@ export default function Card(props) {
             <Link href={'/courses/' + id}>
               <img
                 src={img}
+                alt={title}
                 className="h-full w-full cursor-pointer rounded-tr-xl rounded-tl-xl"
               />
             </Link>
           ) : (
             <img
               src={img}
+              alt={title}
               className="h-full w-full rounded-tr-xl rounded-tl-xl"
             />
           )}
@@ -89,45 +90,47 @@ export default function Card(props) {
                 <div className="h-8 w-8 rounded-md bg-cover bg-center">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_0.png"
-                    alt
+                    alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
                   />
                 </div>
                 <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_1.png"
-                    alt
+                    alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
                   />
                 </div>
                 <div className="-ml-2 h-8 w-8 rounded-md bg-cover bg-center">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_2.png"
-                    alt
+                    alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
                   />
                 </div>
                 <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_3.png"
-                    alt
+                    alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover object-center shadow dark:border-gray-700"
                   />
                 </div>
                 <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_4.png"
-                    alt
+                    alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover object-center shadow dark:border-gray-700"
                   />
                 </div>
               </div>
               {active ? (
                 <Link href={'/courses/' + id}>
-                  <Button>{active ? 'Ver projeto' : 'Em breve'}</Button>
+                  <Button>Ver projeto</Button>
                 </Link>
               ) : (
-                <Button>{active ? 'Ver projeto' : 'Em breve'}</Button>
+                <div className=" cursor-default">
+                  <Button>Em breve</Button>
+                </div>
               )}
             </div>
           </div>

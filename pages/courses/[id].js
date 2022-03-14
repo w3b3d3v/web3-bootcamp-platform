@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { getAllCourses } from '../../lib/courses'
 
 import { withProtected } from '../../hooks/route'
+import Tabs from '../../components/Tabs'
+import DiscordCard from '../../components/Card/Discord'
 
 function Course({ course }) {
   return (
@@ -15,7 +17,11 @@ function Course({ course }) {
         </Link>
       </h2>
 
+      <DiscordCard />
+
       <h1>{course.title}</h1>
+
+      <Tabs course={course} />
 
       <ul>
         {course.lessons &&
