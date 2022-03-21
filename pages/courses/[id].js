@@ -49,7 +49,7 @@ function Course({ course }) {
               return (
                 <div key={section}>
                   <span className="text-2xl font-bold">
-                    {section.replaceAll('Section_', 'Sessão ')}
+                    {section?.replaceAll('Section_', 'Sessão ')}
                   </span>
                   <ul className="mb-8 flex flex-col">
                     {course?.sections[section].map((lesson) => {
