@@ -31,5 +31,11 @@
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.1",
     "tailwindcss": "^3.0.23"
-  }
+  },
+  "name": "web3-bootcamp-platform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/w3b3d3v/web3-bootcamp-platform.git",
+  "author": "web3dev",
+  "license": "MIT"
 }

@@ -15,7 +15,7 @@ export default function Card(props) {
       >
         <div>
           {active ? (
-            <Link href={'/courses/' + id}>
+            <Link href={`/courses/${id}`}>
               <img
                 src={img}
                 alt={title}
@@ -62,7 +62,7 @@ export default function Card(props) {
             <div className="flex items-center">
               <h2 className="text-lg font-semibold">
                 {active ? (
-                  <Link href={'/courses/' + id}>
+                  <Link href={`/courses/${id}`}>
                     {title.substring(0, 60) + '...'}
                   </Link>
                 ) : (
@@ -124,7 +124,7 @@ export default function Card(props) {
                 </div>
               </div>
               {active ? (
-                <Link href={'/courses/' + id}>
+                <Link href={`/courses/${id}`}>
                   <Button>Ver projeto</Button>
                 </Link>
               ) : (

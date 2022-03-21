@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
-import { signIn, signOut, useSession, getSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Button from '../../Button'
 
 export default function DiscordCard() {
   const { session, loading } = useSession()
+
+  console.log('session', session)
 
   return (
     <>

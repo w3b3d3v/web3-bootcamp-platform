@@ -10,7 +10,7 @@ import WalletCard from '../../components/Card/Wallet'
 import Button from '../../components/Button'
 
 function Course({ course }) {
-  console.log('course', course)
+  // console.log('course', course)
   return (
     <Layout>
       <div className="lg container mt-24 flex flex-col justify-center px-6 pb-12 sm:mt-20 sm:px-6 md:mt-20 md:flex md:px-6 lg:mt-6 lg:px-32">
@@ -79,4 +79,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default withProtected(Course)
+export default Course

@@ -19,23 +19,17 @@ export default function WalletCard() {
   }
 
   const handleConnectWallet = () => {
-    if (!address) {
-      connectWallet('injected')
-        .then((res) => {
-          toast.success('Carteira registrada com sucesso!', {
-            toastParameters,
-          })
+    connectWallet('injected')
+      .then((res) => {
+        toast.success('Carteira registrada com sucesso!', {
+          toastParameters,
         })
-        .catch((error) => {
-          toast.error('Algo deu errado, tente novamente!', {
-            toastParameters,
-          })
-        })
-    } else {
-      toast.error('Algo deu errado, tente novamente!', {
-        toastParameters,
       })
-    }
+      .catch((error) => {
+        toast.error('Algo deu errado, tente novamente!', {
+          toastParameters,
+        })
+      })
   }
 
   return (
