@@ -6,9 +6,6 @@ import Button from '../../Button'
 
 export default function DiscordCard() {
   const { session, loading } = useSession()
-
-  console.log('session', session)
-
   return (
     <>
       {!session && (
@@ -35,7 +32,7 @@ export default function DiscordCard() {
             <div className="flex">
               <div className="px-6 py-5">
                 <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                  ✅ Conecte seu Discord
+                  ✅ Discord Conectado
                 </p>
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Tenha acesso aos canais supersecretos para em nosso grupo.

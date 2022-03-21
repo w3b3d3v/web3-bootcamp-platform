@@ -10,8 +10,6 @@ import { withProtected } from '../../hooks/route'
 import Card from '../../components/Card'
 
 function Courses({ allCourses }) {
-  const { user } = useAuth()
-
   return (
     <Layout>
       <Head>

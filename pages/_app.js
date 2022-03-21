@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }) {
-  const supportedChainIds = [80001, 4]
+  const supportedChainIds = [80001, 4, 137, 1, 250, 43114, ]
 
   const connectors = {
     injected: {},
