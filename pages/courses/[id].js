@@ -51,14 +51,14 @@ function Course({ course }) {
                   <span className="text-2xl font-bold">
                     {section.replaceAll('Section_', 'Sessão ')}
                   </span>
-                  <ul className="flex flex-col mb-8">
+                  <ul className="mb-8 flex flex-col">
                     {course?.sections[section].map((lesson) => {
                       return (
                         <li key={lesson} className="items-center">
                           <a href={`lessons/${lesson}`}>
                             <p className="m-0 p-0">
                               {lesson
-                                .replaceAll('_', ' ')
+                                ?.replaceAll('_', ' ')
                                 .replaceAll('Lesson ', '')
                                 .replaceAll('.md', '')}
                             </p>
