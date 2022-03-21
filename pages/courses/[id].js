@@ -59,8 +59,8 @@ function Course({ course }) {
                             <p className="m-0 p-0">
                               {lesson
                                 ?.replaceAll('_', ' ')
-                                .replaceAll('Lesson ', '')
-                                .replaceAll('.md', '')}
+                                ?.replaceAll('Lesson ', '')
+                                ?.replaceAll('.md', '')}
                             </p>
                           </a>
                         </li>
