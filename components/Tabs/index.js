@@ -1,37 +1,35 @@
 import React, { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 const Tabs = (course) => {
   const getCourse = course?.course
   if (!getCourse?.sections) return null
 
-  const sections = Object.keys(getCourse?.sections).map((section) => {
-    return {
-      section,
-      lessons: getCourse?.sections[section],
-    }
-  })
+  // list all the section as tabs
+  const [activeTab, setActiveTab] = useState(
+    Object.keys(getCourse?.sections)[0]
+  )
 
-  const [activeTab, setActiveTab] = useState(sections[0].section)
-
-  const handleClick = (section) => {
-    setActiveTab(section)
+  const toggle = (tab) => {
+    if (activeTab !== tab) setActiveTab(tab)
   }
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-row gap-8">
-        {sections?.map((section) => {
+        {Object.keys(getCourse?.sections).map((section) => {
           return (
-            <ul
-              key={section?.section}
-              className={`item flex-grow ${
-                activeTab === section.section
-                  ? 'mr-12 rounded-t border-primary-300 pt-3 text-sm text-primary-300'
-                  : 'mr-12 flex cursor-pointer items-center py-3 text-sm text-gray-600 hover:text-primary-300'
+            <div
+              key={section}
+              className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${
+                activeTab === section ? 'bg-gray-200   dark:bg-black-100 dark:text-primary-100' : 'bg-white-100 dark:bg-black-200'
               }`}
-              onClick={() => handleClick(section?.section)}
+              onClick={() => toggle(section)}
             >
-              <li className="font-bold">{section?.section}</li>
-            </ul>
+              
+              <p className="m-0 p-0">
+                {section?.replaceAll('Section_', 'Sessão ')}
+              </p>
+            </div>
           )
         })}
       </div>

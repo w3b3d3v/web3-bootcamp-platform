@@ -13,6 +13,7 @@ import NotFound from '../404'
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
+  console.log('Objeto Course', JSON.stringify(course.sections))
   return (
     <Layout>
       <div className="lg container mt-24 flex flex-col justify-center px-6 pb-12 sm:mt-20 sm:px-6 md:mt-20 md:flex md:px-6 lg:mt-6 lg:px-32">
@@ -44,32 +45,48 @@ function Course({ course }) {
         <div className="container my-8">
           <Tabs course={course} />
 
-          {course?.sections &&
-            Object.keys(course?.sections).map((section) => {
-              return (
-                <div key={section}>
-                  <span className="text-2xl font-bold">
-                    {section?.replaceAll('Section_', 'Sessão ')}
-                  </span>
-                  <ul className="mb-8 flex flex-col">
-                    {course?.sections[section].map((lesson) => {
-                      return (
-                        <li key={lesson} className="items-center">
-                          <a href={`lessons/${lesson}`}>
-                            <p className="m-0 p-0">
-                              {lesson
-                                ?.replaceAll('_', ' ')
-                                ?.replaceAll('Lesson ', '')
-                                ?.replaceAll('.md', '')}
-                            </p>
-                          </a>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              )
-            })}
+          <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
+            {course?.sections &&
+              Object.keys(course?.sections).map((section) => {
+                return (
+                  <div key={section}>
+                    <span className="mb-4 font-bold">
+                      {section?.replaceAll('Section_', 'Sessão ')}
+                    </span>
+                    <ul className="mt-2 mb-8 flex flex-col">
+                      {course?.sections[section].map((lesson) => {
+                        return (
+                          <li
+                            key={lesson}
+                            className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
+                          >
+                            <div className="flex items-center">
+                              <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                                <input
+                                  disabled
+                                  type="radio"
+                                  name="radio"
+                                  className="checkbox absolute h-full w-full appearance-none rounded-full border border-gray-400 checked:border-none focus:outline-none"
+                                />
+                                <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
+                              </div>
+                              {/* <a href={`lessons/${lesson}`}> */}
+                              <p className="m-0 p-0">
+                                {lesson
+                                  ?.replaceAll('_', ' ')
+                                  ?.replaceAll('Lesson ', '')
+                                  ?.replaceAll('.md', '')}
+                              </p>
+                              {/* </a> */}
+                            </div>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )
+              })}
+          </div>
         </div>
       </div>
     </Layout>
