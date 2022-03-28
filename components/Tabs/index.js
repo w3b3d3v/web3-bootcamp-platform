@@ -27,7 +27,7 @@ const Tabs = (course) => {
             >
               
               <p className="m-0 p-0">
-                {section?.replaceAll('Section_', 'Sessão ')}
+                {section?.replace('Section_', 'Sessão ')}
               </p>
             </div>
           )

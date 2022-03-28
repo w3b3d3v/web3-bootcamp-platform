@@ -13,7 +13,6 @@ import NotFound from '../404'
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
-  console.log('Objeto Course', JSON.stringify(course.sections))
   return (
     <Layout>
       <div className="lg container mt-24 flex flex-col justify-center px-6 pb-12 sm:mt-20 sm:px-6 md:mt-20 md:flex md:px-6 lg:mt-6 lg:px-32">
@@ -51,7 +50,7 @@ function Course({ course }) {
                 return (
                   <div key={section}>
                     <span className="mb-4 font-bold">
-                      {section?.replaceAll('Section_', 'Sessão ')}
+                      {section?.replace('Section_', 'Sessão ')}
                     </span>
                     <ul className="mt-2 mb-8 flex flex-col">
                       {course?.sections[section].map((lesson) => {
@@ -73,9 +72,9 @@ function Course({ course }) {
                               {/* <a href={`lessons/${lesson}`}> */}
                               <p className="m-0 p-0">
                                 {lesson
-                                  ?.replaceAll('_', ' ')
-                                  ?.replaceAll('Lesson ', '')
-                                  ?.replaceAll('.md', '')}
+                                  ?.replace('_', ' ')
+                                  ?.replace('Lesson ', '')
+                                  ?.replace('.md', '')}
                               </p>
                               {/* </a> */}
                             </div>
