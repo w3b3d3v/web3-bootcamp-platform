@@ -8,6 +8,19 @@ Web3 learning platform through bootcamps
 - Node.js 14 and yarn
 - Firebase [Authentication](https://firebase.google.com/docs/auth) and [Firestore](https://firebase.google.com/docs/firestore)
 
+### Environment 
+- Copy the contents in `.env.example` to `.env` 
+- Set the Firebase and the Discord variables
+- Set all the other necessary variables
+
+### Loading Firebase contents on your project
+
+You must have an active google cloud account. Maybe you will have to activate the billing to make it work.
+- Install [gsutil](https://cloud.google.com/storage/docs/gsutil)
+- Install [gcloud](https://cloud.google.com/sdk/gcloud)
+- run `gcloud config set project <YOUR_FIREBASE_PROJECT>`
+- run `./load_db.sh`
+
 ### Getting started
 
 Run the following command on your local environment:
