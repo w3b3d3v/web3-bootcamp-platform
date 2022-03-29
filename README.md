@@ -21,7 +21,7 @@ yarn install
 Then, you can run locally in development mode with live reload:
 
 ```
-npm run dev
+yarn run dev
 ```
 
 Open http://localhost:3000 with your favorite browser to see your project.
@@ -69,7 +69,7 @@ Deploy this project on Vercel in one click:
 ### Contributions
 
 Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
-For more information on how to contribute join our Discord discord.gg/Q95SbSAm4P
+For more information on how to contribute join our Discord https://discord.web3dev.com.br/
 
 ### License
 
