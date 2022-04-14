@@ -10,12 +10,8 @@ export default function DiscordCard() {
   const { data: session } = useSession()
   useEffect(async() => {
     if (auth.currentUser){
-      console.log(auth.currentUser.uid)
       const user = await getUserFromFirestore(auth.currentUser)
-      console.log(user)
       if (user && !user.discord) {
-        console.log(auth.currentUser.uid)
-        console.log(session.discord)
         await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
       }
     }
