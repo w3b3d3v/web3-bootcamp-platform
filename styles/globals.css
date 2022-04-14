@@ -22,3 +22,8 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.lp-gradient-text{
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
