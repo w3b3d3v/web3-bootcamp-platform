@@ -3,9 +3,23 @@ import Link from 'next/link'
 
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Button from '../../Button'
+import { auth } from '../../../firebase/initFirebase';
+import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
 
 export default function DiscordCard() {
-  const { session, loading } = useSession()
+  const { data: session } = useSession()
+  useEffect(async() => {
+    if (auth.currentUser){
+      console.log(auth.currentUser.uid)
+      const user = await getUserFromFirestore(auth.currentUser)
+      console.log(user)
+      if (user && !user.discord) {
+        console.log(auth.currentUser.uid)
+        console.log(session.discord)
+        await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
+      }
+    }
+    }, [auth.currentUser])
   return (
     <>
       {!session && (
@@ -20,7 +34,7 @@ export default function DiscordCard() {
                 Quando você tiver acesso, não deixe de dizer olá!
               </p>
               <div className="pt-4">
-                <Button onClick={() => signIn()}>Conectar Discord</Button>
+                <Button onClick={() => signIn('discord')}>Conectar Discord</Button>
               </div>
             </div>
           </div>
@@ -39,13 +53,13 @@ export default function DiscordCard() {
                   Quando você tiver acesso, não deixe de dizer olá!
                 </p>
                 <div className="pt-4">
-                  <Button onClick={() => signOut()}>Desconectar Discord</Button>
+                  <Button onClick={() => signOut({redirect: false})}>Desconectar Discord</Button>
                 </div>
               </div>
             </div>
           </div>
-          Discord logado como {session.user.name}{' '}
-          <Button onClick={() => signOut()}>Sair</Button>
+          {/*Discord logado como {session.user.name}{' '}
+          <Button onClick={() => signOut()}>Sair</Button>*/}
         </>
       )}
     </>
