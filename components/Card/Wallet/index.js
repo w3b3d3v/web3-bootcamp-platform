@@ -1,13 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Button from '../../Button'
 
-import { useWeb3 } from '@3rdweb/hooks'
-
 import { toast } from 'react-toastify'
+import { updateUserWalletInFirestore } from '../../../lib/user';
+import { auth } from '../../../firebase/initFirebase';
+import { useAddress, useDisconnect, useMetamask, useWalletConnect } from '@thirdweb-dev/react';
 
 export default function WalletCard() {
-  const { connectWallet, address, error } = useWeb3()
+  const connectWithMetamask = useMetamask();
+  const disconnectWallet = useDisconnect();
+  const address = useAddress();
 
+  const handleDisconnect = () => {
+    disconnectWallet()
+    toast.success('Desconectado com sucesso!', toastParameters)
+  }
   const toastParameters = {
     position: 'top-right',
     autoClose: 5000,
@@ -22,7 +29,7 @@ export default function WalletCard() {
 
   const handleConnectWallet = () => {
     if (window.ethereum) {
-      connectWallet('injected')
+      connectWithMetamask()
         .then(() => {
           toast.success('Conectado com sucesso!', toastParameters)
         })
@@ -33,6 +40,9 @@ export default function WalletCard() {
       toast.error('Por favor instale a Metamask', toastParameters)
     }
   }
+  useEffect(() => {
+      updateUserWalletInFirestore(address || null, auth.currentUser?.uid);
+  }, [address])
 
   return (
     <>
@@ -44,14 +54,10 @@ export default function WalletCard() {
                 ✅ Carteira Conectada
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Você ganhará NFTs por completar tarefas! Além disso, você
-                precisará de uma carteira para trabalhar com o material do
-                projeto.
+                Endereço da carteira: {address}
               </p>
               <div className="pt-4">
-                <Button>
-                  {address.substr(0, 5) + '...' + address.substr(-5, 5)}
-                </Button>
+                <a className='cursor-pointer' onClick={() => handleDisconnect()}>Desconectar</a>
               </div>
             </div>
           </div>
