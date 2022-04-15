@@ -46,7 +46,7 @@ function Course({ course }) {
 
           <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
             {course?.sections &&
-              Object.keys(course?.sections).map((section) => {
+              Object.keys(course?.sections).sort().map((section) => {
                 return (
                   <div key={section}>
                     <span className="mb-4 font-bold">
@@ -80,7 +80,7 @@ function Course({ course }) {
                             </div>
                           </li>
                         )
-                      })}
+                      }).sort((a,b) => a-b)}
                     </ul>
                   </div>
                 )
