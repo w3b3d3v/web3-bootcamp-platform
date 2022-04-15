@@ -56,9 +56,9 @@ export default function WalletCard() {
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                 Endereço da carteira: {address}
               </p>
-              <div className="pt-4">
+              {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => handleDisconnect()}>Desconectar</a>
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>

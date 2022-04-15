@@ -15,10 +15,7 @@ export default function DiscordCard() {
     onAuthStateChanged(auth, (async user => {
       if (user){
         const userSession = await getUserFromFirestore(user)
-        console.log(userSession)
-        console.log(session)
         if (session && !userSession.discord) {
-          console.log(session)
           updateUserDiscordIdinFirestore(session?.discord, auth.currentUser.uid)
           setDiscordConnected(true)
         }else if (userSession.discord) setDiscordConnected(true) 
@@ -70,9 +67,9 @@ export default function DiscordCard() {
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Estamos ansiosos para te conhecer, venha dar uma olhada!
                 </p>
-                <div className="pt-4">
+                {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>
-                </div>
+                </div>*/}
               </div>
             </div>
           </div>
