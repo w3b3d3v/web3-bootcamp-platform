@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -6,7 +6,6 @@ import Button from '../../Button'
 import { auth } from '../../../firebase/initFirebase';
 import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
 import { onAuthStateChanged } from 'firebase/auth';
-import { async } from '@firebase/util';
 
 export default function DiscordCard() {
   const { data: session } = useSession()
@@ -42,7 +41,6 @@ export default function DiscordCard() {
 
   return (
     <>
-    {console.log(discordConnected)}
       {!discordConnected && (
         <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
           <div className="flex">
@@ -74,13 +72,10 @@ export default function DiscordCard() {
                 </p>
                 <div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>
-                  {/*<Button onClick={() => disconnectDiscord()}>Desconectar Discord</Button>*/}
                 </div>
               </div>
             </div>
           </div>
-          {/*Discord logado como {session.user.name}{' '}
-          <Button onClick={() => signOut()}>Sair</Button>*/}
         </>
       )}
     </>
