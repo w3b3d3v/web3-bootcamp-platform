@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 const Tabs = (course) => {
   const getCourse = course?.course
@@ -16,7 +16,7 @@ const Tabs = (course) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row gap-8">
-        {Object.keys(getCourse?.sections).map((section) => {
+        {Object.keys(getCourse?.sections).sort().map((section) => {
           return (
             <div
               key={section}
