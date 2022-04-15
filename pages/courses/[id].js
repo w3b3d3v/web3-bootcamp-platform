@@ -15,7 +15,7 @@ function Course({ course }) {
   if (!course.active) return <NotFound />
   return (
     <Layout>
-      <div className="lg container mt-24 flex flex-col justify-center px-6 pb-12 sm:mt-20 sm:px-6 md:mt-20 md:flex md:px-6 lg:mt-6 lg:px-32">
+      <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         {/* Page title starts */}
         <div className="relative z-10 pt-8 pb-16">
           <div className="container mx-auto flex flex-col items-start justify-between lg:flex-row lg:items-center">
