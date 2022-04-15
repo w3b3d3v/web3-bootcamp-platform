@@ -75,6 +75,7 @@ function Course({ course }) {
                                   ?.replace('_', ' ')
                                   ?.replace('Lesson ', '')
                                   ?.replace('_', ' - ')
+                                  ?.replaceAll('_', ' ')
                                   ?.replace('.md', '')}
                               </p>
                               {/* </a> */}
