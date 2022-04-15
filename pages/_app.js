@@ -4,8 +4,8 @@ import { ThemeProvider } from 'next-themes'
 
 import { AuthProvider } from '../context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
-import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
-
+//import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
+import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 import 'regenerator-runtime/runtime'
 
 import { ToastContainer } from 'react-toastify'
@@ -21,8 +21,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <AuthProvider>
-        <ThirdwebWeb3Provider
+        <ThirdwebProvider
           supportedChainIds={supportedChainIds}
+          desiredChainId={ChainId.Mainnet}
           connectors={connectors}
         >
           <SessionProvider session={pageProps.session}>
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
             <ToastContainer />
           </SessionProvider>
-        </ThirdwebWeb3Provider>
+        </ThirdwebProvider>
       </AuthProvider>
     </ThemeProvider>
   )
