@@ -41,7 +41,9 @@ export default function WalletCard() {
     }
   }
   useEffect(() => {
+    if(address){
       updateUserWalletInFirestore(address || null, auth.currentUser?.uid);
+    }
   }, [address])
 
   return (
