@@ -53,10 +53,10 @@ function Course({ course }) {
                       {section?.replace('Section_', 'Sessão ')}
                     </span>
                     <ul className="mt-2 mb-8 flex flex-col">
-                      {course?.sections[section].map((lesson) => {
+                       {course?.sections[section].map((lesson) => {
                         return (
                           <li
-                            key={lesson}
+                            key={lesson.title}
                             className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
                           >
                             <div className="flex items-center">
@@ -71,12 +71,7 @@ function Course({ course }) {
                               </div>
                               {/* <a href={`lessons/${lesson}`}> */}
                               <p className="m-0 p-0">
-                                {lesson
-                                  ?.replace('_', ' ')
-                                  ?.replace('Lesson ', '')
-                                  ?.replace('_', ' - ')
-                                  ?.replace('_', ' ')
-                                  ?.replace('.md', '')}
+                                {lesson.title}
                               </p>
                               {/* </a> */}
                             </div>
