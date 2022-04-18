@@ -76,9 +76,15 @@ export function AuthProvider({ children }) {
         })
       })
       .catch((error) => {
-        toast.error('Algo deu errado, tente novamente!', {
-          toastParameters,
-        })
+          if(error.code.includes('already-in-use')) {
+            toast.error('Este email já está em uso!', {
+              toastParameters,
+            })
+          }else {
+            toast.error('Algo deu errado, tente novamente!', {
+              toastParameters,
+            })
+          }
       })
       .finally(() => setLoading(false))
   }
@@ -95,9 +101,15 @@ export function AuthProvider({ children }) {
         })
       })
       .catch((error) => {
-        toast.error('Algo deu errado, tente novamente!', {
-          toastParameters,
-        })
+        if(error.code.includes('not-found') || error.code.includes('wrong-password')) {
+          toast.error('Credenciais inválidas, tente novamente.', {
+            toastParameters,
+          })
+        }else {
+          toast.error('Algo deu errado, tente novamente!', {
+            toastParameters,
+          })
+        }
       })
       .finally(() => setLoading(false))
   }
