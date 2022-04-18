@@ -8,7 +8,7 @@ import ThemeSwitch from '../ThemeSwitch'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
@@ -208,7 +208,10 @@ export default function Navbar() {
                             </li>
 
                             <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
-                              <button className="ml-2" onClick={logout}>
+                              <button className="ml-2" onClick={()=> {
+                                signOut();
+                                logout();
+                                }}>
                                 Sair
                               </button>
                             </li>
