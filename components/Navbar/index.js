@@ -209,7 +209,7 @@ export default function Navbar() {
 
                             <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
                               <button className="ml-2" onClick={()=> {
-                                signOut();
+                                signOut({redirect: false});
                                 logout();
                                 }}>
                                 Sair
