@@ -88,11 +88,16 @@ function Course({ course }) {
           </div>
         </div>
         {!user?.cohorts?.id.includes(course.id) ?
+        <>
         <div className="flex ">
           <div onClick={()=>registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
               <div>Inscreva-se agora ✨</div>
           </div>
         </div>
+        <div className="flex pt-6">
+          <ComingSoonCard />
+        </div>
+        </>
         :
           <>
             <div className="flex flex-col justify-center items-center p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
@@ -103,9 +108,6 @@ function Course({ course }) {
                   <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário</button></div>
               </div>
             </div>
-          </>
-        }
-        
         <div className="flex flex-row gap-8">
           <div className="item flex-grow">
             <DiscordCard />
@@ -120,6 +122,8 @@ function Course({ course }) {
         <div className="flex pt-6">
           <ComingSoonCard />
         </div>
+        </>
+        }
         {
           timeLeft == null &&
         <>
