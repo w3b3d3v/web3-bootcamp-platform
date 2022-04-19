@@ -16,38 +16,41 @@ import { auth } from '../../firebase/initFirebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user';
 import { CalendarIcon } from '@heroicons/react/solid'
+import ICalendarLink from "react-icalendar-link";
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
-  
+
   const [user, setUser] = useState();
   const [registerOnCohort, setRegisterOnCohort] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   useEffect(async () => {
-    if(auth.currentUser) {
+    if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
       setUser(userSession);
     }
   }, [auth.currentUser, registerOnCohort])
 
-  const registerUserInCohort = async() => {
-        await registerUserInCohortInFirestore(course.id+'_01', user.uid)
-        setRegisterOnCohort(true)
-      }
+  const registerUserInCohort = async () => {
+    await registerUserInCohortInFirestore(course.id + '_01', user.uid)
+    setRegisterOnCohort(true)
+  }
+
+  const countDownDate = () => new Date(user?.cohorts?.startDate.toDate()).getTime();
+
   useEffect(() => {
-    if(document) {
-      const countDownDate = new Date(user?.cohorts?.startDate.toDate()).getTime();
-      const interval = setInterval(function() {
+    if (document) {
+      const interval = setInterval(function () {
         const now = new Date().getTime();
-        const distance = countDownDate - now;
+        const distance = countDownDate() - now;
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        if(user?.cohorts?.startDate.toDate() > new Date()) {
+        if (user?.cohorts?.startDate.toDate() > new Date()) {
           setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
         }
-        if(distance < 0) {
+        if (distance < 0) {
           clearInterval(interval);
           setTimeLeft(null);
         }
@@ -68,7 +71,7 @@ function Course({ course }) {
     //.then(res => {
     //  console.log(res.json())
     //})
-    
+
   }
   return (
     <Layout>
@@ -106,7 +109,21 @@ function Course({ course }) {
                 <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
                 <div className='flex flex-row flex-wrap items-start w-full text-2xl lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft}
                   <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
-                    <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário</button></div>
+
+                    <ICalendarLink event={{
+                      title: course?.title,
+                      description: course?.description,
+                      startTime: user?.cohorts?.startDate.toDate(),
+                      endTime: user?.cohorts?.endDate.toDate(),
+                      location: "https://discord.web3dev.com.br"
+                    }}>
+                      <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
+                    </ICalendarLink>
+
+                  </button>
+                </div>
+
+
               </div>
             </div>
             <div className="flex flex-col lg:flex-row gap-8">
