@@ -28,7 +28,7 @@ export default function Home() {
           </div>
           <br />
           <div className='flex justify-start w-full'>
-            <a href="/auth">
+            <a href="/auth/signup">
               <Button style="primary">Quero me inscrever!</Button>
             </a>
           </div>
