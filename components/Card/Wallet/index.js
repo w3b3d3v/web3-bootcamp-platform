@@ -4,18 +4,13 @@ import Button from '../../Button'
 import { toast } from 'react-toastify'
 import { getUserFromFirestore, updateUserWalletInFirestore } from '../../../lib/user';
 import { auth } from '../../../firebase/initFirebase';
-import { useAddress, useDisconnect, useMetamask } from '@thirdweb-dev/react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useSession } from 'next-auth/react';
 
 export default function WalletCard() {
-  const connectWithMetamask = useMetamask();
-  const disconnectWallet = useDisconnect();
-  const address = useAddress();
   const [userAddress, setUserAddress] = useState();
-  const handleDisconnect = () => {
-    disconnectWallet()
-    toast.success('Desconectado com sucesso!', toastParameters)
-  }
+  const [user, setUser] = useState();
+  const { data: session } = useSession();
+
   const toastParameters = {
     position: 'top-right',
     autoClose: 5000,
@@ -26,37 +21,36 @@ export default function WalletCard() {
     progress: undefined,
   }
 
-  const handleConnectWallet = () => {
-    if (window.ethereum) {
-      connectWithMetamask()
-        .then(() => {
-          toast.success('Conectado com sucesso!', toastParameters)
-        })
-        .catch((error) => {
-          toast.error('Algo deu errado', toastParameters)
-        })
-    } else {
-      toast.error('Por favor instale a Metamask', toastParameters)
-    }
-  }
-  useEffect(() => {
-    if(address){
-      updateUserWalletInFirestore(address || null, auth.currentUser?.uid);
+  const handleConnectWallet = async () => {
+    if(window.ethereum) {
+      let accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      await window.ethereum.request({
+        method: 'personal_sign',
+        params: ['Sign In Message - Logging in Web3Dev Bootcamp', accounts[0]],
+      });
+      const address = accounts.pop();
+      if(address && auth.currentUser) await updateUserWalletInFirestore(address, auth.currentUser?.uid);
       setUserAddress(address);
-    }else{
-      onAuthStateChanged(auth, (async user => {
-        if (user){
-      const userSession = await getUserFromFirestore(user)
-      if(userSession.wallet && auth.currentUser?.uid){
-        setUserAddress(userSession.wallet)
-      }
-      }}))
+      toast.success('Conectado com sucesso!', toastParameters);
+    } else {
+      toast.error('Por favor instale a Metamask', toastParameters);
     }
-  }, [address])
+  };
+
+
+
+  useEffect(async () => {
+    if(auth.currentUser) {
+      const userSession = await getUserFromFirestore(auth.currentUser);
+      setUser(userSession);
+    }
+  }, [auth.currentUser, userAddress])
 
   return (
     <>
-      {userAddress ? (
+      {user?.wallet ? (
         <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
           <div className="flex">
             <div className="px-6 py-5">
@@ -64,7 +58,7 @@ export default function WalletCard() {
                 ✅ Carteira Conectada
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Endereço da carteira: {address || userAddress}
+                Endereço da carteira: {user?.wallet}
               </p>
               {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => handleDisconnect()}>Desconectar</a>
