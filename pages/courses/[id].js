@@ -10,6 +10,7 @@ import WalletCard from '../../components/Card/Wallet'
 import Button from '../../components/Button'
 
 import NotFound from '../404'
+import Link from 'next/link';
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
@@ -69,11 +70,13 @@ function Course({ course }) {
                                 />
                                 <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
                               </div>
-                              {/* <a href={`lessons/${lesson}`}> */}
-                              <p className="m-0 p-0">
-                                {lesson.title}
-                              </p>
-                              {/* </a> */}
+                              <Link href={`${course.id}/lessons/${lesson.file}`}>
+                                <a>
+                                  <p className="m-0 p-0">
+                                    {lesson.title}
+                                  </p>
+                                </a>
+                              </Link>
                             </div>
                           </li>
                         )
