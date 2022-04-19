@@ -1,20 +1,75 @@
+import React, { useState, useEffect } from 'react'
 import Layout from '../../components/layout'
-import { getCourse } from '../../lib/course'
 import ReactMarkdown from 'react-markdown'
-import { getAllCourses } from '../../lib/courses'
-import React from 'react'
-import { withProtected } from '../../hooks/route'
 import Tabs from '../../components/Tabs'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
-import { Button } from '../../components/Button'
-
+import ShareLinkCard from '../../components/Card/ShareLink'
+import ComingSoonCard from '../../components/Card/ComingSoon'
 import NotFound from '../404'
 import Link from 'next/link';
+import { getCourse } from '../../lib/course'
+import { getAllCourses } from '../../lib/courses'
+import { withProtected } from '../../hooks/route'
+import { Button } from '../../components/Button'
+import { auth } from '../../firebase/initFirebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user';
+import { CalendarIcon } from '@heroicons/react/solid'
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
-  const ref = React.createRef();
+  
+  const [user, setUser] = useState();
+  const [registerOnCohort, setRegisterOnCohort] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+  useEffect(async () => {
+    if(auth.currentUser) {
+      const userSession = await getUserFromFirestore(auth.currentUser);
+      setUser(userSession);
+    }
+  }, [auth.currentUser, registerOnCohort])
+
+  const registerUserInCohort = async() => {
+        await registerUserInCohortInFirestore(course.id+'_01', user.uid)
+        setRegisterOnCohort(true)
+      }
+  useEffect(() => {
+    if(document) {
+      const countDownDate = new Date(user?.cohorts?.startDate.toDate()).getTime();
+      const interval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        if(user?.cohorts?.startDate.toDate() > new Date()) {
+          setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        }
+        if(distance < 0) {
+          clearInterval(interval);
+          setTimeLeft(null);
+        }
+      }, 1000);
+    }
+  })
+
+  const calendarFunction = () => {
+    //fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
+    //  method: 'GET',
+    //  headers: {
+    //    'Authorization': auth.currentUser.accessToken,
+    //    'Content-Type': 'application/json'
+    //  }
+    //}).catch(err => {
+    //  return console.log(err)
+    //})
+    //.then(res => {
+    //  console.log(res.json())
+    //})
+    
+  }
   return (
     <Layout>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
@@ -25,16 +80,32 @@ function Course({ course }) {
               <div className="my-6 ml-0 lg:my-0">
                 <h1 className="mb-2 text-2xl font-bold">{course?.title}</h1>
 
-                <p className="flex items-center text-xs text-gray-500 dark:text-gray-300">
-                  {course?.description.substring(0, 100) + '...'}
+                <p className="flex items-center text-xs text-gray-500 dark:text-gray-300 w-2/3">
+                  {course?.description/*.substring(0, 100) + '...'*/}
                 </p>
               </div>
             </div>
-            <div>
-              <Button ref={ref}>Iniciar projeto</Button>
-            </div>
           </div>
         </div>
+        {!user?.cohorts?.id.includes(course.id) ?
+        <div className="flex ">
+          <div onClick={()=>registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
+              <div>Inscreva-se agora ✨</div>
+          </div>
+        </div>
+        :
+          <>
+            <div className="flex flex-col justify-center items-center p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
+              <div className="flex flex-col w-3/4 justify-center items-center">
+                <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
+                <p>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
+                <div className='flex items-start w-full text-3xl items-center justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft} <button className='flex bg-indigo-500 text-base p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
+                  <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário</button></div>
+              </div>
+            </div>
+          </>
+        }
+        
         <div className="flex flex-row gap-8">
           <div className="item flex-grow">
             <DiscordCard />
@@ -43,6 +114,15 @@ function Course({ course }) {
             <WalletCard />
           </div>
         </div>
+        <div className="flex pt-6">
+          <ShareLinkCard />
+        </div>
+        <div className="flex pt-6">
+          <ComingSoonCard />
+        </div>
+        {
+          timeLeft == null &&
+        <>
         <div className="container my-8">
           <Tabs course={course} />
 
@@ -71,7 +151,7 @@ function Course({ course }) {
                                 />
                                 <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
                               </div>
-                              <Link href={`${course.id}/lessons/${lesson.file}`}>
+                              <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
                                 <a>
                                   <p className="m-0 p-0">
                                     {lesson.title}
@@ -88,6 +168,8 @@ function Course({ course }) {
               })}
           </div>
         </div>
+        </>
+        }
       </div>
     </Layout>
   )
