@@ -1,11 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 
-import Button from '../../components/Button'
+import { Button } from '../../components/Button'
 import { ClockIcon } from '@heroicons/react/solid'
 
 export default function Card(props) {
   const { title, img, desc, duration, difficulty, active, children, id } = props
+  const ref = React.createRef();
   return (
     <>
       <div
@@ -125,11 +126,11 @@ export default function Card(props) {
               </div>
               {active ? (
                 <Link href={`/courses/${id}`}>
-                  <Button>Ver projeto</Button>
+                  <Button ref={ref}>Ver projeto</Button>
                 </Link>
               ) : (
                 <div className=" cursor-default">
-                  <Button>Em breve</Button>
+                  <Button ref={ref}>Em breve</Button>
                 </div>
               )}
             </div>

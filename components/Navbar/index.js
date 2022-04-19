@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import Button from '../Button'
+import { Button } from '../Button'
 import ThemeSwitch from '../ThemeSwitch'
 
 import { UserCircleIcon } from '@heroicons/react/solid'
@@ -12,6 +12,7 @@ import { useSession, signOut } from 'next-auth/react'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
+  const ref = React.createRef();
   const navbarLinks = [
     {
       name: 'Fórum',
@@ -250,7 +251,7 @@ export default function Navbar() {
                   ) : (
                     <div className="relative">
                       <a href="/auth">
-                        <Button style="primary">Acessar Plataforma</Button>
+                        <Button ref={ref} style="primary">Acessar Plataforma</Button>
                       </a>
                     </div>
                   )}

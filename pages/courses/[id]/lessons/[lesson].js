@@ -1,7 +1,8 @@
-import Layout from '../../../components/layout'
-import { withProtected } from '../../../hooks/route'
+import Layout from '../../../../components/layout'
+import { withProtected } from '../../../../hooks/route'
 
 function Lessons({ course }) {
+  console.log(course) // course is still undefined since theres no server side props yet
   return (
     <Layout>
       <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
@@ -19,5 +20,6 @@ function Lessons({ course }) {
     </Layout>
   )
 }
+
 
 export default Lessons
