@@ -77,7 +77,7 @@ function Course({ course }) {
         <div className="relative z-10 pt-8 pb-16">
           <div className="container mx-auto flex flex-col items-start justify-between lg:flex-row lg:items-center">
             <div className="flex flex-col items-start lg:flex-row lg:items-center">
-              <div className="my-6 ml-0 lg:my-0">
+              <div className="mt-10 ml-0 lg:my-0">
                 <h1 className="mb-2 text-2xl font-bold">{course?.title}</h1>
 
                 <p className="flex items-center text-xs text-gray-500 dark:text-gray-300 w-2/3">
@@ -88,41 +88,43 @@ function Course({ course }) {
           </div>
         </div>
         {!user?.cohorts?.id.includes(course.id) ?
-        <>
-        <div className="flex ">
-          <div onClick={()=>registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
-              <div>Inscreva-se agora ✨</div>
-          </div>
-        </div>
-        <div className="flex pt-6">
-          <ComingSoonCard />
-        </div>
-        </>
-        :
           <>
-            <div className="flex flex-col justify-center items-center p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
-              <div className="flex flex-col w-3/4 justify-center items-center">
-                <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
-                <p>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
-                <div className='flex items-start w-full text-3xl items-center justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft} <button className='flex bg-indigo-500 text-base p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
-                  <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário</button></div>
+            <div className="flex ">
+              <div onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
+                <div>Inscreva-se agora ✨</div>
               </div>
             </div>
-        <div className="flex flex-row gap-8">
-          <div className="item flex-grow">
-            <DiscordCard />
-          </div>
-          <div className="item flex-grow">
-            <WalletCard />
-          </div>
-        </div>
-        <div className="flex pt-6">
-          <ShareLinkCard />
-        </div>
-        <div className="flex pt-6">
-          <ComingSoonCard />
-        </div>
-        </>
+            <div className="flex pt-6">
+              <ComingSoonCard />
+            </div>
+          </>
+          :
+          <>
+            <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
+              <div className="flex flex-col w-3/4 justify-center items-center">
+                <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
+                <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
+                <div className='flex flex-row flex-wrap items-start w-full text-2xl lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft}
+                  <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
+                    <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário</button></div>
+              </div>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="item flex-grow">
+                <DiscordCard />
+              </div>
+              <div className="item flex-grow">
+                <WalletCard />
+              </div>
+            </div>
+            <div className="flex pt-6">
+              <ShareLinkCard />
+            </div>
+            <div className="flex pt-6">
+              <ComingSoonCard />
+            </div>
+            <br />
+          </>
         }
         {
           timeLeft == null &&

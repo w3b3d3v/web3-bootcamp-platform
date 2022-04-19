@@ -58,8 +58,8 @@ export default function WalletCard() {
               <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
                 ✅ Carteira Conectada
               </p>
-              <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Endereço da carteira: {user?.wallet}
+              <p className="pt-2 text-xs flex-wrap leading-5 text-gray-500 dark:text-gray-400">
+                Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
               {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => handleDisconnect()}>Desconectar</a>
