@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import Button from '../../Button'
+import React, { useEffect, useState } from 'react'
+import { Button } from '../../Button'
 
 import { toast } from 'react-toastify'
 import { getUserFromFirestore, updateUserWalletInFirestore } from '../../../lib/user';
@@ -10,6 +10,7 @@ export default function WalletCard() {
   const [userAddress, setUserAddress] = useState();
   const [user, setUser] = useState();
   const { data: session } = useSession();
+  const ref = React.createRef();
 
   const toastParameters = {
     position: 'top-right',
@@ -79,7 +80,7 @@ export default function WalletCard() {
                 projeto.
               </p>
               <div className="pt-4">
-                <Button onClick={() => handleConnectWallet()}>
+                <Button ref={ref} onClick={() => handleConnectWallet()}>
                   Conectar carteira
                 </Button>
               </div>

@@ -2,18 +2,19 @@ import Layout from '../../components/layout'
 import { getCourse } from '../../lib/course'
 import ReactMarkdown from 'react-markdown'
 import { getAllCourses } from '../../lib/courses'
-
+import React from 'react'
 import { withProtected } from '../../hooks/route'
 import Tabs from '../../components/Tabs'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
-import Button from '../../components/Button'
+import { Button } from '../../components/Button'
 
 import NotFound from '../404'
 import Link from 'next/link';
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
+  const ref = React.createRef();
   return (
     <Layout>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
@@ -30,7 +31,7 @@ function Course({ course }) {
               </div>
             </div>
             <div>
-              <Button>Iniciar projeto</Button>
+              <Button ref={ref}>Iniciar projeto</Button>
             </div>
           </div>
         </div>

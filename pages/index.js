@@ -1,13 +1,13 @@
-import { getSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link'
-import { useEffect } from 'react'
-import Button from '../components/Button'
+import React from 'react'
+import { Button } from '../components/Button'
 import Layout from '../components/layout'
 import useAuth from '../hooks/useAuth'
 
 export default function Home() {
+  const ref = React.createRef();
   return (
     <Layout>
       <Head>
@@ -29,7 +29,7 @@ export default function Home() {
           <br />
           <div className='flex justify-start w-full'>
             <a href="/auth/signup">
-              <Button style="primary">Quero me inscrever!</Button>
+              <Button ref={ref} style="primary">Quero me inscrever!</Button>
             </a>
           </div>
           <br />

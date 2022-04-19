@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { signIn, signOut, useSession } from 'next-auth/react'
-import Button from '../../Button'
+import { Button } from '../../Button'
 import { auth } from '../../../firebase/initFirebase';
 import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -10,7 +10,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 export default function DiscordCard() {
   const { data: session } = useSession()
   const [discordConnected, setDiscordConnected] = useState(false)
-
+  const ref = React.createRef();
   useEffect(async() => {
     onAuthStateChanged(auth, (async user => {
       if (user){
@@ -50,7 +50,7 @@ export default function DiscordCard() {
                 Quando você tiver acesso, não deixe de dizer olá!
               </p>
               <div className="pt-4">
-                <Button onClick={() => signIn('discord')}>Conectar Discord</Button>
+                <Button ref={ref} onClick={() => signIn('discord')}>Conectar Discord</Button>
               </div>
             </div>
           </div>
