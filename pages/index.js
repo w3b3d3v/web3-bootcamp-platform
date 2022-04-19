@@ -48,27 +48,27 @@ export default function Home() {
       <footer>
         <div className='flex flex-col items-center lg:items-stretch text-sm lg:flex-row text-center justify-between container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0'>
           <div className='p-1 bg-gradient-to-br m-3 w-44 h-20 lg:h-32 from-green-400 to-teal-400 rounded-lg'>
-            <div className='rounded-lg w-full h-full bg-zinc-900 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
+            <div className='rounded-lg w-full h-full bg-slate-50 text-black  dark:bg-zinc-900 dark:text-slate-50 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
              Bootcamp 100% gratuito, sempre!
             </div>
           </div>
           <div className='p-1 bg-gradient-to-br w-44 h-20 lg:h-32 m-3 from-green-400 to-violet-500 rounded-lg'>
-            <div className='rounded-lg w-full h-full bg-zinc-900 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
+            <div className='rounded-lg w-full h-full bg-slate-50 text-black  dark:bg-zinc-900 dark:text-slate-50 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
              Desenvolva um Smart Contract em apenas 1 semana
             </div>
           </div>
           <div className='p-1 bg-gradient-to-br w-44 h-20 lg:h-32 m-3 from-violet-500 to-purple-500 rounded-lg'>
-            <div className='rounded-lg w-full h-full bg-zinc-900 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
+            <div className='rounded-lg w-full h-full bg-slate-50 text-black  dark:bg-zinc-900 dark:text-slate-50 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
              Aprendizado baseado em projetos
             </div>
           </div>
           <div className='p-1 bg-gradient-to-br w-44 h-20 lg:h-32 m-3 from-fuchsia-400 to-pink-500 rounded-lg'>
-            <div className='rounded-lg w-full h-full bg-zinc-900 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
+            <div className='rounded-lg w-full h-full bg-slate-50 text-black  dark:bg-zinc-900 dark:text-slate-50 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
              Ganhe um NFT para cada projeto finalizado
             </div>
           </div>
           <div className='p-1 bg-gradient-to-br w-44 h-20 lg:h-32 m-3 from-rose-400 to-orange-500 rounded-lg'>
-            <div className='rounded-lg w-full h-full bg-zinc-900 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
+            <div className='rounded-lg w-full h-full bg-slate-50 text-black  dark:bg-zinc-900 dark:text-slate-50 flex items-center text-center shadow-xl sm:p-1 md:p-3 lg:p-4'>
              Trabalhe como dev em projetos web3
             </div>
           </div>
