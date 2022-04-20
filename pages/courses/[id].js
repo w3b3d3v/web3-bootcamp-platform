@@ -83,10 +83,11 @@ function Course({ course }) {
               <div className="flex flex-col w-3/4 justify-center items-center">
                 <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
                 <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
-                <div className='flex flex-row flex-wrap items-start w-full text-2xl lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft}
+                <div className='flex flex-row flex-wrap items-start w-full text-lg lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold'>{timeLeft && '⏰' + timeLeft}
                   <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
 
-                    <ICalendarLink event={{
+                    <ICalendarLink className='flex flex-row items-center'
+                    event={{
                       title: course?.title,
                       description: course?.description,
                       startTime: user?.cohorts?.startDate.toDate(),
