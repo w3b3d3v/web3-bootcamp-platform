@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Head from 'next/head';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
