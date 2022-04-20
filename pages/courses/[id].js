@@ -25,6 +25,7 @@ function Course({ course }) {
   const [user, setUser] = useState();
   const [registerOnCohort, setRegisterOnCohort] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+
   useEffect(async () => {
     if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
@@ -32,15 +33,11 @@ function Course({ course }) {
     }
   }, [auth.currentUser, registerOnCohort])
 
-  const registerUserInCohort = async () => {
-    await registerUserInCohortInFirestore(course.id + '_01', user.uid)
-    setRegisterOnCohort(true)
-  }
-
   useEffect(() => {
     if (document) {
+      const userCohortStartDate = user?.cohorts?.map(cohort => new Date(cohort.startDate.toDate()).getTime());
       const interval = setInterval(function () {
-        const ct = countdown(user?.cohorts?.startDate.toDate());
+        const ct = countdown(userCohortStartDate);
         setTimeLeft(ct);
         if (!ct) {
           clearInterval(interval);
@@ -48,6 +45,11 @@ function Course({ course }) {
       }, 1000);
     }
   })
+  
+  const registerUserInCohort = async () => {
+    await registerUserInCohortInFirestore(course.id + '_01', user.uid)
+    setRegisterOnCohort(true)
+  }
 
   return (
     <Layout>
@@ -66,7 +68,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {!user?.cohorts?.id.includes(course.id) ?
+        {!user?.cohorts?.map(cohort => cohort.id).includes(course.id) ?
           <>
             <div className="flex ">
               <div onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
@@ -90,8 +92,8 @@ function Course({ course }) {
                     event={{
                       title: course?.title,
                       description: course?.description,
-                      startTime: user?.cohorts?.startDate.toDate(),
-                      endTime: user?.cohorts?.endDate.toDate(),
+                      startTime: user?.cohorts.map(cohort => cohort.startDate.toDate()).flat(),
+                      endTime: user?.cohorts.map(cohort => cohort.endDate.toDate()).flat(),
                       location: "https://discord.web3dev.com.br"
                     }}>
                       <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
@@ -121,7 +123,7 @@ function Course({ course }) {
           </>
         }
         {
-          timeLeft == null &&
+          timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id) &&
           <>
             <div className="container my-8">
               <Tabs course={course} />
