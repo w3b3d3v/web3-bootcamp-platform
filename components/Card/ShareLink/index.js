@@ -15,7 +15,7 @@ export default function ShareLinkCard() {
     <>
         <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 min-w-full">
           <div className="flex min-w-full">
-            <div className="px-6 py-5 min-w-full items-center flex justify-between">
+            <div className="px-6 py-5 flex-col items-start lg:flex-row min-w-full lg:items-center flex justify-between">
               <div className='flex-col'>
               <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
               💜 Aprenda com seus amigos!
@@ -24,7 +24,7 @@ export default function ShareLinkCard() {
                 Divulgue seu link personalizado para seus amigos, assim eles entrarão na mesma turma que você.
               </p>
               </div>
-              <div className=" items-end">
+              <div className="mt-4">
                 <Button ref={ref} onClick={() => {}}>Copiar Link</Button>
               </div>
             </div>
