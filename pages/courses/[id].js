@@ -1,4 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { getCourse } from '../../lib/course'
+import { getAllCourses } from '../../lib/courses'
+import { withProtected } from '../../hooks/route'
+import { Button } from '../../components/Button'
+import { auth } from '../../firebase/initFirebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user';
+import { CalendarIcon } from '@heroicons/react/solid'
+import React, { useState, useEffect, useCallback } from 'react'
 import Layout from '../../components/layout'
 import ReactMarkdown from 'react-markdown'
 import Tabs from '../../components/Tabs'
@@ -8,17 +16,10 @@ import ShareLinkCard from '../../components/Card/ShareLink'
 import ComingSoonCard from '../../components/Card/ComingSoon'
 import NotFound from '../404'
 import Link from 'next/link';
-import { getCourse } from '../../lib/course'
-import { getAllCourses } from '../../lib/courses'
-import { withProtected } from '../../hooks/route'
-import { Button } from '../../components/Button'
-import { auth } from '../../firebase/initFirebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user';
-import { CalendarIcon } from '@heroicons/react/solid'
 import ICalendarLink from "react-icalendar-link";
 import countdown from "../../lib/utils/countdown";
 import Head from 'next/head';
+import { getAllCohorts } from '../../lib/cohorts';
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
@@ -26,6 +27,19 @@ function Course({ course }) {
   const [user, setUser] = useState();
   const [registerOnCohort, setRegisterOnCohort] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [cohorts, setCohorts] = useState();
+  const [cohort, setCohort] = useState();
+
+  useEffect(async () => {
+    setCohorts(await getAllCohorts());
+  }, [])
+
+  useEffect(async () => {
+    if(cohorts){
+      const currentCohort = cohorts.find(c => c.courseId === course.id);
+      setCohort(currentCohort);
+    }
+  }, [cohorts])
 
   useEffect(async () => {
     if (auth.currentUser) {
@@ -36,7 +50,7 @@ function Course({ course }) {
 
   useEffect(() => {
     if (document) {
-      const userCohortStartDate = user?.cohorts?.map(cohort => new Date(cohort.startDate.toDate()).getTime());
+      const userCohortStartDate = new Date(cohort?.startDate).getTime();
       const interval = setInterval(function () {
         const ct = countdown(userCohortStartDate);
         setTimeLeft(ct);
@@ -46,9 +60,8 @@ function Course({ course }) {
       }, 1000);
     }
   })
-  
   const registerUserInCohort = async () => {
-    await registerUserInCohortInFirestore(course.id + '_01', user.uid)
+    await registerUserInCohortInFirestore(cohort.id,user.uid)
     setRegisterOnCohort(true)
   }
 
@@ -72,7 +85,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {!user?.cohorts?.map(cohort => cohort.id).includes(course.id) ?
+        {!user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
           <>
             <div className="flex ">
               <div onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
@@ -96,8 +109,8 @@ function Course({ course }) {
                     event={{
                       title: course?.title,
                       description: course?.description,
-                      startTime: user?.cohorts.map(cohort => cohort.startDate.toDate()).flat(),
-                      endTime: user?.cohorts.map(cohort => cohort.endDate.toDate()).flat(),
+                      startTime: cohort.startDate,
+                      endTime: cohort.endDate,
                       location: "https://discord.web3dev.com.br"
                     }}>
                       <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
@@ -127,7 +140,8 @@ function Course({ course }) {
           </>
         }
         {
-          timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id) &&
+          
+          timeLeft == null && user?.cohorts?.map(cohort => cohort.path).includes(course.id) &&
           <>
             <div className="container my-8">
               <Tabs course={course} />
