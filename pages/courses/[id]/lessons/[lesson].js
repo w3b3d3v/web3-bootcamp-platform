@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../../../../components/layout'
 import { withProtected } from '../../../../hooks/route'
@@ -8,6 +9,9 @@ function Lessons({ course }) {
   console.log(course) // course is still undefined since theres no server side props yet
   return (
     <Layout>
+      <Head>
+        <title>Lição - Bootcamp Web3Dev</title>
+      </Head>
       <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
         {course &&
           course?.lessons.map((l) => {

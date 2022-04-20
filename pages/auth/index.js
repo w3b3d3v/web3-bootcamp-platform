@@ -11,6 +11,7 @@ import { withPublic } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { sendPasswordResetEmail } from "firebase/auth"
 import Layout from '../../components/layout';
+import Head from 'next/head';
 
 function authPage() {
   const { user, login, logout, loginGoogle } = useAuth()
@@ -46,6 +47,9 @@ function authPage() {
   }
   return (
     <Layout>
+      <Head>
+        <title>Login - Bootcamp Web3Dev</title>
+      </Head>
       <div className="bg-gray-50 dark:bg-black-300">
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
           <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">

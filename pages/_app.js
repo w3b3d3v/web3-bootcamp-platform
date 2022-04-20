@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
         >
           <SessionProvider session={pageProps.session}>
             <Head>
-              <title>Web3Dev Bootcamp Plataform</title>
+              <title>Home - Bootcamp Web3Dev</title>
               <meta
                 name="viewport"
                 content="initial-scale=1.0, width=device-width"

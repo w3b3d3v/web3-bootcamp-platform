@@ -10,7 +10,7 @@ function Profile() {
   return (
     <Layout>
       <Head>
-        <title>web3dev Bootcamp Platform</title>
+        <title>Perfil - Bootcamp Web3Dev</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <main>

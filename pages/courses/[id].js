@@ -18,6 +18,7 @@ import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib
 import { CalendarIcon } from '@heroicons/react/solid'
 import ICalendarLink from "react-icalendar-link";
 import countdown from "../../lib/utils/countdown";
+import Head from 'next/head';
 
 function Course({ course }) {
   if (!course.active) return <NotFound />
@@ -53,6 +54,9 @@ function Course({ course }) {
 
   return (
     <Layout>
+      <Head>
+        <title>Curso {course.id} - Bootcamp Web3Dev</title>
+      </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         {/* Page title starts */}
         <div className="relative z-10 pt-8 pb-16">
