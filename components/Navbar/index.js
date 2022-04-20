@@ -12,15 +12,15 @@ import { useSession, signOut } from 'next-auth/react'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
-  const ref = React.createRef();
+  const ref = React.createRef()
   const navbarLinks = [
     {
       name: 'Fórum',
-      href: 'https://web3dev.com.br',
+      href: 'https://www.web3dev.com.br',
     },
     {
       name: 'Entrar no Discord',
-      href: 'https://discord.gg/PNrGSajVf8',
+      href: 'https://discord.web3dev.com.br',
     },
   ]
 
@@ -203,16 +203,21 @@ export default function Navbar() {
                             <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
                               <div className="flex items-center">
                                 <Link href="/profile">
-                                  <a className="ml-2 flex w-full items-start">Meu perfil</a>
+                                  <a className="ml-2 flex w-full items-start">
+                                    Meu perfil
+                                  </a>
                                 </Link>
                               </div>
                             </li>
 
                             <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
-                              <button className="ml-2 flex w-full items-start hover:underline" onClick={()=> {
-                                signOut({redirect: false});
-                                logout();
-                                }}>
+                              <button
+                                className="ml-2 flex w-full items-start hover:underline"
+                                onClick={() => {
+                                  signOut({ redirect: false })
+                                  logout()
+                                }}
+                              >
                                 Sair
                               </button>
                             </li>
@@ -251,7 +256,9 @@ export default function Navbar() {
                   ) : (
                     <div className="relative">
                       <a href="/auth">
-                        <Button ref={ref} style="primary">Acessar Plataforma</Button>
+                        <Button ref={ref} style="primary">
+                          Acessar Plataforma
+                        </Button>
                       </a>
                     </div>
                   )}
