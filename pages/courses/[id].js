@@ -131,7 +131,7 @@ function Course({ course }) {
               </div>
             </div>
             <div className="flex pt-6">
-              <ShareLinkCard />
+              <ShareLinkCard course={course.id}/>
             </div>
             <div className="flex pt-6">
               <ComingSoonCard />
@@ -212,4 +212,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default Course
+export default withProtected(Course)
