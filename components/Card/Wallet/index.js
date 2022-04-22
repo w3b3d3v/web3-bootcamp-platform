@@ -40,8 +40,6 @@ export default function WalletCard() {
     }
   };
 
-
-
   useEffect(async () => {
     if(auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
