@@ -22,13 +22,11 @@ export default function Home() {
             </div>
             <p className='mt-8'>
               Um projeto de uma semana onde você irá aprender Solidity, escrever e implementar smart-contracts na blockchain e desenvolver um Web3 App para interagir com seu contrato. Perfeito para entusiastas em blockchain e desenvolvedores de Web3. 
-            {/*A 2-week project where you'll learn some Solidity, write + deploy a smart contract to the blockchain, and build a Web3 client app to interact with your contract. Perfect for hackers curious about crypto.
-              Se você é um desenvolvedor interessado em Web3, este é o seu lugar. Aqui você encontra cursos e aulas de Web3, ganha NFTs e possibilidades infinitas!
-            */}</p>
+           </p>
           </div>
           <br />
           <div className='flex justify-start w-full'>
-            <a href="/auth/signup">
+            <a href="/courses/Solidity_And_Smart_Contracts">
               <Button ref={ref} style="primary">Quero me inscrever!</Button>
             </a>
           </div>

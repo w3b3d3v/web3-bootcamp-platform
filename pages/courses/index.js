@@ -49,4 +49,4 @@ export async function getStaticProps() {
   }
 }
 
-export default Courses
+export default withProtected(Courses)

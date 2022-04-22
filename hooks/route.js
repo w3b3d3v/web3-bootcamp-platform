@@ -11,7 +11,9 @@ export function withPublic(Component) {
     useEffect(() => {
       if (router) {
         if (auth.user) {
-          router.replace('/courses')
+          if(router.query.from.includes('[id]')){
+            router.push('/courses/Solidity_And_Smart_Contracts')
+          }else router.replace('/courses')
         } else {
           setLoading(false)
         }
@@ -35,7 +37,10 @@ export function withProtected(Component) {
     useEffect(() => {
       if (router) {
         if (!auth || !auth.user) {
-          router.replace('/auth')
+          void router.push({
+            pathname: '/auth',
+            query: { from: router.pathname },
+          })
         } else {
           setLoading(false)
         }

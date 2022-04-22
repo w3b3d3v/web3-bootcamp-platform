@@ -95,7 +95,6 @@ export function AuthProvider({ children }) {
       .then((userCredential) => {
         setUser(userCredential.user)
         getUserFromFirestore(userCredential.user)
-        Router.push('/courses')
         toast.success('Você entrou com sucesso!', {
           toastParameters,
         })
@@ -126,7 +125,6 @@ export function AuthProvider({ children }) {
 
         getUserFromFirestore(user)
 
-        Router.push('/courses')
         toast.success('Você entrou com sucesso!', {
           toastParameters,
         })
