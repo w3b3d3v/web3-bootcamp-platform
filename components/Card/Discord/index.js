@@ -10,11 +10,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 export default function DiscordCard() {
   const { data: session } = useSession()
   const [discordConnected, setDiscordConnected] = useState(false)
+  const [user, setUser] = useState()
   const ref = React.createRef();
   useEffect(async() => {
     onAuthStateChanged(auth, (async user => {
       if (user){
         const userSession = await getUserFromFirestore(user)
+        setUser(userSession)
         if (session?.discord && !userSession.discord && auth.currentUser?.uid) {
           await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
           setDiscordConnected(true)
@@ -62,7 +64,7 @@ export default function DiscordCard() {
             <div className="flex">
               <div className="px-6 py-5">
                 <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                  ✅ {session?.discord?.username} Conectado
+                  ✅ {user?.discord?.username} Conectado
                 </p>
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Estamos ansiosos para te conhecer, venha dar uma olhada!
