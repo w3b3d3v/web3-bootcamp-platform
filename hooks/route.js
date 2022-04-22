@@ -11,7 +11,7 @@ export function withPublic(Component) {
     useEffect(() => {
       if (router) {
         if (auth.user) {
-          if(router.query.from.includes('[id]')){
+          if(router.query?.from?.includes('[id]')){
             router.push('/courses/Solidity_And_Smart_Contracts')
           }else router.replace('/courses')
         } else {
