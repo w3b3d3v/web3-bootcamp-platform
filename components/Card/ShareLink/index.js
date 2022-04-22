@@ -6,6 +6,7 @@ import { auth } from '../../../firebase/initFirebase';
 import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 export default function ShareLinkCard({course}) {
   const ref = React.createRef();
@@ -45,6 +46,7 @@ export default function ShareLinkCard({course}) {
   }, [referralLink])
   const shareReferralLink = () => {
     navigator.clipboard.writeText(referralLink);
+    toast.success('Link copiado');
     return referralLink;
   }
   
@@ -61,9 +63,7 @@ export default function ShareLinkCard({course}) {
                 Divulgue seu link personalizado para seus amigos, assim eles entrarão na mesma turma que você.
               </p>
             </div>
-            <div className="mt-4">
-              <Button ref={ref} onClick={() => shareReferralLink()}>Copiar Link</Button>
-            </div>
+           
             <div className="mt-4 flex flex-col items-center">
               <Image src='/assets/img/twitter-logo.png' width='20' height='20' />
               <a className="twitter-share-button"
@@ -71,6 +71,9 @@ export default function ShareLinkCard({course}) {
                 target="_blank"
                 data-size="large">
                 Compartilhar no Twitter</a>
+            </div>
+            <div className="mt-4">
+              <Button ref={ref} onClick={() => shareReferralLink()}>Copiar Link</Button>
             </div>
           </div>
         </div>
