@@ -5,21 +5,47 @@ import { Button } from '../../Button'
 import { auth } from '../../../firebase/initFirebase';
 import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
 import { onAuthStateChanged } from 'firebase/auth';
+import Image from 'next/image';
 
-export default function ShareLinkCard() {
+export default function ShareLinkCard({course}) {
   const ref = React.createRef();
   const [user, setUser] = useState();
+  const [referralLink, setReferralLink] = useState();
+  const [shortenedUrl, setShortenedUrl] = useState();
   useEffect(() => {
     onAuthStateChanged(auth, async user => {
       if (user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
+        setReferralLink(`https://web3-bootcamp-platform.vercel.app/courses/${course}/utm_medium=socialutm_content=${user.uid}&utm_source=bootcamp`)
       }
     })
   },[auth.currentUser]);
+
+  useEffect(() => {
+    if(user && document && referralLink) {
+      const options = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          apikey: 'cd12d4c590a24e03bac92607a7e9cdf0'
+        },
+        body: JSON.stringify({
+          destination: referralLink
+        })
+      };
+      fetch('https://api.rebrandly.com/v1/links', options)
+        .then(response => response.json())
+        .then(response => {
+          setShortenedUrl(response.shortUrl)
+        })
+        .catch(err => console.error(err));
+    }
+  }, [referralLink])
   const shareReferralLink = () => {
-    const referralLink = window.location.href+'?referralId'+user.uid;
     navigator.clipboard.writeText(referralLink);
+    return referralLink;
   }
   
   return (
@@ -38,11 +64,13 @@ export default function ShareLinkCard() {
             <div className="mt-4">
               <Button ref={ref} onClick={() => shareReferralLink()}>Copiar Link</Button>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-col items-center">
+              <Image src='/assets/img/twitter-logo.png' width='20' height='20' />
               <a className="twitter-share-button"
-                href="https://twitter.com/intent/tweet?text=Hello%20world"
+                href={`https://twitter.com/intent/tweet?text=${shortenedUrl}`}
+                target="_blank"
                 data-size="large">
-                Tweet</a>
+                Compartilhar no Twitter</a>
             </div>
           </div>
         </div>
