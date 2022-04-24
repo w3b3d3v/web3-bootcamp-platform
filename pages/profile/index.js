@@ -26,7 +26,6 @@ function Profile() {
       if(user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        console.log(userSession);
         userSession.socialLinks.forEach((link) => {
           switch(link.name) {
             case 'linkedin':
@@ -45,14 +44,12 @@ function Profile() {
               break;
           }
         });
-        console.log(userSession);
       }
     });
   }, []);
 
   const updateUserData = async () => {
     const userData = { name: user.name, email: user.email, bio: user.bio, github, twitter, personalWebsite, linkedIn };
-    console.log(userData);
     await updateUserInFirestore(userData, user.uid).then(() => {
       toast.success('Dados atualizados com sucesso!');
     });
