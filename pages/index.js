@@ -14,7 +14,7 @@ export default function Home() {
         <title>Home - Bootcamp Web3Dev</title>
       </Head>
       <main className="container flex flex-col md:flex-row mx-auto py-2 px-2 sm:px-6 md:px-6 lg:px-16 xl:px-32 my-16 sm:my-6 md:my-6 lg:my-16 xl:py-0 justify-between">
-        <div className='flex justify-center md:w-1/3 items-center flex-col text-start'>
+        <div className='flex justify-center md:w-1/2 items-center flex-col text-start'>
           <div>
             <div className='text-5xl font-bold'>
               Construa um <span className='lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400'>Web3 App</span> com
@@ -36,8 +36,8 @@ export default function Home() {
           className=' md:ml-28'
         >
           <Image
-            width={600}
-            height={350}
+            width={400}
+            height={230}
             src="/assets/img/smart-contract-01.jpg"
             className='rounded-3xl'
           />
