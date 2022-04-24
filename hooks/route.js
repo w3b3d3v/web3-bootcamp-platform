@@ -13,7 +13,7 @@ export function withPublic(Component) {
         if (auth.user) {
           if(router.query?.from?.includes('[id]')){
             router.push('/courses/Solidity_And_Smart_Contracts')
-          }else router.push(router.query.from)
+          }else router.push('/courses')
         } else {
           setLoading(false)
         }
