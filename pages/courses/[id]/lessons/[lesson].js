@@ -6,7 +6,7 @@ import { getCourse } from '../../../../lib/course';
 import { getAllCourses } from '../../../../lib/courses';
 
 function Lessons({ course }) {
-  console.log(course) // course is still undefined since theres no server side props yet
+  //console.log(course) // course is still undefined since theres no server side props yet
   return (
     <Layout>
       <Head>

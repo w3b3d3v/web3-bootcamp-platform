@@ -18,7 +18,7 @@ export default function ShareLinkCard({course}) {
       if (user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        setReferralLink(`https://web3-bootcamp-platform.vercel.app/courses/${course}/utm_medium=socialutm_content=${user.uid}&utm_source=bootcamp`)
+        setReferralLink(`https://web3-bootcamp-platform.vercel.app/courses/${course}/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
       }
     })
   },[auth.currentUser]);
@@ -70,7 +70,13 @@ export default function ShareLinkCard({course}) {
                 href={`https://twitter.com/intent/tweet?text=Novo curso 100% gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi,e você? ${shortenedUrl}`}
                 target="_blank"
                 data-size="large">
-                Compartilhar no Twitter</a>
+                Compartilhar</a>
+            </div>
+            <div className="mt-4 flex flex-col items-center">
+              <Image src='/assets/img/LinkedIn_logo.png' width='20' height='20' />
+              <a className="share-linkedin" href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortenedUrl}`} target="_blank" rel="noopener">
+              Compartilhar
+              </a>
             </div>
             <div className="mt-4">
               <Button ref={ref} onClick={() => shareReferralLink()}>Copiar Link</Button>

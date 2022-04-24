@@ -110,7 +110,7 @@ function Course({ course }) {
                       title: course?.title,
                       description: course?.description,
                       startTime: cohort.startDate,
-                      endTime: cohort.endDate,
+                      //endTime: new Date(new Date().setHours(cohort.startDate.getHours() + 1)),
                       location: "https://discord.web3dev.com.br"
                     }}>
                       <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
