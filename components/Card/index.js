@@ -130,7 +130,7 @@ export default function Card(props) {
                 </Link>
               ) : (
                 <div className=" cursor-default">
-                  <Button ref={ref}>Em breve</Button>
+                  <Button ref={ref} disabled>Em breve</Button>
                 </div>
               )}
             </div>
