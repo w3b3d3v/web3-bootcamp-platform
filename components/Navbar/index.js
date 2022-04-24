@@ -161,7 +161,7 @@ export default function Navbar() {
                       <Image
                         width={42}
                         height={42}
-                        src="/assets/img/logo_icon.svg"
+                        src="/assets/img/w3d-logo-symbol-ac.svg"
                       />
                       <h2 className="hidden pl-3 text-xl font-bold leading-normal sm:block">
                         web3dev
@@ -256,7 +256,7 @@ export default function Navbar() {
                   ) : (
                     <div className="relative">
                       <a href="/auth">
-                        <Button ref={ref} style="primary">
+                        <Button ref={ref}>
                           Acessar Plataforma
                         </Button>
                       </a>
@@ -275,7 +275,7 @@ export default function Navbar() {
                   <Image
                     width={42}
                     height={42}
-                    src="/assets/img/logo_icon.svg"
+                    src="/assets/img/w3d-logo-symbol-ac.svg"
                   />
                   <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
                     web3dev
@@ -399,7 +399,7 @@ export default function Navbar() {
                               <Image
                                 width={42}
                                 height={42}
-                                src="/assets/img/logo_icon.svg"
+                                src="/assets/img/w3d-logo-symbol-ac.svg"
                               />
                               <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
                                 web3dev

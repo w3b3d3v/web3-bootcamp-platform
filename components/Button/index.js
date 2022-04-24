@@ -23,7 +23,6 @@ export const Button = React.forwardRef((
     }
     onClick={props?.onClick || null}
     >
-      {console.log(props.disabled)}
       {props?.children}
     </button>
   );
