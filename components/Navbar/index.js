@@ -477,13 +477,13 @@ export default function Navbar() {
                                 }
                                 alt="profile-pic"
                               />
-                              <p className=" ml-2 text-base leading-4 text-gray-800">
-                                {user?.displayName ||
-                                  session?.user?.name ||
-                                  user?.uid}
-                              </p>
+                              
                             </a>
                           </div>
+                          <p className=" ml-2 text-base leading-4 dark:text-white-100 text-gray-800">
+                                {user?.name ||
+                                  session?.user?.name}
+                              </p>
                           <ul className="flex">
                             <li className="cursor-pointer pt-5 pb-3 text-gray-800">
                               <button onClick={logout}>
