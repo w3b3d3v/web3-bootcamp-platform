@@ -64,13 +64,11 @@ function Profile() {
         <title>Perfil - Bootcamp Web3Dev</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <main className='container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0'>
-        <div className='shadow-md mb-3 mt-6 p-3 rounded-lg shadow-green-400'>
-          <div>Informações Gerais</div>
-          <form className='flex flex-row'>
+      <main className='container mx-auto mt-16 px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0'>
+        <div className=' rounded-lg bg-white-100 shadow-xl dark:bg-black-200 shadow-md mb-3 mt-6 p-3 shadow-green-400'>
+          <form className='flex flex-col lg:flex-row'>
             <div>
-              <br />
-              <div>
+              <div className='p-2'>
                 <div>
                   Nome:
                   <div>
@@ -78,8 +76,7 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <br />
-              <div>
+              <div className='p-2'>
                 <div>
                   Email:
                   <div>
@@ -88,10 +85,8 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <br />
             <div>
-
-              <div className='mt-6 ml-5'>
+              <div className='p-2'>
                 <div>
                   LinkedIn:
                   <div>
@@ -99,7 +94,7 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className='mt-6 ml-5'>
+              <div className='p-2'>
                 <div>
                   GitHub:
                   <div>
@@ -109,7 +104,7 @@ function Profile() {
               </div>
             </div>
             <div>
-              <div className='mt-6 ml-5'>
+              <div className='p-2'>
                 <div>
                   Twitter:
                   <div>
@@ -117,7 +112,7 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className='mt-6 ml-5'>
+              <div className='p-2'>
                 <div>
                   Site pessoal:
                   <div>
@@ -127,7 +122,7 @@ function Profile() {
               </div>
             </div>
             <div>
-              <div className='mt-6 ml-5'>
+              <div className='p-2'>
                 <div>
                   Biografia:
                   <div>
@@ -136,13 +131,12 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className='flex items-end ml-5'>
+          </form>
+            <div className='flex px-2 items-start lg:items-end'>
               <div className='flex justify-center items-center'>
                 <Button onClick={updateUserData}>Salvar</Button>
               </div>
             </div>
-          </form>
-          <br />
         </div>
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="item flex-grow">
