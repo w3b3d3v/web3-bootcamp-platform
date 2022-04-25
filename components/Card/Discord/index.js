@@ -12,20 +12,20 @@ export default function DiscordCard() {
   const [discordConnected, setDiscordConnected] = useState(false)
   const [user, setUser] = useState()
   const ref = React.createRef();
-  useEffect(async() => {
+  useEffect(async () => {
     onAuthStateChanged(auth, (async user => {
-      if (user){
-        const userSession = await getUserFromFirestore(user)
-        setUser(userSession)
-        if (session?.discord && !userSession.discord && auth.currentUser?.uid) {
-          await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
-          setDiscordConnected(true)
-        }else if (userSession?.discord) setDiscordConnected(true) 
-      }else {
-        console.log('user not logged')
+      if(user) {
+        const userSession = await getUserFromFirestore(user);
+        setUser(userSession);
+        if(session && session.discord && !userSession.discord && auth.currentUser?.uid) {
+          await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid);
+          setDiscordConnected(true);
+        } else if(userSession?.discord) setDiscordConnected(true);
+      } else {
+        console.log('user not logged');
       }
-    }))
-    }, [session])
+    }));
+  }, [session])
 
     //const disconnectDiscord = async () => {
     //  if (auth.currentUser) {
@@ -64,7 +64,7 @@ export default function DiscordCard() {
             <div className="flex">
               <div className="px-6 py-5">
                 <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                  ✅ {user?.discord?.username} Conectado
+                  ✅ {user?.discord?.username || session?.discord.username} Conectado
                 </p>
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Estamos ansiosos para te conhecer, venha dar uma olhada!

@@ -42,8 +42,6 @@ function Course({ course }) {
   }, [cohorts])
 
   useEffect(async () => {
-    console.log(auth.currentUser)
-    console.log(user)
     if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
       setUser(userSession);
@@ -63,7 +61,6 @@ function Course({ course }) {
     }
   })
   const registerUserInCohort = async () => {
-    console.log(user)
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
     setRegisterOnCohort(true)
   }

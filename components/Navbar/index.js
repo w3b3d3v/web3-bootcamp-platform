@@ -211,8 +211,8 @@ export default function Navbar() {
                               <button
                                 className="ml-2 flex w-full items-start hover:underline"
                                 onClick={() => {
-                                  signOut({ redirect: false })
-                                  logout()
+                                  signOut({ redirect: false });
+                                  logout();
                                 }}
                               >
                                 Sair
