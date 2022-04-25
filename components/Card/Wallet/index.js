@@ -78,7 +78,7 @@ export default function WalletCard() {
                 projeto.
               </p>
               <div className="pt-4">
-                <Button ref={ref} onClick={() => handleConnectWallet()}>
+                <Button ref={ref} id='conectar-carteira' onClick={() => handleConnectWallet()}>
                   Conectar carteira
                 </Button>
               </div>
