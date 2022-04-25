@@ -9,8 +9,10 @@ export async function getAllCohorts() {
   querySnapshot.forEach((doc) => {
     const startDate = new Date(doc.data().startDate?.toDate())
     const endDate = new Date(doc.data().endDate?.toDate())
+    const kickoffStartTime = new Date(doc.data().kickoffStartTime?.toDate())
+    const kickoffEndTime = new Date(doc.data().kickoffEndTime?.toDate())
     const courseId = doc.data().course.path.split('/').pop()
-    list.push({ id: doc.id, courseId: courseId, startDate: startDate, endDate: endDate });
+    list.push({ id: doc.id, courseId: courseId, startDate: startDate, endDate: endDate, kickoffStartTime: kickoffStartTime, kickoffEndTime: kickoffEndTime });
   });
   return list;
 }
