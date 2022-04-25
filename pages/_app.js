@@ -5,14 +5,14 @@ import { ThemeProvider } from 'next-themes'
 import { AuthProvider } from '../context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
 //import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
-import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
+import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
 import 'regenerator-runtime/runtime'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }) {
-  const supportedChainIds = [80001, 4, 137, 1, 250, 43114, ]
+  const supportedChainIds = [80001, 4, 137, 1, 250, 43114]
 
   const connectors = {
     injected: {},
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
                 name="viewport"
                 content="initial-scale=1.0, width=device-width"
               />
-              <link rel="icon" href="/favicon.svg" />
+              <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
             </Head>
             <Component {...pageProps} />
             <ToastContainer />
