@@ -68,7 +68,7 @@ export default function ShareLinkCard({course}) {
             <div className="mt-4 flex flex-col items-center">
               <Image src='/assets/img/twitter-logo.png' width='20' height='20' />
               <a className="twitter-share-button"
-                href={`https://twitter.com/intent/tweet?text=Novo curso 100% gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi,e você? ${shortenedUrl}`}
+                href={`https://twitter.com/intent/tweet?text=Novo curso 100%25 gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi, e você?${shortenedUrl}`}
                 target="_blank"
                 data-size="large">
                 Compartilhar</a>
