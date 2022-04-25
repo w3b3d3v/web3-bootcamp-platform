@@ -61,10 +61,7 @@ export default function Navbar() {
                           <div className="focus:border-white flex w-12 cursor-pointer rounded border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                             <img
                               className="h-10 w-10 rounded-full object-cover"
-                              src={
-                                user?.photoUrl ||
-                                '/assets/img/default_avatar.svg'
-                              }
+                              src={ user?.photoUrl }
                               alt="profile-pic"
                             />
                           </div>
@@ -226,11 +223,7 @@ export default function Navbar() {
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
                             className="h-10 w-10 rounded-full object-cover"
-                            src={
-                              user?.photoUrl ||
-                              session?.user?.image ||
-                              '/assets/img/default_avatar.svg'
-                            }
+                            src={ user?.photoUrl }
                             alt="profile-pic"
                           />
                         </div>
@@ -309,11 +302,7 @@ export default function Navbar() {
                     <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src={
-                          user?.photoUrl ||
-                          session?.user?.image ||
-                          '/assets/img/default_avatar.svg'
-                        }
+                        src={ user?.photoUrl }
                         alt="profile-pic"
                       />
                     </div>
@@ -468,11 +457,7 @@ export default function Navbar() {
                             <a href="/profile">
                               <img
                                 className="h-10 w-10 rounded-full object-cover"
-                                src={
-                                  user?.photoUrl ||
-                                  session?.user?.image ||
-                                  '/assets/img/default_avatar.svg'
-                                }
+                                src={ user?.photoUrl }
                                 alt="profile-pic"
                               />
                             </a>
