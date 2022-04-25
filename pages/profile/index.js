@@ -70,7 +70,7 @@ function Profile() {
       </Head>
       <main className="container mx-auto mt-16 px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <div className=" mb-3 mt-6 rounded-lg bg-white-100 p-3 shadow-xl shadow-md shadow-green-400 dark:bg-black-200">
-          <form className="flex flex-col lg:flex-row">
+          <form id="update-profile-form" className="flex flex-col lg:flex-row">
             <div>
               <div className="p-2">
                 <div>
@@ -78,7 +78,7 @@ function Profile() {
                   <div>
                     <input
                       name="name"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setName(e.target.value)}
                       defaultValue={user?.name}
                     />
@@ -91,7 +91,7 @@ function Profile() {
                   <div>
                     <input
                       name="email"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setEmail(e.target.value)}
                       defaultValue={user?.email}
                     />
@@ -106,7 +106,7 @@ function Profile() {
                   <div>
                     <input
                       name="linkedIn"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setLinkedIn(e.target.value)}
                       defaultValue={linkedIn}
                     />
@@ -118,8 +118,8 @@ function Profile() {
                   GitHub:
                   <div>
                     <input
-                      name="linkedIn"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      name="github"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setGithub(e.target.value)}
                       defaultValue={github}
                     />
@@ -133,8 +133,8 @@ function Profile() {
                   Twitter:
                   <div>
                     <input
-                      name="linkedIn"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      name="twitter"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setLinkedIn(e.target.value)}
                       defaultValue={twitter}
                     />
@@ -146,8 +146,8 @@ function Profile() {
                   Site pessoal:
                   <div>
                     <input
-                      name="linkedIn"
-                      className="mt-1 rounded-lg border-2 p-1 text-white-100 dark:bg-black-200"
+                      name="personal-website"
+                      className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
                       onChange={(e) => setLinkedIn(e.target.value)}
                       defaultValue={personalWebsite}
                     />
@@ -162,7 +162,7 @@ function Profile() {
                   <div>
                     <textarea
                       name="bio"
-                      className="mt-1 rounded-lg border-2 p-2 text-white-100 dark:bg-black-200"
+                      className="mt-1 rounded-lg border-2 p-2 text-black-100 dark:text-white-100 dark:bg-black-200"
                       rows="4"
                       onChange={(e) => setBio(e.target.value)}
                       placeholder="Escreva um resumo sobre você..."
@@ -175,7 +175,7 @@ function Profile() {
           </form>
           <div className="flex items-start px-2 lg:items-end">
             <div className="flex items-center justify-center">
-              <Button onClick={updateUserData}>Salvar</Button>
+              <Button id='update-profile' onClick={updateUserData}>Salvar</Button>
             </div>
           </div>
         </div>
