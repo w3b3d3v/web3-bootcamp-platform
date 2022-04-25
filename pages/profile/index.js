@@ -49,7 +49,6 @@ function Profile() {
   }, [])
 
   const updateUserData = async () => {
-    console.log(user)
     const userData = {
       name: user.name,
       email: user.email,

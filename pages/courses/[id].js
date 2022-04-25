@@ -85,7 +85,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {!user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
+        {user?.cohorts.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
           <>
             <div className="flex ">
               <div onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">
