@@ -164,7 +164,7 @@ export default function Navbar() {
                         src="/assets/img/w3d-logo-symbol-ac.svg"
                       />
                       <h2 className="hidden pl-3 text-xl font-bold leading-normal sm:block">
-                        web3dev
+                        WEB3DEV
                       </h2>
                     </>
                   </a>
@@ -256,9 +256,7 @@ export default function Navbar() {
                   ) : (
                     <div className="relative">
                       <a href="/auth">
-                        <Button ref={ref}>
-                          Acessar Plataforma
-                        </Button>
+                        <Button ref={ref}>Acessar Plataforma</Button>
                       </a>
                     </div>
                   )}
@@ -278,7 +276,7 @@ export default function Navbar() {
                     src="/assets/img/w3d-logo-symbol-ac.svg"
                   />
                   <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
-                    web3dev
+                    WEB3DEV
                   </h2>
                 </>
               </a>
@@ -402,7 +400,7 @@ export default function Navbar() {
                                 src="/assets/img/w3d-logo-symbol-ac.svg"
                               />
                               <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
-                                web3dev
+                                WEB3DEV
                               </h2>
                             </>
                           </a>
@@ -477,13 +475,11 @@ export default function Navbar() {
                                 }
                                 alt="profile-pic"
                               />
-                              
                             </a>
                           </div>
-                          <p className=" ml-2 text-base leading-4 dark:text-white-100 text-gray-800">
-                                {user?.name ||
-                                  session?.user?.name}
-                              </p>
+                          <p className=" ml-2 text-base leading-4 text-gray-800 dark:text-white-100">
+                            {user?.name || session?.user?.name}
+                          </p>
                           <ul className="flex">
                             <li className="cursor-pointer pt-5 pb-3 text-gray-800">
                               <button onClick={logout}>

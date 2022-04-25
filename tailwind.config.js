@@ -5,11 +5,11 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          100: '#8BFF1F',
-          200: '#76F500',
-          300: '#6CE200',
-          400: '#458F00',
-          500: '#1E3D00',
+          100: '#99E24D',
+          200: '#4D98E2',
+          300: '#4CE577',
+          400: '#795CE5',
+          500: '#263326',
         },
         white: {
           100: '#FFFFFF',
@@ -25,7 +25,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Lato', 'sans-serif'],
+      sans: ['Barlow', 'sans-serif'],
     },
   },
 
