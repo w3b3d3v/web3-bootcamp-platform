@@ -27,7 +27,7 @@ export default function Home() {
           <br />
           <div className='flex justify-start w-full'>
             <a href="/courses/Solidity_And_Smart_Contracts">
-              <Button ref={ref}>Quero me inscrever!</Button>
+              <Button id="quero-me-inscrever" ref={ref}>Quero me inscrever!</Button>
             </a>
           </div>
           <br />

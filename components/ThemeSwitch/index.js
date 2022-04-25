@@ -17,9 +17,9 @@ export default function ThemeSwitch() {
       className="bg-black text-white dark:bg-white dark:text-black rounded-full p-2"
     >
       {theme === 'light' ? (
-        <MoonIcon className="h-5 w-5 text-primary-300" />
+        <MoonIcon id='mudar-para-tema-escuro' className="h-5 w-5 text-primary-300" />
       ) : (
-        <SunIcon className="h-5 w-5 text-primary-300" />
+        <SunIcon id='mudar-para-tema-claro' className="h-5 w-5 text-primary-300" />
       )}
     </button>
   )
