@@ -18,7 +18,7 @@ export default function ShareLinkCard({course}) {
       if (user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        setReferralLink(`https://web3-bootcamp-platform.vercel.app/courses/${course}/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
+        setReferralLink(`${window.location.href}/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
       }
     })
   },[auth.currentUser]);
@@ -44,10 +44,11 @@ export default function ShareLinkCard({course}) {
         .catch(err => console.error(err));
     }
   }, [referralLink])
+
   const shareReferralLink = () => {
-    navigator.clipboard.writeText(referralLink);
+    navigator.clipboard.writeText(shortenedUrl);
     toast.success('Link copiado');
-    return referralLink;
+    return shortenedUrl;
   }
   
   return (
