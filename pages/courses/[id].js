@@ -42,6 +42,8 @@ function Course({ course }) {
   }, [cohorts])
 
   useEffect(async () => {
+    console.log(auth.currentUser)
+    console.log(user)
     if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
       setUser(userSession);
@@ -61,7 +63,8 @@ function Course({ course }) {
     }
   })
   const registerUserInCohort = async () => {
-    await registerUserInCohortInFirestore(cohort.id,user.uid)
+    console.log(user)
+    await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
     setRegisterOnCohort(true)
   }
 
@@ -85,7 +88,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {user?.cohorts.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
+        {user?.cohorts?.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
           <>
             <div className="flex ">
               <div onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">

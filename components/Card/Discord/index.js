@@ -20,23 +20,23 @@ export default function DiscordCard() {
         if (session?.discord && !userSession.discord && auth.currentUser?.uid) {
           await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
           setDiscordConnected(true)
-        }else if (userSession.discord) setDiscordConnected(true) 
+        }else if (userSession?.discord) setDiscordConnected(true) 
       }else {
         console.log('user not logged')
       }
     }))
     }, [session])
 
-    const disconnectDiscord = async () => {
-      if (auth.currentUser) {
-        const userSession = await getUserFromFirestore(auth.currentUser)
-        if (userSession.discord) {
-          signOut({redirect: false})
-          updateUserDiscordIdinFirestore(null, auth.currentUser.uid)
-          setDiscordConnected(false)
-        }
-      }
-    }
+    //const disconnectDiscord = async () => {
+    //  if (auth.currentUser) {
+    //    const userSession = await getUserFromFirestore(auth.currentUser)
+    //    if (userSession?.discord) {
+    //      signOut({redirect: false})
+    //      updateUserDiscordIdinFirestore(null, auth.currentUser.uid)
+    //      setDiscordConnected(false)
+    //    }
+    //  }
+    //}
 
   return (
     <>
