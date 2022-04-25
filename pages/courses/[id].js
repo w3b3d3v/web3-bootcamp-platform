@@ -140,7 +140,6 @@ function Course({ course }) {
           </>
         }
         {
-          
           timeLeft == null && user?.cohorts?.map(cohort => cohort.path).includes(course.id) &&
           <>
             <div className="container my-8">

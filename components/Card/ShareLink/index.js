@@ -68,7 +68,7 @@ export default function ShareLinkCard({course}) {
             <div className="mt-4 flex flex-col items-center">
               <Image src='/assets/img/twitter-logo.png' width='20' height='20' />
               <a className="twitter-share-button"
-                id={`compartilhar-twitter ${course}`}
+                id={`compartilhar-twitter`}
                 href={`https://twitter.com/intent/tweet?text=Novo curso 100%25 gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi, e você? ${shortenedUrl}`}
                 target="_blank"
                 data-size="large">
@@ -76,12 +76,12 @@ export default function ShareLinkCard({course}) {
             </div>
             <div className="mt-4 flex flex-col items-center">
               <Image src='/assets/img/LinkedIn_logo.png' width='20' height='20' />
-              <a id={`compartilhar-linkedin ${course}`} className="share-linkedin" href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortenedUrl}`} target="_blank" rel="noopener">
+              <a id={`compartilhar-linkedin`} className="share-linkedin" href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortenedUrl}`} target="_blank" rel="noopener">
               Compartilhar
               </a>
             </div>
             <div className="mt-4">
-              <Button ref={ref} id={`copiar-link ${course}`} onClick={() => shareReferralLink()}>Copiar Link</Button>
+              <Button ref={ref} id={`copiar-link`} onClick={() => shareReferralLink()}>Copiar Link</Button>
             </div>
           </div>
         </div>
