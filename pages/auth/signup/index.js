@@ -197,13 +197,6 @@ function signUpPage() {
               <p className="ml-4 text-base font-medium ">Entrar com Google</p>
             </button>
           </div>
-          <div className="ml-8 mt-6 md:mt-0 md:w-1/2 lg:ml-16 xl:w-1/3">
-            <div className="mt-8 flex items-start">
-              <p className="pl-2.5 text-xl leading-7 text-gray-600 sm:text-2xl">
-                Vamos inserir algo aqui
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </>
