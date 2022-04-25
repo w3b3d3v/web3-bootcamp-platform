@@ -37,11 +37,18 @@ export function withProtected(Component) {
     useEffect(() => {
       if (router) {
         if (!auth || !auth.user) {
-          void router.push({
-            pathname: '/auth',
-            query: { from: router.pathname },
-          })
-        } else {
+          if(router.query.id) {
+            void router.push({
+              pathname: '/auth/signup',
+              query: { from: router.pathname },
+            })
+          }else {
+            void router.push({
+              pathname: '/auth',
+              query: { from: router.pathname },
+            })
+          }
+          } else {
           setLoading(false)
         }
       }
