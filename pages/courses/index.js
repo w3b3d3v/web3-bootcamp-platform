@@ -31,6 +31,7 @@ function Courses({ allCourses }) {
                 desc={c?.description}
                 difficulty={c?.difficulty}
                 duration={c?.duration}
+                tags={c.tags}
               />
             )
           })}

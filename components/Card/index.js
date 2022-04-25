@@ -5,7 +5,7 @@ import { Button } from '../../components/Button'
 import { ClockIcon } from '@heroicons/react/solid'
 
 export default function Card(props) {
-  const { title, img, desc, duration, difficulty, active, children, id } = props
+  const { title, img, desc, duration, difficulty, active, children, id, tags } = props
   const ref = React.createRef();
   return (
     <>
@@ -74,21 +74,30 @@ export default function Card(props) {
             <p className="mt-2 text-xs text-gray-600">
               {desc.substring(0, 120) + '...'}
             </p>
-            <div className="mt-4 flex">
-              <div>
-                <p className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-600">
-                  Tags
-                </p>
-              </div>
-              <div className="pl-2">
-                <p className="rounded bg-gray-200 py-1 px-2 text-xs text-gray-600">
-                  Tags
-                </p>
-              </div>
+            <div className="mt-4 flex items-center">
+              {tags?.map((tag) => {
+                return (
+                  <div
+                    key={tag}
+                    className="rounded-full bg-gray-200 py-1.5 px-6 mr-2"
+                  >
+                    <p className="text-xs font-bold text-gray-500">{tag}</p>
+                    </div>
+                )
+              })}
+               {active ? (
+                <Link href={`/courses/${id}`}>
+                  <Button ref={ref}>Ver projeto</Button>
+                </Link>
+              ) : (
+                <div className=" cursor-default">
+                  <Button ref={ref} disabled>Em breve</Button>
+                </div>
+              )}
             </div>
-            <div className="flex items-center justify-between pt-6 pb-4">
+            {/*<div className="flex items-center justify-between pt-6 pb-4">
               <div className="flex-no-wrap flex items-center">
-                <div className="h-8 w-8 rounded-md bg-cover bg-center">
+              <div className="h-8 w-8 rounded-md bg-cover bg-center">
                   <img
                     src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_0.png"
                     alt="User avatar"
@@ -122,21 +131,13 @@ export default function Card(props) {
                     alt="User avatar"
                     className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover object-center shadow dark:border-gray-700"
                   />
-                </div>
+                </div>*/}
+             
               </div>
-              {active ? (
-                <Link href={`/courses/${id}`}>
-                  <Button ref={ref}>Ver projeto</Button>
-                </Link>
-              ) : (
-                <div className=" cursor-default">
-                  <Button ref={ref} disabled>Em breve</Button>
-                </div>
-              )}
             </div>
           </div>
-        </div>
-      </div>
+        {/*</div>
+      </div>*/}
     </>
   )
 }
