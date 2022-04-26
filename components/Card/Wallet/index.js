@@ -39,7 +39,11 @@ export default function WalletCard() {
       toast.error('Por favor instale a Metamask', toastParameters);
     }
   };
-
+  const handleDisconnect = async() => {
+    if(auth.currentUser) await updateUserWalletInFirestore(null, auth.currentUser?.uid);
+    setUserAddress('');
+    toast.success('Desconectado com sucesso!', toastParameters)
+  }
   useEffect(async () => {
     if(auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser);
@@ -59,9 +63,9 @@ export default function WalletCard() {
               <p className="pt-2 text-xs flex-wrap leading-5 text-gray-500 dark:text-gray-400">
                 Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
-              {/*<div className="pt-4">
+              <div className="pt-4">
                 <a className='cursor-pointer' onClick={() => handleDisconnect()}>Desconectar</a>
-              </div>*/}
+              </div>
             </div>
           </div>
         </div>
