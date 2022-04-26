@@ -52,7 +52,7 @@ function Course({ course }) {
     if (document) {
       const userCohortStartDate = new Date(cohort?.startDate).getTime();
       const interval = setInterval(function () {
-        const ct = countdown(userCohortStartDate);
+        const ct = countdown(null);
         setTimeLeft(ct);
         if (!ct) {
           clearInterval(interval);
@@ -85,14 +85,14 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {user?.cohorts?.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.path == cohort.id) ?
+        {user?.cohorts?.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.id == course.id) ?
           <>
             <button id={`cadastrar-se-cohort-curso`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
               <ComingSoonCard />
             </div>
           </>
-          :
+          : timeLeft != null ?
           <>
             <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
               <div className="flex flex-col w-3/4 justify-center items-center">
@@ -134,10 +134,20 @@ function Course({ course }) {
             </div>
             <br />
           </>
-        }
-        {
-          timeLeft == null && user?.cohorts?.map(cohort => cohort.path).includes(course.id) &&
+          :
+          timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id) &&
           <>
+           <div className="flex flex-col lg:flex-row gap-8">
+              <div className="item flex-grow">
+                <DiscordCard />
+              </div>
+              <div className="item flex-grow">
+                <WalletCard />
+              </div>
+            </div>
+            <div className="flex pt-6">
+              <ShareLinkCard course={course.id}/>
+            </div>
             <div className="container my-8">
               <Tabs course={course} />
 
@@ -146,7 +156,7 @@ function Course({ course }) {
                   Object.keys(course?.sections).sort().map((section) => {
                     return (
                       <div key={section}>
-                        <span className="mb-4 font-bold">
+                        <span id={section} className="mb-4 font-bold">
                           {section?.replace('Section_', 'Sessão ')}
                         </span>
                         <ul className="mt-2 mb-8 flex flex-col">
