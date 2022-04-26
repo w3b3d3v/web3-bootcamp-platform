@@ -50,13 +50,13 @@ function Profile() {
 
   const updateUserData = async () => {
     const userData = {
-      name: user.name,
-      email: user.email,
-      bio: bio,
-      github,
-      twitter,
-      personalWebsite,
-      linkedIn,
+      name: name || user.name,
+      email: email || user.email,
+      bio: bio || user.bio,
+      github: github || user.github,
+      twitter: twitter || user.twitter,
+      personalWebsite: personalWebsite || user.personalWebsite,
+      linkedIn: linkedIn || user.linkedIn,
     }
     await updateUserInFirestore(userData, user.uid).then(() => {
       toast.success('Dados atualizados com sucesso!')
@@ -135,7 +135,7 @@ function Profile() {
                     <input
                       name="twitter"
                       className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
-                      onChange={(e) => setLinkedIn(e.target.value)}
+                      onChange={(e) => setTwitter(e.target.value)}
                       defaultValue={twitter}
                     />
                   </div>
@@ -148,7 +148,7 @@ function Profile() {
                     <input
                       name="personal-website"
                       className="mt-1 rounded-lg border-2 p-1 text-black-100 dark:text-white-100 dark:bg-black-200"
-                      onChange={(e) => setLinkedIn(e.target.value)}
+                      onChange={(e) => setPersonalWebsite(e.target.value)}
                       defaultValue={personalWebsite}
                     />
                   </div>
