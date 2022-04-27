@@ -52,7 +52,7 @@ function Course({ course }) {
     if (document) {
       const userCohortStartDate = new Date(cohort?.startDate).getTime();
       const interval = setInterval(function () {
-        const ct = countdown(null);
+        const ct = countdown(userCohortStartDate);
         setTimeLeft(ct);
         if (!ct) {
           clearInterval(interval);
