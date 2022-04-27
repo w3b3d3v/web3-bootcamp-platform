@@ -18,7 +18,7 @@ export default function ShareLinkCard({course}) {
       if (user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        setReferralLink(`${window.location.href}/courses/Solidity_And_Smart_Contracts/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
+        setReferralLink(`${window.location.href}/?utm_source=bootcamp&utm_medium=social&utm_content=${user.uid}`)
       }
     })
   },[auth.currentUser]);
