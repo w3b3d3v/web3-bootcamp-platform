@@ -30,7 +30,11 @@ export default function ShareLinkCard({ course }) {
 
   useEffect(() => {
     if (user && document && referralLink) {
-      fetch(`https://api.shrtco.de/v2/shorten?url=${referralLink}`)
+      fetch(
+        `https://api.shrtco.de/v2/shorten?${new URLSearchParams({
+          url: referralLink,
+        }).toString()}`
+      )
         .then((response) => response.json())
         .then((response) => {
           setShortenedUrl(response.result.short_link)
