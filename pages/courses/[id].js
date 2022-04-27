@@ -85,7 +85,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {user?.cohorts?.length == 0 || !user?.cohorts?.map(cohort => cohort).map(item => item.cohort.id == course.id) ?
+        {(!user?.cohorts || user?.cohorts?.length == 0) || user?.cohorts?.map(cohort => cohort).map(item => item.id !== course.id ).pop() ?
           <>
             <button id={`cadastrar-se-cohort-curso`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
@@ -105,8 +105,8 @@ function Course({ course }) {
                     event={{
                       title: course?.title,
                       description: course?.description,
-                      startTime: cohort.kickoffStartTime,
-                      endTime: cohort.kickoffEndTime,
+                      startTime: cohort?.kickoffStartTime,
+                      endTime: cohort?.kickoffEndTime,
                       location: "https://discord.web3dev.com.br"
                     }}>
                       <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
