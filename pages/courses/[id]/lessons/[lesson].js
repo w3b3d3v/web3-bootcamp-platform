@@ -1,11 +1,16 @@
 import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../../../../components/layout'
-import { withProtected } from '../../../../hooks/route'
+import { Button } from '../../../../components/Button';
+import Layout from '../../../../components/layout';
+import Modal from '../../../../components/Modal';
+import { withProtected } from '../../../../hooks/route';
 import { getCourse } from '../../../../lib/course';
 import { getAllCourses } from '../../../../lib/courses';
+import { useState } from 'react';
 
 function Lessons({ course, lesson }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <Layout>
       <Head>
@@ -20,33 +25,44 @@ function Lessons({ course, lesson }) {
                 <h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>
                 <h3>{l?.lesson.title}</h3>
                 <br />
-                <ReactMarkdown>{l?.markdown}</ReactMarkdown>
+                <ReactMarkdown children={l?.markdown}/>
+                <div className='flex justify-center'>
+                  <Button customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>Enviar lição</Button>
+                  {open &&
+                    <Modal
+                      openExternal={open}
+                      onClose={() => setOpen(false)}
+                      lesson={lesson}
+                      course={course}
+                    />
+                  }
+                </div>
               </div>
-            )
+            );
           })}
       </div>
     </Layout>
-  )
+  );
 }
 export async function getStaticProps({ params }) {
-  const course = await getCourse(params.id)
-  const lesson = params.lesson
+  const course = await getCourse(params.id);
+  const lesson = params.lesson;
   return {
     props: {
       course,
       lesson
     },
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  const lessons = (await getAllCourses()).map((c) => c.active && c.sections ? (Object.values(c.sections).flat().map(lesson => /*Object.assign({}, {lesson:*/`/courses/${c.id}/lessons/${lesson.file}`/*})*/)  ): `/courses/${c.id}/lessons/Lesson_1_Welcome.md`).flat()
+  const lessons = (await getAllCourses()).map((c) => c.active && c.sections ? (Object.values(c.sections).flat().map(lesson => `/courses/${c.id}/lessons/${lesson.file}`)) : `/courses/${c.id}/lessons/Lesson_1_Welcome.md`).flat();
   return {
     paths: [
       ...lessons,
     ],
     fallback: false,
-  }
+  };
 }
 
-export default Lessons
+export default Lessons;
