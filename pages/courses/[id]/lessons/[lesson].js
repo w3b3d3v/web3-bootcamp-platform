@@ -22,10 +22,10 @@ function Lessons({ course, lesson }) {
             return (
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
-                <h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>
+                {/*<h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>*/}
                 <h3>{l?.lesson.title}</h3>
                 <br />
-                <ReactMarkdown children={l?.markdown}/>
+                <ReactMarkdown children={l?.markdown.replace(/\n/g, '\n\n&#160;\n\n')}/>
                 <div className='flex justify-center'>
                   <Button customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>Enviar lição</Button>
                   {open &&
