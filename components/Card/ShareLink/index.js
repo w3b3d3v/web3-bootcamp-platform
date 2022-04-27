@@ -18,28 +18,18 @@ export default function ShareLinkCard({course}) {
       if (user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        setReferralLink(`${window.location.href}/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
+        setReferralLink(`${window.location.href}/courses/Solidity_And_Smart_Contracts/?utm_medium=social&utm_content=${user.uid}&utm_source=bootcamp`)
       }
     })
   },[auth.currentUser]);
 
   useEffect(() => {
     if(user && document && referralLink) {
-      const options = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          apikey: 'cd12d4c590a24e03bac92607a7e9cdf0'
-        },
-        body: JSON.stringify({
-          destination: referralLink
-        })
-      };
-      fetch('https://api.rebrandly.com/v1/links', options)
+      fetch(`https://api.shrtco.de/v2/shorten?url=${referralLink}`)
         .then(response => response.json())
         .then(response => {
-          setShortenedUrl(response.shortUrl)
+          setShortenedUrl(response.result.short_link)
+          console.log(response.result.short_link)
         })
         .catch(err => console.error(err));
     }
