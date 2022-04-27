@@ -64,7 +64,11 @@ function Course({ course }) {
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
     setRegisterOnCohort(true)
   }
-
+  const userIsRegisteredInCohort = () => {
+    return !!user?.cohorts
+           ?.map(cohort => cohort)
+           .every(item => item.id !== course.id);
+  }
   return (
     <Layout>
       <Head>
@@ -85,7 +89,7 @@ function Course({ course }) {
             </div>
           </div>
         </div>
-        {(!user?.cohorts || user?.cohorts?.length == 0) || user?.cohorts?.map(cohort => cohort).map(item => item.id !== course.id ).pop() ?
+        {(!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() ?
           <>
             <button id={`cadastrar-se-cohort-curso`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
