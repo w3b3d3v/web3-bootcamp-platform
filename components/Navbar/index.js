@@ -201,28 +201,26 @@ export default function Navbar() {
                       >
                         {profile && (
                           <ul className="absolute right-0 top-0 z-50 mt-16 w-40 rounded bg-white-100 p-2 shadow dark:bg-black-200">
-                            <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
-                              <div className="flex items-center">
-                                <Link href="/profile">
-                                  <a id='abrirl-perfil' className="ml-2 flex w-full items-start">
-                                    Meu perfil
-                                  </a>
-                                </Link>
-                              </div>
-                            </li>
+                            <Link href="/profile">
+                              <a id='abrirl-perfil' className="ml-2 flex w-full items-start">
+                                <li className="cursor-pointer list-none py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
+                                  Meu perfil
+                                </li>
+                              </a>
+                            </Link>
 
-                            <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
-                              <button
-                                id='sair-do-perfil'
-                                className="ml-2 flex w-full items-start hover:underline"
-                                onClick={() => {
-                                  signOut({ redirect: false });
-                                  logout();
-                                }}
-                              >
+                            <button
+                              id='sair-do-perfil'
+                              className="flex w-full bg-transparent border-transparent cursor-pointer items-start hover:underline text-white-100"
+                              onClick={() => {
+                                signOut({ redirect: false });
+                                logout();
+                              }}
+                            >
+                              <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
                                 Sair
-                              </button>
-                            </li>
+                              </li>
+                            </button>
                           </ul>
                         )}
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">

@@ -38,7 +38,6 @@ export default function ShareLinkCard({ course }) {
         .then((response) => response.json())
         .then((response) => {
           setShortenedUrl(response.result.short_link)
-          console.log(response.result.short_link)
         })
         .catch((err) => console.error(err))
     }
@@ -72,7 +71,7 @@ export default function ShareLinkCard({ course }) {
                 height="20"
               />
               <a
-                className="twitter-share-button"
+                className="twitter-share-button text-black-100 dark:text-white-100"
                 id={`compartilhar-twitter`}
                 href={`https://twitter.com/intent/tweet?text=Novo curso 100%25 gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi, e você? ${shortenedUrl}`}
                 target="_blank"
@@ -89,7 +88,7 @@ export default function ShareLinkCard({ course }) {
               />
               <a
                 id={`compartilhar-linkedin`}
-                className="share-linkedin"
+                className="share-linkedin text-black-100 dark:text-white-100"
                 href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortenedUrl}`}
                 target="_blank"
                 rel="noopener"

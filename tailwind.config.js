@@ -28,6 +28,8 @@ module.exports = {
       sans: ['Barlow', 'sans-serif'],
     },
   },
-
+  corePlugins: {
+    preflight: false,
+  },
   plugins: [],
 }

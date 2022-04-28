@@ -7,10 +7,8 @@ import { withProtected } from '../../../../hooks/route';
 import { getCourse } from '../../../../lib/course';
 import { getAllCourses } from '../../../../lib/courses';
 import { useState } from 'react';
-
 function Lessons({ course, lesson }) {
   const [open, setOpen] = useState(false);
-
   return (
     <Layout>
       <Head>
@@ -25,7 +23,7 @@ function Lessons({ course, lesson }) {
                 {/*<h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>*/}
                 <h3>{l?.lesson.title}</h3>
                 <br />
-                <ReactMarkdown children={l?.markdown.replace(/\n/g, '\n\n&#160;\n\n')}/>
+                <ReactMarkdown children={l?.markdown}/>
                 <div className='flex justify-center'>
                   <Button customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>Enviar lição</Button>
                   {open &&

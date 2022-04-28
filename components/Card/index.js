@@ -41,21 +41,21 @@ export default function Card(props) {
               </p>
             </div>
             {difficulty === 'Iniciante' ? (
-              <div className="rounded-full bg-green-200 py-1.5 px-6">
+              <div className="rounded-full bg-green-200 px-6">
                 <p className="text-xs font-bold text-green-500">{difficulty}</p>
               </div>
             ) : difficulty === 'Intermediário' ? (
-              <div className="rounded-full bg-yellow-200 py-1.5 px-6">
+              <div className="rounded-full bg-yellow-200 px-6">
                 <p className="text-xs font-bold text-yellow-500">
                   {difficulty}
                 </p>
               </div>
             ) : difficulty === 'Avançado' ? (
-              <div className="rounded-full bg-red-200 py-1.5 px-6">
+              <div className="rounded-full bg-red-200 px-6">
                 <p className="text-xs font-bold text-red-500">{difficulty}</p>
               </div>
             ) : (
-              <div className="rounded-full bg-gray-200 py-1.5 px-6">
+              <div className="rounded-full bg-gray-200 px-6">
                 <p className="text-xs font-bold text-gray-500">{difficulty}</p>
               </div>
             )}
@@ -65,7 +65,7 @@ export default function Card(props) {
               <h2 className="text-lg font-semibold">
                 {active ? (
                   <Link href={`/courses/${id}`}>
-                    <a id={`acessar-curso-titulo ${id}`}>
+                    <a id={`acessar-curso-titulo`} className='text-black-100 dark:text-white-100'>
                     {title.substring(0, 60) + '...'}
                     </a>
                   </Link>
@@ -77,12 +77,12 @@ export default function Card(props) {
             <p className="mt-2 text-xs text-gray-600">
               {desc.substring(0, 120) + '...'}
             </p>
-            <div className="mt-4 flex items-center">
+            <div className="mt-4 flex items-center lg:justify-center lg:flex-wrap xl:flex-nowrap xl:justify-end">
               {tags?.map((tag) => {
                 return (
                   <div
                     key={tag}
-                    className="rounded-full bg-gray-200 py-1.5 px-6 mr-2"
+                    className="rounded-full bg-gray-200 px-6 mr-2"
                   >
                     <p className="text-xs font-bold text-gray-500">{tag}</p>
                     </div>
@@ -90,7 +90,7 @@ export default function Card(props) {
               })}
                {active ? (
                 <Link href={`/courses/${id}`}>
-                  <Button id={`acessar-curso-button ${id}`} ref={ref}>Ver projeto</Button>
+                  <Button id={`acessar-curso-button`} ref={ref}>Ver projeto</Button>
                 </Link>
               ) : (
                 <div className=" cursor-default">
@@ -98,49 +98,10 @@ export default function Card(props) {
                 </div>
               )}
             </div>
-            {/*<div className="flex items-center justify-between pt-6 pb-4">
-              <div className="flex-no-wrap flex items-center">
-              <div className="h-8 w-8 rounded-md bg-cover bg-center">
-                  <img
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_0.png"
-                    alt="User avatar"
-                    className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
-                  />
-                </div>
-                <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
-                  <img
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_1.png"
-                    alt="User avatar"
-                    className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
-                  />
-                </div>
-                <div className="-ml-2 h-8 w-8 rounded-md bg-cover bg-center">
-                  <img
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_2.png"
-                    alt="User avatar"
-                    className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover shadow dark:border-gray-700"
-                  />
-                </div>
-                <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
-                  <img
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_3.png"
-                    alt="User avatar"
-                    className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover object-center shadow dark:border-gray-700"
-                  />
-                </div>
-                <div className="-ml-2 h-8 w-8 rounded-md bg-cover">
-                  <img
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_4_4.png"
-                    alt="User avatar"
-                    className="border-white h-full w-full overflow-hidden rounded-full border-2 object-cover object-center shadow dark:border-gray-700"
-                  />
-                </div>*/}
-             
+            
               </div>
             </div>
           </div>
-        {/*</div>
-      </div>*/}
     </>
   )
 }

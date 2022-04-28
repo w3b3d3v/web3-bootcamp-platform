@@ -9,6 +9,7 @@ body {
   font-family: 'Barlow', sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -25,7 +26,4 @@ a:hover {
 .lp-gradient-text{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-html {
-  scroll-behavior: smooth;
 }

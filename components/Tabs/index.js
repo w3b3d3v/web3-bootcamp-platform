@@ -21,7 +21,7 @@ const Tabs = (course) => {
             <div key={section} onClick={() => toggle(section)} className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${activeTab === section ? 'bg-gray-200   dark:bg-black-100 dark:text-primary-100' : 'bg-white-100 dark:bg-black-200'
               }`}>
               <p className="m-0 p-0">
-                <a href={`#${section}`}>
+                <a href={`#${section}`} className=' text-black-100 dark:text-white-100'>
                   {section?.replace('Section_', 'Sessão ')}
                 </a>
               </p>
