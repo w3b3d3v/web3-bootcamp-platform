@@ -6,6 +6,13 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <meta property="og:title" content="WEB3DEV Bootcamp" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
+          <meta
+            property="og:image"
+            content="https://lh3.google.com/u/0/d/1_wzZkaLJxPfZ1WBpr1oYhDq9y9ofbD-W=w2488-h943-iv1"
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
