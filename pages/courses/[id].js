@@ -20,8 +20,9 @@ import ICalendarLink from "react-icalendar-link";
 import countdown from "../../lib/utils/countdown";
 import Head from 'next/head';
 import { getAllCohorts } from '../../lib/cohorts';
-
-function Course({ course }) {
+import { getLessonsSubmissions } from '../../lib/lessons';
+import Image from 'next/image';
+function Course({ course, lessonsSubmitted }) {
   if (!course.active) return <NotFound />
 
   const [user, setUser] = useState();
@@ -29,6 +30,7 @@ function Course({ course }) {
   const [timeLeft, setTimeLeft] = useState(0);
   const [cohorts, setCohorts] = useState();
   const [cohort, setCohort] = useState();
+  let counter = 0;
 
   useEffect(async () => {
     setCohorts(await getAllCohorts());
@@ -69,6 +71,14 @@ function Course({ course }) {
            ?.map(cohort => cohort)
            .every(item => item.id !== course.id);
   }
+  const userSubmissions = (allLessons) => {
+    const userSubmitted = lessonsSubmitted.map((lesson) => {
+      if (lesson.lesson == allLessons.file) return true
+      return false
+    })
+    if(userSubmitted.every(item => item === false)) counter++;
+  return userSubmitted.some(item => item === true)
+}
   return (
     <Layout>
       <Head>
@@ -115,11 +125,8 @@ function Course({ course }) {
                     }}>
                       <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
                     </ICalendarLink>
-
                   </button>
                 </div>
-
-
               </div>
             </div>
             <div className="flex flex-col lg:flex-row gap-8">
@@ -149,9 +156,6 @@ function Course({ course }) {
                 <WalletCard />
               </div>
             </div>
-            <div className="flex pt-6">
-              <ShareLinkCard course={course.id}/>
-            </div>
             <div className="container my-8">
               <Tabs course={course} />
 
@@ -163,7 +167,7 @@ function Course({ course }) {
                         <span id={section} className="mb-4 font-bold">
                           {section?.replace('Section_', 'Sessão ')}
                         </span>
-                        <ul className="mt-2 mb-8 flex flex-col">
+                        <ul className="mt-2 mb-8 flex flex-col list-none	">
                           {course?.sections[section].map((lesson) => {
                             return (
                               <li
@@ -176,17 +180,37 @@ function Course({ course }) {
                                       disabled
                                       type="radio"
                                       name="radio"
-                                      className="checkbox absolute h-full w-full appearance-none rounded-full border border-gray-400 checked:border-none focus:outline-none"
+                                      className="checkbox absolute h-full w-full mt-1 appearance-none rounded-full border border-gray-400 "
                                     />
-                                    <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
+                                    <div className="check-icon z-1 h-full w-full rounded-full">
+                                      {userSubmissions(lesson) ?
+                                      <Image
+                                      className="h-full w-full "
+                                      width={48}
+                                      height={48}
+                                      src={'/assets/img/checked-radio-button.png'}
+                                      alt={lesson.title}
+                                      />
+                                      :
+                                      <Image
+                                      className="h-full w-full"
+                                      width={48}
+                                      height={48}
+                                      src={'/assets/img/radio-button.png'}
+                                      alt={lesson.title}
+                                      />
+                                    }
+                                    </div>
                                   </div>
+                                  <div className={counter > 1 ? 'pointer-events-none' : ''}>
                                   <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
-                                    <a>
+                                    <a className='text-white-100'>
                                       <p className="m-0 p-0">
                                         {lesson.title}
                                       </p>
                                     </a>
                                   </Link>
+                                  </div>
                                 </div>
                               </li>
                             )
@@ -197,6 +221,9 @@ function Course({ course }) {
                   })}
               </div>
             </div>
+            <div className="flex pt-6 mb-3">
+              <ShareLinkCard course={course.id}/>
+            </div>
           </>
         }
       </div>
@@ -206,9 +233,11 @@ function Course({ course }) {
 
 export async function getStaticProps({ params }) {
   const course = await getCourse(params.id)
+  const lessonsSubmitted = await getLessonsSubmissions()
   return {
     props: {
       course,
+      lessonsSubmitted
     },
   }
 }
