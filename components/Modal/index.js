@@ -1,16 +1,48 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState, useEffect, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { auth } from '../../firebase/initFirebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getUserFromFirestore, submitLessonInFirestore } from '../../lib/user';
+import { getLessonsSubmissions } from '../../lib/lessons';
 
 export default function Modal({openExternal, onClose, course, lesson}) {
   const cancelButtonRef = useRef(null)
   const [lessonSubmission, setLessonSubmission] = useState()
+  const [cohort, setCohort] = useState()
+  const [user, setUser] = useState()
 
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, async user => {
+      if(user) {
+        const userSession = await getUserFromFirestore(user);
+        setUser(userSession);
+        let currentCohort = userSession.cohorts.find(c => c.id === course.id);
+        setCohort(currentCohort.cohort.id);
+      }
+    }
+    );
+  }, []);
+
+  const getSection = () => {
+    const section = Object.entries(course.sections)
+      .map(section => section[1]
+        .map(item => { if(item.file.includes(lesson)) return section[0]; }))
+      .flat()
+      .find(Boolean);
+    return section;
+  };
   const saveLessonSubmission = async (userSubmission) => {
-    console.log(course)
-    console.log(lesson)
-    console.log(userSubmission)
+    const section = getSection();
+    const content = {
+      type: 'text',
+      value: userSubmission,
+    }
+    await submitLessonInFirestore(cohort, user, lesson, section, content)
+    onClose()
   }
+
   return (
     <Transition.Root show={openExternal} as={Fragment}>
     <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={onClose}>
@@ -26,8 +58,6 @@ export default function Modal({openExternal, onClose, course, lesson}) {
         >
           <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
-
-        {/* This element is to trick the browser into centering the modal contents. */}
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
           &#8203;
         </span>
@@ -59,13 +89,13 @@ export default function Modal({openExternal, onClose, course, lesson}) {
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <button
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                className="w-full cursor-pointer inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={() => saveLessonSubmission(lessonSubmission)}
               >
                 Enviar
               </button>
               <button
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white-100 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                className="mt-3 cursor-pointer w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white-100 text-base font-medium text-gray-700 hover:bg-gray-50 hover:bg-red-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={onClose}
                 ref={cancelButtonRef}
               >
