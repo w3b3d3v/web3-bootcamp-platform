@@ -43,7 +43,6 @@ export function AuthProvider({ children }) {
 
   const handleUser = async (currentUser) => {
     if (currentUser) {
-      // console.log(currentUser)
       const formatedUser = await formatUser(currentUser)
       setUser(formatedUser)
       setSession(true)

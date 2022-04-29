@@ -21,8 +21,6 @@ export default function DiscordCard() {
           await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid);
           setDiscordConnected(true);
         } else if(userSession?.discord) setDiscordConnected(true);
-      } else {
-        console.log('user not logged');
       }
     }));
   }, [session])
