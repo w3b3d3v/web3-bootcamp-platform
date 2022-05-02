@@ -9,27 +9,50 @@ import { getAllCourses } from '../../../../lib/courses';
 import React, { useState, useEffect } from 'react';
 import { getLessonsSubmissions } from '../../../../lib/lessons';
 import { auth } from '../../../../firebase/initFirebase';
+import Tabs from '../../../../components/Tabs';
 
 function Lessons({ course, lesson, lessonSubmissions }) {
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const [userSubmission, setUserSubmission] = useState();
+  const [sortedLessons, setSortedLessons] = useState([]);
   const ref = React.createRef();
 
-  useEffect(async() => {
-    lessonSubmissions = await getLessonsSubmissions()
+  useEffect(async () => {
+    lessonSubmissions = await getLessonsSubmissions();
     lessonSubmissions.map(item => {
       if(item.lesson === lesson && item.user === auth.currentUser?.uid) {
-        setUserSubmission(item.content.value)
+        setUserSubmission(item.content.value);
         setDisable(true);
       }
     });
   }, [lessonSubmissions, auth.currentUser, open]);
+
+  useEffect(() => {
+    setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1))
+  });
+  const nextLesson = () => {
+    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
+    const nextLesson = sortedLessons[currentLessonIndex + 1];
+    window.location.href=`/courses/${course.id}/lessons/${nextLesson?.lesson}`;
+  }
+  const previousLesson = () => {
+    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
+    const previousLesson = sortedLessons[currentLessonIndex - 1];
+    window.location.href=`/courses/${course.id}/lessons/${previousLesson?.lesson}`;
+  }
   return (
     <Layout>
       <Head>
         <title>Lição - Bootcamp Web3Dev</title>
       </Head>
+      <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
+        <Tabs course={course} isLessonPage />
+        <div className='container flex justify-between my-4'>
+        <Button onClick={previousLesson}>Lição anterior</Button>
+        <Button onClick={nextLesson}>Próxima lição</Button>
+        </div>
+      </div>
       <div className="container rounded-lg bg-white-100 shadow-xl dark:bg-black-200 w-2/3 mx-auto px-6 my-8 py-2 sm:px-2 md:px-4 lg:px-14 xl:py-0">
         {course &&
           course?.lessons.map((l) => {
@@ -38,14 +61,13 @@ function Lessons({ course, lesson, lessonSubmissions }) {
               <div key={l?.section + l?.lesson}>
                 <h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>
                 <h3>{l?.lesson.title}</h3>
-                <br />
                 <ReactMarkdown children={l?.markdown} />
                 <div className='flex justify-center'>
                   {disable ?
-                  <div className='flex flex-col w-6/12 text-center'>
+                    <div className='flex flex-col w-6/12 text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
                       <div className='text-white-200 border-solid border-2 border-gray-600 font-medium rounded-lg px-4 py-3 mb-3 text-sm'>{userSubmission}</div>
-                  </div>
+                    </div>
                     :
                     <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)} >Enviar lição</Button>
                   }
@@ -53,7 +75,7 @@ function Lessons({ course, lesson, lessonSubmissions }) {
                   {open &&
                     <Modal
                       openExternal={open}
-                      onClose={() => setOpen(false) }
+                      onClose={() => setOpen(false)}
                       lesson={lesson}
                       course={course}
                     />
