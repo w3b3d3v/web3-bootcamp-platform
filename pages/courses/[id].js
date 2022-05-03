@@ -36,7 +36,9 @@ function Course({ course, lessonsSubmitted }) {
   useEffect(async () => {
     setCohorts(await getAllCohorts());
   }, []);
-
+  useEffect(async() => {
+    lessonsSubmitted = await getLessonsSubmissions();
+  }, [lessonsSubmitted, auth.currentUser]);
   useEffect(async () => {
     if(cohorts) {
       const currentCohort = cohorts.find(c => c.courseId === course.id);
