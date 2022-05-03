@@ -4,6 +4,6 @@ module.exports = {
     defaultLocale: 'pt-BR',
   },
   images: {
-    domains: ['assets.zipschool.com', 'cdn.buildspace.so'],
+    domains: ['assets.zipschool.com', 'cdn.buildspace.so', 'firebasestorage.googleapis.com'],
   },
 }
