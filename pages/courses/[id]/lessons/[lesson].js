@@ -96,6 +96,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
         <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()}/>
         <div className='container flex justify-between my-4'>
         <Button onClick={previousLesson}>Lição anterior</Button>
+        <Button onClick={()=>router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
         <Button onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
