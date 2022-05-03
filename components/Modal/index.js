@@ -46,7 +46,6 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
     onClose();
   };
   const saveUploadToStorage = async () => {
-    console.log(file);
     const storageRef = ref(storage, `${course.id}/`);
     await uploadBytes(storageRef, file);
     await getDownloadURL(storageRef).then((url) => {
@@ -80,7 +79,26 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            {getSubmissionType() == 'text' || getSubmissionType() == 'url' ?
+            {getSubmissionType() == 'upload' ?
+              <div className="relative inline-block align-bottom bg-white-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div className="bg-white-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                        Enviar Resposta
+                      </Dialog.Title>
+                      <div className="mt-2 text-gray-900">
+                        <label htmlFor="lessonPrint">Enviar Print: </label>
+                        <input type="file" onChange={(event) => setFile(event.target.files[0])}
+                          id="lessonPrint" name="lessonPrint" />
+                        <br />
+                        <button onClick={() => saveUploadToStorage()}>Enviar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              :
               <div className="relative inline-block align-bottom bg-white-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div className="bg-white-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
@@ -112,25 +130,6 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
                   >
                     Cancel
                   </button>
-                </div>
-              </div>
-              :
-              <div className="relative inline-block align-bottom bg-white-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div className="bg-white-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Enviar Resposta
-                      </Dialog.Title>
-                      <div className="mt-2 text-gray-900">
-                        <label htmlFor="lessonPrint">Enviar Print: </label>
-                        <input type="file" onChange={(event) => setFile(event.target.files[0])}
-                          id="lessonPrint" name="lessonPrint" />
-                        <br />
-                        <button onClick={() => saveUploadToStorage()}>Enviar</button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             }
