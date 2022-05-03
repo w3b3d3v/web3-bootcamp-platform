@@ -106,7 +106,6 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
             return (
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
-                <h2 className='py-4'>{l?.section?.replace('Section_', 'Sessão ')}</h2>
                 <h3>{l?.lesson.title}</h3>
                 <ReactMarkdown children={l?.markdown} />
                 <div className='flex justify-center'>
