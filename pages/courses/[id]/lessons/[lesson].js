@@ -12,6 +12,7 @@ import Tabs from '../../../../components/Tabs';
 import useAuth from '../../../../hooks/useAuth';
 import { getAllCohorts } from '../../../../lib/cohorts';
 import { Router, useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 function Lessons({ course, lesson, lessonsSubmitted }) {
   const [open, setOpen] = useState(false);
@@ -80,12 +81,14 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
     const nextLesson = sortedLessons[currentLessonIndex + 1];
-    window.location.href=`/courses/${course.id}/lessons/${nextLesson?.lesson}`;
+    if(disable) return window.location.href=`/courses/${course.id}/lessons/${nextLesson?.lesson}`;
+    return toast.error('Você ainda não enviou o exercício desta lição');
   }
   const previousLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
     const previousLesson = sortedLessons[currentLessonIndex - 1];
-    window.location.href=`/courses/${course.id}/lessons/${previousLesson?.lesson}`;
+    if(previousLesson) return window.location.href=`/courses/${course.id}/lessons/${previousLesson?.lesson}`;
+    return toast.error('Você já está na primeira lição.')
   }
   return (
     <Layout>
