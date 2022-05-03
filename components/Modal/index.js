@@ -6,24 +6,37 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { getUserFromFirestore, submitLessonInFirestore } from '../../lib/user';
 import { getLessonsSubmissions } from '../../lib/lessons';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getAllCohorts } from '../../lib/cohorts';
+import { uuid } from 'uuidv4';
+
 export default function Modal({ openExternal, onClose, course, lesson }) {
   const cancelButtonRef = useRef(null);
   const [lessonSubmission, setLessonSubmission] = useState();
   const [cohort, setCohort] = useState();
   const [user, setUser] = useState();
   const [file, setFile] = useState();
+  const [cohorts, setCohorts] = useState();
 
   useEffect(() => {
     onAuthStateChanged(auth, async user => {
       if(user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        let currentCohort = userSession.cohorts.find(c => c.id === course.id);
-        setCohort(currentCohort.cohort.id);
       }
     }
     );
   }, []);
+
+  useEffect(async () => {
+    setCohorts(await getAllCohorts());
+  }, []);
+
+  useEffect(async () => {
+    if(cohorts) {
+      const currentCohort = cohorts.find(c => c.courseId === course.id);
+      setCohort(currentCohort);
+    }
+  }, [cohorts]);
 
   const getSection = () => {
     const section = Object.entries(course.sections)
@@ -36,17 +49,20 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
   const getSubmissionType = () => {
     return course.sections[getSection()].filter(item => item.file === lesson)[0].submission_type;
   };
-  const saveLessonSubmission = async (userSubmission) => {
+  const saveLessonSubmission = async (userSubmission, submissionId) => {
+    if (!submissionId) submissionId = uuid()
+    console.log(submissionId)
     const section = getSection();
     const content = {
       type: getSubmissionType(),
       value: userSubmission,
     };
-    await submitLessonInFirestore(cohort, user, lesson, section, content);
+    await submitLessonInFirestore(cohort.id, user, lesson, section, content, submissionId);
     onClose();
   };
   const saveUploadToStorage = async () => {
-    const storageRef = ref(storage, `${course.id}/`);
+    const submissionId = uuid()
+    const storageRef = ref(storage, `lessons_submissions/${submissionId}`);
     await uploadBytes(storageRef, file);
     await getDownloadURL(storageRef).then((url) => {
       saveLessonSubmission(url);

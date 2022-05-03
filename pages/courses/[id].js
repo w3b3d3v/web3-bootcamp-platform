@@ -23,7 +23,7 @@ import { getAllCohorts } from '../../lib/cohorts';
 import { getLessonsSubmissions } from '../../lib/lessons';
 import Image from 'next/image';
 
-function Course({ course, lessonsSubmitted }) {
+function Course({ course }) {
   if(!course.active) return <NotFound />;
 
   const [user, setUser] = useState();
@@ -31,14 +31,15 @@ function Course({ course, lessonsSubmitted }) {
   const [timeLeft, setTimeLeft] = useState(0);
   const [cohorts, setCohorts] = useState();
   const [cohort, setCohort] = useState();
+  const [lessonsSubmitted, setLessonsSubmitted] = useState();
   let counter = 0;
 
   useEffect(async () => {
     setCohorts(await getAllCohorts());
   }, []);
   useEffect(async() => {
-    lessonsSubmitted = await getLessonsSubmissions();
-  }, [lessonsSubmitted, auth.currentUser]);
+    setLessonsSubmitted(await getLessonsSubmissions());
+  }, []);
   useEffect(async () => {
     if(cohorts) {
       const currentCohort = cohorts.find(c => c.courseId === course.id);
@@ -265,11 +266,9 @@ function Course({ course, lessonsSubmitted }) {
 
 export async function getStaticProps({ params }) {
   const course = await getCourse(params.id);
-  const lessonsSubmitted = await getLessonsSubmissions();
   return {
     props: {
       course,
-      lessonsSubmitted
     },
   };
 }
