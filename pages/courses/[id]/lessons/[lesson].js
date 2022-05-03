@@ -20,11 +20,13 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   const [userSubmission, setUserSubmission] = useState();
   const [sortedLessons, setSortedLessons] = useState([]);
   const auth = useAuth();
+  const [url, setUrl] = useState();
   const ref = React.createRef();
 
   const [cohorts, setCohorts] = useState();
   const [cohort, setCohort] = useState();
   const router = useRouter();
+  let testUrl;
   useEffect(async () => {
     setCohorts(await getAllCohorts());
   }, []);
@@ -39,12 +41,13 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   useEffect(async () => {
     lessonsSubmitted = await getLessonsSubmissions();
     lessonsSubmitted.map(item => {
-      if(item.lesson === lesson) {
+      if(item.lesson === lesson && item.user == auth.user?.uid) {
         setUserSubmission(item.content.value);
+        validateUserSubmission(item.content.value);
         setDisable(true);
       }
     });
-  }, [lessonsSubmitted, auth.currentUser, open]);
+  }, [lessonsSubmitted, auth.user, open]);
 
   const checkLessons = () => {
     const list = [];
@@ -90,6 +93,15 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
     if(previousLesson) return window.location.href = `/courses/${course.id}/lessons/${previousLesson?.lesson}`;
     return toast.error('Você já está na primeira lição.');
   };
+  const validateUserSubmission = (submission) => {
+      try {
+        testUrl = new URL(submission);
+      } catch (_) {
+        return submission;  
+      }
+      if(testUrl?.hostname.includes('firebasestorage')) return setUrl(testUrl.href);
+      if(testUrl) return submission
+  }
   return (
     <Layout>
       <Head>
@@ -110,12 +122,14 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
                 <h3>{l?.lesson.title}</h3>
-                <ReactMarkdown rehypePlugins={[rehypeRaw]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
+                <ReactMarkdown className='react-markdown' rehypePlugins={[rehypeRaw]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
                 <div className='flex justify-center'>
                   {disable ?
                     <div className='flex flex-col w-6/12 text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
-                      <div className='text-white-200 border-solid border-2 border-gray-600 font-medium rounded-lg px-4 py-3 mb-3 text-sm'>{userSubmission}</div>
+                      <div className='text-white-200 border-solid border-2 border-gray-600 font-medium rounded-lg px-4 py-3 mb-3 text-sm'>
+                        {url?.length ? <img src={url} alt='submission' height={250}/> : validateUserSubmission(userSubmission) }
+                        </div>
                     </div>
                     :
                     <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)} >Enviar lição</Button>
