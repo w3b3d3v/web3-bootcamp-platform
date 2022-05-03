@@ -80,7 +80,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   };
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1));
-  });
+  }, [sortedLessons]);
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true);
     const nextLesson = sortedLessons[currentLessonIndex + 1];
@@ -94,14 +94,14 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
     return toast.error('Você já está na primeira lição.');
   };
   const validateUserSubmission = (submission) => {
-      try {
-        testUrl = new URL(submission);
-      } catch (_) {
-        return submission;  
-      }
-      if(testUrl?.hostname.includes('firebasestorage')) return setUrl(testUrl.href);
-      if(testUrl) return submission
-  }
+    try {
+      testUrl = new URL(submission);
+    } catch(_) {
+      return submission;
+    }
+    if(testUrl?.hostname.includes('firebasestorage')) return setUrl(testUrl.href);
+    if(testUrl) return submission;
+  };
   return (
     <Layout>
       <Head>
@@ -110,9 +110,9 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()} />
         <div className='container flex justify-between my-4'>
-          <Button onClick={previousLesson}>Lição anterior</Button>
-          <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button onClick={nextLesson}>Próxima lição</Button>
+          <Button customClass='dark:bg-violet-600' onClick={previousLesson}>Lição anterior</Button>
+          <Button customClass='' onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
+          <Button customClass='dark:bg-green-500' onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
       <div className="container rounded-lg bg-white-100 shadow-xl dark:bg-black-200 w-2/3 mx-auto px-6 my-8 py-2 sm:px-2 md:px-4 lg:px-14 xl:py-0">
@@ -128,8 +128,8 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
                     <div className='flex flex-col w-6/12 text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
                       <div className='text-white-200 border-solid border-2 border-gray-600 font-medium rounded-lg px-4 py-3 mb-3 text-sm'>
-                        {url?.length ? <img src={url} alt='submission' height={250}/> : validateUserSubmission(userSubmission) }
-                        </div>
+                        {url?.length ? <img src={url} alt='submission' height={250} /> : validateUserSubmission(userSubmission)}
+                      </div>
                     </div>
                     :
                     <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)} >Enviar lição</Button>
@@ -146,6 +146,14 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
               </div>
             );
           })}
+      </div>
+      <div className='container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0'>
+
+        <div className='container flex justify-between my-4'>
+          <Button customClass='dark:bg-violet-600' onClick={previousLesson}>Lição anterior</Button>
+          <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
+          <Button customClass='dark:bg-green-500' onClick={nextLesson}>Próxima lição</Button>
+        </div>
       </div>
     </Layout>
   );
