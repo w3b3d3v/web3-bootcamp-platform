@@ -8,26 +8,72 @@ import { getCourse } from '../../../../lib/course';
 import { getAllCourses } from '../../../../lib/courses';
 import React, { useState, useEffect } from 'react';
 import { getLessonsSubmissions } from '../../../../lib/lessons';
-import { auth } from '../../../../firebase/initFirebase';
 import Tabs from '../../../../components/Tabs';
+import useAuth from '../../../../hooks/useAuth';
+import { getAllCohorts } from '../../../../lib/cohorts';
+import { Router, useRouter } from 'next/router';
 
-function Lessons({ course, lesson, lessonSubmissions }) {
+function Lessons({ course, lesson, lessonsSubmitted }) {
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const [userSubmission, setUserSubmission] = useState();
   const [sortedLessons, setSortedLessons] = useState([]);
+  const auth = useAuth();
   const ref = React.createRef();
 
+  const [cohorts, setCohorts] = useState();
+  const [cohort, setCohort] = useState();
+  const router = useRouter()
   useEffect(async () => {
-    lessonSubmissions = await getLessonsSubmissions();
-    lessonSubmissions.map(item => {
-      if(item.lesson === lesson && item.user === auth.currentUser?.uid) {
+    setCohorts(await getAllCohorts());
+  }, []);
+
+  useEffect(async () => {
+    if(cohorts) {
+      const currentCohort = cohorts.find(c => c.courseId === course.id);
+      setCohort(currentCohort);
+    }
+  }, [cohorts]);
+
+  useEffect(async () => {
+    lessonsSubmitted = await getLessonsSubmissions();
+    lessonsSubmitted.map(item => {
+      if(item.lesson === lesson) {
         setUserSubmission(item.content.value);
         setDisable(true);
       }
     });
-  }, [lessonSubmissions, auth.currentUser, open]);
+  }, [lessonsSubmitted, auth.currentUser, open]);
 
+  const checkLessons = () => {
+    const list = [];
+    const courseSectionsLength = {};
+    Object.keys(course?.sections).sort().map((section) => {
+      course?.sections[section].map((lesson) => {
+        courseSectionsLength[section] = courseSectionsLength[section] ? courseSectionsLength[section] + 1 : 1;
+        list.push({ section, ...lesson }
+        );
+      });
+    });
+    const userLessons = lessonsSubmitted.filter(item => item.user == auth.user?.uid);
+    const userLessonsSubmittedInCurrentCohort = userLessons.filter(item => item.cohort === cohort?.id);
+    const sectionsCompleted = userLessonsSubmittedInCurrentCohort.map(lesson => {
+      return list.map(item => (item.section == lesson.section && item.file == lesson.lesson && item));
+    }).map(item => item.filter(Boolean)).flat();
+    const sectionsCompletedInCurrentCohort = sectionsCompleted.map(item => item.section).reduce(function(obj, b) {
+      obj[b] = ++obj[b] || 1;
+      return obj;
+    }, {});
+    const sections = Object.keys(courseSectionsLength);
+    const completed = sections.map(section => {
+      return {
+        section,
+        completed: sectionsCompletedInCurrentCohort[section] ? sectionsCompletedInCurrentCohort[section] : 0,
+        total: courseSectionsLength[section]
+      };
+    });
+    return completed;
+  };
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1))
   });
@@ -47,7 +93,7 @@ function Lessons({ course, lesson, lessonSubmissions }) {
         <title>Lição - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        <Tabs course={course} isLessonPage />
+        <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()}/>
         <div className='container flex justify-between my-4'>
         <Button onClick={previousLesson}>Lição anterior</Button>
         <Button onClick={nextLesson}>Próxima lição</Button>
@@ -71,7 +117,6 @@ function Lessons({ course, lesson, lessonSubmissions }) {
                     :
                     <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)} >Enviar lição</Button>
                   }
-
                   {open &&
                     <Modal
                       openExternal={open}
@@ -91,12 +136,12 @@ function Lessons({ course, lesson, lessonSubmissions }) {
 export async function getStaticProps({ params }) {
   const course = await getCourse(params.id);
   const lesson = params.lesson;
-  const lessonSubmissions = await getLessonsSubmissions();
+  const lessonsSubmitted = await getLessonsSubmissions();
   return {
     props: {
       course,
       lesson,
-      lessonSubmissions
+      lessonsSubmitted
     },
   };
 }
