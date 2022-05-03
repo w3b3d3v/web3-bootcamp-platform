@@ -150,7 +150,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const lessons = (await getAllCourses()).map((c) => c.active && c.sections ? (Object.values(c.sections).flat().map(lesson => `/courses/${c.id}/lessons/${lesson.file}`)) : `/courses/${c.id}/lessons/Lesson_1_Welcome.md`).flat();
+  const lessons = (await getAllCourses()).filter((c) => c.active && c.sections).map(c=> (Object.values(c.sections).flat().map(lesson => `/courses/${c.id}/lessons/${lesson.file}`))).flat();
   return {
     paths: [
       ...lessons,
