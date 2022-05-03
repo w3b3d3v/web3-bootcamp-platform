@@ -27,3 +27,8 @@ a:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.react-markdown img{
+  width: 70%;
+  margin: auto;
+  display: flex;
+}

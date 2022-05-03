@@ -74,7 +74,7 @@ function Course({ course, lessonsSubmitted }) {
   };
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if(lesson.lesson == allLessons.file) return true;
+      if(lesson.lesson == allLessons.file && lesson.user == user.uid) return true;
       return false;
     });
     if(userSubmitted.every(item => item === false)) counter++;
