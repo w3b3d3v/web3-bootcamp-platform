@@ -13,7 +13,7 @@ import useAuth from '../../../../hooks/useAuth';
 import { getAllCohorts } from '../../../../lib/cohorts';
 import { Router, useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-
+import rehypeRaw from 'rehype-raw';
 function Lessons({ course, lesson, lessonsSubmitted }) {
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
@@ -24,7 +24,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
 
   const [cohorts, setCohorts] = useState();
   const [cohort, setCohort] = useState();
-  const router = useRouter()
+  const router = useRouter();
   useEffect(async () => {
     setCohorts(await getAllCohorts());
   }, []);
@@ -76,31 +76,31 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
     return completed;
   };
   useEffect(() => {
-    setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1))
+    setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1));
   });
   const nextLesson = () => {
-    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
+    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true);
     const nextLesson = sortedLessons[currentLessonIndex + 1];
-    if(disable) return window.location.href=`/courses/${course.id}/lessons/${nextLesson?.lesson}`;
+    if(disable) return window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`;
     return toast.error('Você ainda não enviou o exercício desta lição');
-  }
+  };
   const previousLesson = () => {
-    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson ).indexOf(true);
+    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true);
     const previousLesson = sortedLessons[currentLessonIndex - 1];
-    if(previousLesson) return window.location.href=`/courses/${course.id}/lessons/${previousLesson?.lesson}`;
-    return toast.error('Você já está na primeira lição.')
-  }
+    if(previousLesson) return window.location.href = `/courses/${course.id}/lessons/${previousLesson?.lesson}`;
+    return toast.error('Você já está na primeira lição.');
+  };
   return (
     <Layout>
       <Head>
         <title>Lição - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()}/>
+        <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()} />
         <div className='container flex justify-between my-4'>
-        <Button onClick={previousLesson}>Lição anterior</Button>
-        <Button onClick={()=>router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-        <Button onClick={nextLesson}>Próxima lição</Button>
+          <Button onClick={previousLesson}>Lição anterior</Button>
+          <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
+          <Button onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
       <div className="container rounded-lg bg-white-100 shadow-xl dark:bg-black-200 w-2/3 mx-auto px-6 my-8 py-2 sm:px-2 md:px-4 lg:px-14 xl:py-0">
@@ -110,7 +110,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
                 <h3>{l?.lesson.title}</h3>
-                <ReactMarkdown children={l?.markdown} />
+                <ReactMarkdown rehypePlugins={[rehypeRaw]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
                 <div className='flex justify-center'>
                   {disable ?
                     <div className='flex flex-col w-6/12 text-center'>
@@ -150,7 +150,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const lessons = (await getAllCourses()).filter((c) => c.active && c.sections).map(c=> (Object.values(c.sections).flat().map(lesson => `/courses/${c.id}/lessons/${lesson.file}`))).flat();
+  const lessons = (await getAllCourses()).filter((c) => c.active && c.sections).map(c => (Object.values(c.sections).flat().map(lesson => `/courses/${c.id}/lessons/${lesson.file}`))).flat();
   return {
     paths: [
       ...lessons,
