@@ -32,12 +32,36 @@ a:hover {
   margin: auto;
   display: flex;
 }
+.builtin{
+  color: tomato;
+}
+.keyword{
+  color: #ec8fff;
+}
+.punctuation{
+  color: #c9ab00;
+}
+.tag{
+  color: #ffad4f;
+}
+.property-access{
+  color: #4fff98;
+}
+.class-name{
+  color: #98ca3b;
+}
+.code-line{
+  white-space: break-spaces;
+}
+.comment{
+  color: #8c8c8c;
+}
+.function{
+  color: #ffad4f;
+}
 pre{
-  background-color: rgb(99, 99, 99);
-  padding: 1rem;
-  white-space: pre-wrap;
-  border-radius: 14px;
+  background-color: #4b4b4b;
+  border-radius: 10px;
+  padding: 0.5rem;
 }
-code{
-  font-style: italic;
-}
+

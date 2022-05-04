@@ -14,6 +14,7 @@ import { getAllCohorts } from '../../../../lib/cohorts';
 import { Router, useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import rehypeRaw from 'rehype-raw';
+import rehypePrism from 'rehype-prism-plus'
 
 function Lessons({ course, lesson, lessonsSubmitted }) {
 
@@ -145,7 +146,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
                 <h3>{l?.lesson.title}</h3>
-                <ReactMarkdown className='react-markdown' rehypePlugins={[rehypeRaw]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
+                <ReactMarkdown className='react-markdown' rehypePlugins={[rehypeRaw,rehypePrism]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
                 <div className='flex justify-center'>
                   {disable ?
                     <div className='flex flex-col w-6/12 text-center'>
