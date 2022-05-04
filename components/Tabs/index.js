@@ -30,18 +30,18 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted }) {
           return (
             <div className={'flex justify-between'} key={section}>
               {isLessonPage ?
-                <div className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100  ${checkSectionCompleted(section) ? 'dark:bg-green-500 ' : checkCurrentSection(section)} `}
+                <div className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100  ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
                 >
-                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'dark:bg-green-500 ' : checkCurrentSection(section)}`}>
+                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)}`}>
                     <p className="m-0 p-0">
                       {section?.replace('Section_', 'Sessão ')}
                     </p>
                   </div>
                 </div>
                 :
-                <a href={`#${!isLessonPage ? section : ''}`} onClick={() => toggle(section)} className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100 ${checkSectionCompleted(section) ? 'dark:bg-green-500 ' : checkCurrentSection(section)} `}
+                <a href={`#${!isLessonPage ? section : ''}`} onClick={() => toggle(section)} className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100 ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
                 >
-                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'dark:bg-green-500 ' : checkCurrentSection(section)}`}>
+                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)}`}>
                     <p className="m-0 p-0">
                       {section?.replace('Section_', 'Sessão ')}
                     </p>

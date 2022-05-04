@@ -14,17 +14,22 @@ import { getAllCohorts } from '../../../../lib/cohorts';
 import { Router, useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import rehypeRaw from 'rehype-raw';
+
 function Lessons({ course, lesson, lessonsSubmitted }) {
+
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const [userSubmission, setUserSubmission] = useState();
   const [sortedLessons, setSortedLessons] = useState([]);
-  const auth = useAuth();
   const [url, setUrl] = useState();
-  const ref = React.createRef();
-
   const [cohorts, setCohorts] = useState();
   const [cohort, setCohort] = useState();
+  const [submissionType, setSubmissionType] = useState();
+  const [submissionTitle, setSubmissionTitle] = useState();
+  const [submissionText, setSubmissionText] = useState();
+
+  const ref = React.createRef();
+  const auth = useAuth();
   const router = useRouter();
   let testUrl;
   useEffect(async () => {
@@ -102,6 +107,24 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
     if(testUrl?.hostname.includes('firebasestorage')) return setUrl(testUrl.href);
     if(testUrl) return submission;
   };
+  const getSection = () => {
+    const section = Object.entries(course.sections)
+      .map(section => section[1]
+        .map(item => { if(item.file.includes(lesson)) return section[0]; }))
+      .flat()
+      .find(Boolean);
+    return section;
+  };
+  useEffect(() => {
+    getSubmissionData();
+  },[]);
+  const getSubmissionData = () => {
+    const submissionData = course.sections[getSection()].filter(item => item.file === lesson)[0];
+    setSubmissionType(submissionData.submission_type);
+    setSubmissionTitle(submissionData.submission_title);
+    setSubmissionText(submissionData.submission_text);
+  }
+
   return (
     <Layout>
       <Head>
@@ -110,9 +133,9 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()} />
         <div className='container flex justify-between my-4'>
-          <Button customClass='dark:bg-violet-600' onClick={previousLesson}>Lição anterior</Button>
+          <Button customClass='bg-slate-300 dark:text-black-100' onClick={previousLesson}>Lição anterior</Button>
           <Button customClass='' onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button customClass='dark:bg-green-500' onClick={nextLesson}>Próxima lição</Button>
+          <Button customClass='bg-violet-600 text-white-200' onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
       <div className="container rounded-lg bg-white-100 shadow-xl dark:bg-black-200 w-2/3 mx-auto px-6 my-8 py-2 sm:px-2 md:px-4 lg:px-14 xl:py-0">
@@ -132,7 +155,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
                       </div>
                     </div>
                     :
-                    <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)} >Enviar lição</Button>
+                    <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>{submissionTitle}</Button>
                   }
                   {open &&
                     <Modal
@@ -140,6 +163,9 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
                       onClose={() => setOpen(false)}
                       lesson={lesson}
                       course={course}
+                      submissionType={submissionType}
+                      submissionText={submissionText}
+                      submissionTitle={submissionTitle}
                     />
                   }
                 </div>
@@ -150,9 +176,9 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
       <div className='container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0'>
 
         <div className='container flex justify-between my-4'>
-          <Button customClass='dark:bg-violet-600' onClick={previousLesson}>Lição anterior</Button>
+          <Button customClass='bg-slate-300 dark:text-black-100' onClick={previousLesson}>Lição anterior</Button>
           <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button customClass='dark:bg-green-500' onClick={nextLesson}>Próxima lição</Button>
+          <Button customClass='bg-violet-600 text-white-200' onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
     </Layout>

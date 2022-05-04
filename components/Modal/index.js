@@ -9,7 +9,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAllCohorts } from '../../lib/cohorts';
 import { uuid } from 'uuidv4';
 
-export default function Modal({ openExternal, onClose, course, lesson }) {
+export default function Modal({ openExternal, onClose, course, lesson, submissionType, submissionText, submissionTitle }) {
   const cancelButtonRef = useRef(null);
   const [lessonSubmission, setLessonSubmission] = useState();
   const [cohort, setCohort] = useState();
@@ -46,15 +46,12 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
       .find(Boolean);
     return section;
   };
-  const getSubmissionType = () => {
-    return course.sections[getSection()].filter(item => item.file === lesson)[0].submission_type;
-  };
   const saveLessonSubmission = async (userSubmission, submissionId) => {
     if (!submissionId) submissionId = uuid()
     console.log(submissionId)
     const section = getSection();
     const content = {
-      type: getSubmissionType(),
+      type: submissionType,
       value: userSubmission,
     };
     await submitLessonInFirestore(cohort.id, user, lesson, section, content, submissionId);
@@ -95,16 +92,18 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            {getSubmissionType() == 'upload' ?
+            {submissionType == 'upload' ?
               <div className="relative inline-block align-bottom bg-white-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div className="bg-white-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Enviar Resposta
+                        {submissionTitle}
+                        <br />
+                        
                       </Dialog.Title>
                       <div className="mt-2 text-gray-900">
-                        <label htmlFor="lessonPrint">Enviar Print: </label>
+                        <label htmlFor="lessonPrint">{submissionText}</label><br/>
                         <input type="file" onChange={(event) => setFile(event.target.files[0])}
                           id="lessonPrint" name="lessonPrint" />
                         <br />
@@ -120,11 +119,11 @@ export default function Modal({ openExternal, onClose, course, lesson }) {
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Enviar Resposta
+                        {submissionTitle}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Estamos muito felizes de você ter chegado até aqui. Nos conte o que te motiva, seus interesses e objetivos com web3.
+                          {submissionText}
                         </p>
                         <br />
                         <textarea name='lesson-submission' className='w-full h-20 p-1' onChange={(event) => setLessonSubmission(event.target.value)} />
