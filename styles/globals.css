@@ -32,3 +32,12 @@ a:hover {
   margin: auto;
   display: flex;
 }
+pre{
+  background-color: rgb(99, 99, 99);
+  padding: 1rem;
+  white-space: pre-wrap;
+  border-radius: 14px;
+}
+code{
+  font-style: italic;
+}
