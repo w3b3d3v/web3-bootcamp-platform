@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const nodemailer = require('nodemailer')
 const mandrillTransport = require('nodemailer-mandrill-transport')
+const addUserToRole = require('./discord_integration')
 
 const smtpTransport = nodemailer.createTransport(
   mandrillTransport({
@@ -30,3 +31,15 @@ exports.sendEmail = functions.https.onRequest((req, resp) => {
     resp.send(JSON.stringify(response))
   })
 })
+
+exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
+  addUserToRole(req.query.user_id, req.query.role_id).then((r) =>
+    resp.send('OK')
+  )
+})
+
+exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
+  async (req, resp) => {
+    const cohort_id = req.cohort_id
+  }
+)
