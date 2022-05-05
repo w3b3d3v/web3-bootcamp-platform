@@ -37,7 +37,7 @@ function Course({ course, currentDate }) {
   useEffect(async () => {
     setCohorts(await getAllCohorts());
   }, []);
-  useEffect(async() => {
+  useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions());
   }, []);
   useEffect(async () => {
@@ -54,18 +54,21 @@ function Course({ course, currentDate }) {
     }
   }, [auth.currentUser, registerOnCohort]);
 
+  const userCohortStartDate = new Date(cohort?.startDate).getTime();
   useEffect(() => {
-    if(document) {
-      const userCohortStartDate = new Date(cohort?.startDate).getTime();
-      const interval = setInterval(function() {
-        const ct = countdown(userCohortStartDate, currentDate);
-        setTimeLeft(ct);
-        if(!ct) {
-          clearInterval(interval);
-        }
-      }, 1000);
-    }
-  });
+    const serverdate = new Date(currentDate);
+
+    const interval = setInterval(function() {
+      const updateserver = serverdate.setSeconds(serverdate.getSeconds() + 1);
+      const ct = countdown(userCohortStartDate, new Date(updateserver));
+      if(!ct) {
+        clearInterval(interval);
+      }
+      return setTimeLeft(ct);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [userCohortStartDate]);
+
   const registerUserInCohort = async () => {
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid);
     setRegisterOnCohort(true);
@@ -264,9 +267,9 @@ function Course({ course, currentDate }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const course = await getCourse(params.id);
-  const currentDate = new Date().toISOString()
+  const currentDate = new Date().toISOString();
   return {
     props: {
       course,
@@ -275,12 +278,12 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export async function getStaticPaths() {
-  const paths = (await getAllCourses()).map((c) => `/courses/${c.id}`);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//export async function getStaticPaths() {
+//  const paths = (await getAllCourses()).map((c) => `/courses/${c.id}`);
+//  return {
+//    paths,
+//    fallback: false,
+//  };
+//}
 
 export default withProtected(Course);
