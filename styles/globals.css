@@ -36,7 +36,7 @@ a:hover {
   color: tomato;
 }
 .keyword{
-  color: #4c98e2;
+  color: #4694e2;
 }
 .punctuation{
   color: #99e24d;
@@ -63,8 +63,9 @@ a:hover {
   color: #4ce476;
 }
 pre{
-  background-color: #4A565B;
+  background-color: #3f3f3f;
   border-radius: 10px;
   padding: 0.5rem;
+  color: #FFF;
 }
 

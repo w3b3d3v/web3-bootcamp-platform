@@ -149,9 +149,9 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
                 <ReactMarkdown className='react-markdown' rehypePlugins={[rehypeRaw,rehypePrism]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
                 <div className='flex justify-center'>
                   {disable ?
-                    <div className='flex flex-col w-6/12 text-center'>
+                    <div className='flex flex-col text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
-                      <div className='text-white-200 border-solid border-2 border-gray-600 font-medium rounded-lg px-4 py-3 mb-3 text-sm'>
+                      <div className='text-black-100 dark:text-white-100 border-solid border-2 border-gray-600 font-medium min-w-min rounded-lg px-4 py-3 mb-3 text-sm'>
                         {url?.length ? <img src={url} alt='submission' height={250} /> : validateUserSubmission(userSubmission)}
                       </div>
                     </div>

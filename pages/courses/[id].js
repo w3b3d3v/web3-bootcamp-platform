@@ -240,7 +240,7 @@ function Course({ course, currentDate }) {
                                     </div>
                                     <div className={counter > 1 ? 'pointer-events-none' : ''}>
                                       <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
-                                        <a className='text-white-100'>
+                                        <a className='text-black-100 dark:text-white-100'>
                                           <p className="m-0 p-0">
                                             {lesson.title}
                                           </p>

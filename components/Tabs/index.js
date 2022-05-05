@@ -24,7 +24,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted }) {
     }
   };
   return (
-    <div className="flex flex-col rounded dark:bg-black-200 p-4">
+    <div className="flex flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 p-4">
       <div className="flex flex-row justify-between">
         {Object.keys(getCourse?.sections).sort().map((section) => {
           return (

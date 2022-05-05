@@ -106,7 +106,8 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                         <input type="file" onChange={(event) => setFile(event.target.files[0])}
                           id="lessonPrint" name="lessonPrint" />
                         <br />
-                        <button onClick={() => saveUploadToStorage()}>Enviar</button>
+                        <button className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
+                        onClick={() => saveUploadToStorage()}>Enviar</button>
                       </div>
                     </div>
                   </div>
