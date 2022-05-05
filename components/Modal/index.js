@@ -48,7 +48,6 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
   };
   const saveLessonSubmission = async (userSubmission, submissionId) => {
     if (!submissionId) submissionId = uuid()
-    console.log(submissionId)
     const section = getSection();
     const content = {
       type: submissionType,
