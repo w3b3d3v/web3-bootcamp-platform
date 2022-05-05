@@ -1,5 +1,10 @@
 {
   "functions": {
     "source": "functions"
+  },
+  "emulators": {
+    "pubsub": {
+      "port": 8085
+    }
   }
 }

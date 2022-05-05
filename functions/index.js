@@ -1,35 +1,57 @@
 const functions = require('firebase-functions')
-const nodemailer = require('nodemailer')
-const mandrillTransport = require('nodemailer-mandrill-transport')
 const addUserToRole = require('./discord_integration')
+const { sendEmail } = require('./emails')
+const { PubSub } = require('@google-cloud/pubsub')
+const admin = require('firebase-admin')
 
-const smtpTransport = nodemailer.createTransport(
-  mandrillTransport({
-    auth: {
-      apiKey: process.env.MANDRILL_KEY,
-    },
+admin.initializeApp()
+const db = admin.firestore()
+const pubsub = new PubSub()
+
+exports.sendEmail = functions.https.onRequest(async (req, resp) => {
+  resp.send(
+    await sendEmail(
+      req.query.template,
+      '🏕️ Seu primeiro Smart Contract na Ethereum',
+      req.query.to
+    )
+  )
+})
+
+exports.helloPubSub = functions.pubsub
+  .topic('course_day_email')
+  .onPublish((message) => {
+    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+
+    console.log(`Sending message template ${data.template} to ${data.to}`)
+
+    return sendEmail(
+      data.template,
+      '🏕️ Seu primeiro Smart Contract na Ethereum',
+      data.to
+    )
   })
-)
 
-const mailOptions = {
-  from: `daniel@${process.env.MANDRILL_DOMAIN}`,
-  subject: 'This is from Mandrill',
-  text: 'Oi Danie,\nTudo bem? Legal!\nBeleza!',
-}
+exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
+  db.collection('users')
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const user = doc.data()
+        if (user.email) {
+          const messageObject = { to: user.email, template: 'course_day' }
+          const messageBuffer = Buffer.from(
+            JSON.stringify(messageObject),
+            'utf8'
+          )
 
-// Sending email.
-
-exports.sendEmail = functions.https.onRequest((req, resp) => {
-  const to = req.query.to
-
-  functions.logger.info('Sending Emails!', { structuredData: true })
-
-  smtpTransport.sendMail({ ...mailOptions, to }, function (error, response) {
-    if (error) {
-      return resp.send(error)
-    }
-    resp.send(JSON.stringify(response))
-  })
+          pubsub
+            .topic('course_day_email')
+            .publishMessage({ data: messageBuffer })
+        }
+      })
+    })
+  resp.send('OK')
 })
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {

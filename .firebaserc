@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "web3dev-development"
+    "default": "web3dev-development",
+    "dev": "web3dev-development",
+    "prod": "web3dev-bootcamp"
   }
 }
