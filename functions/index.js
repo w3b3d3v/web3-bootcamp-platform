@@ -19,13 +19,11 @@ exports.helloPubSub = functions.pubsub
   .onPublish((message) => {
     const data = JSON.parse(Buffer.from(message.data, 'base64'))
 
-    console.log(`Sending message template ${data.template} to ${data.to}`)
-
-    return sendEmail(
-      data.template,
-      '🏕️ Seu primeiro Smart Contract na Ethereum',
-      data.to
+    console.log(
+      `Sending message ${data.subject} template ${data.template} to ${data.to}`
     )
+
+    return sendEmail(data.template, data.subject, data.to)
   })
 
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
@@ -35,7 +33,11 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
       querySnapshot.forEach((doc) => {
         const user = doc.data()
         if (user.email) {
-          const messageObject = { to: user.email, template: 'course_day' }
+          const messageObject = {
+            to: user.email,
+            template: req.query.template,
+            subject: req.query.subject,
+          }
           const messageBuffer = Buffer.from(
             JSON.stringify(messageObject),
             'utf8'
