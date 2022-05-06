@@ -12,13 +12,13 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted }) {
     if(activeTab !== tab) setActiveTab(tab);
   };
   const checkSectionCompleted = (section) => {
-    if(lessonsSubmitted){
+    if(lessonsSubmitted) {
 
       return lessonsSubmitted.map(item => item.section == section && item.completed == item.total).filter(Boolean)[0];
     }
   };
   const checkCurrentSection = (section) => {
-    if(lessonsSubmitted){
+    if(lessonsSubmitted) {
 
       if(lessonsSubmitted.find(item => item.completed < item.total).section == section) return 'bg-violet-600';
     }
@@ -32,20 +32,16 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted }) {
               {isLessonPage ?
                 <div className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100  ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
                 >
-                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)}`}>
-                    <p className="m-0 p-0">
-                      {section?.replace('Section_', 'Sessão ')}
-                    </p>
-                  </div>
+                  <p className="m-0 p-0">
+                    {section?.replace('Section_', 'Sessão ')}
+                  </p>
                 </div>
                 :
                 <a href={`#${!isLessonPage ? section : ''}`} onClick={() => toggle(section)} className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100 ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
                 >
-                  <div className={`item flex-grow px-4 font-bold py-2 rounded shadow-lg ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)}`}>
-                    <p className="m-0 p-0">
-                      {section?.replace('Section_', 'Sessão ')}
-                    </p>
-                  </div>
+                  <p className="m-0 p-0">
+                    {section?.replace('Section_', 'Sessão ')}
+                  </p>
                 </a>
               }
             </div>
