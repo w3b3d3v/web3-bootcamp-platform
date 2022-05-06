@@ -63,5 +63,23 @@ exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
   async (req, resp) => {
     const cohort_id = req.cohort_id
+    db.collection('users')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(async (doc) => {
+          const data = doc.data()
+          if (data.cohorts && data.cohorts[0] && data?.discord?.id) {
+            console.log(
+              'Adicionando no curso no discord: ' + data.discord?.username
+            )
+            try {
+              await addUserToRole(data.discord.id, '971416421840064574')
+            } catch (exception) {
+              console.log(exception)
+            }
+          }
+        })
+      })
+    resp.send('OK')
   }
 )
