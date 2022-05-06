@@ -47,6 +47,9 @@ function Lessons({ course, lesson }) {
 
   useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions(auth.user?.uid));
+  }, [auth.user, open]);
+  
+  useEffect(()=>{
     lessonsSubmitted.map(item => {
       if(item.lesson === lesson && item.user == auth.user?.uid) {
         setUserSubmission(item.content.value);
@@ -54,7 +57,7 @@ function Lessons({ course, lesson }) {
         setDisable(true);
       }
     });
-  }, [auth.user, open]);
+  }, [lessonsSubmitted]);
 
   const checkLessons = () => {
     const list = [];
