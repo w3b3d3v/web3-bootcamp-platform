@@ -54,7 +54,7 @@ function Lessons({ course, lesson }) {
         setDisable(true);
       }
     });
-  }, [lessonsSubmitted, auth.user, open]);
+  }, [auth.user, open]);
 
   const checkLessons = () => {
     const list = [];
@@ -120,6 +120,11 @@ function Lessons({ course, lesson }) {
   useEffect(() => {
     getSubmissionData();
   },[]);
+
+  const fixMarkdown = (markdown) => {
+    return markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, '<a href="https://www.loom.com/share/$1" target="_blank"><img className="w-2/3"  src="https://cdn.loom.com/sessions/thumbnails/$1-with-play.gif" /></a>')
+    
+  }
   const getSubmissionData = () => {
     const submissionData = course.sections[getSection()].filter(item => item.file === lesson)[0];
     setSubmissionType(submissionData.submission_type);
@@ -147,7 +152,9 @@ function Lessons({ course, lesson }) {
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
                 <h3>{l?.lesson.title}</h3>
-                <ReactMarkdown className='react-markdown pt-4' rehypePlugins={[rehypeRaw,rehypePrism]} children={l?.markdown.replace(/\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/, "<iframe src='https://www.loom.com/embed/$1' width='100%' height='500' frameBorder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>")} />
+                <ReactMarkdown className='react-markdown pt-4' rehypePlugins={[rehypeRaw, rehypePrism]}
+                  children={fixMarkdown(l?.markdown)}
+                />
                 <div className='flex justify-center'>
                   {disable ?
                     <div className='flex flex-col text-center'>
