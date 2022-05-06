@@ -9,13 +9,9 @@ const db = admin.firestore()
 const pubsub = new PubSub()
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
-  resp.send(
-    await sendEmail(
-      req.query.template,
-      '🏕️ Seu primeiro Smart Contract na Ethereum',
-      req.query.to
-    )
-  )
+  const subject =
+    req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
+  resp.send(await sendEmail(req.query.template, subject, req.query.to))
 })
 
 exports.helloPubSub = functions.pubsub

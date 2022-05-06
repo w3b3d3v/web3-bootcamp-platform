@@ -13,7 +13,7 @@ async function sendEmail(template_name, subject, to) {
   console.log(`Sending message template ${template_name} to ${to}`)
 
   const mailOptions = {
-    from: `Daniel <contato@${process.env.MANDRILL_DOMAIN}>`,
+    from: `danicuki <contato@${process.env.MANDRILL_DOMAIN}>`,
     subject,
     html: require(`./email_templates/${template_name}`),
   }
