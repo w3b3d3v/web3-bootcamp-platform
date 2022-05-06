@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import rehypeRaw from 'rehype-raw';
 import rehypePrism from 'rehype-prism-plus'
 
-function Lessons({ course, lesson, lessonsSubmitted }) {
+function Lessons({ course, lesson }) {
 
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
@@ -28,6 +28,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   const [submissionType, setSubmissionType] = useState();
   const [submissionTitle, setSubmissionTitle] = useState();
   const [submissionText, setSubmissionText] = useState();
+  const [lessonsSubmitted, setLessonsSubmitted] = useState([]);
 
   const ref = React.createRef();
   const auth = useAuth();
@@ -45,7 +46,7 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
   }, [cohorts]);
 
   useEffect(async () => {
-    lessonsSubmitted = await getLessonsSubmissions();
+    setLessonsSubmitted(await getLessonsSubmissions(auth.user?.uid));
     lessonsSubmitted.map(item => {
       if(item.lesson === lesson && item.user == auth.user?.uid) {
         setUserSubmission(item.content.value);
@@ -188,12 +189,10 @@ function Lessons({ course, lesson, lessonsSubmitted }) {
 export async function getStaticProps({ params }) {
   const course = await getCourse(params.id);
   const lesson = params.lesson;
-  const lessonsSubmitted = await getLessonsSubmissions();
   return {
     props: {
       course,
       lesson,
-      lessonsSubmitted
     },
   };
 }

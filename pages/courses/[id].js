@@ -38,8 +38,8 @@ function Course({ course, currentDate }) {
     setCohorts(await getAllCohorts());
   }, []);
   useEffect(async () => {
-    setLessonsSubmitted(await getLessonsSubmissions());
-  }, []);
+    setLessonsSubmitted(await getLessonsSubmissions(user?.uid));
+  }, [user]);
   useEffect(async () => {
     if(cohorts) {
       const currentCohort = cohorts.find(c => c.courseId === course.id);
