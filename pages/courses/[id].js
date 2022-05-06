@@ -60,11 +60,13 @@ function Course({ course, currentDate }) {
 
     const interval = setInterval(function() {
       const updateserver = serverdate.setSeconds(serverdate.getSeconds() + 1);
-      const ct = countdown(userCohortStartDate, new Date(updateserver));
-      if(!ct) {
-        clearInterval(interval);
-      }
-      return setTimeLeft(ct);
+      if(userCohortStartDate) {
+        const ct = countdown(userCohortStartDate, new Date(updateserver));
+        if(!ct) {
+          clearInterval(interval);
+        }
+        return setTimeLeft(ct);
+      } 
     }, 1000);
     return () => clearInterval(interval);
   }, [userCohortStartDate]);
