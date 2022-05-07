@@ -15,7 +15,7 @@ import { Router, useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import rehypeRaw from 'rehype-raw';
 import rehypePrism from 'rehype-prism-plus'
-
+import remarkGfm from 'remark-gfm'
 function Lessons({ course, lesson }) {
 
   const [open, setOpen] = useState(false);
@@ -155,7 +155,7 @@ function Lessons({ course, lesson }) {
               l.lesson.includes(lesson) &&
               <div key={l?.section + l?.lesson}>
                 <h3>{l?.lesson.title}</h3>
-                <ReactMarkdown className='react-markdown pt-4' rehypePlugins={[rehypeRaw, rehypePrism]}
+                <ReactMarkdown className='react-markdown pt-4' rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
                   children={fixMarkdown(l?.markdown)}
                 />
                 <div className='flex justify-center'>
