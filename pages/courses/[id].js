@@ -23,7 +23,7 @@ import { getAllCohorts } from '../../lib/cohorts';
 import { getLessonsSubmissions } from '../../lib/lessons';
 import Image from 'next/image';
 
-function Course({ course }) {
+function Course({ course, currentDate }) {
   if(!course.active) return <NotFound />;
 
   const [user, setUser] = useState();
@@ -58,7 +58,7 @@ function Course({ course }) {
     if(document) {
       const userCohortStartDate = new Date(cohort?.startDate).getTime();
       const interval = setInterval(function() {
-        const ct = countdown(userCohortStartDate);
+        const ct = countdown(userCohortStartDate, currentDate);
         setTimeLeft(ct);
         if(!ct) {
           clearInterval(interval);
@@ -266,9 +266,11 @@ function Course({ course }) {
 
 export async function getStaticProps({ params }) {
   const course = await getCourse(params.id);
+  const currentDate = new Date().toISOString()
   return {
     props: {
       course,
+      currentDate
     },
   };
 }
