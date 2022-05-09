@@ -12,15 +12,13 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted }) {
     if(activeTab !== tab) setActiveTab(tab);
   };
   const checkSectionCompleted = (section) => {
-    if(lessonsSubmitted) {
-
-      return lessonsSubmitted.map(item => item.section == section && item.completed == item.total).filter(Boolean)[0];
+    if(lessonsSubmitted && section) {
+      return lessonsSubmitted.map(item => item?.section == section && item?.completed == item?.total).filter(Boolean)[0];
     }
   };
   const checkCurrentSection = (section) => {
     if(lessonsSubmitted) {
-
-      if(lessonsSubmitted.find(item => item.completed < item.total).section == section) return 'bg-violet-600';
+      if(lessonsSubmitted.find(item => item.completed < item.total)?.section == section) return 'bg-violet-600';
     }
   };
   return (
