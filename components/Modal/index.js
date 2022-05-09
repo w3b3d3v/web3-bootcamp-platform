@@ -49,7 +49,7 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
     return section;
   };
   const saveLessonSubmission = async (userSubmission, submissionId) => {
-    if (!file) return toast.error('Você não pode enviar a lição sem resposta :)');
+    if (!userSubmission) return toast.error('Você não pode enviar a lição sem resposta :)');
     if (!submissionId) submissionId = uuid()
     const section = getSection();
     const content = {
