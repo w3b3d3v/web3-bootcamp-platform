@@ -67,7 +67,7 @@ export default function DiscordCard() {
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Estamos ansiosos para te conhecer, venha dar uma olhada!
                 </p>
-                <Button onClick={()=> signOut({redirect: false}) && signIn('discord')}>
+                <Button onClick={()=>signIn('discord')}>
                   Reconectar Discord
                 </Button>
                 {/*<div className="pt-4">
