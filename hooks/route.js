@@ -11,7 +11,6 @@ export function withPublic(Component) {
 
     useEffect(() => {
       if (router) {
-        console.log(router)
         if (auth.user) {
           router.query.from ? router.push(router.query.from) : router.push('/courses')
         } else {
