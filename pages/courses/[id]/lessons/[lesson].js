@@ -163,7 +163,7 @@ function Lessons({ course, lesson }) {
                     <div className='flex flex-col text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
                       <div className='text-black-100 dark:text-white-100 border-solid border-2 border-gray-600 font-medium min-w-min rounded-lg px-4 py-3 mb-3 text-sm'>
-                        {url?.length ? <img src={url} alt='submission' height={250} /> : validateUserSubmission(userSubmission)}
+                        {url?.length ? <img className='max-w-md' src={url} alt='submission' height={250} /> : validateUserSubmission(userSubmission)}
                       </div>
                     </div>
                     :
