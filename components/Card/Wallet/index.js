@@ -64,7 +64,7 @@ export default function WalletCard() {
                 Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
               <div className="pt-4">
-                <a className='cursor-pointer' id='desconectar-carteira' onClick={() => handleDisconnect()}>Desconectar</a>
+                <a className='cursor-pointer' id='disconnect-wallet' onClick={() => handleDisconnect()}>Desconectar</a>
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function WalletCard() {
                 projeto.
               </p>
               <div className="pt-4">
-                <Button ref={ref} id='conectar-carteira' onClick={() => handleConnectWallet()}>
+                <Button ref={ref} id='connect-wallet' onClick={() => handleConnectWallet()}>
                   Conectar carteira
                 </Button>
               </div>

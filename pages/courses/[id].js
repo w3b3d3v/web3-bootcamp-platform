@@ -139,7 +139,7 @@ function Course({ course, currentDate }) {
         </div>
         {(!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() ?
           <>
-            <button id={`cadastrar-se-cohort-curso`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
+            <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
               <ComingSoonCard />
             </div>
@@ -242,7 +242,7 @@ function Course({ course, currentDate }) {
                                     </div>
                                     <div className={counter > 1 ? 'pointer-events-none' : ''}>
                                       <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
-                                        <a id="acessar-lição" className='text-black-100 dark:text-white-100'>
+                                        <a id="access-lesson" className='text-black-100 dark:text-white-100'>
                                           <p className="m-0 p-0">
                                             {lesson.title}
                                           </p>

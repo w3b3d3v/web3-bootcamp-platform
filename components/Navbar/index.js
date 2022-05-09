@@ -183,7 +183,7 @@ export default function Navbar() {
                   {user ? (
                     <a
                       href="/courses"
-                      id={'desktop-acessar-cursos'}
+                      id={'desktop-access-courses'}
                       className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:bg-white-200 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 dark:hover:bg-black-200"
                     >
                       Cursos
@@ -195,7 +195,7 @@ export default function Navbar() {
                   {user ? (
                     <div className="relative">
                       <div
-                        id="menu-do-usuario"
+                        id="user-menu"
                         className="relative flex items-center"
                         onClick={() => setProfile(!profile)}
                       >
@@ -210,7 +210,7 @@ export default function Navbar() {
                             </Link>
 
                             <button
-                              id='sair-do-perfil'
+                              id='profile-logout'
                               className="flex w-full bg-transparent border-transparent cursor-pointer items-start hover:underline text-white-100"
                               onClick={() => {
                                 signOut({ redirect: false });
@@ -225,7 +225,7 @@ export default function Navbar() {
                         )}
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
-                            id='abrir-menu'
+                            id='open-menu'
                             className="h-10 w-10 rounded-full object-cover"
                             src={ user?.photoUrl }
                             alt="profile-pic"
@@ -253,7 +253,7 @@ export default function Navbar() {
                   ) : (
                     <div className="relative">
                       <a id='mobile-login-nav-icon' href="/auth">
-                        <Button id='acessar-plataforma' ref={ref}>Acessar Plataforma</Button>
+                        <Button id='login' ref={ref}>Acessar Plataforma</Button>
                       </a>
                     </div>
                   )}
@@ -289,14 +289,14 @@ export default function Navbar() {
                     {profile && (
                       <ul className="absolute right-0 top-0 mt-16 w-40 rounded border-r bg-white-100 p-2 shadow ">
                         <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
-                          <div id='mobile-meu-perfil' className="flex items-center">
+                          <div id='mobile-my-profile' className="flex items-center">
                             <Link href="/profile">
                               <span className="ml-2">Meu perfil</span>
                             </Link>
                           </div>
                         </li>
 
-                        <li id='mobile-sair' className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
+                        <li id='mobile-logout' className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
                           <button className="ml-2" onClick={logout}>
                             Sair
                           </button>
@@ -443,7 +443,7 @@ export default function Navbar() {
                       ))}
 
                       {user ? (
-                        <a id='mobile-menu-side-bar-cursos' href="/courses" className="cursor-pointer">
+                        <a id='mobile-menu-side-bar-courses' href="/courses" className="cursor-pointer">
                           <li className="pt-10 text-gray-800">
                             <div className="flex items-center">
                               <p className="ml-3 text-base text-black-300 dark:text-white-100 xl:text-base">

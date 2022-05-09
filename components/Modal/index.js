@@ -110,10 +110,10 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                       <div className="mt-2 text-gray-900">
                         <label htmlFor="lessonPrint">{submissionText}</label><br/>
                         <input type="file" onChange={(event) => setFile(event.target.files[0])}
-                          id="carregar-upload" name="lessonPrint" />
+                          id="load-file" name="lessonPrint" />
                         <br />
                         <div className='flex'>
-                        <button id='enviar-upload' className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
+                        <button id='upload-file' className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
                         onClick={() => saveUploadToStorage()}>Enviar</button>
                         {loading && 
                         <div className='mt-2.5 ml-2.5'><Loading /></div>
@@ -144,7 +144,7 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
-                    id='modal-enviar-lição'
+                    id='modal-send-lesson'
                     className="w-full cursor-pointer inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => saveLessonSubmission(lessonSubmission)}
                   >
@@ -153,7 +153,7 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                   <button
                     className="mt-3 cursor-pointer w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white-100 text-base font-medium text-gray-700 hover:bg-gray-50 hover:bg-red-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={onClose}
-                    id='modal-cancelar-lição'
+                    id='modal-cancel-button'
                     ref={cancelButtonRef}
                   >
                     Cancel

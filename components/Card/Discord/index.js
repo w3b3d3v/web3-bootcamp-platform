@@ -50,7 +50,7 @@ export default function DiscordCard() {
                 Quando você tiver acesso, não deixe de dizer olá!
               </p>
               <div className="pt-4">
-                <Button ref={ref} id='conectar-discord' onClick={() => signIn('discord')}>Conectar Discord</Button>
+                <Button ref={ref} id='connect-discord' onClick={() => signIn('discord')}>Conectar Discord</Button>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ export default function Card(props) {
           {active ? (
             <Link href={`/courses/${id}`}>
               <img
-                id={`acessar-curso-imagem ${id}`}
+                id={`access-course-image`}
                 src={img}
                 alt={title}
                 className="h-full w-full cursor-pointer rounded-tr-xl rounded-tl-xl"
@@ -65,7 +65,7 @@ export default function Card(props) {
               <h2 className="text-lg font-semibold">
                 {active ? (
                   <Link href={`/courses/${id}`}>
-                    <a id={`acessar-curso-titulo`} className='text-black-100 dark:text-white-100'>
+                    <a id={`access-course-title`} className='text-black-100 dark:text-white-100'>
                     {title.substring(0, 60) + '...'}
                     </a>
                   </Link>
@@ -90,7 +90,7 @@ export default function Card(props) {
               })}
                {active ? (
                 <Link href={`/courses/${id}`}>
-                  <Button id={`acessar-curso-button`} ref={ref}>Ver projeto</Button>
+                  <Button id={`access-course-button`} ref={ref}>Ver projeto</Button>
                 </Link>
               ) : (
                 <div className=" cursor-default">
