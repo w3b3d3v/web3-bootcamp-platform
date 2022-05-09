@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { fromJSON } from 'postcss';
 import React, { useEffect, useState } from 'react'
 import useAuth from './useAuth'
 
@@ -10,11 +11,11 @@ export function withPublic(Component) {
 
     useEffect(() => {
       if (router) {
+        console.log(router)
         if (auth.user) {
-          if(router.query?.from?.includes('[id]')){
-            router.push('/courses/Solidity_And_Smart_Contracts')
-          }else router.push('/courses')
+          router.query.from ? router.push(router.query.from) : router.push('/courses')
         } else {
+          
           setLoading(false)
         }
       }
@@ -40,12 +41,12 @@ export function withProtected(Component) {
           if(router.query.id) {
             void router.push({
               pathname: '/auth/signup',
-              query: { from: router.pathname },
+              query: { ...router.query, from: router.asPath },
             })
           }else {
             void router.push({
               pathname: '/auth',
-              query: { from: router.pathname },
+              query: { ...router.query, from: router.asPath },
             })
           }
           } else {
