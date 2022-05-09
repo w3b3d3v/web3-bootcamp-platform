@@ -17,7 +17,7 @@ export default function DiscordCard() {
       if(user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
-        if(session && session.discord && !userSession.discord && auth.currentUser?.uid) {
+        if(session && session.discord && auth.currentUser?.uid) {
           await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid);
           setDiscordConnected(true);
         } else if(userSession?.discord) setDiscordConnected(true);
