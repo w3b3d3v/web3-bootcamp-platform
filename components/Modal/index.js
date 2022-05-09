@@ -8,14 +8,16 @@ import { getLessonsSubmissions } from '../../lib/lessons';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAllCohorts } from '../../lib/cohorts';
 import { uuid } from 'uuidv4';
-
+import Loading from '../Loading'
+import { toast } from 'react-toastify';
 export default function Modal({ openExternal, onClose, course, lesson, submissionType, submissionText, submissionTitle }) {
   const cancelButtonRef = useRef(null);
   const [lessonSubmission, setLessonSubmission] = useState();
   const [cohort, setCohort] = useState();
   const [user, setUser] = useState();
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [cohorts, setCohorts] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, async user => {
@@ -54,9 +56,12 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
       value: userSubmission,
     };
     await submitLessonInFirestore(cohort.id, user, lesson, section, content, submissionId);
+    setLoading(false);
     onClose();
   };
   const saveUploadToStorage = async () => {
+    if (!file) return toast.error('Você precisa selecionar um arquivo para enviar');
+    setLoading(true);
     const submissionId = uuid()
     const storageRef = ref(storage, `lessons_submissions/${submissionId}`);
     await uploadBytes(storageRef, file);
@@ -106,8 +111,13 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                         <input type="file" onChange={(event) => setFile(event.target.files[0])}
                           id="lessonPrint" name="lessonPrint" />
                         <br />
+                        <div className='flex'>
                         <button className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
                         onClick={() => saveUploadToStorage()}>Enviar</button>
+                        {loading && 
+                        <div className='mt-2.5 ml-2.5'><Loading /></div>
+                        }
+                        </div>
                       </div>
                     </div>
                   </div>
