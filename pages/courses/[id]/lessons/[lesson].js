@@ -143,9 +143,9 @@ function Lessons({ course, lesson }) {
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()} />
         <div className='container flex justify-between my-4'>
-          <Button customClass='bg-slate-300 dark:text-black-100' onClick={previousLesson}>Lição anterior</Button>
-          <Button customClass='' onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button customClass='bg-violet-600 text-white-200' onClick={nextLesson}>Próxima lição</Button>
+          <Button id='lição-anterior' customClass='bg-slate-300 dark:text-black-100' onClick={previousLesson}>Lição anterior</Button>
+          <Button id='voltar-ao-curso' customClass='' onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
+          <Button id='proxima-lição' customClass='bg-violet-600 text-white-200' onClick={nextLesson}>Próxima lição</Button>
         </div>
       </div>
       <div className="container rounded-lg bg-white-100 shadow-xl dark:bg-black-200 w-2/3 mx-auto px-6 my-8 py-2 sm:px-2 md:px-4 lg:px-14 xl:py-0">
@@ -167,7 +167,7 @@ function Lessons({ course, lesson }) {
                       </div>
                     </div>
                     :
-                    <Button ref={ref} customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>{submissionTitle}</Button>
+                    <Button ref={ref} id='enviar-lição' customClass='w-2/3 my-8 mx-auto' onClick={() => setOpen(true)}>{submissionTitle}</Button>
                   }
                   {open &&
                     <Modal
