@@ -8,7 +8,7 @@ import { getLessonsSubmissions } from '../../lib/lessons';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAllCohorts } from '../../lib/cohorts';
 import { uuid } from 'uuidv4';
-import Loading from '../Loading'
+import Loading from '../Loading';
 import { toast } from 'react-toastify';
 export default function Modal({ openExternal, onClose, course, lesson, submissionType, submissionText, submissionTitle }) {
   const cancelButtonRef = useRef(null);
@@ -24,6 +24,8 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
       if(user) {
         const userSession = await getUserFromFirestore(user);
         setUser(userSession);
+        const currentCohort = userSession.cohorts.find(c => c.course_id === course.id);
+        setCohort(currentCohort);
       }
     }
     );
@@ -33,12 +35,12 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
     setCohorts(await getAllCohorts());
   }, []);
 
-  useEffect(async () => {
-    if(cohorts) {
-      const currentCohort = cohorts.find(c => c.courseId === course.id);
-      setCohort(currentCohort);
-    }
-  }, [cohorts]);
+  /*  useEffect(async () => {
+      if(cohorts) {
+        const currentCohort = cohorts.find(c => c.courseId === course.id);
+        setCohort(currentCohort);
+      }
+    }, [cohorts]);*/
 
   const getSection = () => {
     const section = Object.entries(course.sections)
@@ -49,21 +51,21 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
     return section;
   };
   const saveLessonSubmission = async (userSubmission, submissionId) => {
-    if (!userSubmission) return toast.error('Você não pode enviar a lição sem resposta :)');
-    if (!submissionId) submissionId = uuid()
+    if(!userSubmission) return toast.error('Você não pode enviar a lição sem resposta :)');
+    if(!submissionId) submissionId = uuid();
     const section = getSection();
     const content = {
       type: submissionType,
       value: userSubmission,
     };
-    await submitLessonInFirestore(cohort.id, user, lesson, section, content, submissionId);
+    await submitLessonInFirestore(cohort.cohort_id, user, lesson, section, content, submissionId);
     setLoading(false);
     onClose();
   };
   const saveUploadToStorage = async () => {
-    if (!file) return toast.error('Você precisa selecionar um arquivo para enviar');
+    if(!file) return toast.error('Você precisa selecionar um arquivo para enviar');
     setLoading(true);
-    const submissionId = uuid()
+    const submissionId = uuid();
     const storageRef = ref(storage, `lessons_submissions/${submissionId}`);
     await uploadBytes(storageRef, file);
     await getDownloadURL(storageRef).then((url) => {
@@ -105,19 +107,19 @@ export default function Modal({ openExternal, onClose, course, lesson, submissio
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
                         {submissionTitle}
                         <br />
-                        
+
                       </Dialog.Title>
                       <div className="mt-2 text-gray-900">
-                        <label htmlFor="lessonPrint">{submissionText}</label><br/>
+                        <label htmlFor="lessonPrint">{submissionText}</label><br />
                         <input type="file" onChange={(event) => setFile(event.target.files[0])}
                           id="load-file" name="lessonPrint" />
                         <br />
                         <div className='flex'>
-                        <button id='upload-file' className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
-                        onClick={() => saveUploadToStorage()}>Enviar</button>
-                        {loading && 
-                        <div className='mt-2.5 ml-2.5'><Loading /></div>
-                        }
+                          <button id='upload-file' className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
+                            onClick={() => saveUploadToStorage()}>Enviar</button>
+                          {loading &&
+                            <div className='mt-2.5 ml-2.5'><Loading /></div>
+                          }
                         </div>
                       </div>
                     </div>
