@@ -18,13 +18,27 @@ exports.addDiscordRole = functions.firestore
   .document('users/{userId}')
   .onUpdate((change, context) => {
 
-    const previousValue = change.before.data();
+    const previousUserValue = change.before.data();
 
-    const newValue = change.after.data().discord;
-    // usuário não tinha discord e agora conectou o discord ---- Usuário reconectou com outro discord
-    if(((!previousValue.discord.username) && newValue) || (previousValue.discord.id !== newValue.id)) {
-      addUserToRole(newValue.id, '971416421840064574'); // precisamos eventualmente que essa role esteja no cohort e deve ser buscada dinamicamente.
-    }
+    const newUserValue = change.after.data();
+
+    const userCohorts = newUserValue.cohorts;
+
+    db.collection('cohorts')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(async (doc) => {
+          const cohort = doc.data();
+          const userCohort = userCohorts.find(userCohort => userCohort.cohort_id == cohort.id);
+
+          if(cohort.id == userCohort.cohort_id) { //se o usuario está no cohort
+            //quando o usuário conecta no discord
+            if((!previousUserValue.discord.username) && newUserValue.discord.username) {
+              addUserToRole(newUserValue.discord.id, doc.data().discord_role);
+            }
+          }
+        });
+      });
   });
 
 exports.helloPubSub = functions.pubsub
