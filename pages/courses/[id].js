@@ -66,7 +66,7 @@ function Course({ course, currentDate }) {
           clearInterval(interval);
         }
         return setTimeLeft(ct);
-      } 
+      }
     }, 1000);
     return () => clearInterval(interval);
   }, [userCohortStartDate]);
@@ -117,6 +117,18 @@ function Course({ course, currentDate }) {
     });
     return completed;
   };
+  const userIsNotRegisteredAndCohortIsOpen = () => {
+    return (!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() && (cohort?.endDate > new Date(currentDate));
+  };
+  const userIsNotRegisteredAndCohortIsClosed = () => {
+    return ((!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort()) && (cohort?.endDate < new Date(currentDate));
+  };
+  const userIsRegisteredAndCohortWillOpen = () => {
+    return (!userIsRegisteredInCohort()) && (cohort?.startDate > new Date(currentDate));
+  };
+  const userIsRegisteredAndCohortIsOpen = () => {
+    return (!userIsRegisteredInCohort()) && (cohort?.startDate < new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id));
+  };
   return (
     <Layout>
       <Head>
@@ -137,132 +149,140 @@ function Course({ course, currentDate }) {
             </div>
           </div>
         </div>
-        {(!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() ?
+        {userIsNotRegisteredAndCohortIsClosed() &&
+          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
+            <div className="flex flex-col w-3/4 justify-center items-center">
+              <p className='text-2xl text-center'>As inscrições para este bootcamp estão encerradas, aguarde a próxima turma abrir para se inscrever!</p>
+            </div>
+          </div>
+        }
+        {userIsNotRegisteredAndCohortIsOpen() &&
           <>
             <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
               <ComingSoonCard />
             </div>
           </>
-          : timeLeft != null ?
-            <>
-              <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
-                <div className="flex flex-col w-3/4 justify-center items-center">
-                  <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
-                  <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
-                  <div className='flex flex-row flex-wrap items-start w-full text-lg lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold text-white-100'>{timeLeft && '⏰' + timeLeft}
-                    <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
+        }
+        {userIsRegisteredAndCohortWillOpen() &&
+          <>
+            <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
+              <div className="flex flex-col w-3/4 justify-center items-center">
+                <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
+                <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
+                <div className='flex flex-row flex-wrap items-start w-full text-lg lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold text-white-100'>{timeLeft && '⏰' + timeLeft}
+                  <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>
 
-                      <ICalendarLink className='flex flex-row items-center text-white-100'
-                        event={{
-                          title: course?.title,
-                          description: course?.description,
-                          startTime: cohort?.kickoffStartTime,
-                          endTime: cohort?.kickoffEndTime,
-                          location: "https://discord.web3dev.com.br"
-                        }}>
-                        <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
-                      </ICalendarLink>
-                    </button>
-                  </div>
+                    <ICalendarLink className='flex flex-row items-center text-white-100'
+                      event={{
+                        title: course?.title,
+                        description: course?.description,
+                        startTime: cohort?.kickoffStartTime,
+                        endTime: cohort?.kickoffEndTime,
+                        location: "https://discord.web3dev.com.br"
+                      }}>
+                      <CalendarIcon className='h-7 w-7 mr-2' />Adicionar ao calendário
+                    </ICalendarLink>
+                  </button>
                 </div>
               </div>
-              <div className="flex flex-col lg:flex-row gap-8">
-                <div className="item flex-grow">
-                  <DiscordCard />
-                </div>
-                <div className="item flex-grow">
-                  <WalletCard />
-                </div>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="item flex-grow">
+                <DiscordCard />
               </div>
-              <div className="flex pt-6">
-                <ShareLinkCard course={course.id} />
+              <div className="item flex-grow">
+                <WalletCard />
               </div>
-              <div className="flex pt-6">
-                <ComingSoonCard />
+            </div>
+            <div className="flex pt-6">
+              <ShareLinkCard course={course.id} />
+            </div>
+            <div className="flex pt-6">
+              <ComingSoonCard />
+            </div>
+            <br />
+          </>
+        }
+        {userIsRegisteredAndCohortIsOpen() &&
+          <>
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="item flex-grow">
+                <DiscordCard />
               </div>
-              <br />
-            </>
-            :
-            timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id) &&
-            <>
-              <div className="flex flex-col lg:flex-row gap-8">
-                <div className="item flex-grow">
-                  <DiscordCard />
-                </div>
-                <div className="item flex-grow">
-                  <WalletCard />
-                </div>
+              <div className="item flex-grow">
+                <WalletCard />
               </div>
-              <div className="container my-8">
-                <Tabs course={course} lessonsSubmitted={checkLessons()} />
+            </div>
+            <div className="container my-8">
+              <Tabs course={course} lessonsSubmitted={checkLessons()} />
 
-                <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
-                  {course?.sections &&
-                    Object.keys(course?.sections).sort().map((section) => {
-                      return (
-                        <div key={section}>
-                          <span id={section} className="mb-4 font-bold">
-                            {section?.replace('Section_', 'Sessão ')}
-                          </span>
-                          <ul className="mt-2 mb-8 flex flex-col list-none	">
-                            {course?.sections[section].map((lesson) => {
-                              return (
-                                <li
-                                  key={lesson.title}
-                                  className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
-                                >
-                                  <div className="flex items-center">
-                                    <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
-                                      <input
-                                        disabled
-                                        type="radio"
-                                        name="radio"
-                                        className="checkbox absolute h-full w-full mt-1 appearance-none rounded-full border border-gray-400 "
-                                      />
-                                      <div className="check-icon z-1 h-full w-full rounded-full">
-                                        {userSubmissions(lesson) ?
-                                          <Image
-                                            className="h-full w-full "
-                                            width={48}
-                                            height={48}
-                                            src={'/assets/img/checked-radio-button.png'}
-                                            alt={lesson.title}
-                                          />
-                                          :
-                                          <Image
-                                            className="h-full w-full"
-                                            width={48}
-                                            height={48}
-                                            src={'/assets/img/radio-button.png'}
-                                            alt={lesson.title}
-                                          />
-                                        }
-                                      </div>
-                                    </div>
-                                    <div className={counter > 1 ? 'pointer-events-none' : ''}>
-                                      <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
-                                        <a id="access-lesson" className='text-black-100 dark:text-white-100'>
-                                          <p className="m-0 p-0">
-                                            {lesson.title}
-                                          </p>
-                                        </a>
-                                      </Link>
+              <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
+                {course?.sections &&
+                  Object.keys(course?.sections).sort().map((section) => {
+                    return (
+                      <div key={section}>
+                        <span id={section} className="mb-4 font-bold">
+                          {section?.replace('Section_', 'Sessão ')}
+                        </span>
+                        <ul className="mt-2 mb-8 flex flex-col list-none	">
+                          {course?.sections[section].map((lesson) => {
+                            return (
+                              <li
+                                key={lesson.title}
+                                className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
+                              >
+                                <div className="flex items-center">
+                                  <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                                    <input
+                                      disabled
+                                      type="radio"
+                                      name="radio"
+                                      className="checkbox absolute h-full w-full mt-1 appearance-none rounded-full border border-gray-400 "
+                                    />
+                                    <div className="check-icon z-1 h-full w-full rounded-full">
+                                      {userSubmissions(lesson) ?
+                                        <Image
+                                          className="h-full w-full "
+                                          width={48}
+                                          height={48}
+                                          src={'/assets/img/checked-radio-button.png'}
+                                          alt={lesson.title}
+                                        />
+                                        :
+                                        <Image
+                                          className="h-full w-full"
+                                          width={48}
+                                          height={48}
+                                          src={'/assets/img/radio-button.png'}
+                                          alt={lesson.title}
+                                        />
+                                      }
                                     </div>
                                   </div>
-                                </li>
-                              );
-                            }).sort((a, b) => a - b)}
-                          </ul>
-                        </div>
-                      );
-                    })}
-                </div>
+                                  <div className={counter > 1 ? 'pointer-events-none' : ''}>
+                                    <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
+                                      <a id="access-lesson" className='text-black-100 dark:text-white-100'>
+                                        <p className="m-0 p-0">
+                                          {lesson.title}
+                                        </p>
+                                      </a>
+                                    </Link>
+                                  </div>
+                                </div>
+                              </li>
+                            );
+                          }).sort((a, b) => a - b)}
+                        </ul>
+                      </div>
+                    );
+                  })}
               </div>
-              <div className="flex pt-6 mb-3">
-                <ShareLinkCard course={course.id} />
-              </div>
-            </>
+            </div>
+            <div className="flex pt-6 mb-3">
+              <ShareLinkCard course={course.id} />
+            </div>
+          </>
         }
       </div>
     </Layout>
