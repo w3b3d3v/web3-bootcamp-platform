@@ -42,8 +42,11 @@ function Course({ course, currentDate }) {
   }, [user]);
   useEffect(async () => {
     if(cohorts) {
-      const currentCohort = cohorts.find(cohort => {
-        return cohort.courseId == course.id && ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) || (cohort.endDate >= new Date(currentDate)));
+      const sortCohortsByDate = cohorts.sort((a, b) => {
+        return new Date(a.startDate) - new Date(b.startDate);
+      });
+      const currentCohort = sortCohortsByDate.find(cohort => {
+        return cohort.courseId == course.id && ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) || (cohort.startDate >= new Date(currentDate)) );
       });
       setCohort(currentCohort);
     }
@@ -118,13 +121,13 @@ function Course({ course, currentDate }) {
     return completed;
   };
   const userIsNotRegisteredAndCohortIsOpen = () => {
-    return (!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort() && (cohort?.endDate > new Date(currentDate));
+    return (!user?.cohorts || user?.cohorts?.length == 0) || !(userIsRegisteredInCohort()) && (cohort?.endDate >= new Date(currentDate));
   };
   const userIsNotRegisteredAndCohortIsClosed = () => {
-    return ((!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort()) && (cohort?.endDate < new Date(currentDate));
+    return ((!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort()) && (cohort?.endDate <= new Date(currentDate));
   };
   const userIsRegisteredAndCohortWillOpen = () => {
-    return (userIsRegisteredInCohort()) && (cohort?.startDate > new Date(currentDate));
+    return (userIsRegisteredInCohort()) && (cohort?.startDate >= new Date(currentDate));
   };
   const userIsRegisteredAndCohortIsOpen = () => {
     return !userHasAlreadyParticipatedInACohort() && (userIsRegisteredInCohort()) && (cohort?.startDate <= new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.course_id).includes(course.id));
@@ -170,7 +173,7 @@ function Course({ course, currentDate }) {
             </div>
           </div>
         }
-        {userIsNotRegisteredAndCohortIsOpen() &&
+        {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() &&
           <>
             <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
             <div className="flex pt-6">
