@@ -42,7 +42,9 @@ function Course({ course, currentDate }) {
   }, [user]);
   useEffect(async () => {
     if(cohorts) {
-      const currentCohort = cohorts.find(c => c.courseId === course.id);
+      const currentCohort = cohorts.find(cohort => {
+        return cohort.courseId == course.id && ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) || (cohort.endDate >= new Date(currentDate)));
+      });
       setCohort(currentCohort);
     }
   }, [cohorts]);
@@ -76,9 +78,7 @@ function Course({ course, currentDate }) {
     setRegisterOnCohort(true);
   };
   const userIsRegisteredInCohort = () => {
-    return !!user?.cohorts
-      ?.map(cohort => cohort)
-      .every(item => item.id !== course.id);
+    return !!user?.cohorts.find(userCohort => userCohort.course_id == course.id && userCohort.cohort_id == cohort.id);
   };
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
@@ -90,16 +90,30 @@ function Course({ course, currentDate }) {
   };
 
   const userIsNotRegisteredAndCohortIsOpen = () => {
-    return (!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() && (cohort?.endDate > new Date(currentDate));
+    return (!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort() && (cohort?.endDate > new Date(currentDate));
   };
   const userIsNotRegisteredAndCohortIsClosed = () => {
-    return ((!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort()) && (cohort?.endDate < new Date(currentDate));
+    return ((!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort()) && (cohort?.endDate < new Date(currentDate));
   };
   const userIsRegisteredAndCohortWillOpen = () => {
-    return (!userIsRegisteredInCohort()) && (cohort?.startDate > new Date(currentDate));
+    return (userIsRegisteredInCohort()) && (cohort?.startDate > new Date(currentDate));
   };
   const userIsRegisteredAndCohortIsOpen = () => {
-    return (!userIsRegisteredInCohort()) && (cohort?.startDate < new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.id).includes(course.id));
+    return !userHasAlreadyParticipatedInACohort() && (userIsRegisteredInCohort()) && (cohort?.startDate <= new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.course_id).includes(course.id));
+  };
+  const userHasAlreadyParticipatedInACohort = () => {
+    const endedCohorts = [];
+    cohorts?.map(cohort => {
+      if(cohort.courseId === course.id && cohort.endDate <= new Date(currentDate)) {
+        endedCohorts.push(cohort);
+      }
+    });
+    const userEndedCohorts = user?.cohorts.map(cohort => {
+      if(cohort.course_id == course.id) {
+        return endedCohorts.find(endedCohorts => cohort.cohort_id == endedCohorts.id);
+      }
+    }).filter(Boolean);
+    return userEndedCohorts?.length > 0;
   };
   return (
     <Layout>
@@ -176,7 +190,7 @@ function Course({ course, currentDate }) {
             <br />
           </>
         }
-        {userIsRegisteredAndCohortIsOpen() &&
+        {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) &&
           <>
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="item flex-grow">
