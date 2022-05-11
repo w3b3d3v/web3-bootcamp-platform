@@ -217,4 +217,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default Lessons;
+export default withProtected(Lessons);
