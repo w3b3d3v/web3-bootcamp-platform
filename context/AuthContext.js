@@ -40,7 +40,7 @@ const toastParameters = {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  const [userAuthenticated, setUserAuthenticated] = useState(false)
   const handleUser = async (currentUser) => {
     if (currentUser) {
       const formatedUser = await formatUser(currentUser)
@@ -58,8 +58,11 @@ export function AuthProvider({ children }) {
       cookie.set('web3dev-bootcamp-auth', session, {
         expires: 1,
       })
+      setUserAuthenticated(true)
+      setLoading(false)
     } else {
       cookie.remove('web3dev-bootcamp-auth')
+      setUserAuthenticated(false)
     }
   }
 
@@ -170,6 +173,7 @@ export function AuthProvider({ children }) {
       value={{
         user,
         loading,
+        userAuthenticated,
         login,
         signup,
         // loginGitHub,
