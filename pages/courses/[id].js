@@ -158,7 +158,7 @@ function Course({ course, currentDate }) {
         }
         {userIsNotRegisteredAndCohortIsOpen() &&
           <>
-            <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
+            <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora &#x1F31F;</button>
             <div className="flex pt-6">
               <ComingSoonCard />
             </div>
@@ -168,7 +168,7 @@ function Course({ course, currentDate }) {
           <>
             <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
               <div className="flex flex-col w-3/4 justify-center items-center">
-                <p className='text-2xl mb-3'>Evento ao vivo ✨</p>
+                <p className='text-2xl mb-3'>Evento ao vivo &#x1F31F;</p>
                 <p className='text-sm lg:text-base'>No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!</p>
                 <div className='flex flex-row flex-wrap items-start w-full text-lg lg:text-3xl items-center justify-center lg:justify-between mt-3 font-bold text-white-100'>{timeLeft && '⏰' + timeLeft}
                   <button className='flex flex-row mt-3 lg:flex-row bg-indigo-500 text-sm lg:text-base p-2 lg:p-3 rounded-lg items-center' onClick={() => calendarFunction()}>

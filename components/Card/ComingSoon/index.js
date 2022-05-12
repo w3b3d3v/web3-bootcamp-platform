@@ -18,7 +18,7 @@ export default function ComingSoonCard() {
             <div className="px-6 py-5 min-w-full items-center flex justify-between">
               <div className='flex-col'>
               <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-              🦄 Está chegando a hora!
+              &#x1F98F; Está chegando a hora!
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                 Estamos finalizando os últimos preparativos o evento. Volte para conferir em breve!

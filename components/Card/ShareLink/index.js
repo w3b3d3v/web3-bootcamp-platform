@@ -56,7 +56,7 @@ export default function ShareLinkCard({ course }) {
           <div className="flex min-w-full flex-col items-start justify-between px-6 py-5 lg:flex-row lg:items-center">
             <div className="flex-col">
               <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                💜 Aprenda com seus amigos!
+              &#x1F493; Aprenda com seus amigos!
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                 Divulgue seu link personalizado para seus amigos, assim eles
