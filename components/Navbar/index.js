@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { Button } from '../Button'
 import ThemeSwitch from '../ThemeSwitch'
@@ -9,9 +9,11 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
 import { useSession, signOut } from 'next-auth/react'
+import { getUserFromFirestore } from '../../lib/user';
 
 export default function Navbar() {
   const { data: session, status } = useSession()
+  const [firestoreUser, setFirestoreUser] = useState()
   const ref = React.createRef()
   const navbarLinks = [
     {
@@ -28,6 +30,15 @@ export default function Navbar() {
   const [profile, setProfile] = useState(false)
 
   const { user, logout } = useAuth()
+
+  const getUser = async () => {
+    if (user?.uid) return await getUserFromFirestore(user).then((user) => {
+    setFirestoreUser(user)
+    })
+  }
+  useEffect(()=>{
+    getUser()
+  },[user])
 
   return (
     <>
@@ -61,7 +72,7 @@ export default function Navbar() {
                           <div className="focus:border-white flex w-12 cursor-pointer rounded border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                             <img
                               className="h-10 w-10 rounded-full object-cover"
-                              src={ user?.photoUrl }
+                              src={ firestoreUser?.photoUrl }
                               alt="profile-pic"
                             />
                           </div>
@@ -227,7 +238,7 @@ export default function Navbar() {
                           <img
                             id='open-menu'
                             className="h-10 w-10 rounded-full object-cover"
-                            src={ user?.photoUrl }
+                            src={ firestoreUser?.photoUrl }
                             alt="profile-pic"
                           />
                         </div>
@@ -306,7 +317,7 @@ export default function Navbar() {
                     <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src={ user?.photoUrl }
+                        src={ firestoreUser?.photoUrl }
                         alt="profile-pic"
                       />
                     </div>
@@ -463,7 +474,7 @@ export default function Navbar() {
                             <a id='mobile-menu-side-bar-user-logo' href="/profile">
                               <img
                                 className="h-10 w-10 rounded-full object-cover"
-                                src={ user?.photoUrl }
+                                src={ firestoreUser?.photoUrl }
                                 alt="profile-pic"
                               />
                             </a>
