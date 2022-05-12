@@ -7,10 +7,12 @@ import useAuth from '../../hooks/useAuth'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
 import { Button } from '../../components/Button'
-import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
-import { auth } from '../../firebase/initFirebase'
+import { getUserFromFirestore, updateUserInFirestore, updateUserProfilePicInFirestore } from '../../lib/user'
+import { auth, storage } from '../../firebase/initFirebase'
 import { toast } from 'react-toastify'
 import { onAuthStateChanged } from 'firebase/auth'
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import Loading from '../../components/Loading'
 
 function Profile() {
   const [user, setUser] = useState()
@@ -21,6 +23,9 @@ function Profile() {
   const [github, setGithub] = useState()
   const [twitter, setTwitter] = useState()
   const [personalWebsite, setPersonalWebsite] = useState()
+  const [file, setFile] = useState()
+  const authO = useAuth()
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -48,6 +53,19 @@ function Profile() {
     })
   }, [])
 
+  const updateUserProfilePic = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const storageRef = ref(storage, `users/${user.uid}/profilePic`);
+    await uploadBytes(storageRef, file);
+    await getDownloadURL(storageRef).then(url => {
+      updateUserProfilePicInFirestore(user.uid, url);
+      toast.success('Profile picture updated successfully');
+      authO.user.photoUrl = url;
+      setLoading(false);
+      window.location.reload();
+    });
+  }
   const updateUserData = async () => {
     const userData = {
       name: name || user.name,
@@ -168,6 +186,25 @@ function Profile() {
                       placeholder="Escreva um resumo sobre você..."
                       defaultValue={user?.bio}
                     />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="p-2">
+                <div>
+                  Alterar foto de perfil:
+                  <div className=''>
+                    <input type="file" onChange={(event) => setFile(event.target.files[0])}
+                      id="lessonPrint" name="lessonPrint" />
+                    <br />
+                    <div className='flex flex-row'>
+                      <button className="cursor-pointer inline-flex rounded-md border border-transparent shadow-sm px-4 py-2 my-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
+                        onClick={(e) => updateUserProfilePic(e)}>Enviar</button>
+                        {loading && 
+                        <div className='mt-2.5 ml-2.5'><Loading /></div>
+                        }
+                    </div>
                   </div>
                 </div>
               </div>
