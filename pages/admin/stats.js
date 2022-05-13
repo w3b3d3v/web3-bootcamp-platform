@@ -4,13 +4,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/layout'
 import { auth, storage } from '../../firebase/initFirebase'
-import { lessonsStatus } from '../../lib/lessons'
+import { lessonsStatus, lastLesson } from '../../lib/lessons'
 
 function Stats() {
   const [lessonsStats, setLessonsStats] = useState([])
+  const [lastLessons, setLastLessons] = useState([])
 
   useEffect(async () => {
     setLessonsStats(await lessonsStatus());
+    setLastLessons(await lastLesson());
   }, []);
 
   return (
@@ -31,6 +33,28 @@ function Stats() {
               })
             }
           </ul>
+          <hr />
+          <table>
+            <thead>
+              <tr>
+                <td>Nome</td>
+              </tr>
+            </thead>
+            <tbody>
+              {lastLessons.map((l) => {
+                return (
+                  <tr key={l.id}>
+                    <td className="mx-auto mb-1">{l.createdAt && new Date(l.createdAt.seconds * 1000).toLocaleString()}</td>
+                    <td>{l.user.email}<br />{l.user.discord && l.user.discord.username}<br />{l.user.uid}</td>
+                    <td></td>
+                    <td></td>
+                    <td><img src={l.content.value} /> </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+
+          </table>
         </div>
       </main>
     </Layout>
