@@ -9,7 +9,7 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
 import { useSession, signOut } from 'next-auth/react'
-import { getUserFromFirestore } from '../../lib/user';
+import { getUserFromFirestore } from '../../lib/user'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
@@ -32,13 +32,14 @@ export default function Navbar() {
   const { user, logout } = useAuth()
 
   const getUser = async () => {
-    if (user?.uid) return await getUserFromFirestore(user).then((user) => {
-    setFirestoreUser(user)
-    })
+    if (user?.uid)
+      return await getUserFromFirestore(user).then((user) => {
+        setFirestoreUser(user)
+      })
   }
-  useEffect(()=>{
+  useEffect(() => {
     getUser()
-  },[user])
+  }, [user])
 
   return (
     <>
@@ -72,7 +73,7 @@ export default function Navbar() {
                           <div className="focus:border-white flex w-12 cursor-pointer rounded border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                             <img
                               className="h-10 w-10 rounded-full object-cover"
-                              src={ firestoreUser?.photoUrl }
+                              src={firestoreUser?.photoUrl}
                               alt="profile-pic"
                             />
                           </div>
@@ -162,7 +163,7 @@ export default function Navbar() {
               <div className="flex w-full items-center justify-end sm:w-auto sm:items-stretch sm:justify-start">
                 <div className="flex items-center">
                   <a
-                    id='mobile-home-logo'
+                    id="mobile-home-logo"
                     href="/"
                     className="flex items-center justify-center text-black-300 transition duration-150 ease-in-out hover:text-primary-300 hover:no-underline dark:text-white-100 dark:hover:text-primary-300"
                   >
@@ -179,17 +180,17 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
-              {process.env.NEXT_PUBLIC_ENVIROMENT == 'STAGING' &&
-              <div className='bg-gradient-to-r from-green-400 to-violet-500 w-1/3 text-center font-semibold tracking-widest'>
-                STAGING
-              </div>
-              }
+              {process.env.NEXT_PUBLIC_ENVIRONMENT && (
+                <div className="w-1/3 bg-gradient-to-r from-green-400 to-violet-500 text-center font-semibold tracking-widest">
+                  {process.env.NEXT_PUBLIC_ENVIRONMENT}
+                </div>
+              )}
               <div className="flex">
                 <div className="hidden md:mr-6 xl:mr-6 xl:flex">
                   {navbarLinks.map((link) => (
                     <a
                       key={link.name}
-                      id={'desktop-'+link.name}
+                      id={'desktop-' + link.name}
                       href={link?.href}
                       className="flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:bg-gray-100 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 dark:hover:bg-black-200"
                     >
@@ -218,7 +219,10 @@ export default function Navbar() {
                         {profile && (
                           <ul className="absolute right-0 top-0 z-50 mt-16 w-40 rounded bg-white-100 p-2 shadow dark:bg-black-200">
                             <Link href="/profile">
-                              <a id='abrirl-perfil' className="ml-2 flex w-full items-start">
+                              <a
+                                id="abrirl-perfil"
+                                className="ml-2 flex w-full items-start"
+                              >
                                 <li className="cursor-pointer list-none py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
                                   Meu perfil
                                 </li>
@@ -226,11 +230,11 @@ export default function Navbar() {
                             </Link>
 
                             <button
-                              id='profile-logout'
-                              className="flex w-full bg-transparent border-transparent cursor-pointer items-start hover:underline text-white-100"
+                              id="profile-logout"
+                              className="flex w-full cursor-pointer items-start border-transparent bg-transparent text-white-100 hover:underline"
                               onClick={() => {
-                                signOut({ redirect: false });
-                                logout();
+                                signOut({ redirect: false })
+                                logout()
                               }}
                             >
                               <li className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
@@ -241,9 +245,9 @@ export default function Navbar() {
                         )}
                         <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                           <img
-                            id='open-menu'
+                            id="open-menu"
                             className="h-10 w-10 rounded-full object-cover"
-                            src={ firestoreUser?.photoUrl }
+                            src={firestoreUser?.photoUrl}
                             alt="profile-pic"
                           />
                         </div>
@@ -268,8 +272,10 @@ export default function Navbar() {
                     </div>
                   ) : (
                     <div className="relative">
-                      <a id='mobile-login-nav-icon' href="/auth">
-                        <Button id='login' ref={ref}>Acessar Plataforma</Button>
+                      <a id="mobile-login-nav-icon" href="/auth">
+                        <Button id="login" ref={ref}>
+                          Acessar Plataforma
+                        </Button>
                       </a>
                     </div>
                   )}
@@ -281,7 +287,7 @@ export default function Navbar() {
         <nav>
           <div className="fixed top-0 z-40 flex w-full items-center justify-between bg-gray-50 py-4 px-6 dark:bg-black-300 xl:hidden">
             <div>
-              <a id='mobile-home' href="/" className="flex items-center">
+              <a id="mobile-home" href="/" className="flex items-center">
                 <>
                   <Image
                     width={42}
@@ -305,14 +311,20 @@ export default function Navbar() {
                     {profile && (
                       <ul className="absolute right-0 top-0 mt-16 w-40 rounded border-r bg-white-100 p-2 shadow ">
                         <li className="cursor-pointer py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
-                          <div id='mobile-my-profile' className="flex items-center">
+                          <div
+                            id="mobile-my-profile"
+                            className="flex items-center"
+                          >
                             <Link href="/profile">
                               <span className="ml-2">Meu perfil</span>
                             </Link>
                           </div>
                         </li>
 
-                        <li id='mobile-logout' className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none">
+                        <li
+                          id="mobile-logout"
+                          className="mt-2 flex cursor-pointer items-center py-2 text-sm leading-3 tracking-normal text-gray-600 hover:text-green-700 focus:text-green-700 focus:outline-none"
+                        >
                           <button className="ml-2" onClick={logout}>
                             Sair
                           </button>
@@ -322,7 +334,7 @@ export default function Navbar() {
                     <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src={ firestoreUser?.photoUrl }
+                        src={firestoreUser?.photoUrl}
                         alt="profile-pic"
                       />
                     </div>
@@ -330,7 +342,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="relative ml-2 mr-4">
-                  <a id='mobile-not-logged-user-profile-icon' href="/auth">
+                  <a id="mobile-not-logged-user-profile-icon" href="/auth">
                     <UserCircleIcon className="h-5 w-5 text-black-300 dark:text-white-100" />
                   </a>
                 </div>
@@ -401,7 +413,7 @@ export default function Navbar() {
                           <a
                             href="/"
                             className="flex items-center justify-center"
-                            id='mobile-menu-side-bar'
+                            id="mobile-menu-side-bar"
                           >
                             <>
                               <Image
@@ -443,7 +455,7 @@ export default function Navbar() {
                     <ul className="f-m-m">
                       {navbarLinks.map((link) => (
                         <a
-                          id={'mobile-menu-side-bar '+link.name}
+                          id={'mobile-menu-side-bar ' + link.name}
                           key={link.name}
                           href={link?.href}
                           className="cursor-pointer"
@@ -459,7 +471,11 @@ export default function Navbar() {
                       ))}
 
                       {user ? (
-                        <a id='mobile-menu-side-bar-courses' href="/courses" className="cursor-pointer">
+                        <a
+                          id="mobile-menu-side-bar-courses"
+                          href="/courses"
+                          className="cursor-pointer"
+                        >
                           <li className="pt-10 text-gray-800">
                             <div className="flex items-center">
                               <p className="ml-3 text-base text-black-300 dark:text-white-100 xl:text-base">
@@ -476,10 +492,13 @@ export default function Navbar() {
                       {user ? (
                         <div className="flex w-full items-center justify-between pt-2">
                           <div className="flex items-center">
-                            <a id='mobile-menu-side-bar-user-logo' href="/profile">
+                            <a
+                              id="mobile-menu-side-bar-user-logo"
+                              href="/profile"
+                            >
                               <img
                                 className="h-10 w-10 rounded-full object-cover"
-                                src={ firestoreUser?.photoUrl }
+                                src={firestoreUser?.photoUrl}
                                 alt="profile-pic"
                               />
                             </a>
@@ -489,7 +508,10 @@ export default function Navbar() {
                           </p>
                           <ul className="flex">
                             <li className="cursor-pointer pt-5 pb-3 text-gray-800">
-                              <button id='mobile-menu-side-bar-logout-icon' onClick={logout}>
+                              <button
+                                id="mobile-menu-side-bar-logout-icon"
+                                onClick={logout}
+                              >
                                 <LogoutIcon className="h-6 w-6 text-black-300 dark:text-white-100 md:h-8 md:w-8" />
                               </button>
                             </li>
