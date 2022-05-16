@@ -59,35 +59,7 @@ function Lessons({ course, lesson }) {
     });
   }, [lessonsSubmitted]);
 
-  const checkLessons = () => {
-    const list = [];
-    const courseSectionsLength = {};
-    Object.keys(course?.sections).sort().map((section) => {
-      course?.sections[section].map((lesson) => {
-        courseSectionsLength[section] = courseSectionsLength[section] ? courseSectionsLength[section] + 1 : 1;
-        list.push({ section, ...lesson }
-        );
-      });
-    });
-    const userLessons = lessonsSubmitted.filter(item => item.user == auth.user?.uid);
-    const userLessonsSubmittedInCurrentCohort = userLessons.filter(item => item.cohort === cohort?.id);
-    const sectionsCompleted = userLessonsSubmittedInCurrentCohort.map(lesson => {
-      return list.map(item => (item.section == lesson.section && item.file == lesson.lesson && item));
-    }).map(item => item.filter(Boolean)).flat();
-    const sectionsCompletedInCurrentCohort = sectionsCompleted.map(item => item.section).reduce(function(obj, b) {
-      obj[b] = ++obj[b] || 1;
-      return obj;
-    }, {});
-    const sections = Object.keys(courseSectionsLength);
-    const completed = sections.map(section => {
-      return {
-        section,
-        completed: sectionsCompletedInCurrentCohort[section] ? sectionsCompletedInCurrentCohort[section] : 0,
-        total: courseSectionsLength[section]
-      };
-    });
-    return completed;
-  };
+
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section) ? 1 : -1));
   }, [sortedLessons]);
@@ -141,7 +113,7 @@ function Lessons({ course, lesson }) {
         <title>Lição - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        <Tabs course={course} isLessonPage lessonsSubmitted={checkLessons()} />
+        <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
         <div className='container flex justify-between my-4'>
           <Button id='previous-lesson' customClass='bg-slate-300 dark:text-black-100' onClick={previousLesson}>Lição anterior</Button>
           <Button id='back-to-course' customClass='' onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>

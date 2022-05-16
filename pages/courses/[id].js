@@ -88,35 +88,7 @@ function Course({ course, currentDate }) {
     if(userSubmitted.every(item => item === false)) counter++;
     return userSubmitted.some(item => item === true);
   };
-  const checkLessons = () => {
-    const list = [];
-    const courseSectionsLength = {};
-    Object.keys(course?.sections).sort().map((section) => {
-      course?.sections[section].map((lesson) => {
-        courseSectionsLength[section] = courseSectionsLength[section] ? courseSectionsLength[section] + 1 : 1;
-        list.push({ section, ...lesson }
-        );
-      });
-    });
-    const userLessons = lessonsSubmitted.filter(item => item.user == user.uid);
-    const userLessonsSubmittedInCurrentCohort = userLessons.filter(item => item.cohort === cohort?.id);
-    const sectionsCompleted = userLessonsSubmittedInCurrentCohort.map(lesson => {
-      return list.map(item => (item.section == lesson.section && item.file == lesson.lesson && item));
-    }).map(item => item.filter(Boolean)).flat();
-    const sectionsCompletedInCurrentCohort = sectionsCompleted.map(item => item.section).reduce(function(obj, b) {
-      obj[b] = ++obj[b] || 1;
-      return obj;
-    }, {});
-    const sections = Object.keys(courseSectionsLength);
-    const completed = sections.map(section => {
-      return {
-        section,
-        completed: sectionsCompletedInCurrentCohort[section] ? sectionsCompletedInCurrentCohort[section] : 0,
-        total: courseSectionsLength[section]
-      };
-    });
-    return completed;
-  };
+
   const userIsNotRegisteredAndCohortIsOpen = () => {
     return (!user?.cohorts || user?.cohorts?.length == 0) || userIsRegisteredInCohort() && (cohort?.endDate > new Date(currentDate));
   };
@@ -215,7 +187,7 @@ function Course({ course, currentDate }) {
               </div>
             </div>
             <div className="container my-8">
-              <Tabs course={course} lessonsSubmitted={checkLessons()} />
+              <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
               <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
                 {course?.sections &&
