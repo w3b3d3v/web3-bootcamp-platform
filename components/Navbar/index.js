@@ -179,6 +179,11 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
+              {process.env.NEXT_PUBLIC_ENVIROMENT == 'STAGING' &&
+              <div className='bg-gradient-to-r from-green-400 to-violet-500 w-1/3 text-center font-semibold tracking-widest'>
+                STAGING
+              </div>
+              }
               <div className="flex">
                 <div className="hidden md:mr-6 xl:mr-6 xl:flex">
                   {navbarLinks.map((link) => (
