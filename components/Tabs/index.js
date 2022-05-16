@@ -13,15 +13,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
     if(activeTab !== tab) setActiveTab(tab);
   };
   const checkLessons = () => {
-    const list = [];
-    const courseSectionsLength = {};
-    Object.keys(course?.sections).sort().map((section) => {
-      course?.sections[section].map((lesson) => {
-        courseSectionsLength[section] = courseSectionsLength[section] ? courseSectionsLength[section] + 1 : 1;
-        list.push({ section, ...lesson }
-        );
-      });
-    });
+    const { list, courseSectionsLength } = getLessons()
     const userLessons = lessonsSubmitted.filter(item => item.user == user.uid);
     const userLessonsSubmittedInCurrentCohort = userLessons.filter(item => item.cohort === cohort?.id);
     const sectionsCompleted = userLessonsSubmittedInCurrentCohort.map(lesson => {
@@ -41,6 +33,18 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
     });
     return completed;
   };
+  const getLessons = () => {
+    const list = [];
+    const courseSectionsLength = {};
+    Object.keys(course?.sections).sort().map((section) => {
+      course?.sections[section].map((lesson) => {
+        courseSectionsLength[section] = courseSectionsLength[section] ? courseSectionsLength[section] + 1 : 1;
+        list.push({ section, ...lesson }
+        );
+      });
+    });
+    return { list, courseSectionsLength };
+  }
   const checkSectionCompleted = (section) => {
     if(checkLessons() && section) {
       return checkLessons().map(item => item?.section == section && item?.completed == item?.total).filter(Boolean)[0];
