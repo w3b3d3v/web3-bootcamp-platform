@@ -120,14 +120,17 @@ function Course({ course, currentDate }) {
     });
     return completed;
   };
+  const userIsRegisteredAndCohortIsFuture = () => {
+    return userIsRegisteredInCohort() && typeof timeLeft == 'string' && timeLeft?.split('d')[0] > 30
+  }
   const userIsNotRegisteredAndCohortIsOpen = () => {
     return (!user?.cohorts || user?.cohorts?.length == 0) || !(userIsRegisteredInCohort()) && (cohort?.endDate >= new Date(currentDate));
   };
   const userIsNotRegisteredAndCohortIsClosed = () => {
     return ((!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort()) && (cohort?.endDate <= new Date(currentDate));
   };
-  const userIsRegisteredAndCohortWillOpen = () => {
-    return (userIsRegisteredInCohort()) && (cohort?.startDate >= new Date(currentDate));
+  const userIsRegisteredAndCohortWillOpenSoon = () => {
+    return (userIsRegisteredInCohort()) && (cohort?.startDate >= new Date(currentDate)) && typeof timeLeft == 'string' && timeLeft?.split('d')[0] < 30;
   };
   const userIsRegisteredAndCohortIsOpen = () => {
     return !userHasAlreadyParticipatedInACohort() && (userIsRegisteredInCohort()) && (cohort?.startDate <= new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.course_id).includes(course.id));
@@ -173,6 +176,14 @@ function Course({ course, currentDate }) {
             </div>
           </div>
         }
+        {userIsRegisteredAndCohortIsFuture() &&
+          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
+          <div className="flex flex-col w-3/4 justify-center items-center">
+            <p className='text-2xl text-center'>Você já está inscrito nesta turma, a data de abertura será surpresa e avisada com antecedência!
+            Enquanto isso, deleite-se em nosso discord, faça network, aprenda em grupo e descubra as incríveis oportunidades em Web3!</p>
+          </div>
+        </div>
+        }
         {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() &&
           <>
             <button id={`signup-cohort`} onClick={() => registerUserInCohort()} className="flex item w-full justify-center p-6 bg-gradient-to-r from-green-400 to-violet-500 rounded-lg cursor-pointer">Inscreva-se agora ✨</button>
@@ -181,7 +192,7 @@ function Course({ course, currentDate }) {
             </div>
           </>
         }
-        {userIsRegisteredAndCohortWillOpen() &&
+        {userIsRegisteredAndCohortWillOpenSoon() &&
           <>
             <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
               <div className="flex flex-col w-3/4 justify-center items-center">
