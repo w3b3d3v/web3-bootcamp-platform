@@ -66,6 +66,7 @@ function Lessons({ course, lesson }) {
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true);
     const nextLesson = sortedLessons[currentLessonIndex + 1];
+    if(lessonSent && !nextLesson) return toast.success('Você terminou o bootcamp, parabéns!');
     if(lessonSent) return window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`;
     return toast.error('Você ainda não enviou o exercício desta lição');
   };
