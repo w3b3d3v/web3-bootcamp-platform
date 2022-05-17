@@ -157,20 +157,33 @@ function Course({ course, currentDate }) {
           </div>
         }
         {userIsRegisteredAndCohortIsFuture() &&
-        <Link href={"https://discord.web3dev.com.br/"}>
-          <a target="_blank" className='text-decoration-none hover:no-underline text-white-100'>
-          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4 cursor-pointer">
+          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
           <div className="flex flex-col justify-center items-center">
+            <Link href={"https://discord.web3dev.com.br/"}>
+            <a id="discord-logo-link" target="_blank">
             <Image
             src={'/assets/img/discord_icon.png'}
             width={128}
             height={128}
             />
-            <p className='text-2xl text-center mt-0 '>Inscrição feita! <br/>A data de lançamento será anunciada no nosso Discord. Aproveita para já entrar lá!</p>
-          </div>
-        </div>
             </a>
             </Link>
+            <p className='text-2xl text-center mt-0 '>Inscrição feita! <br/>A data de lançamento será anunciada no nosso{' '}
+            <Link href={"https://discord.web3dev.com.br/"}>
+            <a id="discord-text-link" target="_blank" className='text-decoration-none text-white-100'>
+            Discord
+            </a>
+            </Link>
+            .
+            <br/>
+            <Link href={"https://discord.web3dev.com.br/"}>
+            <a id="discord-button-link" target="_blank" className='text-decoration-none text-white-100 bg-violet-600 p-1 px-2 rounded-lg hover:no-underline'>
+            Aproveita para já entrar lá!
+            </a>
+            </Link>
+            </p>
+          </div>
+        </div>
         }
         {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() &&
           <>
