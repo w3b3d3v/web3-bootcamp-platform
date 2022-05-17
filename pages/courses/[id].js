@@ -157,12 +157,20 @@ function Course({ course, currentDate }) {
           </div>
         }
         {userIsRegisteredAndCohortIsFuture() &&
-          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4">
-          <div className="flex flex-col w-3/4 justify-center items-center">
-            <p className='text-2xl text-center'>Você já está inscrito nesta turma, a data de abertura será surpresa e avisada com antecedência!
-            Enquanto isso, deleite-se em nosso discord, faça network, aprenda em grupo e descubra as incríveis oportunidades em Web3!</p>
+        <Link href={"https://discord.web3dev.com.br/"}>
+          <a target="_blank" className='text-decoration-none hover:no-underline text-white-100'>
+          <div className="flex flex-col justify-center items-center p-2 lg:p-6 bg-gradient-to-r from-cyan-900 to-teal-500 rounded-lg lg:items-center mb-4 cursor-pointer">
+          <div className="flex flex-col justify-center items-center">
+            <Image
+            src={'/assets/img/discord_icon.png'}
+            width={128}
+            height={128}
+            />
+            <p className='text-2xl text-center mt-0 '>Inscrição feita! <br/>A data de lançamento será anunciada no nosso Discord. Aproveita para já entrar lá!</p>
           </div>
         </div>
+            </a>
+            </Link>
         }
         {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() &&
           <>
