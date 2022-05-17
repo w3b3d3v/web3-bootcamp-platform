@@ -19,7 +19,7 @@ import remarkGfm from 'remark-gfm'
 function Lessons({ course, lesson }) {
 
   const [open, setOpen] = useState(false);
-  const [disable, setDisable] = useState(false);
+  const [lessonSent, setLessonSent] = useState(false);
   const [userSubmission, setUserSubmission] = useState();
   const [sortedLessons, setSortedLessons] = useState([]);
   const [url, setUrl] = useState();
@@ -54,7 +54,7 @@ function Lessons({ course, lesson }) {
       if(item.lesson === lesson && item.user == auth.user?.uid) {
         setUserSubmission(item.content.value);
         validateUserSubmission(item.content.value);
-        setDisable(true);
+        setLessonSent(true);
       }
     });
   }, [lessonsSubmitted]);
@@ -66,7 +66,7 @@ function Lessons({ course, lesson }) {
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true);
     const nextLesson = sortedLessons[currentLessonIndex + 1];
-    if(disable) return window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`;
+    if(lessonSent) return window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`;
     return toast.error('Você ainda não enviou o exercício desta lição');
   };
   const previousLesson = () => {
@@ -131,7 +131,7 @@ function Lessons({ course, lesson }) {
                   children={fixMarkdown(l?.markdown)}
                 />
                 <div className='flex justify-center'>
-                  {disable ?
+                  {lessonSent ?
                     <div className='flex flex-col text-center'>
                       <Button ref={ref} customClass='my-8 opacity-60 dark:opacity-50' disabled >Lição enviada</Button>
                       <div className='text-black-100 dark:text-white-100 border-solid border-2 border-gray-600 font-medium min-w-min rounded-lg px-4 py-3 mb-3 text-sm'>
