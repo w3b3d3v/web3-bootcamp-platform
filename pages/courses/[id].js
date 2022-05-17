@@ -168,20 +168,20 @@ function Course({ course, currentDate }) {
             />
             </a>
             </Link>
-            <p className='text-2xl text-center mt-0 '>Inscrição feita! <br/>A data de lançamento será anunciada no nosso{' '}
+            <p className='text-2xl text-center mt-0 mb-0 text-white-100'>Inscrição feita! <br/>A data de lançamento será anunciada no nosso{' '}
             <Link href={"https://discord.web3dev.com.br/"}>
             <a id="discord-text-link" target="_blank" className='text-decoration-none text-white-100'>
             Discord
             </a>
             </Link>
             .
+            </p>
             <br/>
             <Link href={"https://discord.web3dev.com.br/"}>
             <a id="discord-button-link" target="_blank" className='text-decoration-none text-white-100 bg-violet-600 p-1 px-2 rounded-lg hover:no-underline'>
-            Aproveita para já entrar lá!
+            <p>Aproveita para já entrar lá!</p>
             </a>
             </Link>
-            </p>
           </div>
         </div>
         }
