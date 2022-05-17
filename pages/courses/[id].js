@@ -81,7 +81,7 @@ function Course({ course, currentDate }) {
     setRegisterOnCohort(true);
   };
   const userIsRegisteredInCohort = () => {
-    return !!user?.cohorts.find(userCohort => userCohort.course_id == course.id && userCohort.cohort_id == cohort.id);
+    return !!user?.cohorts.find(userCohort => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id);
   };
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
@@ -91,8 +91,17 @@ function Course({ course, currentDate }) {
     if(userSubmitted.every(item => item === false)) counter++;
     return userSubmitted.some(item => item === true);
   };
+  const daysLeftToStart = () => {
+    if (typeof timeLeft == 'string') return timeLeft?.split('d')[0];
+  }
+  const undefinedCohortStartDate = () => {
+    return daysLeftToStart() > 30
+  }
+  const under30dCohortStartDate = () => {
+    return daysLeftToStart() < 30
+  }
   const userIsRegisteredAndCohortIsFuture = () => {
-    return userIsRegisteredInCohort() && typeof timeLeft == 'string' && timeLeft?.split('d')[0] > 30
+    return userIsRegisteredInCohort() && undefinedCohortStartDate(); 
   }
   const userIsNotRegisteredAndCohortIsOpen = () => {
     return (!user?.cohorts || user?.cohorts?.length == 0) || !(userIsRegisteredInCohort()) && (cohort?.endDate >= new Date(currentDate));
@@ -101,7 +110,7 @@ function Course({ course, currentDate }) {
     return ((!user?.cohorts || user?.cohorts?.length == 0) || !userIsRegisteredInCohort()) && (cohort?.endDate <= new Date(currentDate));
   };
   const userIsRegisteredAndCohortWillOpenSoon = () => {
-    return (userIsRegisteredInCohort()) && (cohort?.startDate >= new Date(currentDate)) && typeof timeLeft == 'string' && timeLeft?.split('d')[0] < 30;
+    return (userIsRegisteredInCohort()) && (cohort?.startDate >= new Date(currentDate)) && under30dCohortStartDate();
   };
   const userIsRegisteredAndCohortIsOpen = () => {
     return !userHasAlreadyParticipatedInACohort() && (userIsRegisteredInCohort()) && (cohort?.startDate <= new Date(currentDate)) && (timeLeft == null && user?.cohorts?.map(cohort => cohort.course_id).includes(course.id));
