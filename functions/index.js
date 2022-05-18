@@ -34,6 +34,7 @@ exports.onCohortSignup = functions.firestore
 
     if(userCohortsIds[0]?.cohort_id) {
       const snapshot = await cohorts.where(admin.firestore.FieldPath.documentId(), '==', userCohortsIds[0]?.cohort_id).get();
+      await sendEmail('course_day.js', '🏕️ Seu primeiro Smart Contract na Ethereum', newUserValue.email)
       if(discordId) {
         await addDiscordRole(snapshot, discordId);
       }
