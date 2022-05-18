@@ -12,11 +12,7 @@ function addUserToRole(user_id, role_id) {
   }
 }
 
-async function addDiscordRole(snapshot, discordId) {
-    snapshot.forEach((doc) => {
-      const cohort = doc.data()
-      const { discord_role } = cohort
-      addUserToRole(discordId, discord_role)
-    })
+async function addDiscordRole(discord_id, discord_role) {
+    addUserToRole(discord_id, discord_role)
 }
 module.exports = {addUserToRole, addDiscordRole}
