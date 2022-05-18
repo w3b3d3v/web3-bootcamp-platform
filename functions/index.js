@@ -34,10 +34,14 @@ exports.onCohortSignup = functions.firestore
 
     if(userCohortsIds[0]?.cohort_id) {
       const snapshot = await cohorts.where(admin.firestore.FieldPath.documentId(), '==', userCohortsIds[0]?.cohort_id).get();
-      await sendEmail('course_day.js', '🏕️ Seu primeiro Smart Contract na Ethereum', newUserValue.email)
-      if(discordId) {
-        await addDiscordRole(snapshot, discordId);
-      }
+      snapshot.forEach(async (doc) => {
+        const cohort = doc.data()
+        const { discord_role, email_subject, course_id, course_title, course_duration, discord_channel } = cohort
+        await sendCourseDayEmail('course_day.js', email_subject, newUserValue.email, course_id, course_title, course_duration, discord_channel)
+        if(discordId) {
+          await addDiscordRole(discordId, discord_role);
+        }
+      })
     }
   });
 
