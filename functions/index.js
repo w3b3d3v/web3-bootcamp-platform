@@ -3,7 +3,7 @@ const addUserToRole = require('./discord_integration')
 const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
-const { onCohortSignup } = require('./discord_integration')
+const { addDiscordRole } = require('./discord_integration')
 admin.initializeApp()
 const db = admin.firestore()
 
@@ -15,18 +15,29 @@ exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   resp.send(await sendEmail(req.query.template, subject, req.query.to))
 })
 
-exports.addDiscordRole = functions.firestore
+exports.onCohortSignup = functions.firestore
   .document('users/{userId}')
-  .onUpdate(async(change, context) => {
-
+  .onUpdate(async (change, context) => {
     const previousUserValue = change.before.data();
 
-    
     const newUserValue = change.after.data();
-    
+
+    const previousCohortData = previousUserValue.cohorts.map(item => item?.cohort_id);
+
+    const userCohorts = newUserValue.cohorts;
+
+    const userCohortsIds = userCohorts.filter(item => !previousCohortData?.includes(item.cohort_id));
+
+    const discordId = newUserValue?.discord?.id;
+
     const cohorts = db.collection('cohorts');
 
-    await onCohortSignup(newUserValue, previousUserValue, cohorts, admin);
+    if(userCohortsIds[0]?.cohort_id) {
+      const snapshot = await cohorts.where(admin.firestore.FieldPath.documentId(), '==', userCohortsIds[0]?.cohort_id).get();
+      if(discordId) {
+        await addDiscordRole(snapshot, discordId);
+      }
+    }
   });
 
 exports.helloPubSub = functions.pubsub
