@@ -66,9 +66,9 @@ export default function ShareLinkCard({ course }) {
 
             <div className="mt-4 flex flex-col items-center">
               <Image
-                src="/assets/img/twitter-logo.png"
-                width="20"
-                height="20"
+                src="/assets/img/twitter-logo.svg"
+                width="40"
+                height="40"
               />
               <a
                 className="twitter-share-button text-black-100 dark:text-white-100"
@@ -82,9 +82,9 @@ export default function ShareLinkCard({ course }) {
             </div>
             <div className="mt-4 flex flex-col items-center">
               <Image
-                src="/assets/img/LinkedIn_logo.png"
-                width="20"
-                height="20"
+                src="/assets/img/LinkedIn_logo.svg"
+                width="40"
+                height="40"
               />
               <a
                 id={`share-linkedin`}

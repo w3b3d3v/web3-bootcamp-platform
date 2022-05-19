@@ -162,7 +162,7 @@ function Course({ course, currentDate }) {
             <Link href={"https://discord.web3dev.com.br/"}>
             <a id="discord-logo-link" target="_blank">
             <Image
-            src={'/assets/img/discord_icon.png'}
+            src={'/assets/img/discord_icon.svg'}
             width={128}
             height={128}
             />
@@ -275,7 +275,7 @@ function Course({ course, currentDate }) {
                                           className="h-full w-full "
                                           width={48}
                                           height={48}
-                                          src={'/assets/img/checked-radio-button.png'}
+                                          src={'/assets/img/checked-radio-button.svg'}
                                           alt={lesson.title}
                                         />
                                         :
@@ -283,7 +283,7 @@ function Course({ course, currentDate }) {
                                           className="h-full w-full"
                                           width={48}
                                           height={48}
-                                          src={'/assets/img/radio-button.png'}
+                                          src={'/assets/img/radio-button.svg'}
                                           alt={lesson.title}
                                         />
                                       }
