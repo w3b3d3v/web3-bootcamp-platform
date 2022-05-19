@@ -269,7 +269,7 @@ function Course({ course, currentDate }) {
                                       name="radio"
                                       className="checkbox absolute h-full w-full mt-1 appearance-none rounded-full border border-gray-400 "
                                     />
-                                    <div className="check-icon z-1 h-full w-full rounded-full">
+                                    <div className="check-icon z-1 h-full w-full rounded-full mb-1">
                                       {userSubmissions(lesson) ?
                                         <Image
                                           className="h-full w-full "
