@@ -17,7 +17,7 @@ db.collection('users')
     snapshot.forEach((document) => {
       const userRef = db.collection('users').doc(document.id)
       const data = document.data()
-      if (!data.cohorts[0].cohort_id) { // if the first cohort is lacking cohort_id it is also lacking course_id
+      if (data.cohorts[0] && !data.cohorts[0]?.cohort_id) { // if the first cohort is lacking cohort_id it is also lacking course_id
         console.log(`Atualizando usuário ${(userNumber += 1)}...`)
         const res = userRef.set(
           {
