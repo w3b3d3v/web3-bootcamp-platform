@@ -51,6 +51,7 @@ exports.onCohortSignup = functions.firestore
       const cohort = getCohort(await cohorts.doc(cohortSnapshot.cohort_id).get())
       const course = getCourse(await courses.doc(cohortSnapshot.course_id).get())
       await onCohortRegister('on_cohort_signup.js', newUserValue.email, cohort, course);
+      await updateSignupEmail(cohortSnapshot);
       if(discordId) await addDiscordRole(discordId, cohort.discord_role);
     }
     function getCohort(cohortRef){
@@ -58,6 +59,12 @@ exports.onCohortSignup = functions.firestore
     }
     function getCourse(courseRef){
       return courseRef.data()
+    }
+    function updateSignupEmail(cohortSnapshot){
+      return cohorts.doc(cohortSnapshot.cohort_id).update({
+        'email_deliveries.signup': 
+          true,
+      })
     }
   });
 
