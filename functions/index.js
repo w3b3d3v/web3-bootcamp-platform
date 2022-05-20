@@ -1,6 +1,6 @@
 const functions = require('firebase-functions')
 const addUserToRole = require('./discord_integration')
-const { sendEmail } = require('./emails')
+const { sendEmail, sendCourseDayEmail, onCohortRegister } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
@@ -36,55 +36,24 @@ exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
 exports.onCohortSignup = functions.firestore
   .document('users/{userId}')
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data()
-
-    const newUserValue = change.after.data()
-
-    const previousCohortData = previousUserValue.cohorts.map(
-      (item) => item?.cohort_id
-    )
-
-    const userCohorts = newUserValue.cohorts
-
-    const userCohortsIds = userCohorts.filter(
-      (item) => !previousCohortData?.includes(item.cohort_id)
-    )
+    const previousUserValue = change.before.data();
+    const newUserValue = change.after.data();
+    const previousCohortData = previousUserValue.cohorts.map(item => item?.cohort_id);
+    const userCohorts = newUserValue.cohorts;
+    const userNewCohorts = userCohorts.filter(item => !previousCohortData?.includes(item.cohort_id));
 
     const discordId = newUserValue?.discord?.id
 
-    const cohorts = db.collection('cohorts')
+    const cohorts = db.collection('cohorts');
+    const courses = db.collection('courses');
 
-    if (userCohortsIds[0]?.cohort_id) {
-      const snapshot = await cohorts
-        .where(
-          admin.firestore.FieldPath.documentId(),
-          '==',
-          userCohortsIds[0]?.cohort_id
-        )
-        .get()
-      snapshot.forEach(async (doc) => {
-        const cohort = doc.data()
-        const {
-          discord_role,
-          email_subject,
-          course_id,
-          course_title,
-          course_duration,
-          discord_channel,
-        } = cohort
-        await sendCourseDayEmail(
-          'course_day.js',
-          email_subject,
-          newUserValue.email,
-          course_id,
-          course_title,
-          course_duration,
-          discord_channel
-        )
-        if (discordId) {
-          await addDiscordRole(discordId, discord_role)
-        }
-      })
+    for(let cohortSnapshot of userNewCohorts) {
+      const cohortRef = await cohorts.doc(cohortSnapshot.cohort_id).get();
+      const courseRef = await courses.doc(cohortSnapshot.course_id).get();
+      const cohort = cohortRef.data();
+      const course = courseRef.data();
+      await onCohortRegister('on_cohort_signup.js', newUserValue.email, cohort, course);
+      if(discordId) await addDiscordRole(discordId, cohort.discord_role);
     }
   })
 
