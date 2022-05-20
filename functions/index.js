@@ -48,14 +48,18 @@ exports.onCohortSignup = functions.firestore
     const courses = db.collection('courses');
 
     for(let cohortSnapshot of userNewCohorts) {
-      const cohortRef = await cohorts.doc(cohortSnapshot.cohort_id).get();
-      const courseRef = await courses.doc(cohortSnapshot.course_id).get();
-      const cohort = cohortRef.data();
-      const course = courseRef.data();
+      const cohort = getCohort(await cohorts.doc(cohortSnapshot.cohort_id).get())
+      const course = getCourse(await courses.doc(cohortSnapshot.course_id).get())
       await onCohortRegister('on_cohort_signup.js', newUserValue.email, cohort, course);
       if(discordId) await addDiscordRole(discordId, cohort.discord_role);
     }
-  })
+    function getCohort(cohortRef){
+      return cohortRef.data()
+    }
+    function getCourse(courseRef){
+      return courseRef.data()
+    }
+  });
 
 exports.helloPubSub = functions.pubsub
   .topic('course_day_email')
