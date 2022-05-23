@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: UNLICENSED
-
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -15,10 +13,13 @@ contract W3DBootcamp is ERC721URIStorage, AccessControl {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
-  bytes32 public constant ONLY_ADMIN = keccak256("AUTHORIZED_ADMIN");
+  bytes32 public constant AUTH_MINT = keccak256("AUTHORIZED_MINTER");
 
   mapping(string=>address[]) private student_courses;
   mapping(bytes4=>uint8) private registry;
+
+  mapping(bytes32 => uint) private cohorts;
+  mapping(bytes32 => string) private courses;
 
   event StudentOnCourse(address indexed studentAddress, string indexed course_name, string indexed cohort_name);
 
@@ -33,39 +34,47 @@ contract W3DBootcamp is ERC721URIStorage, AccessControl {
   string svgPart4 = "</text> <rect x='38.13' y='32.02' class='st15' width='55.77' height='48.46'/> <rect x='119.2' y='32.02' class='st16' width='55.77' height='48.46'/> <rect x='201.18' y='32.02' class='st5' width='55.77' height='48.46'/> <circle class='st17' cx='66.37' cy='64.8' r='11.1'/> <text transform='matrix(1.2764 0 0 1 138.4717 101.3228)' class='st13 st2 st18'>-</text> <text transform='matrix(1.1781 0 0 1 227.6772 105.4309)' class='st13 st2 st19'>+</text> </g> </svg>";
 
   constructor() ERC721('Web3devBootcamp', 'W3D') {
-    _setupRole(ONLY_ADMIN, msg.sender);
-  }
-
-  function totalSupply() public view returns(uint256){
-    return _tokenIds.current();
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControl) returns (bool) {
     return super.supportsInterface(interfaceId);
   }
 
-  function mintCertificate(string memory cohort, string memory course, string memory course_description, string memory student_counter, address studentAddress) external onlyAdmin() {
+  function addCourse(string memory newCourse, string memory description) external onlyAdmin(){
+    bytes32 new_course = keccak256(abi.encodePacked(newCourse));
+    require(bytes(courses[new_course]).length == 0, "Course already registered");
+    courses[new_course] = description;
+  }
+
+  function mintCertificate(string memory cohort, string memory course, address studentAddress) external onlyMinter() {
     //Verify if the student are already registered in the current course
     bytes4 hashes = bytes4(keccak256(abi.encodePacked(studentAddress, course)));
     require(registry[hashes] == 0, "Student already registered on this course");
-    
     // if not, will register
     registry[hashes] = 1;
     student_courses[course].push(studentAddress);
-    _mintCertificate(cohort, course, course_description, student_counter, studentAddress);
+
+    bytes32 encoded_course = keccak256(abi.encodePacked(course));
+    require(bytes(courses[encoded_course]).length != 0, "Invalid Course");
+    string memory course_description = courses[encoded_course];
+
+    _mintCertificate(cohort, course, course_description, studentAddress);
   }
 
   function _mintCertificate (
     string memory cohort,
     string memory course,
     string memory course_description,
-    string memory student_counter,
     address studentAddress
   ) internal {
-    _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
+    bytes32 encoded_cohort = keccak256(abi.encodePacked(cohort));
 
-    string memory finalSvg = string(abi.encodePacked(baseSVG, course, svgPart2, student_counter, svgPart3, cohort, svgPart4));
+    cohorts[encoded_cohort] +=1;
+    uint256 newStudentID = cohorts[encoded_cohort];
+
+
+    string memory finalSvg = string(abi.encodePacked(baseSVG, course, svgPart2, Strings.toString(newStudentID), svgPart3, cohort, svgPart4));
     string memory metadata = string(abi.encodePacked('{"name": "',"WEB3DEV ",course,'", "description":', '"', course_description,'", "image": "data:image/svg+xml;base64,',Base64.encode(bytes(finalSvg)),'"}'));
     string memory json = Base64.encode(bytes(metadata));
 
@@ -73,21 +82,28 @@ contract W3DBootcamp is ERC721URIStorage, AccessControl {
         abi.encodePacked("data:application/json;base64,", json)
     );
 
-    _safeMint(studentAddress, newItemId);
-    _setTokenURI(newItemId, finalTokenUri);
+    _tokenIds.increment();
+    uint newTokenID = _tokenIds.current();
+    _safeMint(studentAddress, newTokenID);
+    _setTokenURI(newTokenID, finalTokenUri);
     emit StudentOnCourse(studentAddress, course, cohort);
   }
 
   modifier onlyAdmin() {
-    require(hasRole(ONLY_ADMIN, msg.sender), "Caller is not an Authorized Admin");
+      require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not an Window Admin");
+      _;
+  }
+
+  modifier onlyMinter() {
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not an Window Admin");
     _;
   }
 
-  function addAuthorizedMinter(address _contract) external onlyAdmin() {
-    _grantRole(ONLY_ADMIN, _contract);
+  function addAuthorizedMinter(address account) external onlyAdmin() {
+    _grantRole(AUTH_MINT, account);
   }
 
   function removeAdmin(address account) external onlyAdmin() {
-    _revokeRole(ONLY_ADMIN, account);
+    _revokeRole(AUTH_MINT, account);
   }
 }
