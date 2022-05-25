@@ -35,7 +35,9 @@ async function addCourse(bootcamp_contract_address){
   const bootcampContract = await new ethers.Contract(bootcamp_contract_address, bootcamp_contract_interface, signer);
 
   const tx = await bootcampContract.addCourse("Smart Contract Solidity", "Certification for completing the Solidity Smart Contract bootcamp - (Pioneiros cohort)");
+  // const tx1 = await bootcampContract.addCourse("NFT Collection", "Certification for completing the NFT Collection bootcamp - (Pioneiros cohort)");
   console.log("Course registered at: %s", tx.hash);
+  // console.log("Course registered at: %s", tx1.hash);
 }
 
 async function runTest(){
@@ -44,8 +46,8 @@ async function runTest(){
     await addCourse(nft_Contract.address);
 
     await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0", "PIONEIROS");
-    await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x516E98eb5C1D826FCca399b8D8B13BD8e4E12bC8", "PIONEIROS");
-    await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x19E776E2ff69d8E6600c776d3f1Ef4586606805F", "ATRASADOS");
+    // await generateNFT(nft_Contract.address, "NFT Collection", "0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0", "PIONEIROS");
+    // await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x19E776E2ff69d8E6600c776d3f1Ef4586606805F", "ATRASADOS");
 
     // await generateNFT(nft_Contract.address, "Smart Solidity", "0x516E98eb5C1D826FCca399b8D8B13BD8e4E12bC8", "PIONEIROS");
     // await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0", "PIONEIROS");
