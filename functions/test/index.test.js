@@ -44,4 +44,9 @@ describe('Email Deliveries', () => {
     })
     expect(cohortAfter.after.email_deliveries.signup).to.equal(true);
   })
+
+  it('should add discord_role after cohort signup if discord is connected', async () => {
+    const addUser = await addUserToRole(userSnap.data().discord.id, cohortSnap.data().discord_role)
+    expect(addUser.byteLength).to.equal(0);
+  })
 });
