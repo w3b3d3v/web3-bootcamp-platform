@@ -108,4 +108,12 @@ contract W3DBootcamp is ERC721URIStorage, AccessControl {
   function removeAdmin(address account) external onlyAdmin() {
     _revokeRole(AUTH_MINT, account);
   }
+
+  function transferFrom(address from,address to,uint256 tokenId) public virtual override {
+    revert("disabled");
+  }
+  
+  function safeTransferFrom(address from,address to,uint256 tokenId) public virtual override {
+    revert("disabled");
+  }
 }
