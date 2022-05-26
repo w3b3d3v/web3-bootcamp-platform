@@ -1,4 +1,6 @@
-
+/**
+ * @jest-environment jsdom
+ */
 import Footer from './index'
 import { render, screen } from '@testing-library/react'
 describe('Footer', () => {

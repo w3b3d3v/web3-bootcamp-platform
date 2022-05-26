@@ -1,4 +1,6 @@
-
+/**
+ * @jest-environment jsdom
+ */
 import ThemeSwitch from './index'
 import { render, screen } from '@testing-library/react'
 
