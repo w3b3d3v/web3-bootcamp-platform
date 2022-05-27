@@ -9,19 +9,29 @@ const smtpTransport = nodemailer.createTransport(
   })
 )
 
-async function sendEmail(template_name, subject, to) {
+async function sendEmail(template_name, subject, to, params = {}) {
   console.log(`Sending message template ${template_name} to ${to}`)
 
+  const template = require(`./email_templates/${template_name}`)
+
   const mailOptions = {
-    from: `Daniel <contato@${process.env.MANDRILL_DOMAIN}>`,
+    from: `danicuki <contato@${process.env.MANDRILL_DOMAIN}>`,
     subject,
-    html: require(`./email_templates/${template_name}`),
+    html: template(params),
   }
 
   return await smtpTransport.sendMail({ ...mailOptions, to })
 }
 
-async function sendCourseDayEmail(template_name, subject, to, course_id, course_title, course_duration, discord_channel) {
+async function sendCourseDayEmail(
+  template_name,
+  subject,
+  to,
+  course_id,
+  course_title,
+  course_duration,
+  discord_channel
+) {
   console.log(`Sending message template ${template_name} to ${to}`)
   const template = require(`./email_templates/${template_name}`)
   const mailOptions = {

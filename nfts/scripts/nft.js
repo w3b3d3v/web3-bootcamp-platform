@@ -64,20 +64,24 @@ async function addCourse(bootcamp_contract_address) {
 async function runTest() {
   try {
     // nft_Contract = await deployNFTContract()
-    nft_Contract = { address: '0x30844f883622922830357135e192Ac13a656F9c9' }
+    nft_Contract = { address: '0xa68580d4E41925C20aF20dBA9B4Db17A79842F19' } //polygon
+    // nft_Contract = { address: '0x2ef61b0532703bf57a1735000d3ec9bc27f8f6c4' } //rinkeby
+    // nft_Contract = { address: '0xb683cac9fe4a7ea60d50dfb9006099c8624275b2' } //mumbai
     // await addCourse(nft_Contract.address)
 
-    await generateNFT(
-      nft_Contract.address,
-      'Smart Contract Solidity',
-      '0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0',
-      'PIONEIROS'
-    )
-    // await generateNFT(nft_Contract.address, "NFT Collection", "0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0", "PIONEIROS");
-    // await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x19E776E2ff69d8E6600c776d3f1Ef4586606805F", "ATRASADOS");
+    people = require('./people.json')
 
-    // await generateNFT(nft_Contract.address, "Smart Solidity", "0x516E98eb5C1D826FCca399b8D8B13BD8e4E12bC8", "PIONEIROS");
-    // await generateNFT(nft_Contract.address, "Smart Contract Solidity", "0x988d8063f521aa948FEc4AC1a4EDa72a5BdCBFb0", "PIONEIROS");
+    for (let i = 0; i < people.length; i++) {
+      p = people[i]
+
+      console.log(`${p.wallet},${i + 2}`)
+      await generateNFT(
+        nft_Contract.address,
+        'Smart Contract Solidity',
+        p.wallet,
+        'PIONEIROS'
+      )
+    }
     // await getSupply(nft_Contract.address);
   } catch (error) {
     console.error(error)
