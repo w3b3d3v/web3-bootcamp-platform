@@ -1,6 +1,6 @@
 const functions = require('firebase-functions')
 const addUserToRole = require('./discord_integration')
-const { sendEmail, sendCourseDayEmail, onCohortRegister } = require('./emails')
+const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
@@ -20,7 +20,7 @@ exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
 
   people = require('../nfts/scripts/people.json')
 
-  for (let i = 0; i < people.length; i++) {
+  for(let i = 0;i < people.length;i++) {
     p = people[i]
     sendEmail('nft_delivery.js', subject, p.email, {
       course_title: 'Smart Contract Solidity',
@@ -36,37 +36,26 @@ exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
 exports.onCohortSignup = functions.firestore
   .document('users/{userId}')
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data();
-    const newUserValue = change.after.data();
-    const previousCohortData = previousUserValue.cohorts.map(item => item?.cohort_id);
-    const userCohorts = newUserValue.cohorts;
-    const userNewCohorts = userCohorts.filter(item => !previousCohortData?.includes(item.cohort_id));
+    const previousUserValue = change.before.data()
+    const newUserValue = change.after.data()
+    const previousCohortData = previousUserValue.cohorts.map(item => item?.cohort_id)
+    const userNewCohorts = newUserValue.cohorts.filter(item => !previousCohortData?.includes(item.cohort_id))
 
-    const discordId = newUserValue?.discord?.id
+    const cohorts = db.collection('cohorts')
+    const courses = db.collection('courses')
 
-    const cohorts = db.collection('cohorts');
-    const courses = db.collection('courses');
-
-    for(let cohortSnapshot of userNewCohorts) {
-      const cohort = getCohort(await cohorts.doc(cohortSnapshot.cohort_id).get())
-      const course = getCourse(await courses.doc(cohortSnapshot.course_id).get())
-      await onCohortRegister('on_cohort_signup.js', newUserValue.email, cohort, course);
-      await updateSignupEmail(cohortSnapshot);
-      if(discordId) await addDiscordRole(discordId, cohort.discord_role);
+    for (let cohortSnapshot of userNewCohorts) {
+      const params = {
+        cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
+        course: (await courses.doc(cohortSnapshot.course_id).get()).data()
+      }
+      //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
+      await Promise.all([
+        sendEmail('on_cohort_signup.js', params.cohort.email_content.subject, newUserValue.email, params),
+        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)
+      ])
     }
-    function getCohort(cohortRef){
-      return cohortRef.data()
-    }
-    function getCourse(courseRef){
-      return courseRef.data()
-    }
-    function updateSignupEmail(cohortSnapshot){
-      return cohorts.doc(cohortSnapshot.cohort_id).update({
-        'email_deliveries.signup': 
-          true,
-      })
-    }
-  });
+  })
 
 exports.helloPubSub = functions.pubsub
   .topic('course_day_email')
@@ -86,7 +75,7 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const user = doc.data()
-        if (user.email) {
+        if(user.email) {
           const messageObject = {
             to: user.email,
             template: req.query.template,
@@ -120,13 +109,13 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
       .then((querySnapshot) => {
         querySnapshot.forEach(async (doc) => {
           const data = doc.data()
-          if (data.cohorts && data.cohorts[0] && data?.discord?.id) {
+          if(data.cohorts && data.cohorts[0] && data?.discord?.id) {
             console.log(
               'Adicionando no curso no discord: ' + data.discord?.username
             )
             try {
               await addUserToRole(data.discord.id, '971416421840064574')
-            } catch (exception) {
+            } catch(exception) {
               console.log(exception)
             }
           }
