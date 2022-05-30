@@ -42,6 +42,10 @@ describe('Email Deliveries', () => {
       params
     )
     expect(sendFunction).to.be.an('object')
+    expect(sendFunction).to.haveOwnProperty('envelope')
+    expect(sendFunction.envelope.to.toString()).to.be.equal(
+      userSnap.data().email
+    )
   })
 
   it('should add discord_role after cohort signup if discord is connected', async () => {
