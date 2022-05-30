@@ -1,10 +1,11 @@
 const functions = require('firebase-functions')
-const addUserToRole = require('./discord_integration')
 const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
+
 admin.initializeApp()
+
 const db = admin.firestore()
 
 const pubsub = new PubSub()
@@ -20,7 +21,7 @@ exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
 
   people = require('../nfts/scripts/people.json')
 
-  for(let i = 0;i < people.length;i++) {
+  for (let i = 0; i < people.length; i++) {
     p = people[i]
     sendEmail('nft_delivery.js', subject, p.email, {
       course_title: 'Smart Contract Solidity',
@@ -38,8 +39,12 @@ exports.onCohortSignup = functions.firestore
   .onUpdate(async (change, context) => {
     const previousUserValue = change.before.data()
     const newUserValue = change.after.data()
-    const previousCohortData = previousUserValue.cohorts.map(item => item?.cohort_id)
-    const userNewCohorts = newUserValue.cohorts.filter(item => !previousCohortData?.includes(item.cohort_id))
+    const previousCohortData = previousUserValue.cohorts.map(
+      (item) => item?.cohort_id
+    )
+    const userNewCohorts = newUserValue.cohorts.filter(
+      (item) => !previousCohortData?.includes(item.cohort_id)
+    )
 
     const cohorts = db.collection('cohorts')
     const courses = db.collection('courses')
@@ -47,12 +52,17 @@ exports.onCohortSignup = functions.firestore
     for (let cohortSnapshot of userNewCohorts) {
       const params = {
         cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
-        course: (await courses.doc(cohortSnapshot.course_id).get()).data()
+        course: (await courses.doc(cohortSnapshot.course_id).get()).data(),
       }
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       await Promise.all([
-        sendEmail('on_cohort_signup.js', params.cohort.email_content.subject, newUserValue.email, params),
-        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)
+        sendEmail(
+          'on_cohort_signup.js',
+          params.cohort.email_content.subject,
+          newUserValue.email,
+          params
+        ),
+        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role),
       ])
     }
   })
@@ -75,7 +85,7 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const user = doc.data()
-        if(user.email) {
+        if (user.email) {
           const messageObject = {
             to: user.email,
             template: req.query.template,
@@ -103,24 +113,39 @@ exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
 
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
   async (req, resp) => {
-    const cohort_id = req.cohort_id
-    db.collection('users')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach(async (doc) => {
-          const data = doc.data()
-          if(data.cohorts && data.cohorts[0] && data?.discord?.id) {
-            console.log(
-              'Adicionando no curso no discord: ' + data.discord?.username
-            )
-            try {
-              await addUserToRole(data.discord.id, '971416421840064574')
-            } catch(exception) {
-              console.log(exception)
-            }
-          }
-        })
-      })
+    const cohort_id = req.query.cohort_id
+    const cohort = (await db.collection('cohorts').doc(cohort_id).get()).data()
+
+    if (!cohort) {
+      console.log('invalid cohort')
+      return resp.send('invalid cohort')
+    }
+
+    const users = await db.collection('users').get()
+
+    if (users.empty) {
+      console.log('no users to change')
+      return resp.send('no users')
+    }
+
+    users.forEach(async (doc) => {
+      const data = doc.data()
+      if (
+        data.cohorts &&
+        data.cohorts[0] &&
+        data?.discord?.id &&
+        data.cohorts[0].cohort_id === cohort_id
+      ) {
+        console.log(
+          `Adicionando role ${cohort.discord_role} do curso no discord: ${data.discord.username}`
+        )
+        try {
+          await addDiscordRole(data.discord.id, cohort.discord_role)
+        } catch (exception) {
+          console.log(exception)
+        }
+      }
+    })
     resp.send('OK')
   }
 )
