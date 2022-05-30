@@ -67,6 +67,31 @@ exports.onCohortSignup = functions.firestore
     }
   })
 
+exports.onDiscordConnect = functions.firestore
+  .document('users/{userId}')
+  .onUpdate(async (change, context) => {
+    const previousUserValue = change.before.data()
+    const newUserValue = change.after.data()
+
+    function userConnectedDiscord(){
+      return newUserValue.discord?.id && newUserValue.discord?.id !== previousUserValue.discord?.id
+    }
+
+    if(!userConnectedDiscord()) return
+    
+    const cohorts = db.collection('cohorts')
+
+    for(let cohortSnapshot of newUserValue.cohorts) {
+      const params = {
+        cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
+      }
+      //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
+      await Promise.all([
+        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)
+      ])
+    }
+  })
+
 exports.helloPubSub = functions.pubsub
   .topic('course_day_email')
   .onPublish((message) => {
