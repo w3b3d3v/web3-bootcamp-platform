@@ -4,6 +4,7 @@ const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { ethers } = require("ethers")
+const { userCompletedCourse } = require('./checkUserLessons')
 
 admin.initializeApp()
 
@@ -94,11 +95,14 @@ exports.onDiscordConnect = functions.firestore
   .onCreate(async (snap, context) => {
     const createdLesson = snap.data()
     if(createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
-    
+
     const user = await db.collection('users').doc(createdLesson.user_id).get()
     const cohort = await db.collection('cohorts').doc(createdLesson.cohort_id).get()
     const courseId = cohort.data().course_id
-    
+
+    if(!userCompletedCourse(user.data().id, courseId, db)) 
+      return console.log('Usuário não completou todas as lições')
+
     //const contractABI = require('../nfts/artifacts/nfts.json')
     const contractAddress = '0xa68580d4e41925c20af20dba9b4db17a79842f19'
     const provider = new ethers.providers.Web3Provider(ethereum)
