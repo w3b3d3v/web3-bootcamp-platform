@@ -3,6 +3,7 @@ const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
+const { ethers } = require("ethers")
 
 admin.initializeApp()
 
@@ -86,7 +87,25 @@ exports.onDiscordConnect = functions.firestore
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
     }
-  });
+  })
+
+  exports.mintNFT = functions.firestore
+  .document('lessons_submissions/{lessonId}')
+  .onCreate(async (snap, context) => {
+    const createdLesson = snap.data()
+    if(createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
+    
+    const user = await db.collection('users').doc(createdLesson.user_id).get()
+    const cohort = await db.collection('cohorts').doc(createdLesson.cohort_id).get()
+    const courseId = cohort.data().course_id
+    
+    //const contractABI = require('../nfts/artifacts/nfts.json')
+    const contractAddress = '0xa68580d4e41925c20af20dba9b4db17a79842f19'
+    const provider = new ethers.providers.Web3Provider(ethereum)
+    const signer = provider.getSigner()
+    const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+    nftContract.mintCertificate(createdLesson.cohort_id, courseId, user.wallet)
+  })
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, "base64"));
