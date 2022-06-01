@@ -154,7 +154,6 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun((context) =
       cohorts.forEach(async cohort => {
         const data = cohort.data()
         const diff = ((new Date(data.kickoffStartTime.toDate().toLocaleString()).getTime()) - new Date().getTime()) / 1000
-        if(diff > 0 && diff < 360) console.log(diff)
         if(diff > 0 && diff < 360) return cohortObj = cohort
       })
     })
