@@ -148,6 +148,28 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
+exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun((context) => {
+  let cohortObj = {}
+    await db.collection('cohorts').get().then(cohorts => {
+      cohorts.forEach(async cohort => {
+        const data = cohort.data()
+        const diff = ((new Date(data.kickoffStartTime.toDate().toLocaleString()).getTime()) - new Date().getTime()) / 1000
+        if(diff > 0 && diff < 360) console.log(diff)
+        if(diff > 0 && diff < 360) return cohortObj = cohort
+      })
+    })
+    const params = { cohort: cohortObj?.data(), course: (await db.collection('courses').doc(cohortObj?.data().course_id).get()).data() }
+    db.collection('users').get().then(users => {
+      users.forEach(user => {
+        const userData = user.data()
+        const currentCohort = userData.cohorts.find(userCohort => userCohort.cohort_id === cohortObj?.id)
+        if(userData.cohorts && currentCohort.cohort_id === cohortObj?.id && userData.email == 'biorrodrigues@gmail.com') {
+          sendEmail('kickoff_email.js', data.email_content.subject, userData.email, params)
+        }
+      })
+    })
+})
+
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
