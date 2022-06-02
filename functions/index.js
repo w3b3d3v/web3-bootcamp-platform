@@ -89,26 +89,36 @@ exports.onDiscordConnect = functions.firestore
       await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
     }
   })
-
-  exports.mintNFT = functions.firestore
+exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
     const createdLesson = snap.data()
     if(createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
     const user = await db.collection('users').doc(createdLesson.user_id).get()
-    const cohort = await db.collection('cohorts').doc(createdLesson.cohort_id).get()
-    const courseId = cohort.data().course_id
-
-    if(!userCompletedCourse(user.data().id, courseId, db)) 
+    const cohort = (await db.collection('cohorts').doc(createdLesson.cohort_id).get()).data()
+    const course = (await db.collection('courses').doc(cohort.data().course_id).get()).data()
+    
+    if(!userCompletedCourse(user.id, cohort.data().course_id, db))
       return console.log('Usuário não completou todas as lições')
-
-    //const contractABI = require('../nfts/artifacts/nfts.json')
-    const contractAddress = '0xa68580d4e41925c20af20dba9b4db17a79842f19'
-    const provider = new ethers.providers.Web3Provider(ethereum)
-    const signer = provider.getSigner()
-    const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-    nftContract.mintCertificate(createdLesson.cohort_id, courseId, user.wallet)
+      
+    const contractABI = require('../nfts/artifacts/contracts/BootcampNFTContract.sol/W3DBootcamp.json')
+    const contractAddress = '0xeA4aDb7A75a2452585204E8B411c64C2f3693845'
+    const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API_KEY)
+    const signer = new ethers.Wallet( process.env.PRIVATE_KEY, provider)
+    const nftContract = new ethers.Contract(contractAddress, contractABI.abi, signer)
+    await nftContract.mintCertificate(createdLesson.cohort_id, course.nft_title, user.wallet)
+    nftContract.once('Transfer', async (a, b, id) => {
+      console.log('new id ' + id + ' for ' + b)
+      const params = {
+        cohort,
+        course_title: course.nft_title,
+        wallet_address: user.data().wallet,
+        nft_contract: contractAddress,
+        nft_id: id,
+      }
+      await sendEmail('nft_delivery.js', '👷👷‍♀️ WEB3DEV - NFT Recebido: Smart Contract Solidity', user.data().email, params)
+    })
   })
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
