@@ -13,7 +13,7 @@ export default function Home() {
       <Head>
         <title>Home - Bootcamp Web3Dev</title>
       </Head>
-      <main className="container flex flex-col md:flex-row mx-auto py-2 px-2 sm:px-6 md:px-6 lg:px-16 xl:px-32 my-16 sm:my-6 md:my-6 lg:my-16 xl:py-0 justify-between">
+      <main className="container flex flex-col md:flex-row mx-auto py-2 px-2 sm:px-6 md:px-6 lg:px-16 xl:px-32 my-24 sm:my-6 md:my-6 lg:my-16 xl:py-0 justify-between">
         <div className='flex justify-center md:w-1/2 items-center flex-col text-start'>
           <div>
             <div className='text-5xl font-bold'>
