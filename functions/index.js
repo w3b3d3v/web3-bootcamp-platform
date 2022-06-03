@@ -3,7 +3,7 @@ const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
-const { userCompletedCourse } = require('./checkUserLessons')
+const { userCompletedCourse } = require('../lib/checkUserLessons')
 
 admin.initializeApp()
 
@@ -98,7 +98,7 @@ exports.mintNFT = functions.firestore
     const cohort = (await db.collection('cohorts').doc(createdLesson.cohort_id).get()).data()
     const course = (await db.collection('courses').doc(cohort.data().course_id).get()).data()
     
-    if(!userCompletedCourse(user.id, cohort.course_id, db))
+    if(!userCompletedCourse(user.id, cohort.course_id))
       return console.log('Usuário não completou todas as lições')
       
     mint((createdLesson.cohort_id, course.nft_title, user.wallet))
