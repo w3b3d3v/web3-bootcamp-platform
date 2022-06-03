@@ -162,7 +162,7 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun((context) =
       users.forEach(user => {
         const userData = user.data()
         const currentCohort = userData.cohorts.find(userCohort => userCohort.cohort_id === cohortObj?.id)
-        if(userData.cohorts && currentCohort.cohort_id === cohortObj?.id && userData.email == 'biorrodrigues@gmail.com') {
+        if(userData.cohorts && currentCohort.cohort_id === cohortObj?.id) {
           sendEmail('kickoff_email.js', data.email_content.subject, userData.email, params)
         }
       })
