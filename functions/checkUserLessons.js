@@ -1,19 +1,21 @@
 async function userCompletedCourse(userId, courseId, db) {
-  let userLessonsSent;
-  let courseTotalLessons;
-  await db.collection('lessons_submissions').where('user_id', '==', userId).get().then(async snapshot => {
-    const docs = []
-    snapshot.forEach(doc => {
-      const section = doc.data().section
-      const lesson = doc.data().lesson
-      return docs.push({ section, lesson })
+  return await db.collection('lessons_submissions').where('user_id', '==', userId).get().then(async snapshot => {
+    const docs = snapshot.docs.map(doc => {
+      return doc.data().lesson
     })
-    userLessonsSent = docs.length;
-    await db.collection('courses').doc(courseId).get().then(async snapshot => {
-      const course = snapshot.data()
-      const sections = course.sections
-      return courseTotalLessons = Object.values(sections).flat().length
+    const courseLessons = await db.collection('courses').doc(courseId).get().then(async courses => {
+      const course = courses.data()
+      return Object.keys(course.sections)
+        .map((section) => {
+          return course.sections[section].map((lesson) => {
+            return lesson.file
+          })
+        })
+        .flat()
     })
+    function checkLessons(lesson) {
+      return new Set(docs).has(lesson)
+    }
+    return courseLessons.every(checkLessons)
   })
-  return userLessonsSent === courseTotalLessons
 }
