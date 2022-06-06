@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@3rdweb/hooks": "^1.9.2",
+    "@babel/preset-react": "^7.17.12",
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
     "@thirdweb-dev/react": "^2.0.0",
