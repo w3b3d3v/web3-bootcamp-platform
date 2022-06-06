@@ -8,8 +8,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
   GithubAuthProvider,
+  getRedirectResult,
 } from 'firebase/auth'
 
 import { auth } from '../firebase/initFirebase.js'
@@ -78,15 +80,15 @@ export function AuthProvider({ children }) {
         })
       })
       .catch((error) => {
-          if(error.code.includes('already-in-use')) {
-            toast.error('Este email já está em uso!', {
-              toastParameters,
-            })
-          }else {
-            toast.error('Algo deu errado, tente novamente!', {
-              toastParameters,
-            })
-          }
+        if(error.code.includes('already-in-use')) {
+          toast.error('Este email já está em uso!', {
+            toastParameters,
+          })
+        } else {
+          toast.error('Algo deu errado, tente novamente!', {
+            toastParameters,
+          })
+        }
       })
       .finally(() => setLoading(false))
   }
@@ -106,7 +108,7 @@ export function AuthProvider({ children }) {
           toast.error('Credenciais inválidas, tente novamente.', {
             toastParameters,
           })
-        }else {
+        } else {
           toast.error('Algo deu errado, tente novamente!', {
             toastParameters,
           })
@@ -117,21 +119,22 @@ export function AuthProvider({ children }) {
 
   const loginGoogle = async () => {
     setLoading(true)
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
+    await signInWithRedirect(auth, new GoogleAuthProvider())
+    getRedirectResult(auth).then((result) => {
+        console.log(result)
+        // This gives you a Google Access Token. You can use it to access Google APIs.
         const credential = GoogleAuthProvider.credentialFromResult(result)
         const token = credential.accessToken
+
         // The signed-in user info.
         const user = result.user
-
         getUserFromFirestore(user)
 
         toast.success('Você entrou com sucesso!', {
           toastParameters,
         })
-      })
-      .catch((error) => {
+      }).catch((error) => {
+        console.log(error)
         // Handle Errors here.
         const errorCode = error.code
         const errorMessage = error.message
@@ -142,7 +145,33 @@ export function AuthProvider({ children }) {
         toast.error('Algo de errado aconteceu.', {
           toastParameters,
         })
+        // ...
       })
+    /*.then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      const token = credential.accessToken
+      // The signed-in user info.
+      const user = result.user
+
+      getUserFromFirestore(user)
+
+      toast.success('Você entrou com sucesso!', {
+        toastParameters,
+      })
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code
+      const errorMessage = error.message
+      // The email of the user's account used.
+      const email = error.email
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error)
+      toast.error('Algo de errado aconteceu.', {
+        toastParameters,
+      })
+    })*/
   }
 
   const logout = async () => {
