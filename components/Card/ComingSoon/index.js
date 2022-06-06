@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-
-import { signIn, signOut, useSession } from 'next-auth/react'
-import { Button } from '../../Button'
-import { auth } from '../../../firebase/initFirebase';
-import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
-import { onAuthStateChanged } from 'firebase/auth';
+import React from 'react'
 
 export default function ComingSoonCard() {
-  const { data: session } = useSession()
-  const ref = React.createRef();
-  
   return (
     <>
         <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 min-w-full">
@@ -21,13 +11,12 @@ export default function ComingSoonCard() {
               &#x1F98F; Está chegando a hora!
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Estamos finalizando os últimos preparativos o evento. Volte para conferir em breve!
+                Estamos finalizando os últimos preparativos para o evento. Volte para conferir em breve!
               </p>
               </div>
             </div>
           </div>
         </div>
-      
     </>
   )
 }
