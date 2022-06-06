@@ -8,4 +8,6 @@ module.exports = {
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
+  setupFiles: ['<rootDir>/tests/setup-tests.js'],
+  // setupFiles: ['dotenv/config']
 }
