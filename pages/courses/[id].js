@@ -116,6 +116,7 @@ function Course({ course, currentDate }) {
     return userIsRegisteredInCohort() && undefinedCohortStartDate()
   }
   const userIsNotRegisteredAndCohortIsOpen = () => {
+    if(!cohort) return
     return (
       !user?.cohorts ||
       user?.cohorts?.length == 0 ||
@@ -123,6 +124,7 @@ function Course({ course, currentDate }) {
     )
   }
   const userIsNotRegisteredAndCohortIsClosed = () => {
+    if(!cohort) return true
     return (
       (!user?.cohorts ||
         user?.cohorts?.length == 0 ||
