@@ -158,6 +158,30 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
+exports.inactiveEmail = functions.pubsub.schedule('0 19 * * *').onRun((context) => {
+  let cohortObj = {}
+  await db.collection('cohorts').get().then(cohorts => {
+    cohorts.forEach(async cohort => {
+      const data = cohort.data()
+      const MS_TO_HOURS = 3.6e+6
+      const diff = Math.abs(((new Date(data.kickoffStartTime.toDate()).getTime()) - new Date().getTime()) / MS_TO_HOURS)
+      if(diff > 47 && diff < 49) return cohortObj = cohort
+    })
+  })
+  const params = { cohort: cohortObj?.data(), course: (await db.collection('courses').doc(cohortObj?.data().course_id).get()).data() }
+  db.collection('users').get().then(users => {
+    users.forEach(async user => {
+      const userData = user.data()
+      const currentCohort = userData.cohorts.find(userCohort => userCohort?.cohort_id === cohortObj?.id)
+      const lessons = (await db.collection('lessons_submissions').where('user_id', '==', user.id).where('cohort_id', '==', cohortObj?.id).get())
+      console.log(userData.cohorts)
+      if(userData.cohorts && currentCohort?.cohort_id === cohortObj?.id && lessons.size == 0) {
+        sendEmail('kickoff_email.js', cohortObj.data().email_content.subject, userData.email, params)
+      }
+    })
+  })
+})
+
 exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (context) => {
   const cohortObj = await getCohortToKickoffTomorrow()
   const params = {
@@ -176,6 +200,7 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (cont
     })
   })
 })
+
 
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
