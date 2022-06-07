@@ -36,7 +36,7 @@ export default function Card(props) {
           <div className="flex items-center justify-between px-6 pt-4">
             <div className="jus flex items-center text-black-300 dark:text-white-100">
               <ClockIcon className="h-4 w-4 md:h-4 md:w-4" />
-              <p className="ml-2 mb-0 p-0 text-xs">
+              <p className="ml-2 mb-0 p-0 text-xs pb-3">
                 {duration ? duration : 'Em breve...'}
               </p>
             </div>

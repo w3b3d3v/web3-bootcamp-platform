@@ -73,7 +73,7 @@ export default function Navbar() {
                           <div className="focus:border-white flex w-12 cursor-pointer rounded border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                             <img
                               className="h-10 w-10 rounded-full object-cover"
-                              src={firestoreUser?.photoUrl}
+                              src={ firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                               alt="profile-pic"
                             />
                           </div>
@@ -247,7 +247,7 @@ export default function Navbar() {
                           <img
                             id="open-menu"
                             className="h-10 w-10 rounded-full object-cover"
-                            src={firestoreUser?.photoUrl}
+                            src={ firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                             alt="profile-pic"
                           />
                         </div>
@@ -334,7 +334,7 @@ export default function Navbar() {
                     <div className="focus:border-white flex cursor-pointer rounded-full border-2 border-transparent text-sm transition duration-150 ease-in-out focus:outline-none">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src={firestoreUser?.photoUrl}
+                        src={ firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                         alt="profile-pic"
                       />
                     </div>
@@ -498,7 +498,7 @@ export default function Navbar() {
                             >
                               <img
                                 className="h-10 w-10 rounded-full object-cover"
-                                src={firestoreUser?.photoUrl}
+                                src={ firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                                 alt="profile-pic"
                               />
                             </a>

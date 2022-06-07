@@ -21,7 +21,7 @@ export default function Home() {
               <span className='lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500'> Solidity </span>
             </div>
             <p className='mt-8'>
-              Um projeto de uma semana onde você irá aprender Solidity, escrever e implementar smart-contracts na blockchain e desenvolver um Web3 App para interagir com seu contrato. Perfeito para entusiastas em blockchain e desenvolvedores de Web3. 
+              Um projeto de nove dias onde você irá aprender Solidity, escrever e implementar smart-contracts na blockchain e desenvolver um Web3 App para interagir com seu contrato. Perfeito para entusiastas em blockchain e desenvolvedores de Web3. 
            </p>
           </div>
           <br />
