@@ -88,6 +88,7 @@ exports.onDiscordConnect = functions.firestore
       await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
     }
   })
+
 exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
@@ -97,12 +98,11 @@ exports.mintNFT = functions.firestore
     const user = await db.collection('users').doc(createdLesson.user_id).get()
     const cohort = (await db.collection('cohorts').doc(createdLesson.cohort_id).get()).data()
     const course = (await db.collection('courses').doc(cohort.data().course_id).get()).data()
-    
+
     if(!userCompletedCourse(user.id, cohort.course_id))
       return console.log('Usuário não completou todas as lições')
-      
-    mint((createdLesson.cohort_id, course.nft_title, user.wallet))
 
+    mint((cohort, course.nft_title, user.data()))
   })
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
