@@ -6592,6 +6592,11 @@ randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
+react-cookienotice@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-cookienotice/-/react-cookienotice-5.1.0.tgz#8219a283a0f3b65c3171a9ded0dc82366e709eca"
+  integrity sha512-GTHWg0bpQvULaIP1PZ0OKxbpnjJAptDwE7EY25ZBnfcAWWUnrLpXA9XEQEYyMdWRmxKo2YS2Lop1OJJMjMW53w==
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
