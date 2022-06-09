@@ -34,101 +34,97 @@ exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
   resp.send({ ok: 200 })
 })
 
-exports.onCohortSignup = functions.firestore
-  .document('users/{userId}')
-  .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data()
-    const newUserValue = change.after.data()
-    const previousCohortData = previousUserValue.cohorts.map(
-      (item) => item?.cohort_id
-    )
-    const userNewCohorts = newUserValue.cohorts.filter(
-      (item) => !previousCohortData?.includes(item.cohort_id)
-    )
+async function docData(collection, doc_id) {
+  return (await db.collection(collection).doc(doc_id).get()).data();
+}
 
-    const cohorts = db.collection('cohorts')
-    const courses = db.collection('courses')
+async function emailParams(cohort) {
+  return {
+    cohort: await docData("cohorts", cohort.cohort_id),
+    course: await docData("courses", cohort.course_id),
+  };
+}
+
+exports.onCohortSignup = functions.firestore
+  .document("users/{userId}")
+  .onUpdate(async (change, context) => {
+    const previousUserValue = change.before.data();
+    const user = change.after.data();
+    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id);
+    const userNewCohorts = user.cohorts.filter(
+      (item) => !previousCohortData?.includes(item.cohort_id)
+    );
 
     for (let cohortSnapshot of userNewCohorts) {
-      const params = {
-        cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
-        course: (await courses.doc(cohortSnapshot.course_id).get()).data(),
-      }
+      const params = emailParams(cohortSnapshot);
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       await Promise.all([
-        sendEmail(
-          'on_cohort_signup.js',
-          params.cohort.email_content.subject,
-          newUserValue.email,
-          params
-        ),
-        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role),
-      ])
+        sendEmail("on_cohort_signup.js", params.cohort.email_content.subject, user.email, params),
+        addDiscordRole(user?.discord?.id, params.cohort.discord_role),
+      ]);
     }
-  })
+  });
 
 exports.onDiscordConnect = functions.firestore
-  .document('users/{userId}')
+  .document("users/{userId}")
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data()
-    const newUserValue = change.after.data()
+    const previousUserValue = change.before.data();
+    const newUserValue = change.after.data();
 
-    function userConnectedDiscord(){
-      return newUserValue.discord?.id && newUserValue.discord?.id !== previousUserValue.discord?.id
+    function userConnectedDiscord() {
+      return newUserValue.discord?.id && newUserValue.discord?.id !== previousUserValue.discord?.id;
     }
 
-    if(!userConnectedDiscord()) return
-    
-    const cohorts = db.collection('cohorts')
+    if (!userConnectedDiscord()) return;
 
-    for(let cohortSnapshot of newUserValue.cohorts) {
+    const cohorts = db.collection("cohorts");
+
+    for (let cohortSnapshot of newUserValue.cohorts) {
       const params = {
         cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
-      }
+      };
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
-      await Promise.all([
-        addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)
-      ])
+      await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
     }
-  })
+  });
 
-exports.helloPubSub = functions.pubsub
-  .topic('course_day_email')
-  .onPublish((message) => {
-    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+exports.helloPubSub = functions.pubsub.topic("course_day_email").onPublish((message) => {
+  const data = JSON.parse(Buffer.from(message.data, "base64"));
 
-    console.log(
-      `Sending message ${data.subject} template ${data.template} to ${data.to}`
-    )
+  console.log(`Sending message ${data.subject} template ${data.template} to ${data.to}`);
 
-    return sendEmail(data.template, data.subject, data.to)
-  })
+  return sendEmail(data.template, data.subject, data.to, data.params);
+});
 
-exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
-  db.collection('users')
+exports.sendEmailToAllUsersInCohort = functions.https.onRequest(async (req, resp) => {
+  db.collection("users")
     .get()
     .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const user = doc.data()
-        if (user.email) {
+      console.log(querySnapshot.size);
+      const emails = querySnapshot.docs.map(async (doc) => {
+        const user = doc.data();
+        const userCohort = user.cohorts.find((cohort) => cohort.cohort_id === req.query.cohort_id);
+        if (!userCohort || !user.email) return 0;
+        const cohort = await docData("cohorts", userCohort.cohort_id);
+        if (cohort) {
           const messageObject = {
             to: user.email,
             template: req.query.template,
-            subject: req.query.subject,
-          }
-          const messageBuffer = Buffer.from(
-            JSON.stringify(messageObject),
-            'utf8'
-          )
+            subject: cohort.email_content.subject,
+            params: await emailParams(userCohort),
+          };
+          const messageBuffer = Buffer.from(JSON.stringify(messageObject), "utf8");
 
-          pubsub
-            .topic('course_day_email')
-            .publishMessage({ data: messageBuffer })
+          pubsub.topic("course_day_email").publishMessage({ data: messageBuffer });
         }
-      })
-    })
-  resp.send('OK')
-})
+        return 1;
+      });
+      Promise.all(emails).then((results) => {
+        console.log("Sent emails: " + results.reduce((acc, curr) => acc + curr, 0));
+      });
+    });
+  resp.send("OK");
+});
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
   addUserToRole(req.query.user_id, req.query.role_id).then((r) =>
