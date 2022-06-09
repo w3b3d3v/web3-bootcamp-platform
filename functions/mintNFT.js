@@ -8,17 +8,24 @@ async function mint(cohort, nft_title, user) {
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
   const nftContract = new ethers.Contract(contractAddress, contractABI.abi, signer)
   await nftContract.mintCertificate(cohort.name, nft_title, user.wallet)
-  nftContract.once('Transfer', async (a, b, id) => {
+  
+  nftContract.once("Transfer", async (a, wallet, id) => {
+    if (wallet !== user.wallet) return;
     const params = {
       cohort,
       course_title: nft_title,
       wallet_address: user.wallet,
       nft_contract: contractAddress,
       nft_id: id,
-    }
-    console.log('new id1 ' + id + ' for ' + b)
-    await sendEmail('nft_delivery.js', '👷👷‍♀️ WEB3DEV - NFT Recebido: Smart Contract Solidity', user.email, params)
-  })
+    };
+    console.log("new id1 " + id + " for " + b);
+    await sendEmail(
+      "nft_delivery.js",
+      "👷👷‍♀️ WEB3DEV - NFT Recebido: " + nft_title,
+      user.email,
+      params
+    );
+  });
 }
 
 module.exports = { mint }

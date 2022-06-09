@@ -4,36 +4,18 @@ const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse } = require('../lib/checkUserLessons')
+const { mint } = require("./mintNFT.js");
 
-admin.initializeApp()
+admin.initializeApp();
 
-const db = admin.firestore()
+const db = admin.firestore();
 
-const pubsub = new PubSub()
+const pubsub = new PubSub();
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
-  const subject =
-    req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
-  resp.send(await sendEmail(req.query.template, subject, req.query.to))
-})
-
-exports.sendNFTEmails = functions.https.onRequest(async (req, resp) => {
-  const subject = '👷👷‍♀️ WEB3DEV - NFT Recebido: Smart Contract Solidity'
-
-  people = require('../nfts/scripts/people.json')
-
-  for (let i = 0; i < people.length; i++) {
-    p = people[i]
-    sendEmail('nft_delivery.js', subject, p.email, {
-      course_title: 'Smart Contract Solidity',
-      wallet_address: p.wallet,
-      nft_contract: '0xa68580d4e41925c20af20dba9b4db17a79842f19',
-      nft_id: i + 2,
-    })
-  }
-
-  resp.send({ ok: 200 })
-})
+  const subject = req.query.subject || "🏕️ Seu primeiro Smart Contract na Ethereum";
+  resp.send(await sendEmail(req.query.template, subject, req.query.to));
+});
 
 async function docData(collection, doc_id) {
   return (await db.collection(collection).doc(doc_id).get()).data();
@@ -78,32 +60,31 @@ exports.onDiscordConnect = functions.firestore
 
     if (!userConnectedDiscord()) return;
 
-    const cohorts = db.collection("cohorts");
-
     for (let cohortSnapshot of newUserValue.cohorts) {
       const params = {
-        cohort: (await cohorts.doc(cohortSnapshot.cohort_id).get()).data(),
+        cohort: docData("cohorts", cohortSnapshot.cohort_id),
       };
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
     }
-  })
+  });
 
 exports.mintNFT = functions.firestore
-  .document('lessons_submissions/{lessonId}')
+  .document("lessons_submissions/{lessonId}")
   .onCreate(async (snap, context) => {
-    const createdLesson = snap.data()
-    if(createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
+    const createdLesson = snap.data();
+    if (createdLesson.lesson !== "Lesson_2_Finalize_Celebrate.md") return; // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
-    const user = await db.collection('users').doc(createdLesson.user_id).get()
-    const cohort = (await db.collection('cohorts').doc(createdLesson.cohort_id).get()).data()
-    const course = (await db.collection('courses').doc(cohort.data().course_id).get()).data()
+    const cohort = await docData("cohorts", createdLesson.cohort_id);
 
-    if(!userCompletedCourse(user.id, cohort.course_id))
-      return console.log('Usuário não completou todas as lições')
+    if (!userCompletedCourse(createdLesson.user_id, cohort.course_id))
+      return console.log("Usuário não completou todas as lições");
 
-    mint((cohort, course.nft_title, user.data()))
-  })
+    const user = await docData("users", createdLesson.user_id);
+    const course = await docData("courses", cohort.course_id);
+
+    mint(cohort, course.nft_title, user);
+  });
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, "base64"));
@@ -152,7 +133,7 @@ exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
   async (req, resp) => {
     const cohort_id = req.query.cohort_id
-    const cohort = (await db.collection('cohorts').doc(cohort_id).get()).data()
+    const cohort = docData("cohorts", cohort_id);
 
     if (!cohort) {
       console.log('invalid cohort')
