@@ -108,12 +108,11 @@ exports.sendEmailToAllUsersInCohort = functions.https.onRequest(async (req, resp
           const messageObject = {
             to: user.email,
             template: req.query.template,
-            subject: cohort.email_content.subject,
+            subject: req.query.subject || cohort.email_content.subject,
             params: await emailParams(userCohort),
-          };
-          const messageBuffer = Buffer.from(JSON.stringify(messageObject), "utf8");
-
-          pubsub.topic("course_day_email").publishMessage({ data: messageBuffer });
+          }
+          const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
+          pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
         }
         return 1;
       });
