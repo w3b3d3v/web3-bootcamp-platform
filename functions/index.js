@@ -77,13 +77,13 @@ exports.mintNFT = functions.firestore
 
     const cohort = await docData("cohorts", createdLesson.cohort_id);
 
-    if (!userCompletedCourse(createdLesson.user_id, cohort.course_id))
-      return console.log("Usuário não completou todas as lições");
+    if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
+      return console.log('Usuário não completou todas as lições')
 
     const user = await docData("users", createdLesson.user_id);
     const course = await docData("courses", cohort.course_id);
 
-    mint(cohort, course.nft_title, user);
+    await mint(cohort, course.nft_title, user)
   });
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {

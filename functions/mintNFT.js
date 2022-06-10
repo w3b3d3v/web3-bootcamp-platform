@@ -1,16 +1,24 @@
 const { ethers } = require('ethers')
 const contractABI = require('./W3DBootcampContract.json')
 const { sendEmail } = require('./emails')
-const contractAddress = '0xeA4aDb7A75a2452585204E8B411c64C2f3693845'
+const contractAddress = process.env.NFT_CONTRACT_ADDRESS
 
 async function mint(cohort, nft_title, user) {
   const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API_KEY)
-  const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
+  const signer = new ethers.Wallet(process.env.CONTRACT_PRIVATE_KEY, provider)
   const nftContract = new ethers.Contract(contractAddress, contractABI.abi, signer)
-  await nftContract.mintCertificate(cohort.name, nft_title, user.wallet)
- 
+
+  console.log(
+    `Minting NFT ${nft_title} cohort ${cohort.name} for user: ${user.email} wallet: ${user.wallet}`
+  )
+
   nftContract.once('Transfer', async (a, wallet, id) => {
-    if (wallet !== user.wallet) return
+    if (wallet.toString() !== user.wallet) {
+      console.log('Wallet is not from user')
+      console.log('User wallet: ' + user.wallet)
+      console.log('object wallet: ' + wallet)
+      return
+    }
     const params = {
       cohort,
       course_title: nft_title,
@@ -25,6 +33,11 @@ async function mint(cohort, nft_title, user) {
       params
     )
   })
+  const tx = await nftContract.mintCertificate(cohort.name, nft_title, user.wallet, {
+    gasLimit: 999999,
+  })
+
+  await tx.wait()
 }
 
 module.exports = { mint }
