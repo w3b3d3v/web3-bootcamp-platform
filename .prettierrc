@@ -1,4 +1,11 @@
 {
-  "printWidth": 100
+  "printWidth": 100,
+  "formatOnPaste": true,
+  "formatOnSave": true,
+  "formatOnSaveMode": "modifications",
+  "semi": false,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "jsxSingleQuote": true,
+  "singleAttributePerLine": true
 }
-
