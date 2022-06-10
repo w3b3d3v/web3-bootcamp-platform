@@ -14,12 +14,12 @@ import Layout from '../../components/layout';
 import Head from 'next/head';
 
 function authPage() {
-  const { user, login, logout, loginGoogle } = useAuth()
+  const { user, login, logout, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
-  const [isDisable, setIsDisable] = useState(false);
+  const [isDisable, setIsDisable] = useState(false)
   const { register, handleSubmit } = useForm()
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
 
   const onLoginSubmit = (data) => login(data)
   const onLoginError = (errors, e) => {
@@ -36,14 +36,16 @@ function authPage() {
   function handleResetPassword(auth, email) {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        toast.success('Email enviado com sucesso');
-        setIsDisable(false);
+        toast.success('Email enviado com sucesso')
+        setIsDisable(false)
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        errorCode.includes('not-found') ? toast.error('Email não encontrado') : toast.error(errorMessage);
-      });
+        const errorCode = error.code
+        const errorMessage = error.message
+        errorCode.includes('not-found')
+          ? toast.error('Email não encontrado')
+          : toast.error(errorMessage)
+      })
   }
   return (
     <Layout>
@@ -79,7 +81,7 @@ function authPage() {
                 </span>
               </Link>
             </p>
-            {!isDisable ?
+            {!isDisable ? (
               <form onSubmit={handleSubmit(onLoginSubmit, onLoginError)}>
                 <div className="pt-6">
                   <label
@@ -164,7 +166,12 @@ function authPage() {
                     </div>
                   </div>
                   <div>
-                    <p className='text-xs text-indigo-300 hover:underline cursor-pointer w-fit' onClick={() => setIsDisable(true)}>Esqueci minha senha</p>
+                    <p
+                      className="w-fit cursor-pointer text-xs text-indigo-300 hover:underline"
+                      onClick={() => setIsDisable(true)}
+                    >
+                      Esqueci minha senha
+                    </p>
                   </div>
                 </div>
                 <div className="mt-8">
@@ -177,7 +184,7 @@ function authPage() {
                   </button>
                 </div>
               </form>
-              :
+            ) : (
               <>
                 <div className="pt-6">
                   <label
@@ -211,15 +218,22 @@ function authPage() {
                   </button>
                 </div>
               </>
-            }
+            )}
 
             <div className="flex w-full items-center justify-between py-5">
               <hr className="w-full bg-gray-400" />
-              <p className="px-2.5 text-base font-medium leading-4 text-gray-500">
-                OU
-              </p>
+              <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
               <hr className="w-full bg-gray-400" />
             </div>
+
+            <button
+              aria-label="Continue com google"
+              role="button"
+              className="flex w-full items-center rounded-lg border border-gray-700 p-3 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-white-100 dark:hover:bg-black-100"
+              onClick={() => loginGithub()}
+            >
+              Github
+            </button>
 
             <button
               aria-label="Continue com google"

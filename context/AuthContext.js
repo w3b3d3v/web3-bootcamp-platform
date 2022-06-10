@@ -118,12 +118,21 @@ export function AuthProvider({ children }) {
   }
 
   const loginGoogle = async () => {
+    return loginWithProvider(GoogleAuthProvider)
+  }
+
+  const loginGithub = async () => {
+    return loginWithProvider(GithubAuthProvider)
+  }
+
+  const loginWithProvider = async (provider) => {
     setLoading(true)
-    await signInWithRedirect(auth, new GoogleAuthProvider())
-    getRedirectResult(auth).then((result) => {
+    await signInWithRedirect(auth, new provider())
+    getRedirectResult(auth)
+      .then((result) => {
         console.log(result)
         // This gives you a Google Access Token. You can use it to access Google APIs.
-        const credential = GoogleAuthProvider.credentialFromResult(result)
+        const credential = provider.credentialFromResult(result)
         const token = credential.accessToken
 
         // The signed-in user info.
@@ -133,7 +142,8 @@ export function AuthProvider({ children }) {
         toast.success('Você entrou com sucesso!', {
           toastParameters,
         })
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
         // Handle Errors here.
         const errorCode = error.code
@@ -141,7 +151,7 @@ export function AuthProvider({ children }) {
         // The email of the user's account used.
         const email = error.email
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error)
+        const credential = provider.credentialFromError(error)
         toast.error('Algo de errado aconteceu.', {
           toastParameters,
         })
@@ -205,7 +215,7 @@ export function AuthProvider({ children }) {
         userAuthenticated,
         login,
         signup,
-        // loginGitHub,
+        loginGithub,
         loginGoogle,
         logout,
       }}
