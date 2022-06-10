@@ -88,7 +88,7 @@ exports.onDiscordConnect = functions.firestore
     }
   });
 
-exports.helloPubSub = functions.pubsub.topic("course_day_email").onPublish((message) => {
+exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, "base64"));
 
   console.log(`Sending message ${data.subject} template ${data.template} to ${data.to}`);
