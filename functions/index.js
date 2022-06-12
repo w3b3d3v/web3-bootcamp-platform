@@ -73,7 +73,7 @@ const GRADUATED_ROLE_ID = '985557210794958948'
 
 exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
-  .onCreate(;async (snap, context) => {
+  .onCreate(async (snap, context) => {
     const createdLesson = snap.data()
     if (createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
