@@ -3,88 +3,91 @@ const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
-const { userCompletedCourse } = require('../lib/checkUserLessons')
-const { mint } = require("./mintNFT.js");
+const { userCompletedCourse } = require('./lib/checkUserLessons')
+const { mint } = require('./mintNFT.js')
 
-admin.initializeApp();
+admin.initializeApp()
 
-const db = admin.firestore();
+const db = admin.firestore()
 
-const pubsub = new PubSub();
+const pubsub = new PubSub()
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
-  const subject = req.query.subject || "🏕️ Seu primeiro Smart Contract na Ethereum";
-  resp.send(await sendEmail(req.query.template, subject, req.query.to));
-});
+  const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
+  resp.send(await sendEmail(req.query.template, subject, req.query.to))
+})
 
 async function docData(collection, doc_id) {
-  return (await db.collection(collection).doc(doc_id).get()).data();
+  return (await db.collection(collection).doc(doc_id).get()).data()
 }
 
 async function emailParams(cohort) {
   return {
-    cohort: await docData("cohorts", cohort.cohort_id),
-    course: await docData("courses", cohort.course_id),
-  };
+    cohort: await docData('cohorts', cohort.cohort_id),
+    course: await docData('courses', cohort.course_id),
+  }
 }
 
 exports.onCohortSignup = functions.firestore
-  .document("users/{userId}")
+  .document('users/{userId}')
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data();
-    const user = change.after.data();
-    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id);
+    const previousUserValue = change.before.data()
+    const user = change.after.data()
+    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id)
     const userNewCohorts = user.cohorts.filter(
       (item) => !previousCohortData?.includes(item.cohort_id)
-    );
+    )
 
     for (let cohortSnapshot of userNewCohorts) {
-      const params = emailParams(cohortSnapshot);
+      const params = emailParams(cohortSnapshot)
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       await Promise.all([
-        sendEmail("on_cohort_signup.js", params.cohort.email_content.subject, user.email, params),
+        sendEmail('on_cohort_signup.js', params.cohort.email_content.subject, user.email, params),
         addDiscordRole(user?.discord?.id, params.cohort.discord_role),
-      ]);
+      ])
     }
-  });
+  })
 
 exports.onDiscordConnect = functions.firestore
-  .document("users/{userId}")
+  .document('users/{userId}')
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data();
-    const newUserValue = change.after.data();
+    const previousUserValue = change.before.data()
+    const newUserValue = change.after.data()
 
     function userConnectedDiscord() {
-      return newUserValue.discord?.id && newUserValue.discord?.id !== previousUserValue.discord?.id;
+      return newUserValue.discord?.id && newUserValue.discord?.id !== previousUserValue.discord?.id
     }
 
-    if (!userConnectedDiscord()) return;
+    if (!userConnectedDiscord()) return
 
     for (let cohortSnapshot of newUserValue.cohorts) {
       const params = {
-        cohort: docData("cohorts", cohortSnapshot.cohort_id),
-      };
+        cohort: docData('cohorts', cohortSnapshot.cohort_id),
+      }
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
-      await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)]);
+      await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)])
     }
-  });
+  })
+
+const GRADUATED_ROLE_ID = '985557210794958948'
 
 exports.mintNFT = functions.firestore
-  .document("lessons_submissions/{lessonId}")
-  .onCreate(async (snap, context) => {
-    const createdLesson = snap.data();
-    if (createdLesson.lesson !== "Lesson_2_Finalize_Celebrate.md") return; // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
+  .document('lessons_submissions/{lessonId}')
+  .onCreate(;async (snap, context) => {
+    const createdLesson = snap.data()
+    if (createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
-    const cohort = await docData("cohorts", createdLesson.cohort_id);
+    const cohort = await docData('cohorts', createdLesson.cohort_id)
 
     if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
       return console.log('Usuário não completou todas as lições')
 
-    const user = await docData("users", createdLesson.user_id);
-    const course = await docData("courses", cohort.course_id);
+    const user = await docData('users', createdLesson.user_id)
+    const course = await docData('courses', cohort.course_id)
 
+    addDiscordRole(user?.discord?.id, GRADUATED_ROLE_ID)
     await mint(cohort, course.nft_title, user)
-  });
+  })
 
 exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, "base64"));
