@@ -3,7 +3,7 @@ const { sendEmail } = require('./emails')
 const { PubSub } = require('@google-cloud/pubsub')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
-const { userCompletedCourse } = require('./lib/checkUserLessons')
+const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 
 admin.initializeApp()
@@ -89,24 +89,24 @@ exports.mintNFT = functions.firestore
     await mint(cohort, course.nft_title, user)
   })
 
-exports.sendEmailJob = functions.pubsub.topic("course_day_email").onPublish((message) => {
-  const data = JSON.parse(Buffer.from(message.data, "base64"));
+exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
 
-  console.log(`Sending message ${data.subject} template ${data.template} to ${data.to}`);
+  console.log(`Sending message ${data.subject} template ${data.template} to ${data.to}`)
 
-  return sendEmail(data.template, data.subject, data.to, data.params);
-});
+  return sendEmail(data.template, data.subject, data.to, data.params)
+})
 
 exports.sendEmailToAllUsersInCohort = functions.https.onRequest(async (req, resp) => {
-  db.collection("users")
+  db.collection('users')
     .get()
     .then((querySnapshot) => {
-      console.log(querySnapshot.size);
+      console.log(querySnapshot.size)
       const emails = querySnapshot.docs.map(async (doc) => {
-        const user = doc.data();
-        const userCohort = user.cohorts.find((cohort) => cohort.cohort_id === req.query.cohort_id);
-        if (!userCohort || !user.email) return 0;
-        const cohort = await docData("cohorts", userCohort.cohort_id);
+        const user = doc.data()
+        const userCohort = user.cohorts.find((cohort) => cohort.cohort_id === req.query.cohort_id)
+        if (!userCohort || !user.email) return 0
+        const cohort = await docData('cohorts', userCohort.cohort_id)
         if (cohort) {
           const messageObject = {
             to: user.email,
@@ -117,19 +117,28 @@ exports.sendEmailToAllUsersInCohort = functions.https.onRequest(async (req, resp
           const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
           pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
         }
-        return 1;
-      });
+        return 1
+      })
       Promise.all(emails).then((results) => {
-        console.log("Sent emails: " + results.reduce((acc, curr) => acc + curr, 0));
-      });
-    });
-  resp.send("OK");
-});
+        console.log('Sent emails: ' + results.reduce((acc, curr) => acc + curr, 0))
+      })
+    })
+  resp.send('OK')
+})
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
-  addUserToRole(req.query.user_id, req.query.role_id).then((r) =>
-    resp.send('OK')
-  )
+  addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send('OK'))
+})
+
+exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
+  const cohort_id = req.query.cohort_id
+  const users = await usersToSend2ndChance(db, cohort_id)
+
+  users.map((u) => {
+    sendEmail('cohort_new_chance', 'Nova chance para finalizar o Bootcamp', u.email)
+  })
+  // sendEmail('cohort_new_chance', 'Nova chance para finalizar o Bootcamp', 'danicuki@gmail.com')
+  resp.send({ size: users.length, users: users })
 })
 
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(

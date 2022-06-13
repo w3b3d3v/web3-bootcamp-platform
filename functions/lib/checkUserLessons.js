@@ -28,4 +28,21 @@ async function userCompletedCourse(userId, courseId, db) {
     })
 }
 
-module.exports = { userCompletedCourse }
+async function usersIdsCompletedBootcamp(db) {
+  const lessons = (
+    await db
+      .collection('lessons_submissions')
+      .where('lesson', '==', 'Lesson_2_Finalize_Celebrate.md')
+      .get()
+  ).docs
+  return lessons.map((l) => l.data().user_id)
+}
+
+async function usersToSend2ndChance(db, cohort_id) {
+  const usersIds = await usersIdsCompletedBootcamp(db)
+  return (await db.collection('users').where('cohort_ids', 'array-contains', cohort_id).get()).docs
+    .map((d) => d.data())
+    .filter((user) => !usersIds.includes(user.uid))
+}
+
+module.exports = { userCompletedCourse, usersIdsCompletedBootcamp, usersToSend2ndChance }
