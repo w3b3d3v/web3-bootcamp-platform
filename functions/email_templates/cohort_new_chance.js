@@ -7,7 +7,7 @@ Para você que participou do nosso 1o. bootcamp na turma PIONEIROS, mas não fin
 
 Você ainda tem chance de ganhar o NFT da 2a. turma, EXPLORADORES, que está rolando agora. Para isso, basta terminar as lições na <a href="https://bootcamp.web3dev.com.br">nossa plataforma</a> até 2a. feira que vem.<br>
 <br>
-Se precisar de ajuda, não esquece que estamos à disposição no <a href="https://bootcamp.web3dev.com.br">nosso Discord</a> para te ajudar.<br>
+Se precisar de ajuda, não esquece que estamos à disposição no <a href="https://discord.web3dev.com.br">nosso Discord</a> para te ajudar.<br>
 <br>
 Nos vemos lá!<br>
 <br>
