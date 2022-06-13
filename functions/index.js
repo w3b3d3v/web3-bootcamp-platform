@@ -158,35 +158,50 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
-exports.inactiveEmail = functions.pubsub.schedule('0 19 * * *').onRun((context) => {
+exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
+  addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send("OK"));
+});
+
+exports.inactiveEmail = functions.pubsub.schedule("05 19 * * *").onRun((context) => {
+  const twoDaysAgo = new Date(new Date().setHours(new Date().getHours() - 48));
+  const oneDayAgo = new Date(new Date().setHours(new Date().getHours() - 24));
   const cohorts = await db
     .collection("cohorts")
-    .where("kickoffStartTime", "<", new Date(2022, 6, 9))
+    .where("kickoffStartTime", ">=", twoDaysAgo)
+    .where("kickoffStartTime", "<=", oneDayAgo)
     .get();
-  const cohort_ids = cohorts.map((c) => c.id);
 
+  const cohort_ids = cohorts.docs.map((c) => c.id);
   const lessons = await db
     .collection("lessons_submissions")
     .where("cohort_id", "in", cohort_ids)
     .get();
 
   const user_ids = lessons.docs.map((l) => l.data().user_id);
-
-  for (let cohort of cohorts) {
+  const unique_ids = [...new Set(user_ids)];
+  for (let cohort of cohorts.docs) {
+    console.log(cohort.id);
     db.collection("users")
-      .where("uid", "not-in", user_ids)
-      .where("cohort_ids", "==", cohort.id)
+      .where("uid", "not-in", unique_ids)
       .get()
       .then((users) => {
-        users.forEach((user) => {
-          sendEmail("reminder_email.js", cohort.data().email_content.subject, user.data().email, {
-            cohort: cohort.data(),
-          });
+        users.forEach(async (user) => {
+            try {
+              await sendEmail(
+                "reminder_email.js",
+                cohort.data().email_content.subject,
+                user.data().email,
+                {
+                  cohort: cohort.data(),
+                }
+              );
+            } catch (error) {
+              console.log(error);
+            }
         });
       });
-  }
-
-})
+    }
+});
 
 exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (context) => {
   const cohortObj = await getCohortToKickoffTomorrow()
