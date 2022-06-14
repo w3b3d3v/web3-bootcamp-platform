@@ -5,6 +5,7 @@ const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
+const { getNextCohort } = require('./second_chance_cohort')
 
 admin.initializeApp()
 
@@ -77,10 +78,15 @@ exports.mintNFT = functions.firestore
     const createdLesson = snap.data()
     if (createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
-    const cohort = await docData('cohorts', createdLesson.cohort_id)
+    let cohort = await docData('cohorts', createdLesson.cohort_id)
 
     if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
       return console.log('Usuário não completou todas as lições')
+
+    if (cohort.endDate.toDate() < new Date()) {
+      cohort = await getNextCohort(cohort.course_id, db)
+    }
+    if (!cohort) return
 
     const user = await docData('users', createdLesson.user_id)
     const course = await docData('courses', cohort.course_id)
@@ -141,41 +147,39 @@ exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
   resp.send({ size: users.length, users: users })
 })
 
-exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(
-  async (req, resp) => {
-    const cohort_id = req.query.cohort_id
-    const cohort = docData("cohorts", cohort_id);
+exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, resp) => {
+  const cohort_id = req.query.cohort_id
+  const cohort = docData('cohorts', cohort_id)
 
-    if (!cohort) {
-      console.log('invalid cohort')
-      return resp.send('invalid cohort')
-    }
-
-    const users = await db.collection('users').get()
-
-    if (users.empty) {
-      console.log('no users to change')
-      return resp.send('no users')
-    }
-
-    users.forEach(async (doc) => {
-      const data = doc.data()
-      if (
-        data.cohorts &&
-        data.cohorts[0] &&
-        data?.discord?.id &&
-        data.cohorts[0].cohort_id === cohort_id
-      ) {
-        console.log(
-          `Adicionando role ${cohort.discord_role} do curso no discord: ${data.discord.username}`
-        )
-        try {
-          await addDiscordRole(data.discord.id, cohort.discord_role)
-        } catch (exception) {
-          console.log(exception)
-        }
-      }
-    })
-    resp.send('OK')
+  if (!cohort) {
+    console.log('invalid cohort')
+    return resp.send('invalid cohort')
   }
-)
+
+  const users = await db.collection('users').get()
+
+  if (users.empty) {
+    console.log('no users to change')
+    return resp.send('no users')
+  }
+
+  users.forEach(async (doc) => {
+    const data = doc.data()
+    if (
+      data.cohorts &&
+      data.cohorts[0] &&
+      data?.discord?.id &&
+      data.cohorts[0].cohort_id === cohort_id
+    ) {
+      console.log(
+        `Adicionando role ${cohort.discord_role} do curso no discord: ${data.discord.username}`
+      )
+      try {
+        await addDiscordRole(data.discord.id, cohort.discord_role)
+      } catch (exception) {
+        console.log(exception)
+      }
+    }
+  })
+  resp.send('OK')
+})
