@@ -11,6 +11,8 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   getRedirectResult,
+  OAuthProvider,
+  linkWithCredential,
 } from 'firebase/auth'
 
 import { auth } from '../firebase/initFirebase.js'
@@ -129,30 +131,32 @@ export function AuthProvider({ children }) {
     await signInWithRedirect(auth, new Provider())
   }
   useEffect(() => {
-    //if (auth?.currentUser) {
     async function fetchUser() {
       await getRedirectResult(auth)
-        .then((result) => {
+        .then(async (result) => {
           const user = result.user
-          getUserFromFirestore(user)
-          toast.success('Você entrou com sucesso!', {
-            toastParameters,
-          })
+          const cred = JSON.parse(sessionStorage.getItem('credential'))
+          if (cred.providerId == 'github.com') {
+            const credential = GithubAuthProvider.credential(cred.accessToken)
+            await linkWithCredential(user, credential)
+            getUserFromFirestore(user)
+            toast.success('Você entrou com sucesso!', {
+              toastParameters,
+            })
+          }
         })
         .catch((error) => {
+          console.log(error)
           if (error.code === 'auth/account-exists-with-different-credential') {
+            const credential = OAuthProvider.credentialFromResult(error.customData)
+            sessionStorage.setItem('credential', JSON.stringify(credential))
             return toast.error(
-              'Este email já está cadastrado com outro provedor (github ou google)!'
+              `Para conectar sua conta do Github, faça o login como fazia antes e iremos conectar para você.`
             )
           }
-          //toast.error('Algo de errado aconteceu.', {
-          //  toastParameters,
-          //})
-          // ...
         })
     }
     fetchUser()
-    //}
   }, [])
   const logout = async () => {
     try {
