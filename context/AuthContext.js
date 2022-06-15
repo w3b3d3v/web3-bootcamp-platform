@@ -18,7 +18,7 @@ import {
 
 import { auth } from '../firebase/initFirebase.js'
 
-import { getUserFromFirestore, createUserinFirestore } from '../lib/user.js'
+import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'
 
 const AuthContext = createContext()
 
@@ -133,32 +133,40 @@ export function AuthProvider({ children }) {
   }
   useEffect(() => {
     async function fetchUser() {
-      if (auth.currentUser) {
-        const provider = new GithubAuthProvider()
-        await linkWithRedirect(auth.currentUser, provider)
-          .then((res) => console.log(res))
-          .catch((error) => console.log(error))
-      }
       await getRedirectResult(auth)
         .then(async (result) => {
-          const user = result.user
+          const user = result?.user
+          let githubUrl = ''
           const cred = JSON.parse(sessionStorage.getItem('credential'))
-          if (cred.providerId == 'github.com') {
+          if (cred?.providerId == 'github.com') {
+            linkGithub(cred)
+          }
+          const providerObj = user.reloadUserInfo.providerUserInfo[0]
+          githubUrl = providerObj.providerId + providerObj.screenName
+          await getUserFromFirestore(user)
+          await updateUserGithub(githubUrl, user.uid)
+          sessionStorage.clear()
+          toast.success('Você entrou com sucesso!', {
+            toastParameters,
+          })
+
+          async function linkGithub() {
             const credential = GithubAuthProvider.credential(cred.accessToken)
-            await linkWithCredential(user, credential)
-            getUserFromFirestore(user)
-            toast.success('Você entrou com sucesso!', {
-              toastParameters,
-            })
+            const userCredential = await linkWithCredential(user, credential)
+            githubUrl = JSON.parse(userCredential._tokenResponse.rawUserInfo).html_url
+            await updateUserGithub(githubUrl, user.uid)
+            await getUserFromFirestore(user, user.providerData)
           }
         })
         .catch((error) => {
+          console.log(error)
           if (error.code === 'auth/account-exists-with-different-credential') {
             const credential = OAuthProvider.credentialFromResult(error.customData)
             sessionStorage.setItem('credential', JSON.stringify(credential))
-            return toast.error(
-              `Para conectar sua conta do Github, faça o login como fazia antes e iremos conectar para você.`
-            )
+            Router.push('/auth')
+            //return toast.error(
+            //  `Para conectar sua conta do Github, faça o login como fazia antes e iremos conectar para você.`
+            //)
           }
         })
     }
