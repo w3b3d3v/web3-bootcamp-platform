@@ -30,5 +30,6 @@ yarn-error.log*
 .env.production.local
 
 firebase/firebase-config.json
+firebase/dev-account.json
 .env
 *.log
