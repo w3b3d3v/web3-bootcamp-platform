@@ -13,6 +13,7 @@ import {
   getRedirectResult,
   OAuthProvider,
   linkWithCredential,
+  linkWithRedirect,
 } from 'firebase/auth'
 
 import { auth } from '../firebase/initFirebase.js'
@@ -132,6 +133,12 @@ export function AuthProvider({ children }) {
   }
   useEffect(() => {
     async function fetchUser() {
+      if (auth.currentUser) {
+        const provider = new GithubAuthProvider()
+        await linkWithRedirect(auth.currentUser, provider)
+          .then((res) => console.log(res))
+          .catch((error) => console.log(error))
+      }
       await getRedirectResult(auth)
         .then(async (result) => {
           const user = result.user
@@ -146,7 +153,6 @@ export function AuthProvider({ children }) {
           }
         })
         .catch((error) => {
-          console.log(error)
           if (error.code === 'auth/account-exists-with-different-credential') {
             const credential = OAuthProvider.credentialFromResult(error.customData)
             sessionStorage.setItem('credential', JSON.stringify(credential))
@@ -157,7 +163,7 @@ export function AuthProvider({ children }) {
         })
     }
     fetchUser()
-  }, [])
+  }, [auth.currentUser])
   const logout = async () => {
     try {
       Router.push('/')

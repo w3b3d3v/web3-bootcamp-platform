@@ -16,6 +16,7 @@ import { auth, storage } from '../../firebase/initFirebase'
 import { toast } from 'react-toastify'
 import {
   GithubAuthProvider,
+  linkWithCredential,
   linkWithPopup,
   linkWithRedirect,
   onAuthStateChanged,
@@ -41,7 +42,7 @@ function Profile() {
       if (user) {
         const userSession = await getUserFromFirestore(user)
         setUser(userSession)
-        userSession.socialLinks.forEach((link) => {
+        userSession?.socialLinks.forEach((link) => {
           switch (link.name) {
             case 'linkedin':
               setLinkedIn(link.url)
@@ -98,6 +99,7 @@ function Profile() {
   const connectGithub = async (e) => {
     e.preventDefault()
     const provider = new GithubAuthProvider()
+    await linkWithCredential
     await linkWithPopup(auth.currentUser, provider)
       .then((result) => {
         const github_id = result.user.providerData.find(
@@ -166,9 +168,7 @@ function Profile() {
               <div className="p-2">
                 <div>
                   GitHub:
-                  {auth?.currentUser?.providerData.find(
-                    (item) => item.providerId == 'github.com'
-                  ) ? (
+                  {user?.socialLinks.find((item) => item.name == 'github').url ? (
                     <div>
                       <input
                         name="github"
