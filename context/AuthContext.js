@@ -131,32 +131,27 @@ export function AuthProvider({ children }) {
     setLoading(true)
     await signInWithRedirect(auth, new Provider())
   }
+  let githubUrl = ''
+
   useEffect(() => {
     async function fetchUser() {
       await getRedirectResult(auth)
         .then(async (result) => {
           const user = result?.user
-          let githubUrl = ''
           const cred = JSON.parse(sessionStorage.getItem('credential'))
           if (cred?.providerId == 'github.com') {
-            linkGithub(cred)
+            await linkGithub(cred, user)
           }
           const providerObj = user.reloadUserInfo.providerUserInfo[0]
-          githubUrl = providerObj.providerId + providerObj.screenName
+          if (providerObj.providerId !== 'github.com') return
           await getUserFromFirestore(user)
+          githubUrl = `https://${providerObj.providerId}/${providerObj.screenName}`
           await updateUserGithub(githubUrl, user.uid)
           sessionStorage.clear()
+
           toast.success('Você entrou com sucesso!', {
             toastParameters,
           })
-
-          async function linkGithub() {
-            const credential = GithubAuthProvider.credential(cred.accessToken)
-            const userCredential = await linkWithCredential(user, credential)
-            githubUrl = JSON.parse(userCredential._tokenResponse.rawUserInfo).html_url
-            await updateUserGithub(githubUrl, user.uid)
-            await getUserFromFirestore(user, user.providerData)
-          }
         })
         .catch((error) => {
           console.log(error)
@@ -172,8 +167,19 @@ export function AuthProvider({ children }) {
     }
     fetchUser()
   }, [auth.currentUser])
+
+  async function linkGithub(cred, user) {
+    if (user) {
+      const credential = GithubAuthProvider.credential(cred.accessToken)
+      const userCredential = await linkWithCredential(user, credential)
+      githubUrl = JSON.parse(userCredential._tokenResponse.rawUserInfo).html_url
+      await updateUserGithub(githubUrl, user.uid)
+      await getUserFromFirestore(user, user.providerData)
+    }
+  }
   const logout = async () => {
     try {
+      sessionStorage.clear()
       Router.push('/')
       await auth.signOut()
       handleUser(false)

@@ -267,7 +267,7 @@ function Profile() {
           </form>
           <div className="flex items-start px-2 lg:items-end">
             <div className="flex items-center justify-center">
-              <Button id="update-profile" onClick={updateUserData}>
+              <Button id="update-profile" onClick={() => updateUserData()}>
                 Salvar
               </Button>
             </div>
