@@ -180,27 +180,30 @@ exports.inactiveEmail = functions.pubsub.schedule("05 19 * * *").onRun((context)
   const user_ids = lessons.docs.map((l) => l.data().user_id);
   const unique_ids = [...new Set(user_ids)];
   for (let cohort of cohorts.docs) {
-    console.log(cohort.id);
-    db.collection("users")
-      .where("uid", "not-in", unique_ids)
+    emailInactiveUsers(cohort)
+  }
+  async function emailInactiveUsers(cohort){
+    db.collection('users')
+      .where('cohort_ids', 'array-contains', cohort.id)
       .get()
-      .then((users) => {
+      .then((users) =>
         users.forEach(async (user) => {
-            try {
-              await sendEmail(
-                "reminder_email.js",
+          try {
+            if (!unique_ids.includes(user.id))
+              return await sendEmail(
+                'reminder_email.js',
                 cohort.data().email_content.subject,
                 user.data().email,
                 {
                   cohort: cohort.data(),
                 }
-              );
-            } catch (error) {
-              console.log(error);
-            }
-        });
-      });
-    }
+              )
+          } catch (error) {
+            console.log(error)
+          }
+        })
+      )
+  }
 });
 
 exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (context) => {
