@@ -73,7 +73,7 @@ function authPage() {
               <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
                 <h3>Deseja vincular o github à sua conta já cadastrada?</h3>
                 <div className="flex w-full justify-around">
-                  <Button customClass={'bg-red-400'} onClick={() => denyLogin()}>
+                  <Button customClass={'bg-slate-300'} onClick={() => denyLogin()}>
                     Não
                   </Button>
                   <Button onClick={() => confirmLink()}>Sim</Button>
