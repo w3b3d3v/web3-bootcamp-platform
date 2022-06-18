@@ -12,7 +12,7 @@ import Layout from '../../../components/layout'
 import LoginButton from '../../../components/LoginButton'
 
 function signUpPage() {
-  const { user, signup, logout, loginGoogle } = useAuth()
+  const { user, signup, logout, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
   const { register, handleSubmit } = useForm()
