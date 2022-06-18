@@ -13,6 +13,7 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import Layout from '../../components/layout'
 import Head from 'next/head'
 import { Button } from '../../components/Button'
+import LoginButton from '../../components/LoginButton'
 
 function authPage() {
   const { user, login, logout, loginGoogle, loginGithub } = useAuth()
@@ -246,32 +247,22 @@ function authPage() {
                 <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
                 <hr className="w-full bg-gray-400" />
               </div>
-
-              <section>
-                <div className="flex items-center justify-around">
-                  <button
-                    aria-label="Continue com Github"
-                    role="button"
-                    className="dark:hover:bg-grey-400 cursor-pointer items-center rounded-lg border border-gray-700 bg-white-100 p-3 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-white-100"
-                    onClick={() => loginGithub()}
-                  >
-                    <Image
-                      src={'/assets/img/GitHub-Logo.svg'}
-                      alt="LinkedIn"
-                      width={60}
-                      height={60}
-                    />{' '}
-                  </button>
-                </div>
-                <button
-                  aria-label="Continue com google"
-                  role="button"
-                  className="mt-12 w-full cursor-pointer items-center rounded-lg border-none bg-transparent text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-gray-300"
-                  onClick={() => loginGoogle()}
-                >
-                  login com o google
-                </button>
-              </section>
+              <LoginButton
+                id={'sign-in-with-github'}
+                imgSrc={'/assets/img/GitHub-Logo.svg'}
+                alt="GitHub-Login-Icon"
+                loginGithub={() => loginGithub()}
+                textContent={'Login com o Github'}
+                imgSize={'80'}
+              />
+              <LoginButton
+                id={'sign-in-with-google'}
+                imgSrc={'/assets/img/google-logo.svg'}
+                alt="Google-Login-Icon"
+                loginGoogle={() => loginGoogle()}
+                textContent={'Login com o Google'}
+                imgSize={'40'}
+              />
             </div>
           )}
         </div>
