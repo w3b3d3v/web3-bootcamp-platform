@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@3rdweb/hooks": "^1.9.2",
@@ -37,10 +37,14 @@
     "@babel/core": "^7.18.2",
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "12.1.2",
     "autoprefixer": "^10.4.2",
     "babel-jest": "^28.1.0",
     "dotenv": "^16.0.1",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.1",
     "postcss": "^8.4.6",
     "postcss-nesting": "^10.1.3",
     "prettier": "^2.5.1",
