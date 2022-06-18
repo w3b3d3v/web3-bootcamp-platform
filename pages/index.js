@@ -14,7 +14,7 @@ export default function Home() {
         <title>Home - Bootcamp Web3Dev</title>
       </Head>
       <main className="container mx-auto my-24 flex flex-col justify-between py-2 px-2 sm:my-6 sm:px-6 md:my-6 md:flex-row md:px-6 lg:my-24 lg:px-16 xl:px-32 xl:py-0">
-        <div className="flex flex-col items-center justify-center text-start md:w-1/2">
+        <div className="text-start flex flex-col items-center justify-center md:w-1/2">
           <div>
             <div className="text-5xl font-bold">
               Aprenda a criar sua própria
@@ -32,7 +32,7 @@ export default function Home() {
           </div>
           <br />
           <div className="flex w-full justify-start">
-            <a href="/courses/Solidity_And_Smart_Contracts">
+            <a href="/courses/NFT_Collection">
               <Button id="wish-to-sign-in" ref={ref}>
                 Quero me inscrever!
               </Button>
