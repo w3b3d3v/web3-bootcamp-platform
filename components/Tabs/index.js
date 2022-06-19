@@ -61,23 +61,27 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
         {Object.keys(getCourse?.sections).sort().map((section) => {
           return (
             <div className={'flex justify-between'} key={section}>
-              {isLessonPage ?
-                <div className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100  ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
+              {isLessonPage ? (
+                <div
+                  className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100  ${
+                    checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)
+                  } `}
                 >
-                  <p className="m-0 p-0">
-                    {section?.replace('Section_', 'Sessão ')}
-                  </p>
+                  <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                 </div>
-                :
-                <a href={`#${!isLessonPage ? section : ''}`} onClick={() => toggle(section)} className={`item flex-grow px-4 font-bold py-2 hover:no-underline rounded shadow-lg text-black-100 dark:text-white-100 ${checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)} `}
+              ) : (
+                <a
+                  href={`#${!isLessonPage ? section : ''}`}
+                  onClick={() => toggle(section)}
+                  className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${
+                    checkSectionCompleted(section) ? 'bg-green-500 ' : checkCurrentSection(section)
+                  } `}
                 >
-                  <p className="m-0 p-0">
-                    {section?.replace('Section_', 'Sessão ')}
-                  </p>
+                  <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                 </a>
-              }
+              )}
             </div>
-          );
+          )
         })}
       </div>
     </div>

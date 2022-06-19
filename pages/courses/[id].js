@@ -328,7 +328,7 @@ function Course({ course, currentDate }) {
                       return (
                         <div key={section}>
                           <span id={section} className="mb-4 font-bold">
-                            {section?.replace('Section_', 'Sessão ')}
+                            {section?.replace('Section_', 'Seção ')}
                           </span>
                           <ul className="mt-2 mb-8 flex list-none flex-col	">
                             {course?.sections[section]
@@ -352,9 +352,7 @@ function Course({ course, currentDate }) {
                                               className="h-full w-full "
                                               width={48}
                                               height={48}
-                                              src={
-                                                '/assets/img/checked-radio-button.svg'
-                                              }
+                                              src={'/assets/img/checked-radio-button.svg'}
                                               alt={lesson.title}
                                             />
                                           ) : (
@@ -362,31 +360,19 @@ function Course({ course, currentDate }) {
                                               className="h-full w-full"
                                               width={48}
                                               height={48}
-                                              src={
-                                                '/assets/img/radio-button.svg'
-                                              }
+                                              src={'/assets/img/radio-button.svg'}
                                               alt={lesson.title}
                                             />
                                           )}
                                         </div>
                                       </div>
-                                      <div
-                                        className={
-                                          counter > 1
-                                            ? 'pointer-events-none'
-                                            : ''
-                                        }
-                                      >
-                                        <Link
-                                          href={`/courses/${course.id}/lessons/${lesson.file}`}
-                                        >
+                                      <div className={counter > 1 ? 'pointer-events-none' : ''}>
+                                        <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
                                           <a
                                             id="access-lesson"
                                             className="text-black-100 dark:text-white-100"
                                           >
-                                            <p className="m-0 p-0">
-                                              {lesson.title}
-                                            </p>
+                                            <p className="m-0 p-0">{lesson.title}</p>
                                           </a>
                                         </Link>
                                       </div>
