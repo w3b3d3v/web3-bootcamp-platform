@@ -74,15 +74,15 @@ export default function Card(props) {
                 )}
               </h2>
             </div>
-            <p className="mt-2 text-xs text-gray-600">
-              {desc.substring(0, 120) + '...'}
+            <p className="mt-2 text-xs text-gray-600 break-normal dark:text-white-100">
+              {desc.substring(0, 100) + '...'}
             </p>
-            <div className="mt-4 flex items-center lg:justify-center lg:flex-wrap xl:flex-nowrap xl:justify-end">
+            <div className="mt-4 flex items-center lg:justify-center  xl:flex-nowrap xl:justify-end">
               {tags?.map((tag) => {
                 return (
                   <div
                     key={tag}
-                    className="rounded-full bg-gray-200 px-6 mr-2"
+                    className="rounded-full bg-gray-200 px-2 xl:px-4 text-center mr-2"
                   >
                     <p className="text-xs font-bold text-gray-500">{tag}</p>
                     </div>
