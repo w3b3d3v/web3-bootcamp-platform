@@ -44,7 +44,7 @@ export default function Home() {
           <Image
             width={400}
             height={400}
-            src="https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FNFT_Collection.png?alt=media&token=4db3e93b-4b91-438d-8372-fb71fefaaa57"
+            src="https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FC%C3%B3pia%20de%203DEGENS0789.png?alt=media&token=f2648146-f722-4f08-9d50-03458ca8ab8b"
             className="rounded-3xl"
           />
         </div>
