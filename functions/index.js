@@ -19,7 +19,7 @@ exports.sendEmail = functions.https.onRequest(async (req, resp) => {
 })
 
 async function docData(collection, doc_id) {
-  return (await db.collection(collection).doc(doc_id).get()).data()
+  return { ...(await db.collection(collection).doc(doc_id).get()).data(), id: doc_id }
 }
 
 async function emailParams(cohort) {
@@ -72,6 +72,29 @@ exports.onDiscordConnect = functions.firestore
 
 const GRADUATED_ROLE_ID = '985557210794958948'
 
+async function issueCertificate(user_id, cohort) {
+  const user = await docData('users', user_id)
+  const course = await docData('courses', cohort.course_id)
+
+  if (!user.wallet) {
+    console.log('user ' + user.email + ' without wallet')
+    return
+  }
+
+  await mint(cohort, course.nft_title, user, (params) => {
+    console.log('callback params:')
+    console.log(params)
+    addDiscordRole(params.user?.discord?.id, GRADUATED_ROLE_ID)
+    sendEmail(
+      'nft_delivery.js',
+      '👷👷‍♀️ WEB3DEV - NFT Recebido: ' + params.course_title,
+      params.user.email,
+      params
+    )
+    db.collection('nft_mints').add(params)
+  })
+}
+
 exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
@@ -83,16 +106,38 @@ exports.mintNFT = functions.firestore
     if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
       return console.log('Usuário não completou todas as lições')
 
-    if (cohort.endDate.toDate() < new Date()) {
+    if (cohort.endDate.toDate() < createdLesson.createdAt.toDate()) {
       cohort = await getNextCohort(cohort.course_id, db)
     }
     if (!cohort) return
 
-    const user = await docData('users', createdLesson.user_id)
-    const course = await docData('courses', cohort.course_id)
+    await issueCertificate(createdLesson.user_id, cohort)
+  })
 
-    addDiscordRole(user?.discord?.id, GRADUATED_ROLE_ID)
-    await mint(cohort, course.nft_title, user)
+exports.mintAllMissing = functions
+  .runWith({ timeoutSeconds: 540 })
+  .https.onRequest(async (req, resp) => {
+    const userLessons = await db
+      .collection('lessons_submissions')
+      .where('lesson', '==', 'Lesson_2_Finalize_Celebrate.md')
+      .where('createdAt', '>', new Date(2022, 05, 21, 05))
+      .orderBy('createdAt')
+      .get()
+
+    const itens = userLessons.docs
+    for (l of itens) {
+      const d = l.data()
+      console.log({ user_id: d.user_id, date: d.createdAt.toDate() })
+      let cohort = await docData('cohorts', d.cohort_id)
+
+      if (cohort.endDate.toDate() < d.createdAt.toDate()) {
+        console.log('changing cohort...')
+        cohort = await getNextCohort(cohort.course_id, db)
+        console.log(cohort.name)
+      }
+      await issueCertificate(d.user_id, cohort)
+    }
+    resp.send('ok')
   })
 
 exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((message) => {

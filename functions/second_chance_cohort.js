@@ -20,15 +20,14 @@ async function changeUserCohort(user_id, course_id, db) {
 }
 
 async function getNextCohort(course_id, db) {
-  const cohorts = await db.collection('cohorts').where('course_id', '==', course_id).get()
-  const nextCohort = cohorts.docs
-    .map((cohorts) => cohorts.data())
-    .filter((cohort) => cohort.endDate.toDate() > new Date())
-    .sort((a, b) => {
-      return a.endDate - b.endDate
-    })
-    .find((cohort) => cohort)
-  return nextCohort
+  const cohorts = await db
+    .collection('cohorts')
+    .where('course_id', '==', course_id)
+    .where('endDate', '>', new Date())
+    .orderBy('endDate')
+    .get()
+  const doc = cohorts.docs[0]
+  return { ...doc.data(), id: doc.id }
 }
 
 async function updateCohortIds(userRef) {
