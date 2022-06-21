@@ -1,7 +1,5 @@
 const { ethers } = require('ethers')
 const contractABI = require('./W3DBootcampContract.json')
-const { sendEmail } = require('./emails')
-const { use } = require('chai')
 const contractAddress = process.env.NFT_CONTRACT_ADDRESS
 
 async function mint(cohort, nft_title, user, callback) {
