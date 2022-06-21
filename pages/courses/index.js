@@ -19,7 +19,7 @@ function Courses({ allCourses }) {
         <h4 className="mb-6 text-2xl font-bold leading-tight text-black-300 dark:text-white-100">
           Cursos
         </h4>
-        <ul className="grid grid-flow-row grid-cols-1 gap-8 overflow-hidden sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:lg:grid-cols-3">
+        <ul className="grid grid-flow-row grid-cols-1 gap-8 overflow-hidden sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
           {allCourses.map((c) => {
             return (
               <Card
