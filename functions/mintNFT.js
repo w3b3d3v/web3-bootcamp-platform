@@ -30,6 +30,8 @@ async function mint(cohort, nft_title, user, callback) {
       user,
       user_id: user.id,
       cohort_id: cohort.id,
+      cohort_name: cohort.name,
+      created_at: new Date(),
     })
   })
   const tx = await nftContract.mintCertificate(cohort.name, nft_title, user.wallet, {

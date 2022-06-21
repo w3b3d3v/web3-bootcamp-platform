@@ -1,7 +1,6 @@
 const hre = require('hardhat')
 
 async function deployNFTContract() {
-  const [signer] = await ethers.getSigners()
   const BootcampNFTContract = await hre.ethers.getContractFactory('W3DBootcamp')
   const nft_Contract = await BootcampNFTContract.deploy()
 
@@ -11,17 +10,14 @@ async function deployNFTContract() {
   return nft_Contract
 }
 
-async function generateNFT(BTADDRESS, course_name, student, cohort) {
+async function getContract(BTADDRESS) {
   const [signer] = await ethers.getSigners()
-  // console.log("signer: %s", signer.address)
-  const BTCAMPNFTABI = (await ethers.getContractFactory('W3DBootcamp'))
-    .interface
-  const BTCAMPNFTContract = await new ethers.Contract(
-    BTADDRESS,
-    BTCAMPNFTABI,
-    signer
-  )
+  const BTCAMPNFTABI = (await ethers.getContractFactory('W3DBootcamp')).interface
+  return await new ethers.Contract(BTADDRESS, BTCAMPNFTABI, signer)
+}
 
+async function generateNFT(BTADDRESS, course_name, student, cohort) {
+  const BTCAMPNFTContract = await getContract(BTADDRESS)
   const tx = await BTCAMPNFTContract.mintCertificate(
     cohort,
     course_name,
@@ -42,15 +38,7 @@ async function generateNFT(BTADDRESS, course_name, student, cohort) {
 }
 
 async function addCourse(bootcamp_contract_address) {
-  const [signer] = await ethers.getSigners()
-  const bootcamp_contract_interface = (
-    await ethers.getContractFactory('W3DBootcamp')
-  ).interface
-  const bootcampContract = await new ethers.Contract(
-    bootcamp_contract_address,
-    bootcamp_contract_interface,
-    signer
-  )
+  const bootcampContract = await getContract(bootcamp_contract_address)
 
   const tx = await bootcampContract.addCourse(
     'Smart Contract Solidity',
@@ -69,20 +57,11 @@ async function runTest() {
     // nft_Contract = { address: '0xb683cac9fe4a7ea60d50dfb9006099c8624275b2' } //mumbai
     // await addCourse(nft_Contract.address)
 
-    people = require('./people.json')
+    const contract = await getContract(nft_Contract.address)
 
-    for (let i = 0; i < people.length; i++) {
-      p = people[i]
-
-      console.log(`${p.wallet},${i + 2}`)
-      await generateNFT(
-        nft_Contract.address,
-        'Smart Contract Solidity',
-        p.wallet,
-        'PIONEIROS'
-      )
+    for (let index = 1; index <= 97; index++) {
+      console.log(`select ${index} number, "${await contract.ownerOf(index)}" wallet UNION ALL`)
     }
-    // await getSupply(nft_Contract.address);
   } catch (error) {
     console.error(error)
     process.exit(1)
