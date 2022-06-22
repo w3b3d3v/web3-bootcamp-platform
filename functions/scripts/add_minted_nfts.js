@@ -1,17 +1,11 @@
-const admin = require('firebase-admin')
-var serviceAccount = require('../firebase/firebase-config.json')
-const nft_list = require('./nft_minted.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-})
-
-const db = admin.firestore()
 const pioneiros_id = 'DIdCT7JYteDCs2LXFOVI'
 const exploradores_id = 'TMVZpb9yEg6zUbd8sY79'
 const eternos_id = '4w8ZYXwvnhzifFwPjyEo'
-const contractAddress = ''
+const contractAddress = '0xa68580d4E41925C20aF20dBA9B4Db17A79842F19'
 
-async function nft_mints_collection() {
+const nft_list = require('./nft_minted.json')
+
+async function nft_mints_collection(db) {
   const pioneirosCohort = (await db.collection('cohorts').doc(pioneiros_id).get()).data()
   const exploradoresCohort = (await db.collection('cohorts').doc(exploradores_id).get()).data()
   const eternosCohort = (await db.collection('cohorts').doc(eternos_id).get()).data()
@@ -34,7 +28,7 @@ async function nft_mints_collection() {
       .get()
     const lesson = lessons.docs.map((item) => item.data())[0]
     try {
-      if (lesson?.createdAt > cohort.endDate) cohort = getCohort()
+      if (lesson?.createdAt > cohort.endDate) cohort = eternosCohort
       const params = {
         cohort,
         course_title: course.nft_title,
@@ -47,10 +41,12 @@ async function nft_mints_collection() {
         cohort_name: cohort.name,
         created_at: lesson?.createdAt,
       }
+      console.log('added ' + params)
       db.collection('nft_mints').add(params)
     } catch (error) {
       console.log(error)
     }
   })
 }
-nft_mints_collection()
+
+module.exports = { nft_mints_collection }
