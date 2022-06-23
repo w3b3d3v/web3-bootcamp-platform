@@ -7,19 +7,19 @@ export default function ThemeSwitch() {
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
-    setMounted(true), []
-  })
+    setMounted(true)
+  }, [])
 
   if (!mounted) return null
   return (
-    <button
+    <button data-testid='ThemeSwitch'
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       className="bg-transparent text-white border-transparent dark:text-black rounded-full p-2"
     >
       {theme === 'light' ? (
-        <MoonIcon id='change-to-dark-theme' className="h-5 w-5 text-primary-300" />
+        <MoonIcon data-testid='dark' id='change-to-dark-theme' className="h-5 w-5 text-primary-300" />
       ) : (
-        <SunIcon id='change-to-light-theme' className="h-5 w-5 text-primary-300" />
+        <SunIcon data-testid='light' id='change-to-light-theme' className="h-5 w-5 text-primary-300" />
       )}
     </button>
   )
