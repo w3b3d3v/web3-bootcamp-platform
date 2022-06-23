@@ -9,7 +9,7 @@ export default function Card(props) {
   const ref = React.createRef();
   return (
     <>
-      <div
+      <div data-testid='card'
         className={`rounded-lg bg-white-200 shadow-xl dark:bg-black-400 ${
           active ? '' : 'cursor-default select-none opacity-60 dark:opacity-50'
         }`}
@@ -32,7 +32,7 @@ export default function Card(props) {
             />
           )}
         </div>
-        <div className="bg-white">
+        <div className="bg-white" data-testid='course-data'>
           <div className="flex items-center justify-between px-6 pt-4">
             <div className="jus flex items-center text-black-300 dark:text-white-100">
               <ClockIcon className="h-4 w-4 md:h-4 md:w-4" />
@@ -42,21 +42,21 @@ export default function Card(props) {
             </div>
             {difficulty === 'Iniciante' ? (
               <div className="rounded-full bg-green-200 px-6">
-                <p className="text-xs font-bold text-green-500">{difficulty}</p>
+                <p data-testid='difficulty-level' className="text-xs font-bold text-green-500">{difficulty}</p>
               </div>
             ) : difficulty === 'Intermediário' ? (
               <div className="rounded-full bg-yellow-200 px-6">
-                <p className="text-xs font-bold text-yellow-500">
+                <p data-testid='difficulty-level' className="text-xs font-bold text-yellow-500">
                   {difficulty}
                 </p>
               </div>
             ) : difficulty === 'Avançado' ? (
               <div className="rounded-full bg-red-200 px-6">
-                <p className="text-xs font-bold text-red-500">{difficulty}</p>
+                <p data-testid='difficulty-level' className="text-xs font-bold text-red-500">{difficulty}</p>
               </div>
             ) : (
               <div className="rounded-full bg-gray-200 px-6">
-                <p className="text-xs font-bold text-gray-500">{difficulty}</p>
+                <p data-testid='difficulty-level' className="text-xs font-bold text-gray-500">{difficulty}</p>
               </div>
             )}
           </div>
