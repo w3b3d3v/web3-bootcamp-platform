@@ -95,6 +95,8 @@ async function issueCertificate(user_id, cohort) {
   })
 }
 
+exports.emailUsersAboutNewCourse = functions.https.onRequest(async (req, resp) => {})
+
 exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
@@ -148,32 +150,38 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
-exports.sendEmailToAllUsersInCohort = functions.https.onRequest(async (req, resp) => {
-  db.collection('users')
-    .get()
-    .then((querySnapshot) => {
-      console.log(querySnapshot.size)
-      const emails = querySnapshot.docs.map(async (doc) => {
-        const user = doc.data()
-        const userCohort = user.cohorts.find((cohort) => cohort.cohort_id === req.query.cohort_id)
-        if (!userCohort || !user.email) return 0
-        const cohort = await docData('cohorts', userCohort.cohort_id)
-        if (cohort) {
-          const messageObject = {
-            to: user.email,
-            template: req.query.template,
-            subject: req.query.subject || cohort.email_content.subject,
-            params: await emailParams(userCohort),
-          }
-          const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
-          pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
-        }
-        return 1
-      })
-      Promise.all(emails).then((results) => {
-        console.log('Sent emails: ' + results.reduce((acc, curr) => acc + curr, 0))
-      })
-    })
+exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
+  const cohort = await docData('cohorts', req.query.cohort_id)
+  const course = await docData('courses', cohort.course_id)
+  const users = (
+    await db.collection('users').where('cohort_ids', 'array-contains', req.query.cohort_id).get()
+  ).docs
+
+  async function included_users(users, req) {
+    if (req.query.exclude !== 'true') return users
+
+    const exclude_ids = new Set(users.map((u) => u.data().uid))
+    const result = (await db.collection('users').get()).docs.filter(
+      (u) => !exclude_ids.has(u.data().uid)
+    )
+    return result
+  }
+
+  const emails = (await included_users(users, req)).map((u) => u.data().email)
+
+  for (email of emails) {
+    const messageObject = {
+      to: email,
+      template: req.query.template,
+      subject: req.query.subject || cohort.email_content.subject,
+      params: { cohort, course },
+    }
+    const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
+    pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
+  }
+
+  console.log('Sent emails: ' + emails.length)
+
   resp.send('OK')
 })
 
