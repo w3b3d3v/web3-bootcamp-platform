@@ -28,4 +28,10 @@ describe('countdown test', () => {
     const d2 = new Date(2020, 1, 1, 0, 0, 1)
     expect(countdown(d1, d2)).toEqual(null)
   })
+
+  it('should return null if distance is NaN', () => {
+    const d1 = 'abc'
+    const d2 = 'def'
+    expect(countdown(d1, d2)).toEqual(null)
+  })
 })
