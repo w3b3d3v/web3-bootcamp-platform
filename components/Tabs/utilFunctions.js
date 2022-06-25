@@ -13,7 +13,8 @@ export const getLessons = (course) => {
     })
   return { list, courseSectionsLength }
 }
-export const checkLessons = (course, lessonsSubmitted, cohort, user_id) => {
+
+export const checkLessonsSubmitted = (course, lessonsSubmitted, cohort, user_id) => {
   const { list, courseSectionsLength } = getLessons(course)
   const userLessons = lessonsSubmitted.filter((item) => item.user === user_id)
 
@@ -45,10 +46,11 @@ export const checkLessons = (course, lessonsSubmitted, cohort, user_id) => {
 }
 
 export const checkSections = (course, lessonsSubmitted, cohort, section, user_id) => {
-  const lessons = checkLessons(course, lessonsSubmitted, cohort, user_id)
+  const lessons = checkLessonsSubmitted(course, lessonsSubmitted, cohort, user_id)
   const completedSection = lessons
     .map((item) => item?.section == section && item?.completed == item?.total)
     .filter(Boolean)[0]
   if (completedSection) return 'bg-green-500'
   if (lessons.find((item) => item.completed < item.total).section == section) return 'bg-violet-600'
+  return ''
 }
