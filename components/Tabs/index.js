@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { checkSections } from './utilFunctions'
+import { checkSections } from './tabFunctions'
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
   const getCourse = course
