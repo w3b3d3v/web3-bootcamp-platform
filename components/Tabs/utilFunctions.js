@@ -15,11 +15,9 @@ export const getLessons = (course) => {
 }
 export const checkLessons = (course, lessonsSubmitted, cohort, user_id) => {
   const { list, courseSectionsLength } = getLessons(course)
-  const userLessons = lessonsSubmitted.filter((item) => item.user == user_id)
-  const userLessonsSubmittedInCurrentCohort = userLessons.filter(
-    (item) => item.cohort === cohort?.id
-  )
-  const sectionsCompleted = userLessonsSubmittedInCurrentCohort
+  const userLessons = lessonsSubmitted.filter((item) => item.user === user_id)
+
+  const sectionsCompleted = userLessons
     .map((lesson) => {
       return list.map(
         (item) => item.section == lesson.section && item.file == lesson.lesson && item
@@ -46,22 +44,11 @@ export const checkLessons = (course, lessonsSubmitted, cohort, user_id) => {
   return completed
 }
 
-export const checkSectionCompleted = (section, course, lessonsSubmitted, cohort, user_id) => {
-  if (
-    (checkLessons(course, lessonsSubmitted, cohort) && section, lessonsSubmitted, cohort, user_id)
-  ) {
-    return checkLessons(course, lessonsSubmitted, cohort, user_id)
-      .map((item) => item?.section == section && item?.completed == item?.total)
-      .filter(Boolean)[0]
-  }
-}
-export const checkCurrentSection = (section, course, lessonsSubmitted, cohort, user_id) => {
-  if (checkLessons(course, lessonsSubmitted, cohort, user_id)) {
-    if (
-      checkLessons(course, lessonsSubmitted, cohort, user_id).find(
-        (item) => item.completed < item.total
-      )?.section == section
-    )
-      return 'bg-violet-600'
-  }
+export const checkSections = (course, lessonsSubmitted, cohort, section, user_id) => {
+  const lessons = checkLessons(course, lessonsSubmitted, cohort, user_id)
+  const completedSection = lessons
+    .map((item) => item?.section == section && item?.completed == item?.total)
+    .filter(Boolean)[0]
+  if (completedSection) return 'bg-green-500'
+  if (lessons.find((item) => item.completed < item.total).section == section) return 'bg-violet-600'
 }
