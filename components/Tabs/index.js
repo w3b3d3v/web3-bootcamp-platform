@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
+import { checkSections } from './utilFunctions'
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
   const getCourse = course
@@ -10,7 +11,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab)
   }
-  console.log(cohort)
+
   return (
     <div className="flex flex-col rounded-lg bg-white-100 p-4 shadow-xl dark:bg-black-200">
       <div className="flex flex-row justify-between">
@@ -21,11 +22,13 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
               <div className={'flex justify-between'} key={section}>
                 {isLessonPage ? (
                   <div
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100  ${
-                      checkSectionCompleted(section, course, lessonsSubmitted, cohort, user?.id)
-                        ? 'bg-green-500 '
-                        : checkCurrentSection(section, course, lessonsSubmitted, cohort, user?.id)
-                    } `}
+                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
+                      course,
+                      lessonsSubmitted,
+                      cohort,
+                      section,
+                      user?.uid
+                    )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                   </div>
@@ -33,11 +36,13 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                   <a
                     href={`#${!isLessonPage ? section : ''}`}
                     onClick={() => toggle(section)}
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${
-                      checkSectionCompleted(section, course, lessonsSubmitted, cohort, user?.id)
-                        ? 'bg-green-500 '
-                        : checkCurrentSection(section, course, lessonsSubmitted, cohort, user?.id)
-                    } `}
+                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
+                      course,
+                      lessonsSubmitted,
+                      cohort,
+                      section,
+                      user?.uid
+                    )} `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                   </a>
