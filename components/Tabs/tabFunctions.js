@@ -64,7 +64,7 @@ export const checkSections = (course, lessonsSubmitted, cohort, section, user_id
   const completedSection = lessons
     .map((item) => item?.section == section && item?.completed == item?.total)
     .filter(Boolean)[0]
-  const currentSection = lessons.find((item) => item.completed < item.total).section == section
+  const currentSection = lessons.find((item) => item.completed < item.total)?.section == section
   if (completedSection) return 'bg-green-500'
   if (currentSection) return 'bg-violet-600'
   return ''
