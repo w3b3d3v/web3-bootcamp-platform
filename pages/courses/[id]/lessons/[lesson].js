@@ -62,16 +62,24 @@ function Lessons({ course, lesson }) {
 
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
+    getNextLesson()
   }, [sortedLessons])
 
-  const nextLesson = () => {
+  const getNextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const nextLesson = sortedLessons[currentLessonIndex + 1]
+    nextLesson ? setLastLesson(false) : setLastLesson(true)
+    return nextLesson
+  }
+
+  const nextLesson = () => {
+    const nextLesson = getNextLesson()
     if (lessonSent && !nextLesson) return toast.success('Você terminou o bootcamp, parabéns!')
     if (lessonSent)
       return (window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`)
     return toast.error('Você ainda não enviou o exercício desta lição')
   }
+
   const previousLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const previousLesson = sortedLessons[currentLessonIndex - 1]

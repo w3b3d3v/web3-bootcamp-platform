@@ -18,6 +18,7 @@ export default function Modal({
   submissionType,
   submissionText,
   submissionTitle,
+  lastLesson,
 }) {
   const cancelButtonRef = useRef(null)
   const [lessonSubmission, setLessonSubmission] = useState()
@@ -42,13 +43,6 @@ export default function Modal({
     setCohorts(await getAllCohorts())
   }, [])
 
-  /*  useEffect(async () => {
-      if(cohorts) {
-        const currentCohort = cohorts.find(c => c.courseId === course.id);
-        setCohort(currentCohort);
-      }
-    }, [cohorts]);*/
-
   const getSection = () => {
     const section = Object.entries(course.sections)
       .map((section) =>
@@ -68,7 +62,15 @@ export default function Modal({
       type: submissionType,
       value: userSubmission,
     }
-    await submitLessonInFirestore(cohort.cohort_id, user, lesson, section, content, submissionId)
+    await submitLessonInFirestore(
+      cohort.cohort_id,
+      user,
+      lesson,
+      section,
+      content,
+      submissionId,
+      lastLesson
+    )
     setLoading(false)
     onClose()
   }
