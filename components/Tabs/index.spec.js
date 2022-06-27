@@ -11,13 +11,17 @@ import {
 import { checkLessonsSubmitted, checkSections, getLessons } from './tabFunctions'
 
 describe('Tabs util functions', () => {
+  const submittedZeroLessons = [{}]
+
   it('should getLesons', () => {
-    expect(getLessons(course).list).toHaveLength(7)
-    expect(getLessons(course).courseSectionsLength).toStrictEqual({
+    const { list, lessonsBySection } = getLessons(course)
+    const testObj = {
       Section_0: 1,
       Section_1: 4,
       Section_2: 2,
-    })
+    }
+    expect(list).toHaveLength(7)
+    expect(lessonsBySection).toStrictEqual(testObj)
   })
 
   it('should return green backgroundon section completed', () => {
@@ -27,7 +31,6 @@ describe('Tabs util functions', () => {
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
-    const submittedZeroLessons = [{}]
     const sectionOne = 'Section_1'
     expect(checkSections(course, submittedZeroLessons, cohort, sectionZero, user.uid)).toBe(
       'bg-violet-600'
@@ -41,7 +44,6 @@ describe('Tabs util functions', () => {
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
-    const submittedZeroLessons = [{}]
     const sectionTwo = 'Section_2'
     expect(checkSections(course, submittedZeroLessons, cohort, sectionTwo, user.uid)).toBe('')
   })
