@@ -55,9 +55,7 @@ export const lessonsSubmitted = [
   },
 ]
 
-export const section = Object.keys(course.sections)
-  .sort()
-  .map((section) => section)
+export const section = Object.keys(course.sections).sort()
 
 export const sectionZero = 'Section_0'
 
