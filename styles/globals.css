@@ -55,6 +55,7 @@ a:hover {
 }
 .code-line{
   white-space: break-spaces;
+  word-break: break-all;
 }
 .comment{
   color: #8c8c8c;
@@ -67,6 +68,7 @@ pre{
   border-radius: 10px;
   padding: 0.5rem;
   color: #FFF;
+  word-break: break-all;
 }
 
 ._1udoG {
