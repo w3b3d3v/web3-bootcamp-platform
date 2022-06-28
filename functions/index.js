@@ -101,9 +101,12 @@ exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
     const createdLesson = snap.data()
-    if (createdLesson.lesson !== 'Lesson_2_Finalize_Celebrate.md') return // verificar depois pra pegar a ultima lição dinamicamente ou padronizar este nome para sempre ser a ultima lição
 
     let cohort = await docData('cohorts', createdLesson.cohort_id)
+
+    const course = await docData('courses', cohort.course_id)
+
+    if (createdLesson.lesson !== course.lastLesson) return console.log('Esta não é a última lição')
 
     if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
       return console.log('Usuário não completou todas as lições')
