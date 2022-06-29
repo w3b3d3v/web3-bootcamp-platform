@@ -13,6 +13,15 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import 'react-cookienotice/dist/index.css'
 import dynamic from 'next/dynamic'
+import { useRouter } from "next/router"
+import React, { useEffect } from "react"
+
+import { mixpanel } from '../lib/utils/mixpanel'
+
+export const event = (event_name, props) => {
+  mixpanel.track(event_name, props)
+}
+
 
 const CookieNotice = dynamic(() => import('react-cookienotice'), {
   ssr: false,
@@ -20,6 +29,19 @@ const CookieNotice = dynamic(() => import('react-cookienotice'), {
 
 function MyApp({ Component, pageProps }) {
   const supportedChainIds = [80001, 4, 137, 1, 250, 43114]
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      event('Page view', { url })
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
+
 
   const connectors = {
     injected: {},

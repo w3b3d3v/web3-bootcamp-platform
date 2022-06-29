@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import Router from 'next/router'
 import cookie from 'js-cookie'
+import { mixpanel } from '../lib/utils/mixpanel.js'
 
 import { toast } from 'react-toastify'
 
@@ -138,7 +139,9 @@ export function AuthProvider({ children }) {
       await getRedirectResult(auth)
         .then(async (result) => {
           const user = result?.user
+          if (!user) return;
           const cred = JSON.parse(sessionStorage.getItem('credential'))
+
           if (cred?.providerId == 'github.com') {
             await linkGithub(cred, user)
           }
@@ -166,6 +169,8 @@ export function AuthProvider({ children }) {
         })
     }
     fetchUser()
+    mixpanel.identify(user?.uid)
+    mixpanel.people.set(user)
   }, [auth.currentUser])
 
   async function linkGithub(cred, user) {
