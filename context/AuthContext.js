@@ -169,8 +169,10 @@ export function AuthProvider({ children }) {
         })
     }
     fetchUser()
-    mixpanel.identify(user?.uid)
-    mixpanel.people.set(user)
+    if (user) {
+      mixpanel.identify(user?.uid)
+      mixpanel.people.set(user)
+    }
   }, [auth.currentUser])
 
   async function linkGithub(cred, user) {
