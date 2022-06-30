@@ -1,6 +1,5 @@
 const functions = require('firebase-functions')
-const { sendEmail } = require('./emails')
-const { PubSub } = require('@google-cloud/pubsub')
+const { sendEmail, enqueueEmails } = require('./emails')
 const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
@@ -10,8 +9,6 @@ const { getNextCohort } = require('./second_chance_cohort')
 admin.initializeApp()
 
 const db = admin.firestore()
-
-const pubsub = new PubSub()
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -95,8 +92,6 @@ async function issueCertificate(user_id, cohort) {
   })
 }
 
-exports.emailUsersAboutNewCourse = functions.https.onRequest(async (req, resp) => {})
-
 exports.mintNFT = functions.firestore
   .document('lessons_submissions/{lessonId}')
   .onCreate(async (snap, context) => {
@@ -172,18 +167,7 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
 
   const emails = (await included_users(users, req)).map((u) => u.data().email)
 
-  for (email of emails) {
-    const messageObject = {
-      to: email,
-      template: req.query.template,
-      subject: req.query.subject || cohort.email_content.subject,
-      params: { cohort, course },
-    }
-    const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
-    pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
-  }
-
-  console.log('Sent emails: ' + emails.length)
+  enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, { cohort, course })
 
   resp.send('OK')
 })

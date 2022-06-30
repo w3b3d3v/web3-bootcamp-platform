@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer')
 const mandrillTransport = require('nodemailer-mandrill-transport')
+const { PubSub } = require('@google-cloud/pubsub')
+const pubsub = new PubSub()
 
 const smtpTransport = nodemailer.createTransport(
   mandrillTransport({
@@ -23,4 +25,13 @@ async function sendEmail(template_name, subject, to, params = {}) {
   return await smtpTransport.sendMail({ ...mailOptions, to })
 }
 
-module.exports = { sendEmail }
+async function enqueueEmails(emails, template, subject, params) {
+  for (to of emails) {
+    const messageObject = { to,template,subject,params }
+    const messageBuffer = Buffer.from(JSON.stringify(messageObject), 'utf8')
+    pubsub.topic('course_day_email').publishMessage({ data: messageBuffer })
+  }
+  console.log('Sent emails: ' + emails.length)
+}
+
+module.exports = { sendEmail, enqueueEmails }
