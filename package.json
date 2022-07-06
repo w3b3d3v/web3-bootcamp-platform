@@ -19,7 +19,7 @@
     "js-cookie": "^3.0.1",
     "mixpanel-browser": "^2.45.0",
     "next": "latest",
-    "next-auth": "^4.3.4",
+    "next-auth": "^4.9.0",
     "next-themes": "^0.1.1",
     "react": "17.0.2",
     "react-cookienotice": "^5.1.0",
