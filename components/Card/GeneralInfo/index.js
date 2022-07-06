@@ -119,37 +119,8 @@ export default function GeneralInfoCard() {
           <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
            👩‍🎤 Informações Gerais
           </p>
-          <div className="flex flex-col lg:flex-row">
-            <div className="flex flex-col items-center lg:basis-1/3 mb-6">
-              <div>
-                Alterar foto de perfil:
-                <div className="">
-                  <input
-                    type="file"
-                    onChange={(event) => setFile(event.target.files[0])}
-                    id="lessonPrint"
-                    name="lessonPrint"
-                  />
-                  <br />
-                  <div className="flex flex-row">
-                    <button
-                      className="text-white my-2 inline-flex cursor-pointer rounded-md border border-transparent
-                      bg-green-600 px-4 py-2 text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 
-                        focus:ring-green-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
-                      onClick={(e) => updateUserProfilePic(e)}
-                    >
-                      Enviar
-                    </button>
-                    {loading && (
-                      <div className="mt-2.5 ml-2.5">
-                        <Loading />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row flex-wrap gap-x-6 gap-y-3 lg:basis-2/3">
+          <div className="flex flex-col lg:flex-row mt-7">
+            <div className="flex flex-row flex-wrap gap-x-6 gap-y-3 lg:basis-2/3 lg:mb-0 mb-6">
               <div className="grow sm:basis-5/12">
                 <Input
                   label="Nome"
@@ -196,8 +167,8 @@ export default function GeneralInfoCard() {
                     defaultValue={github}
                   />
                 ) : (
-                  <div class="flex flex-col">
-                    <label for='githubConnect' class="text-sm font-medium leading-none text-black-200 dark:text-gray-100 mb-2">
+                  <div className="flex flex-col">
+                    <label htmlFor='githubConnect' className="text-sm font-medium leading-none text-black-200 dark:text-gray-100 mb-2">
                       Github
                     </label>
                     <button
@@ -231,8 +202,34 @@ export default function GeneralInfoCard() {
                 />
               </div>
             </div>
+            <div className="flex flex-col items-center lg:basis-1/3">
+              <div className="flex flex-col items-center">
+                <p>
+                  Alterar foto de perfil:
+                </p>
+                <input
+                  type="file"
+                  onChange={(event) => setFile(event.target.files[0])}
+                  id="lessonPrint"
+                  name="lessonPrint"
+                />
+                <button
+                  className="text-white my-2 inline-flex cursor-pointer rounded-md border border-transparent
+                  bg-green-600 px-4 py-2 text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 
+                    focus:ring-green-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
+                  onClick={(e) => updateUserProfilePic(e)}
+                >
+                  Enviar
+                </button>
+                {loading && (
+                  <div className="mt-2.5 ml-2.5">
+                    <Loading />
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="pt-4">
+          <div className="lg:py-4">
             <Button id="update-profile" onClick={() => updateUserData()}>Salvar</Button>
           </div>
         </div>
