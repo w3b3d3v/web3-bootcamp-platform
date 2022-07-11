@@ -5,6 +5,7 @@ const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
+const { addCourseToContract } = require('./addCourseToContract')
 
 admin.initializeApp()
 
@@ -167,13 +168,21 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
 
   const emails = (await included_users(users, req)).map((u) => u.data().email)
 
-  enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, { cohort, course })
+  enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, {
+    cohort,
+    course,
+  })
 
   resp.send('OK')
 })
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
   addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send('OK'))
+})
+
+exports.addCourseToNFT = functions.https.onRequest(async (req, resp) => {
+  await addCourseToContract(req.query.course, req.query.description)
+  resp.send('OK')
 })
 
 exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
