@@ -119,13 +119,13 @@ exports.mintAllMissing = functions
   .https.onRequest(async (req, resp) => {
     const userLessons = await db
       .collection('lessons_submissions')
-      .where('lesson', '==', 'Lesson_2_Finalize_Celebrate.md')
+      .where('lesson', '==', 'Lesson_2_Ship_It.md')
       .where('createdAt', '>', new Date(2022, 05, 21, 05))
       .orderBy('createdAt')
       .get()
 
     const itens = userLessons.docs
-    for (l of itens) {
+    for (l of itens.slice(48, 49)) {
       const d = l.data()
       console.log({ user_id: d.user_id, date: d.createdAt.toDate() })
       let cohort = await docData('cohorts', d.cohort_id)
@@ -167,7 +167,10 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
 
   const emails = (await included_users(users, req)).map((u) => u.data().email)
 
-  enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, { cohort, course })
+  enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, {
+    cohort,
+    course,
+  })
 
   resp.send('OK')
 })

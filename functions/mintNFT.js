@@ -10,15 +10,22 @@ async function mint(cohort, nft_title, user, callback) {
   console.log(
     `Minting NFT ${nft_title} cohort ${cohort.name} for user: ${user.email} wallet: ${user.wallet}`
   )
+  let sent = false
 
-  nftContract.once('Transfer', async (a, wallet, id) => {
-    nftContract.removeAllListeners('Transfer')
+  nftContract.on('Transfer', async (a, wallet, id) => {
     if (wallet.toString().toUpperCase() !== user.wallet.toUpperCase()) {
       console.log('Wallet is not from user')
       console.log('User wallet: ' + user.wallet)
       console.log('object wallet: ' + wallet)
       return
     }
+    nftContract.removeAllListeners('Transfer')
+    if (sent) {
+      console.log('repeated event, ignore...')
+      return
+    }
+    sent = true
+    console.log('calling callback...')
     callback({
       cohort,
       course_title: nft_title,
