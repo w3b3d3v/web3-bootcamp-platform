@@ -19,6 +19,7 @@ import {
 } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import Loading from '../../Loading'
+import Image from 'next/image'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -117,10 +118,10 @@ export default function GeneralInfoCard() {
       <div className="flex">
         <div className="px-6 py-5">
           <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-           👩‍🎤 Informações Gerais
+            👩‍🎤 Informações Gerais
           </p>
-          <div className="flex flex-col lg:flex-row mt-7">
-            <div className="flex flex-row flex-wrap gap-x-6 gap-y-3 lg:basis-2/3 lg:mb-0 mb-6">
+          <div className="mt-7 flex flex-col lg:flex-row">
+            <div className="mb-6 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-2/3">
               <div className="grow sm:basis-5/12">
                 <Input
                   label="Nome"
@@ -168,11 +169,14 @@ export default function GeneralInfoCard() {
                   />
                 ) : (
                   <div className="flex flex-col">
-                    <label htmlFor='githubConnect' className="text-sm font-medium leading-none text-black-200 dark:text-gray-100 mb-2">
+                    <label
+                      htmlFor="githubConnect"
+                      className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
+                    >
                       Github
                     </label>
                     <button
-                      id='githubConnect'
+                      id="githubConnect"
                       className="text-white inline-flex cursor-pointer rounded-md border border-transparent bg-green-600 p-2
                         text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
                         focus:ring-offset-2 sm:w-auto sm:text-sm"
@@ -204,14 +208,22 @@ export default function GeneralInfoCard() {
             </div>
             <div className="flex flex-col items-center lg:basis-1/3">
               <div className="flex flex-col items-center">
-                <p>
-                  Alterar foto de perfil:
-                </p>
+                <p>Alterar foto de perfil:</p>
+                {file && (
+                  <Image
+                    src={URL.createObjectURL(file)}
+                    alt="profile-pic-preview"
+                    width="200px"
+                    height="200px"
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                )}
                 <input
                   type="file"
                   onChange={(event) => setFile(event.target.files[0])}
                   id="lessonPrint"
                   name="lessonPrint"
+                  className="mt-2"
                 />
                 <button
                   className="text-white my-2 inline-flex cursor-pointer rounded-md border border-transparent
@@ -230,7 +242,9 @@ export default function GeneralInfoCard() {
             </div>
           </div>
           <div className="lg:py-4">
-            <Button id="update-profile" onClick={() => updateUserData()}>Salvar</Button>
+            <Button id="update-profile" onClick={() => updateUserData()}>
+              Salvar
+            </Button>
           </div>
         </div>
       </div>
