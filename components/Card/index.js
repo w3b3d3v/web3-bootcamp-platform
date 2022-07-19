@@ -100,7 +100,7 @@ export default function Card(props) {
                   </Button>
                 </Link>
               ) : (
-                <div className="my-2 rounded-full bg-gray-200 p-4 text-center text-xs font-bold text-gray-500 xl:px-4">
+                <div className="mt-3 rounded-full bg-gray-200 px-4 py-3 text-center text-sm font-bold text-gray-500 xl:px-4">
                   Em breve
                 </div>
               )}
