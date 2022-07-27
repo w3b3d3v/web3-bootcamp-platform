@@ -16,6 +16,7 @@ import { toast } from 'react-toastify'
 import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
+import TwitterModal from '../../../../components/TwitterModal.js'
 
 function Lessons({ course, lesson }) {
   const [open, setOpen] = useState(false)
@@ -29,7 +30,8 @@ function Lessons({ course, lesson }) {
   const [submissionTitle, setSubmissionTitle] = useState()
   const [submissionText, setSubmissionText] = useState()
   const [lessonsSubmitted, setLessonsSubmitted] = useState([])
-
+  const [twitterShare, setTwitterShare] = useState(null)
+  const [twitterModal, setTwitterModal] = useState(false)
   const ref = React.createRef()
   const auth = useAuth()
   const router = useRouter()
@@ -108,8 +110,12 @@ function Lessons({ course, lesson }) {
     setSubmissionType(submissionData.submission_type)
     setSubmissionTitle(submissionData.submission_title)
     setSubmissionText(submissionData.submission_text)
+    setTwitterShare(submissionData.twitter)
   }
-
+  const closeModal = () => {
+    setOpen(false)
+    if (twitterShare) setTwitterModal(true)
+  }
   return (
     <Layout>
       <Head>
@@ -176,13 +182,21 @@ function Lessons({ course, lesson }) {
                     {open && (
                       <Modal
                         openExternal={open}
-                        onClose={() => setOpen(false)}
+                        onClose={() => closeModal()}
                         lesson={lesson}
                         course={course}
                         submissionType={submissionType}
                         submissionText={submissionText}
                         submissionTitle={submissionTitle}
                         twitterShare={twitterShare}
+                      />
+                    )}
+                    {twitterModal && (
+                      <TwitterModal
+                        openExternal={twitterModal}
+                        onClose={() => setTwitterModal(false)}
+                        twitterShare={twitterShare}
+                        url={url}
                       />
                     )}
                   </div>
