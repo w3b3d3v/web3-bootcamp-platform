@@ -34,11 +34,10 @@ function Lessons({ course, lesson }) {
   const auth = useAuth()
   const router = useRouter()
   let testUrl
-  useEffect(() => {
-    const getCohorts = async () => setCohorts(await getAllCohorts())
-    getCohorts()
-    getSubmissionData()
+  useEffect(async () => {
+    setCohorts(await getAllCohorts())
   }, [])
+
   useEffect(async () => {
     if (cohorts) {
       const currentCohort = cohorts.find((c) => c.courseId === course.id)
@@ -63,7 +62,6 @@ function Lessons({ course, lesson }) {
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
   }, [sortedLessons])
-
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const nextLesson = sortedLessons[currentLessonIndex + 1]
@@ -184,6 +182,7 @@ function Lessons({ course, lesson }) {
                         submissionType={submissionType}
                         submissionText={submissionText}
                         submissionTitle={submissionTitle}
+                        twitterShare={twitterShare}
                       />
                     )}
                   </div>
