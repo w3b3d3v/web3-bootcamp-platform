@@ -4,9 +4,7 @@ import Router from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-
 import useAuth from '../../hooks/useAuth'
-
 import { withPublic } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { sendPasswordResetEmail } from 'firebase/auth'
@@ -16,7 +14,7 @@ import { Button } from '../../components/Button'
 import LoginButton from '../../components/LoginButton'
 
 function authPage() {
-  const { user, login, logout, loginGoogle, loginGithub } = useAuth()
+  const { login, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
   const [isDisable, setIsDisable] = useState(false)
@@ -53,9 +51,7 @@ function authPage() {
     sessionStorage.clear()
     Router.push('/auth')
   }
-  const confirmLink = () => {
-    loginGoogle()
-  }
+
   return (
     <Layout>
       <Head>
@@ -77,7 +73,7 @@ function authPage() {
                   <Button customClass={'bg-slate-300'} onClick={() => denyLogin()}>
                     Não
                   </Button>
-                  <Button onClick={() => confirmLink()}>Sim</Button>
+                  <Button onClick={() => loginGoogle()}>Sim</Button>
                 </div>
               </div>
             </>

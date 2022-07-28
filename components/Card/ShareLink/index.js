@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-
 import { Button } from '../../Button'
 import { auth } from '../../../firebase/initFirebase'
-import {
-  getUserFromFirestore,
-  updateUserDiscordIdinFirestore,
-} from '../../../lib/user'
+import { getUserFromFirestore } from '../../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-export default function ShareLinkCard({ course }) {
+export default function ShareLinkCard() {
   const ref = React.createRef()
   const [user, setUser] = useState()
   const [referralLink, setReferralLink] = useState()
@@ -56,20 +51,16 @@ export default function ShareLinkCard({ course }) {
           <div className="flex min-w-full flex-col items-start justify-between px-6 py-5 lg:flex-row lg:items-center">
             <div className="flex-col">
               <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-              &#x1F493; Aprenda com seus amigos!
+                &#x1F493; Aprenda com seus amigos!
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Divulgue seu link personalizado para seus amigos, assim eles
-                entrarão na mesma turma que você.
+                Divulgue seu link personalizado para seus amigos, assim eles entrarão na mesma turma
+                que você.
               </p>
             </div>
 
             <div className="mt-4 flex flex-col items-center">
-              <Image
-                src="/assets/img/twitter-logo.svg"
-                width="40"
-                height="40"
-              />
+              <Image src="/assets/img/twitter-logo.svg" width="40" height="40" />
               <a
                 className="twitter-share-button text-black-100 dark:text-white-100"
                 id={`share-twitter`}
@@ -81,11 +72,7 @@ export default function ShareLinkCard({ course }) {
               </a>
             </div>
             <div className="mt-4 flex flex-col items-center">
-              <Image
-                src="/assets/img/LinkedIn_logo.svg"
-                width="40"
-                height="40"
-              />
+              <Image src="/assets/img/LinkedIn_logo.svg" width="40" height="40" />
               <a
                 id={`share-linkedin`}
                 className="share-linkedin text-black-100 dark:text-white-100"
@@ -97,11 +84,7 @@ export default function ShareLinkCard({ course }) {
               </a>
             </div>
             <div className="mt-4">
-              <Button
-                ref={ref}
-                id={`copy-link`}
-                onClick={() => shareReferralLink()}
-              >
+              <Button ref={ref} id={`copy-link`} onClick={shareReferralLink}>
                 Copiar Link
               </Button>
             </div>

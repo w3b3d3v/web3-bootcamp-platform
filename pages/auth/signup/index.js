@@ -4,15 +4,13 @@ import Head from 'next/head'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-
 import useAuth from '../../../hooks/useAuth'
-
 import { withPublic } from '../../../hooks/route'
 import Layout from '../../../components/layout'
 import LoginButton from '../../../components/LoginButton'
 
 function signUpPage() {
-  const { user, signup, logout, loginGoogle, loginGithub } = useAuth()
+  const { signup, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
 
   const { register, handleSubmit } = useForm()

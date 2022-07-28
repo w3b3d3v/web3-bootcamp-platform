@@ -1,11 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-
 import { Button } from '../../components/Button'
 import { ClockIcon } from '@heroicons/react/solid'
 
 export default function Card(props) {
-  const { title, img, desc, duration, difficulty, active, children, id, tags } = props
+  const { title, img, desc, duration, difficulty, active, id, tags } = props
   const ref = React.createRef()
   return (
     <>
@@ -79,7 +78,7 @@ export default function Card(props) {
             <p className="h-10 break-normal py-2 text-xs text-gray-600 dark:text-white-100">
               {desc.substring(0, 100) + '...'}
             </p>
-            <div className="lg:justify-left mt-4 flex flex-wrap items-center">
+            <div className="lg:justify-left mt-4 flex flex-wrap items-center cursor-default">
               {tags?.map((tag) => {
                 return (
                   <div
