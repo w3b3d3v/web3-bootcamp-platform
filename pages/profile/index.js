@@ -1,5 +1,4 @@
 import Head from 'next/head'
-
 import Layout from '../../components/layout'
 import { withProtected } from '../../hooks/route'
 import GeneralInfoCard from '../../components/Card/GeneralInfo'
@@ -7,7 +6,6 @@ import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
 
 function Profile() {
-
   return (
     <Layout>
       <Head>

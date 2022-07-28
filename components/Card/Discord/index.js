@@ -1,40 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { Button } from '../../Button'
-import { auth } from '../../../firebase/initFirebase';
-import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user';
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../../firebase/initFirebase'
+import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default function DiscordCard() {
   const { data: session } = useSession()
   const [discordConnected, setDiscordConnected] = useState(false)
   const [user, setUser] = useState()
-  const ref = React.createRef();
+  const ref = React.createRef()
   useEffect(async () => {
-    onAuthStateChanged(auth, (async user => {
-      if(user) {
-        const userSession = await getUserFromFirestore(user);
-        setUser(userSession);
-        if(session && session.discord && auth.currentUser?.uid) {
-          await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid);
-          setDiscordConnected(true);
-        } else if(userSession?.discord) setDiscordConnected(true);
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        setUser(userSession)
+        if (session && session.discord && auth.currentUser?.uid) {
+          await updateUserDiscordIdinFirestore(session.discord, auth.currentUser.uid)
+          setDiscordConnected(true)
+        } else if (userSession?.discord) setDiscordConnected(true)
       }
-    }));
+    })
   }, [session])
 
-    //const disconnectDiscord = async () => {
-    //  if (auth.currentUser) {
-    //    const userSession = await getUserFromFirestore(auth.currentUser)
-    //    if (userSession?.discord) {
-    //      signOut({redirect: false})
-    //      updateUserDiscordIdinFirestore(null, auth.currentUser.uid)
-    //      setDiscordConnected(false)
-    //    }
-    //  }
-    //}
+  //const disconnectDiscord = async () => {
+  //  if (auth.currentUser) {
+  //    const userSession = await getUserFromFirestore(auth.currentUser)
+  //    if (userSession?.discord) {
+  //      signOut({redirect: false})
+  //      updateUserDiscordIdinFirestore(null, auth.currentUser.uid)
+  //      setDiscordConnected(false)
+  //    }
+  //  }
+  //}
 
   return (
     <>
@@ -46,11 +44,13 @@ export default function DiscordCard() {
                 ❌ Conecte seu Discord
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Tenha acesso aos canais supersecretos para em nosso grupo.
-                Quando você tiver acesso, não deixe de dizer olá!
+                Tenha acesso aos canais supersecretos para em nosso grupo. Quando você tiver acesso,
+                não deixe de dizer olá!
               </p>
               <div className="pt-4">
-                <Button ref={ref} id='connect-discord' onClick={() => signIn('discord')}>Conectar Discord</Button>
+                <Button ref={ref} id="connect-discord" onClick={() => signIn('discord')}>
+                  Conectar Discord
+                </Button>
               </div>
             </div>
           </div>
@@ -67,9 +67,7 @@ export default function DiscordCard() {
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                   Estamos ansiosos para te conhecer, venha dar uma olhada!
                 </p>
-                <Button onClick={()=>signIn('discord')}>
-                  Reconectar Discord
-                </Button>
+                <Button onClick={() => signIn('discord')}>Reconectar Discord</Button>
                 {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>
                 </div>*/}

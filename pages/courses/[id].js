@@ -1,17 +1,10 @@
 import { getCourse } from '../../lib/course'
-import { getAllCourses } from '../../lib/courses'
 import { withProtected } from '../../hooks/route'
-import { Button } from '../../components/Button'
 import { auth } from '../../firebase/initFirebase'
-import { onAuthStateChanged } from 'firebase/auth'
-import {
-  getUserFromFirestore,
-  registerUserInCohortInFirestore,
-} from '../../lib/user'
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user'
 import { CalendarIcon } from '@heroicons/react/solid'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../../components/layout'
-import ReactMarkdown from 'react-markdown'
 import Tabs from '../../components/Tabs'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
@@ -51,8 +44,7 @@ function Course({ course, currentDate }) {
       const currentCohort = sortCohortsByDate.find((cohort) => {
         return (
           cohort.courseId == course.id &&
-          ((cohort.startDate <= new Date(currentDate) &&
-            cohort.endDate >= new Date(currentDate)) ||
+          ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) ||
             cohort.startDate >= new Date(currentDate))
         )
       })
@@ -90,14 +82,12 @@ function Course({ course, currentDate }) {
   }
   const userIsRegisteredInCohort = () => {
     return !!user?.cohorts.find(
-      (userCohort) =>
-        userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
+      (userCohort) => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
     )
   }
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if (lesson.lesson == allLessons.file && lesson.user == user.uid)
-        return true
+      if (lesson.lesson == allLessons.file && lesson.user == user.uid) return true
       return false
     })
     if (userSubmitted.every((item) => item === false)) counter++
@@ -106,17 +96,15 @@ function Course({ course, currentDate }) {
   const daysLeftToStart = () => {
     if (typeof timeLeft == 'string') return timeLeft?.split('d')[0]
   }
-  const undefinedCohortStartDate = () => {
-    return daysLeftToStart() > 180
-  }
-  const under30dCohortStartDate = () => {
-    return !undefinedCohortStartDate()
-  }
-  const userIsRegisteredAndCohortIsFuture = () => {
-    return userIsRegisteredInCohort() && undefinedCohortStartDate()
-  }
+  const undefinedCohortStartDate = () => daysLeftToStart() > 180
+
+  const under30dCohortStartDate = () => !undefinedCohortStartDate()
+
+  const userIsRegisteredAndCohortIsFuture = () =>
+    userIsRegisteredInCohort() && undefinedCohortStartDate()
+
   const userIsNotRegisteredAndCohortIsOpen = () => {
-    if(!cohort) return
+    if (!cohort) return
     return (
       !user?.cohorts ||
       user?.cohorts?.length == 0 ||
@@ -124,11 +112,9 @@ function Course({ course, currentDate }) {
     )
   }
   const userIsNotRegisteredAndCohortIsClosed = () => {
-    if(!cohort) return true
+    if (!cohort) return true
     return (
-      (!user?.cohorts ||
-        user?.cohorts?.length == 0 ||
-        !userIsRegisteredInCohort()) &&
+      (!user?.cohorts || user?.cohorts?.length == 0 || !userIsRegisteredInCohort()) &&
       cohort?.endDate <= new Date(currentDate)
     )
   }
@@ -151,19 +137,14 @@ function Course({ course, currentDate }) {
   const userHasAlreadyParticipatedInACohort = () => {
     const endedCohorts = []
     cohorts?.map((cohort) => {
-      if (
-        cohort.courseId === course.id &&
-        cohort.endDate <= new Date(currentDate)
-      ) {
+      if (cohort.courseId === course.id && cohort.endDate <= new Date(currentDate)) {
         endedCohorts.push(cohort)
       }
     })
     const userEndedCohorts = user?.cohorts
       .map((cohort) => {
         if (cohort.course_id == course.id) {
-          return endedCohorts.find(
-            (endedCohorts) => cohort.cohort_id == endedCohorts.id
-          )
+          return endedCohorts.find((endedCohorts) => cohort.cohort_id == endedCohorts.id)
         }
       })
       .filter(Boolean)
@@ -193,8 +174,8 @@ function Course({ course, currentDate }) {
           <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
             <div className="flex w-3/4 flex-col items-center justify-center">
               <p className="text-center text-2xl">
-                As inscrições para este bootcamp estão encerradas, aguarde a
-                próxima turma abrir para se inscrever!
+                As inscrições para este bootcamp estão encerradas, aguarde a próxima turma abrir
+                para se inscrever!
               </p>
             </div>
           </div>
@@ -204,16 +185,11 @@ function Course({ course, currentDate }) {
             <div className="flex flex-col items-center justify-center">
               <Link href={'https://discord.web3dev.com.br/'}>
                 <a id="discord-logo-link" target="_blank">
-                  <Image
-                    src={'/assets/img/discord_icon.svg'}
-                    width={128}
-                    height={128}
-                  />
+                  <Image src={'/assets/img/discord_icon.svg'} width={128} height={128} />
                 </a>
               </Link>
               <p className="mt-0 mb-0 text-center text-2xl text-white-100">
-                Inscrição feita! <br />A data de lançamento será anunciada no
-                nosso{' '}
+                Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
                 <Link href={'https://discord.web3dev.com.br/'}>
                   <a
                     id="discord-text-link"
@@ -238,29 +214,28 @@ function Course({ course, currentDate }) {
             </div>
           </div>
         )}
-        {userIsNotRegisteredAndCohortIsOpen() &&
-          !userHasAlreadyParticipatedInACohort() && (
-            <>
-              <button
-                id={`signup-cohort`}
-                onClick={() => registerUserInCohort()}
-                className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
-              >
-                Inscreva-se agora &#x1F31F;
-              </button>
-              <div className="flex pt-6">
-                <ComingSoonCard />
-              </div>
-            </>
-          )}
+        {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() && (
+          <>
+            <button
+              id={`signup-cohort`}
+              onClick={() => registerUserInCohort()}
+              className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
+            >
+              Inscreva-se agora &#x1F31F;
+            </button>
+            <div className="flex pt-6">
+              <ComingSoonCard />
+            </div>
+          </>
+        )}
         {userIsRegisteredAndCohortWillOpenSoon() && (
           <>
             <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
               <div className="flex w-3/4 flex-col items-center justify-center">
                 <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
                 <p className="text-sm lg:text-base">
-                  No lançamento de cada projeto, ocorrerá uma LIVE MASSA!
-                  Adicione no seu calendário para não esquecer. Nos veremos lá!
+                  No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário
+                  para não esquecer. Nos veremos lá!
                 </p>
                 <div className="mt-3 flex w-full flex-row flex-wrap items-start items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl">
                   {timeLeft && '⏰' + timeLeft}
@@ -302,8 +277,7 @@ function Course({ course, currentDate }) {
             <br />
           </>
         )}
-        {(userIsRegisteredAndCohortIsOpen() ||
-          userHasAlreadyParticipatedInACohort()) && (
+        {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
           <>
             <div className="flex flex-col gap-8 lg:flex-row">
               <div className="item flex-grow">
@@ -314,11 +288,7 @@ function Course({ course, currentDate }) {
               </div>
             </div>
             <div className="container my-8">
-              <Tabs
-                course={course}
-                lessonsSubmitted={lessonsSubmitted}
-                cohort={cohort}
-              />
+              <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
               <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
                 {course?.sections &&
@@ -407,13 +377,5 @@ export async function getServerSideProps({ params }) {
     },
   }
 }
-
-//export async function getStaticPaths() {
-//  const paths = (await getAllCourses()).map((c) => `/courses/${c.id}`);
-//  return {
-//    paths,
-//    fallback: false,
-//  };
-//}
 
 export default withProtected(Course)

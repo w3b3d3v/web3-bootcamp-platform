@@ -2,9 +2,7 @@ import { createContext, useState, useEffect } from 'react'
 import Router from 'next/router'
 import cookie from 'js-cookie'
 import { mixpanel } from '../lib/utils/mixpanel.js'
-
 import { toast } from 'react-toastify'
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -14,11 +12,8 @@ import {
   getRedirectResult,
   OAuthProvider,
   linkWithCredential,
-  linkWithRedirect,
 } from 'firebase/auth'
-
 import { auth } from '../firebase/initFirebase.js'
-
 import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'
 
 const AuthContext = createContext()
@@ -162,9 +157,6 @@ export function AuthProvider({ children }) {
             const credential = OAuthProvider.credentialFromResult(error.customData)
             sessionStorage.setItem('credential', JSON.stringify(credential))
             Router.push('/auth')
-            //return toast.error(
-            //  `Para conectar sua conta do Github, faça o login como fazia antes e iremos conectar para você.`
-            //)
           }
         })
     }
