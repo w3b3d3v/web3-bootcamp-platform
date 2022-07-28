@@ -223,7 +223,7 @@ export async function getStaticPaths() {
     .map((course) =>
       Object.values(course.sections)
         .flat()
-        .map((lesson) => `/courses/${c.id}/lessons/${lesson.file}`)
+        .map((lesson) => `/courses/${course.id}/lessons/${lesson.file}`)
     )
     .flat()
   return {
