@@ -7,7 +7,8 @@ import {
   sectionZero,
   submittedFirstLesson,
   user,
-} from './dbMock'
+} from '../../tests/fixtures/tab_db_mock'
+
 import { checkLessonsSubmitted, checkSections, getLessons } from './tabFunctions'
 
 describe('Tabs util functions', () => {
