@@ -1,12 +1,15 @@
 import '@testing-library/jest-dom'
-import { course, sectionZero, submittedFirstLesson, user } from '../../tests/fixtures/tab_db_mock'
+import {
+  course,
+  sectionZero,
+  submittedFirstLesson,
+  user,
+} from '../../tests/__mocks__/fixtures/tab_db_mock'
 
 import { checkLessonsSubmitted, checkSections, colorTab } from './tabFunctions'
 import { getLessonsByCourse } from '../../lib/Models/withoutDB/lessons'
 
 describe('Tabs util functions', () => {
-  const submittedZeroLessons = [{}]
-
   it('should getLesons', () => {
     const { list, lessonsBySection } = getLessonsByCourse(course)
     const testObj = {
