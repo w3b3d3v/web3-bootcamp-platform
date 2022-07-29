@@ -181,7 +181,7 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
   const users = (
-    await db.collection('users').where('cohort_ids', 'array-contains', req.query.cohort_id).get()
+    await usersByCohort(req.query.cohort_id).get()
   ).docs
 
   async function included_users(users, req) {
