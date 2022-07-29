@@ -21,11 +21,7 @@ async function docData(collection, doc_id) {
 }
 
 async function usersByCohort(cohort_id) {
-  const cohort = await docData('cohorts', cohort_id)
-  const users = await db
-    .collection('users')
-    .where('cohort_ids', 'array-contains', cohortObj.id)
-    .get()
+  const users = await db.collection('users').where('cohort_ids', 'array-contains', cohort_id).get()
   return users.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
