@@ -19,7 +19,7 @@ yarn.lock
 .DS_Store
 
 # fixtures
-/tests/fixtures/**
+#/tests/fixtures/**
 
 # debug
 npm-debug.log*
