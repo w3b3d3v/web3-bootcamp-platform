@@ -58,10 +58,15 @@ async function runTest() {
     // await addCourse(nft_Contract.address)
 
     const contract = await getContract(nft_Contract.address)
-
-    for (let index = 1; index <= 97; index++) {
-      console.log(`select ${index} number, "${await contract.ownerOf(index)}" wallet UNION ALL`)
-    }
+    const tx = await contract.addCourse(
+      'JS DAO',
+      'Certification for completing the JS DAO bootcamp'
+    )
+    console.log('Course registered at: %s', tx.hash)
+    await tx.wait()
+    // for (let index = 1; index <= 97; index++) {
+    //   console.log(`select ${index} number, "${await contract.ownerOf(index)}" wallet UNION ALL`)
+    // }
   } catch (error) {
     console.error(error)
     process.exit(1)
