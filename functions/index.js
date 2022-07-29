@@ -5,6 +5,7 @@ const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
+const { getCohortToKickoffTomorrow } = require('../lib/cohorts')
 
 admin.initializeApp()
 
@@ -17,6 +18,11 @@ exports.sendEmail = functions.https.onRequest(async (req, resp) => {
 
 async function docData(collection, doc_id) {
   return { ...(await db.collection(collection).doc(doc_id).get()).data(), id: doc_id }
+}
+
+async function usersByCohort(cohort_id) {
+  const users = await db.collection('users').where('cohort_ids', 'array-contains', cohort_id).get()
+  return users.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
 async function emailParams(cohort) {
@@ -148,12 +154,75 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
+exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
+  addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send('OK'))
+})
+
+exports.inactiveEmail = functions.pubsub.schedule('05 19 * * *').onRun(async (context) => {
+  const twoDaysAgo = new Date(new Date().setHours(new Date().getHours() - 48))
+  const oneDayAgo = new Date(new Date().setHours(new Date().getHours() - 24))
+  const cohorts = await db
+    .collection('cohorts')
+    .where('kickoffStartTime', '>=', twoDaysAgo)
+    .where('kickoffStartTime', '<=', oneDayAgo)
+    .get()
+
+  const cohort_ids = cohorts.docs.map((c) => c.id)
+  const lessons = await db
+    .collection('lessons_submissions')
+    .where('cohort_id', 'in', cohort_ids)
+    .get()
+
+  const user_ids = lessons.docs.map((l) => l.data().user_id)
+  const unique_ids = [...new Set(user_ids)]
+  for (let cohort of cohorts.docs) {
+    const course = await docData('courses', cohort.data().course_id)
+    emailInactiveUsers(cohort, course)
+  }
+  async function emailInactiveUsers(cohort, course) {
+    const users = await usersByCohort(cohort.id)
+    users.forEach(async (user) => {
+      try {
+        if (!unique_ids.includes(user.id))
+          return await sendEmail(
+            'reminder_email.js',
+            cohort.data().email_content.subject,
+            user.data().email,
+            {
+              cohort: cohort.data(),
+              course,
+            }
+          )
+      } catch (error) {
+        console.log(error)
+      }
+    })
+  }
+})
+
+exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (context) => {
+  const cohortObj = await getCohortToKickoffTomorrow()
+  const params = {
+    cohort: cohortObj?.data(),
+    course: (await db.collection('courses').doc(cohortObj?.data().course_id).get()).data(),
+  }
+  await usersByCohort(cohortObj.id).then((users) => {
+    users.forEach((user) => {
+      const userData = user.data()
+      const currentCohort = userData.cohorts.find(
+        (userCohort) => userCohort.cohort_id === cohortObj?.id
+      )
+      if (userData.cohorts && currentCohort.cohort_id === cohortObj?.id) {
+        sendEmail('kickoff_email.js', data.email_content.subject, userData.email, params)
+      }
+    })
+  })
+})
+
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
-  const users = (
-    await db.collection('users').where('cohort_ids', 'array-contains', req.query.cohort_id).get()
-  ).docs
+  const users = (await usersByCohort(req.query.cohort_id).get()).docs
 
   async function included_users(users, req) {
     if (req.query.exclude !== 'true') return users
