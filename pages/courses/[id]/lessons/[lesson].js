@@ -38,6 +38,7 @@ function Lessons({ course, lesson }) {
   let testUrl
   useEffect(async () => {
     setCohorts(await getAllCohorts())
+    getSubmissionData()
   }, [])
 
   useEffect(async () => {
