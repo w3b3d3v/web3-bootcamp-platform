@@ -162,7 +162,7 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (cont
   const cohortObj = await getCohortToKickoffTomorrow()
   const params = {
     cohort: cohortObj?.data(),
-    course: (await db.collection('courses').doc(cohortObj?.data().course_id).get()).data(),
+    course: await docData('courses', cohortObj?.data().course_id),
   }
   await usersByCohort(cohortObj.id).then((users) => {
     users.forEach((user) => {
@@ -180,9 +180,7 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (cont
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
-  const users = (
-    await usersByCohort(req.query.cohort_id).get()
-  ).docs
+  const users = (await usersByCohort(req.query.cohort_id).get()).docs
 
   async function included_users(users, req) {
     if (req.query.exclude !== 'true') return users
