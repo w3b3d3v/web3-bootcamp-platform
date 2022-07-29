@@ -25,7 +25,6 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                     className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
                       course,
                       lessonsSubmitted,
-                      cohort,
                       section,
                       user?.uid
                     )}  `}
@@ -39,7 +38,6 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                     className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
                       course,
                       lessonsSubmitted,
-                      cohort,
                       section,
                       user?.uid
                     )} `}
