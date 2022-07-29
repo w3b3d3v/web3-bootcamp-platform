@@ -2,8 +2,8 @@ function template(params) {
   return `
         <!DOCTYPE html>Fala builder! danicuki da web3dev aqui.<br>
         <br>
-        Eu tô muito feliz que você está na turma ${params.cohort.name} do bootcamp de ${params.cohort.course_id}!
-        Mas eu percebi que você ainda não nenhuma lição e isso deixou a mim e ao Yan bem tristes pra te falar a verdade.<br>
+        Eu tô muito feliz que você está na turma ${params.course.title} do bootcamp de ${params.cohort.course_id.split('_').join(' ')}!
+        Mas eu percebi que você ainda não enviou nenhuma lição e isso deixou a mim e ao Yan bem tristes pra te falar a verdade.<br>
         <br>
         Eu quero te lembrar que essa oportunidade pode ser <b>única</b> e pode <b>alavancar sua carreira</b> de verdade!<br>
         <br>

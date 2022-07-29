@@ -21,11 +21,7 @@ async function docData(collection, doc_id) {
 }
 
 async function usersByCohort(cohort_id) {
-  const cohort = await docData('cohorts', cohort_id)
-  const users = await db
-    .collection('users')
-    .where('cohort_ids', 'array-contains', cohortObj.id)
-    .get()
+  const users = await db.collection('users').where('cohort_ids', 'array-contains', cohort_id).get()
   return users.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
@@ -159,52 +155,50 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
 })
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
-  addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send("OK"));
-});
+  addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send('OK'))
+})
 
-exports.inactiveEmail = functions.pubsub.schedule("05 19 * * *").onRun((context) => {
-  const twoDaysAgo = new Date(new Date().setHours(new Date().getHours() - 48));
-  const oneDayAgo = new Date(new Date().setHours(new Date().getHours() - 24));
+exports.inactiveEmail = functions.pubsub.schedule('05 19 * * *').onRun(async (context) => {
+  const twoDaysAgo = new Date(new Date().setHours(new Date().getHours() - 48))
+  const oneDayAgo = new Date(new Date().setHours(new Date().getHours() - 24))
   const cohorts = await db
-    .collection("cohorts")
-    .where("kickoffStartTime", ">=", twoDaysAgo)
-    .where("kickoffStartTime", "<=", oneDayAgo)
-    .get();
+    .collection('cohorts')
+    .where('kickoffStartTime', '>=', twoDaysAgo)
+    .where('kickoffStartTime', '<=', oneDayAgo)
+    .get()
 
-  const cohort_ids = cohorts.docs.map((c) => c.id);
+  const cohort_ids = cohorts.docs.map((c) => c.id)
   const lessons = await db
-    .collection("lessons_submissions")
-    .where("cohort_id", "in", cohort_ids)
-    .get();
+    .collection('lessons_submissions')
+    .where('cohort_id', 'in', cohort_ids)
+    .get()
 
-  const user_ids = lessons.docs.map((l) => l.data().user_id);
-  const unique_ids = [...new Set(user_ids)];
+  const user_ids = lessons.docs.map((l) => l.data().user_id)
+  const unique_ids = [...new Set(user_ids)]
   for (let cohort of cohorts.docs) {
-    emailInactiveUsers(cohort)
+    const course = await docData('courses', cohort.data().course_id)
+    emailInactiveUsers(cohort, course)
   }
-  async function emailInactiveUsers(cohort){
-    db.collection('users')
-      .where('cohort_ids', 'array-contains', cohort.id)
-      .get()
-      .then((users) =>
-        users.forEach(async (user) => {
-          try {
-            if (!unique_ids.includes(user.id))
-              return await sendEmail(
-                'reminder_email.js',
-                cohort.data().email_content.subject,
-                user.data().email,
-                {
-                  cohort: cohort.data(),
-                }
-              )
-          } catch (error) {
-            console.log(error)
-          }
-        })
-      )
+  async function emailInactiveUsers(cohort, course) {
+    const users = await usersByCohort(cohort.id)
+    users.forEach(async (user) => {
+      try {
+        if (!unique_ids.includes(user.id))
+          return await sendEmail(
+            'reminder_email.js',
+            cohort.data().email_content.subject,
+            user.data().email,
+            {
+              cohort: cohort.data(),
+              course,
+            }
+          )
+      } catch (error) {
+        console.log(error)
+      }
+    })
   }
-});
+})
 
 exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (context) => {
   const cohortObj = await getCohortToKickoffTomorrow()
@@ -225,13 +219,10 @@ exports.kickoffEmail = functions.pubsub.schedule('55 * * * *').onRun(async (cont
   })
 })
 
-
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
-  const users = (
-    await usersByCohort(req.query.cohort_id).get()
-  ).docs
+  const users = (await usersByCohort(req.query.cohort_id).get()).docs
 
   async function included_users(users, req) {
     if (req.query.exclude !== 'true') return users
