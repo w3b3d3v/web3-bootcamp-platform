@@ -1,21 +1,14 @@
 import '@testing-library/jest-dom'
-import {
-  cohort,
-  course,
-  lessonsSubmitted,
-  section,
-  sectionZero,
-  submittedFirstLesson,
-  user,
-} from '../../tests/fixtures/tab_db_mock'
+import { course, sectionZero, submittedFirstLesson, user } from '../../tests/fixtures/tab_db_mock'
 
-import { checkLessonsSubmitted, checkSections, getLessons } from './tabFunctions'
+import { checkLessonsSubmitted, checkSections, colorTab } from './tabFunctions'
+import { getLessonsByCourse } from '../../lib/Models/withoutDB/lessons'
 
 describe('Tabs util functions', () => {
   const submittedZeroLessons = [{}]
 
   it('should getLesons', () => {
-    const { list, lessonsBySection } = getLessons(course)
+    const { list, lessonsBySection } = getLessonsByCourse(course)
     const testObj = {
       Section_0: 1,
       Section_1: 4,
@@ -26,31 +19,37 @@ describe('Tabs util functions', () => {
   })
 
   it('should return green backgroundon section completed', () => {
-    expect(checkSections(course, submittedFirstLesson, cohort, sectionZero, user.uid)).toBe(
-      'bg-green-500'
+    const { isSectionCompleted, currentSection } = checkSections(
+      course,
+      submittedFirstLesson,
+      sectionZero,
+      user.uid
     )
+    expect(colorTab(isSectionCompleted, currentSection)).toBe('bg-green-500')
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
     const sectionOne = 'Section_1'
-    expect(checkSections(course, submittedZeroLessons, cohort, sectionZero, user.uid)).toBe(
+    const completed = checkSections(course, submittedFirstLesson, sectionZero, user.uid)
+    const notCompleted = checkSections(course, submittedFirstLesson, sectionOne, user.uid)
+    expect(colorTab(completed.isSectionCompleted, completed.currentSection)).toBe('bg-green-500')
+    expect(colorTab(notCompleted.isSectionCompleted, notCompleted.currentSection)).toBe(
       'bg-violet-600'
     )
-    expect(checkSections(course, lessonsSubmitted, cohort, sectionOne, user.uid)).toBe(
-      'bg-violet-600'
-    )
-    expect(checkSections(course, submittedFirstLesson, cohort, sectionZero, user.uid)).not.toBe(
+    expect(checkSections(course, submittedFirstLesson, sectionZero, user.uid)).not.toBe(
       'bg-violet-600'
     )
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
     const sectionTwo = 'Section_2'
-    expect(checkSections(course, submittedZeroLessons, cohort, sectionTwo, user.uid)).toBe('')
-  })
-
-  it('should return sections', () => {
-    expect(section).toStrictEqual(['Section_0', 'Section_1', 'Section_2'])
+    const { isSectionCompleted, currentSection } = checkSections(
+      course,
+      submittedFirstLesson,
+      sectionTwo,
+      user.uid
+    )
+    expect(colorTab(isSectionCompleted, currentSection)).toBe('')
   })
 
   it('should return total lessons submitted', () => {
@@ -71,7 +70,7 @@ describe('Tabs util functions', () => {
         total: 2,
       },
     ]
-    expect(checkLessonsSubmitted(course, submittedFirstLesson, cohort, user.uid)).toStrictEqual(
+    expect(checkLessonsSubmitted(course, submittedFirstLesson, user.uid)).toStrictEqual(
       lessonsSubmittedMock
     )
   })
