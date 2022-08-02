@@ -5,13 +5,21 @@ import Main from '../components/Home'
 import Layout from '../components/layout'
 
 export default function Home() {
+  const cards = {
+    cardOne: 'Bootcamp 100% gratuito, sempre!',
+    cardTwo: 'Construa sua própria DAO com JavaScript em uma semana',
+    cardThree: 'Aprendizado baseado em projetos',
+    cardFour: 'Ganhe um NFT para cada projeto finalizado',
+    cardFive: 'Trabalhe como dev em projetos web3',
+  }
+
   return (
     <Layout>
       <Head>
         <title>Home - Bootcamp Web3Dev</title>
       </Head>
       <Main />
-      <HomeCards />
+      <HomeCards cards={cards} />
     </Layout>
   )
 }
