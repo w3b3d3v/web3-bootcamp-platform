@@ -11,14 +11,10 @@ class MyDocument extends Document {
           <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
           <meta
             property="og:image"
-            content="https://lh3.google.com/u/0/d/1_wzZkaLJxPfZ1WBpr1oYhDq9y9ofbD-W=w2488-h943-iv1"
+            content="https://web3dev-forem-production.s3.amazonaws.com/uploads/logos/resized_logo_dQF5hMwMXhqcpZy165dN.png"
           />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
             href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700;900&display=swap"
             rel="stylesheet"
