@@ -2,11 +2,11 @@ import {
   completedResult,
   filterUserLessons,
   getLessonsByCourse,
-} from '../../lib/Models/withoutDB/lessons'
+} from '../../lib/Models/lessons'
 import {
   checkSectionsCompleted,
-  reduceSectionsCompleted,
-} from '../../lib/Models/withoutDB/sections'
+  lessonsCompletedBySection,
+} from '../../lib/Models/sections'
 
 export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id) => {
   const { list, lessonsBySection } = getLessonsByCourse(course)
@@ -15,7 +15,7 @@ export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id) => {
 
   const sectionsCompleted = checkSectionsCompleted(userLessons, list)
 
-  const completedSectionNumbers = reduceSectionsCompleted(sectionsCompleted)
+  const completedSectionNumbers = lessonsCompletedBySection(sectionsCompleted)
 
   return completedResult(lessonsBySection, completedSectionNumbers)
 }
