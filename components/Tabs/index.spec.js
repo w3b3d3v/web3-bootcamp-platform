@@ -3,15 +3,20 @@ import {
   course,
   sectionZero,
   submittedFirstLesson,
+  lessonsSubmitted,
   user,
 } from '../../tests/__mocks__/fixtures/tab_db_mock'
 
 import { checkLessonsSubmitted, checkSections, colorTab } from './tabFunctions'
-import { getLessonsByCourse } from '../../lib/Models/withoutDB/lessons'
+import { completedResult, getLessonsByCourse } from '../../lib/Models/lessons'
+import { checkSectionsCompleted, lessonsCompletedBySection } from '../../lib/Models/sections'
 
-describe('Tabs util functions', () => {
+describe('Lessons model', () => {
+  const { list, lessonsBySection } = getLessonsByCourse(course)
+  const sectionsCompleted = checkSectionsCompleted(lessonsSubmitted, list)
+  const userLessonsCompletedBySection = lessonsCompletedBySection(sectionsCompleted)
+
   it('should getLesons', () => {
-    const { list, lessonsBySection } = getLessonsByCourse(course)
     const testObj = {
       Section_0: 1,
       Section_1: 4,
@@ -21,6 +26,38 @@ describe('Tabs util functions', () => {
     expect(lessonsBySection).toStrictEqual(testObj)
   })
 
+  it('should return lessons completed by section', () => {
+    const lessonsCompletedBySectionMock = {
+      Section_0: 1,
+      Section_1: 1,
+    }
+    expect(userLessonsCompletedBySection).toStrictEqual(lessonsCompletedBySectionMock)
+  })
+
+  it('should return total lessons and completed lessons by section', () => {
+    const lessonsCompletedBySectionMock = [
+      {
+        section: 'Section_0',
+        total: 1,
+        completed: 1,
+      },
+      {
+        section: 'Section_1',
+        total: 4,
+        completed: 1,
+      },
+      {
+        section: 'Section_2',
+        total: 2,
+        completed: 0,
+      },
+    ]
+    const result = completedResult(lessonsBySection, userLessonsCompletedBySection)
+    expect(result).toStrictEqual(lessonsCompletedBySectionMock)
+  })
+})
+
+describe('Tabs util functions', () => {
   it('should return green backgroundon section completed', () => {
     const { isSectionCompleted, currentSection } = checkSections(
       course,
