@@ -39,7 +39,7 @@ function Course({ course, currentDate }) {
   useEffect(async () => {
     if (cohorts) {
       const sortCohortsByDate = cohorts.sort((a, b) => {
-        return new Date(a.startDate) - new Date(b.startDate)
+        return new Date(a.endDate) - new Date(b.endDate)
       })
       const currentCohort = sortCohortsByDate.find((cohort) => {
         return (
