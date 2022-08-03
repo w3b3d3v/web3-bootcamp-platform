@@ -45,9 +45,9 @@ function Course({ course, currentDate }) {
         return (
           cohort.courseId == course.id &&
           ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) ||
-            cohort.startDate >= new Date(currentDate))
-        )
-      })
+          cohort.startDate >= new Date(currentDate))
+          )
+        })
       setCohort(currentCohort)
     }
   }, [cohorts])
@@ -153,6 +153,11 @@ function Course({ course, currentDate }) {
   return (
     <Layout>
       <Head>
+          <meta property="og:title" content={`Cohort - ${cohort?.name}`} />
+          <meta
+            property="og:image"
+            content={course.image_url}
+          />
         <title>Curso {course.id} - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
