@@ -18,6 +18,7 @@ import Head from 'next/head'
 import { getAllCohorts } from '../../lib/cohorts'
 import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
+import Loading from '../../components/Loading'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -28,8 +29,8 @@ function Course({ course, currentDate }) {
   const [cohorts, setCohorts] = useState()
   const [cohort, setCohort] = useState()
   const [lessonsSubmitted, setLessonsSubmitted] = useState()
+  const [loading, setLoading] = useState(true)
   let counter = 0
-
   useEffect(async () => {
     setCohorts(await getAllCohorts())
   }, [])
@@ -75,6 +76,12 @@ function Course({ course, currentDate }) {
     }, 1000)
     return () => clearInterval(interval)
   }, [userCohortStartDate])
+
+  useEffect(() => {
+    if (cohort) {
+      setLoading(false)
+    }
+  }, [cohort])
 
   const registerUserInCohort = async () => {
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
@@ -182,196 +189,207 @@ function Course({ course, currentDate }) {
             </div>
           </div>
         </div>
-        {userIsNotRegisteredAndCohortIsClosed() && (
-          <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
-            <div className="flex w-3/4 flex-col items-center justify-center">
-              <p className="text-center text-2xl">
-                As inscrições para este bootcamp estão encerradas, aguarde a próxima turma abrir
-                para se inscrever!
-              </p>
-            </div>
+        {loading ? (
+          <div className='flex items-center justify-center'>
+          <Loading />
           </div>
-        )}
-        {userIsRegisteredAndCohortIsFuture() && (
-          <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
-            <div className="flex flex-col items-center justify-center">
-              <Link href={'https://discord.web3dev.com.br/'}>
-                <a id="discord-logo-link" target="_blank">
-                  <Image src={'/assets/img/discord_icon.svg'} width={128} height={128} />
-                </a>
-              </Link>
-              <p className="mt-0 mb-0 text-center text-2xl text-white-100">
-                Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
-                <Link href={'https://discord.web3dev.com.br/'}>
-                  <a
-                    id="discord-text-link"
-                    target="_blank"
-                    className="text-decoration-none text-white-100"
-                  >
-                    Discord
-                  </a>
-                </Link>
-                .
-              </p>
-              <br />
-              <Link href={'https://discord.web3dev.com.br/'}>
-                <a
-                  id="discord-button-link"
-                  target="_blank"
-                  className="text-decoration-none rounded-lg bg-violet-600 p-1 px-2 text-white-100 hover:no-underline"
-                >
-                  <p>Aproveita para já entrar lá!</p>
-                </a>
-              </Link>
-            </div>
-          </div>
-        )}
-        {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() && (
+        ) : (
           <>
-            <button
-              id={`signup-cohort`}
-              onClick={() => registerUserInCohort()}
-              className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
-            >
-              Inscreva-se agora &#x1F31F;
-            </button>
-            <div className="flex pt-6">
-              <ComingSoonCard />
-            </div>
-          </>
-        )}
-        {userIsRegisteredAndCohortWillOpenSoon() && (
-          <>
-            <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
-              <div className="flex w-3/4 flex-col items-center justify-center">
-                <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
-                <p className="text-sm lg:text-base">
-                  No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário
-                  para não esquecer. Nos veremos lá!
-                </p>
-                <div className="mt-3 flex w-full flex-row flex-wrap items-start items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl">
-                  {timeLeft && '⏰' + timeLeft}
-                  <button
-                    className="mt-3 flex flex-row items-center rounded-lg bg-indigo-500 p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
-                    onClick={() => calendarFunction()}
-                  >
-                    <ICalendarLink
-                      className="flex flex-row items-center text-white-100"
-                      event={{
-                        title: course?.title,
-                        description: course?.description,
-                        startTime: cohort?.kickoffStartTime,
-                        endTime: cohort?.kickoffEndTime,
-                        location: 'https://discord.web3dev.com.br',
-                      }}
-                    >
-                      <CalendarIcon className="mr-2 h-7 w-7" />
-                      Adicionar ao calendário
-                    </ICalendarLink>
-                  </button>
+            {userIsNotRegisteredAndCohortIsClosed() && (
+              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
+                <div className="flex w-3/4 flex-col items-center justify-center">
+                  <p className="text-center text-2xl">
+                    As inscrições para este bootcamp estão encerradas, aguarde a próxima turma abrir
+                    para se inscrever!
+                  </p>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-8 lg:flex-row">
-              <div className="item flex-grow">
-                <DiscordCard />
-              </div>
-              <div className="item flex-grow">
-                <WalletCard />
-              </div>
-            </div>
-            <div className="flex pt-6">
-              <ShareLinkCard course={course.id} />
-            </div>
-            <div className="flex pt-6">
-              <ComingSoonCard />
-            </div>
-            <br />
-          </>
-        )}
-        {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
-          <>
-            <div className="flex flex-col gap-8 lg:flex-row">
-              <div className="item flex-grow">
-                <DiscordCard />
-              </div>
-              <div className="item flex-grow">
-                <WalletCard />
-              </div>
-            </div>
-            <div className="container my-8">
-              <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+            )}
 
-              <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
-                {course?.sections &&
-                  Object.keys(course?.sections)
-                    .sort()
-                    .map((section) => {
-                      return (
-                        <div key={section}>
-                          <span id={section} className="mb-4 font-bold">
-                            {section?.replace('Section_', 'Seção ')}
-                          </span>
-                          <ul className="mt-2 mb-8 flex list-none flex-col	">
-                            {course?.sections[section]
-                              .map((lesson) => {
-                                return (
-                                  <li
-                                    key={lesson.title}
-                                    className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
-                                  >
-                                    <div className="flex items-center">
-                                      <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
-                                        <input
-                                          disabled
-                                          type="radio"
-                                          name="radio"
-                                          className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border border-gray-400 "
-                                        />
-                                        <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
-                                          {userSubmissions(lesson) ? (
-                                            <Image
-                                              className="h-full w-full "
-                                              width={48}
-                                              height={48}
-                                              src={'/assets/img/checked-radio-button.svg'}
-                                              alt={lesson.title}
-                                            />
-                                          ) : (
-                                            <Image
-                                              className="h-full w-full"
-                                              width={48}
-                                              height={48}
-                                              src={'/assets/img/radio-button.svg'}
-                                              alt={lesson.title}
-                                            />
-                                          )}
-                                        </div>
-                                      </div>
-                                      <div className={counter > 1 ? 'pointer-events-none' : ''}>
-                                        <Link href={`/courses/${course.id}/lessons/${lesson.file}`}>
-                                          <a
-                                            id="access-lesson"
-                                            className="text-black-100 dark:text-white-100"
-                                          >
-                                            <p className="m-0 p-0">{lesson.title}</p>
-                                          </a>
-                                        </Link>
-                                      </div>
-                                    </div>
-                                  </li>
-                                )
-                              })
-                              .sort((a, b) => a - b)}
-                          </ul>
-                        </div>
-                      )
-                    })}
+            {userIsRegisteredAndCohortIsFuture() && (
+              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
+                <div className="flex flex-col items-center justify-center">
+                  <Link href={'https://discord.web3dev.com.br/'}>
+                    <a id="discord-logo-link" target="_blank">
+                      <Image src={'/assets/img/discord_icon.svg'} width={128} height={128} />
+                    </a>
+                  </Link>
+                  <p className="mt-0 mb-0 text-center text-2xl text-white-100">
+                    Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
+                    <Link href={'https://discord.web3dev.com.br/'}>
+                      <a
+                        id="discord-text-link"
+                        target="_blank"
+                        className="text-decoration-none text-white-100"
+                      >
+                        Discord
+                      </a>
+                    </Link>
+                    .
+                  </p>
+                  <br />
+                  <Link href={'https://discord.web3dev.com.br/'}>
+                    <a
+                      id="discord-button-link"
+                      target="_blank"
+                      className="text-decoration-none rounded-lg bg-violet-600 p-1 px-2 text-white-100 hover:no-underline"
+                    >
+                      <p>Aproveita para já entrar lá!</p>
+                    </a>
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="mb-3 flex pt-6">
-              <ShareLinkCard course={course.id} />
-            </div>
+            )}
+            {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() && (
+              <>
+                <button
+                  id={`signup-cohort`}
+                  onClick={() => registerUserInCohort()}
+                  className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
+                >
+                  Inscreva-se agora &#x1F31F;
+                </button>
+                <div className="flex pt-6">
+                  <ComingSoonCard />
+                </div>
+              </>
+            )}
+            {userIsRegisteredAndCohortWillOpenSoon() && (
+              <>
+                <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
+                  <div className="flex w-3/4 flex-col items-center justify-center">
+                    <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
+                    <p className="text-sm lg:text-base">
+                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
+                      calendário para não esquecer. Nos veremos lá!
+                    </p>
+                    <div className="mt-3 flex w-full flex-row flex-wrap items-start items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl">
+                      {timeLeft && '⏰' + timeLeft}
+                      <button
+                        className="mt-3 flex flex-row items-center rounded-lg bg-indigo-500 p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
+                        onClick={() => calendarFunction()}
+                      >
+                        <ICalendarLink
+                          className="flex flex-row items-center text-white-100"
+                          event={{
+                            title: course?.title,
+                            description: course?.description,
+                            startTime: cohort?.kickoffStartTime,
+                            endTime: cohort?.kickoffEndTime,
+                            location: 'https://discord.web3dev.com.br',
+                          }}
+                        >
+                          <CalendarIcon className="mr-2 h-7 w-7" />
+                          Adicionar ao calendário
+                        </ICalendarLink>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-8 lg:flex-row">
+                  <div className="item flex-grow">
+                    <DiscordCard />
+                  </div>
+                  <div className="item flex-grow">
+                    <WalletCard />
+                  </div>
+                </div>
+                <div className="flex pt-6">
+                  <ShareLinkCard course={course.id} />
+                </div>
+                <div className="flex pt-6">
+                  <ComingSoonCard />
+                </div>
+                <br />
+              </>
+            )}
+            {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
+              <>
+                <div className="flex flex-col gap-8 lg:flex-row">
+                  <div className="item flex-grow">
+                    <DiscordCard />
+                  </div>
+                  <div className="item flex-grow">
+                    <WalletCard />
+                  </div>
+                </div>
+                <div className="container my-8">
+                  <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+
+                  <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
+                    {course?.sections &&
+                      Object.keys(course?.sections)
+                        .sort()
+                        .map((section) => {
+                          return (
+                            <div key={section}>
+                              <span id={section} className="mb-4 font-bold">
+                                {section?.replace('Section_', 'Seção ')}
+                              </span>
+                              <ul className="mt-2 mb-8 flex list-none flex-col	">
+                                {course?.sections[section]
+                                  .map((lesson) => {
+                                    return (
+                                      <li
+                                        key={lesson.title}
+                                        className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
+                                      >
+                                        <div className="flex items-center">
+                                          <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                                            <input
+                                              disabled
+                                              type="radio"
+                                              name="radio"
+                                              className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border border-gray-400 "
+                                            />
+                                            <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
+                                              {userSubmissions(lesson) ? (
+                                                <Image
+                                                  className="h-full w-full "
+                                                  width={48}
+                                                  height={48}
+                                                  src={'/assets/img/checked-radio-button.svg'}
+                                                  alt={lesson.title}
+                                                />
+                                              ) : (
+                                                <Image
+                                                  className="h-full w-full"
+                                                  width={48}
+                                                  height={48}
+                                                  src={'/assets/img/radio-button.svg'}
+                                                  alt={lesson.title}
+                                                />
+                                              )}
+                                            </div>
+                                          </div>
+                                          <div className={counter > 1 ? 'pointer-events-none' : ''}>
+                                            <Link
+                                              href={`/courses/${course.id}/lessons/${lesson.file}`}
+                                            >
+                                              <a
+                                                id="access-lesson"
+                                                className="text-black-100 dark:text-white-100"
+                                              >
+                                                <p className="m-0 p-0">{lesson.title}</p>
+                                              </a>
+                                            </Link>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    )
+                                  })
+                                  .sort((a, b) => a - b)}
+                              </ul>
+                            </div>
+                          )
+                        })}
+                  </div>
+                </div>
+                <div className="mb-3 flex pt-6">
+                  <ShareLinkCard course={course.id} />
+                </div>
+              </>
+            )}
           </>
         )}
       </div>
