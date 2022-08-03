@@ -7,8 +7,8 @@ function Courses({ allCourses }) {
   return (
     <Layout>
       <Head>
-      <meta property="og:title" content={`Bootcamps List`} />
-        <title>Lista de Cursos - Bootcamp Web3Dev</title>
+        <meta property="og:title" content="Lista de Bootcamps" />
+        <title>Lista de Bootcamps - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <h4 className="mb-6 text-2xl font-bold leading-tight text-black-300 dark:text-white-100">
