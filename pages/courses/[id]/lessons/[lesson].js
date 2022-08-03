@@ -125,7 +125,7 @@ function Lessons({ course, lesson }) {
             property="og:image"
             content={course.image_url}
           />
-        <title>Lição - Bootcamp Web3Dev</title>
+        <title>Lição - {lesson} - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
