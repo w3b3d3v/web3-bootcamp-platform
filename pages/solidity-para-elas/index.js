@@ -16,6 +16,11 @@ export default function Home() {
   return (
     <Layout>
       <Head>
+        <meta property="og:title" content="Home INOVADORAS - Bootcamp Web3Dev" />
+        <meta
+          property="og:image"
+          content="https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2Fsolidity_female.png?alt=media&token=ddbb1afd-5042-43a9-ba59-266c2c40476a"
+        />
         <title>Home INOVADORAS - Bootcamp Web3Dev</title>
       </Head>
       <Main />
