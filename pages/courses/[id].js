@@ -42,16 +42,20 @@ function Course({ course, currentDate }) {
       const sortCohortsByDate = cohorts.sort((a, b) => {
         return new Date(a.endDate) - new Date(b.endDate)
       })
-      const currentCohort = sortCohortsByDate.find((cohort) => {
-        return (
-          cohort.courseId == course.id &&
-          ((cohort.startDate <= new Date(currentDate) && cohort.endDate >= new Date(currentDate)) ||
-            cohort.startDate >= new Date(currentDate))
-        )
-      })
+
+      const currentCohort =
+        userIsRegisteredInPreviousCohort() ??
+        sortCohortsByDate.find((cohort) => {
+          return (
+            cohort.courseId == course.id &&
+            ((cohort.startDate <= new Date(currentDate) &&
+              cohort.endDate >= new Date(currentDate)) ||
+              cohort.startDate >= new Date(currentDate))
+          )
+        })
       setCohort(currentCohort)
     }
-  }, [cohorts])
+  }, [cohorts, user])
 
   useEffect(async () => {
     if (auth.currentUser) {
@@ -87,10 +91,14 @@ function Course({ course, currentDate }) {
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
     setRegisterOnCohort(true)
   }
-  const userIsRegisteredInCohort = () => {
+  const userIsRegisteredInCurrentCohort = () => {
     return !!user?.cohorts.find(
       (userCohort) => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
     )
+  }
+  const userIsRegisteredInPreviousCohort = () => {
+    const userCohort = user?.cohorts.find((userCohort) => userCohort.course_id == course.id)
+    return userCohort ? cohorts.find((cohort) => cohort.id === userCohort.cohort_id) : null
   }
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
@@ -108,26 +116,26 @@ function Course({ course, currentDate }) {
   const under30dCohortStartDate = () => !undefinedCohortStartDate()
 
   const userIsRegisteredAndCohortIsFuture = () =>
-    userIsRegisteredInCohort() && undefinedCohortStartDate()
+    userIsRegisteredInCurrentCohort() && undefinedCohortStartDate()
 
   const userIsNotRegisteredAndCohortIsOpen = () => {
     if (!cohort) return
     return (
       !user?.cohorts ||
       user?.cohorts?.length == 0 ||
-      (!userIsRegisteredInCohort() && cohort?.endDate >= new Date(currentDate))
+      (!userIsRegisteredInCurrentCohort() && cohort?.endDate >= new Date(currentDate))
     )
   }
   const userIsNotRegisteredAndCohortIsClosed = () => {
     if (!cohort) return true
     return (
-      (!user?.cohorts || user?.cohorts?.length == 0 || !userIsRegisteredInCohort()) &&
+      (!user?.cohorts || user?.cohorts?.length == 0 || !userIsRegisteredInCurrentCohort()) &&
       cohort?.endDate <= new Date(currentDate)
     )
   }
   const userIsRegisteredAndCohortWillOpenSoon = () => {
     return (
-      userIsRegisteredInCohort() &&
+      userIsRegisteredInCurrentCohort() &&
       cohort?.startDate >= new Date(currentDate) &&
       under30dCohortStartDate()
     )
@@ -135,7 +143,7 @@ function Course({ course, currentDate }) {
   const userIsRegisteredAndCohortIsOpen = () => {
     return (
       !userHasAlreadyParticipatedInACohort() &&
-      userIsRegisteredInCohort() &&
+      userIsRegisteredInCurrentCohort() &&
       cohort?.startDate <= new Date(currentDate) &&
       timeLeft == null &&
       user?.cohorts?.map((cohort) => cohort.course_id).includes(course.id)
@@ -190,8 +198,8 @@ function Course({ course, currentDate }) {
           </div>
         </div>
         {loading ? (
-          <div className='flex items-center justify-center'>
-          <Loading />
+          <div className="flex items-center justify-center">
+            <Loading />
           </div>
         ) : (
           <>
