@@ -9,23 +9,20 @@ export default function Main() {
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
-            Construa sua própria
+            Crie seu própio 
             <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
             <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
-              DAO com JavaScript{' '}
+            mini-jogo NFT{' '}
             </span>
-            em uma semana
+            de turnos
           </div>
           <p className="mt-8">
-            DAOs estão dominando o mundo! Construa uma você mesmo para se divertir. Talvez seja uma
-            DAO meme, para você e seus amigos. Talvez seja um DAO que visa corrigir a mudança
-            climática. Você decide. Analisaremos coisas como cunhar uma NFT de associação,
-            criar/lançar um token, tesouros públicos e governança usando um token!
+          Um projeto para desenvolvedores curiosos que desejam aprender mais sobre a união entre criptomoedas e jogos fazendo o seu próprio jogo web3. Você irá mintar seus próprios NFTs, fazer personagens jogáveis com os NFTs que você mintou e permitir que usuários ganhem suas próprias criptomoedas conforme eles jogam o seu jogo!
           </p>
         </div>
         <br />
         <div className="flex w-full justify-start">
-          <a href="/courses/JS_DAO">
+          <a href="/courses/NFT_Game">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
             </Button>

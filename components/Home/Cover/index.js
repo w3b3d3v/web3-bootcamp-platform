@@ -7,7 +7,7 @@ export default function Cover() {
       <Image
         width={400}
         height={400}
-        src="https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FJS_DAO.png?alt=media&token=5ffb03a3-e144-4ad6-a760-e1fb2328f953"
+        src="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FNFT_Game.png?alt=media&token=b58c0e42-f38b-4da9-98c9-553170141bb2"
         className="rounded-3xl"
       />
     </div>
