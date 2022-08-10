@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import Card from './index'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
