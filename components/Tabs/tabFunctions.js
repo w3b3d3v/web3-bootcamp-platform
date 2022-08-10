@@ -1,12 +1,5 @@
-import {
-  completedResult,
-  filterUserLessons,
-  getLessonsByCourse,
-} from '../../lib/Models/lessons'
-import {
-  checkSectionsCompleted,
-  lessonsCompletedBySection,
-} from '../../lib/Models/sections'
+import { getLessonsByCourse, filterUserLessons, completedResult } from '../../lib/lessons'
+import { checkSectionsCompleted, lessonsCompletedBySection } from '../../lib/sections'
 
 export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id) => {
   const { list, lessonsBySection } = getLessonsByCourse(course)

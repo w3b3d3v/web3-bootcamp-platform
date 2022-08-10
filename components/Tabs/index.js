@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { checkSections } from './tabFunctions'
+import { checkSections, colorTab } from './tabFunctions'
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
   const getCourse = course
@@ -22,11 +22,10 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
               <div className={'flex justify-between'} key={section}>
                 {isLessonPage ? (
                   <div
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
-                      course,
-                      lessonsSubmitted,
-                      section,
-                      user?.uid
+                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${colorTab(
+                      checkSections(course, lessonsSubmitted, section, user?.uid)
+                        .isSectionCompleted,
+                      checkSections(course, lessonsSubmitted, section, user?.uid).currentSection
                     )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
@@ -35,12 +34,11 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                   <a
                     href={`#${!isLessonPage ? section : ''}`}
                     onClick={() => toggle(section)}
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${checkSections(
-                      course,
-                      lessonsSubmitted,
-                      section,
-                      user?.uid
-                    )} `}
+                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${colorTab(
+                      checkSections(course, lessonsSubmitted, section, user?.uid)
+                        .isSectionCompleted,
+                      checkSections(course, lessonsSubmitted, section, user?.uid).currentSection
+                    )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                   </a>
