@@ -11,6 +11,7 @@ export default function Home() {
     cardThree: 'Aprendizado baseado em projetos',
     cardFour: 'Ganhe um NFT para cada projeto finalizado',
     cardFive: 'Trabalhe como dev em projetos web3',
+    cardSix: 'Crie sua própria coleção de NFT na Flow',
   }
 
   return (
