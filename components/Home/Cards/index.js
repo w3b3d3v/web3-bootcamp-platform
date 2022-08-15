@@ -28,11 +28,6 @@ export default function HomeCards({ cards }) {
           <div className="text-black flex h-full w-full items-center  rounded-lg bg-slate-50 text-center shadow-xl dark:bg-zinc-900 dark:text-slate-50 sm:p-1 md:p-3 lg:p-4">
             {cards.cardFive}
           </div>
-          <div className="m-3 h-20 w-44 rounded-lg bg-gradient-to-br from-rose-400 to-orange-500 p-1 lg:h-32">
-          <div className="text-black flex h-full w-full items-center  rounded-lg bg-slate-50 text-center shadow-xl dark:bg-zinc-900 dark:text-slate-50 sm:p-1 md:p-3 lg:p-4">
-            {cards.cardSix}
-          </div>
-          </div>
         </div>
       </div>
       <br />
