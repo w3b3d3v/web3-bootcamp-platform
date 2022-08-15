@@ -32,3 +32,6 @@ yarn-error.log*
 firebase/firebase-config.json
 .env
 *.log
+
+# gitpod
+.gitpod.yml
