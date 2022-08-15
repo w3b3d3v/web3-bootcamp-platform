@@ -17,7 +17,7 @@ export default function Main() {
             na Flow
           </div>
           <p className="mt-8">
-          Um projeto para desenvolvedores curiosos que desejam aprender mais sobre a união entre criptomoedas e jogos fazendo o seu próprio jogo web3. Você irá mintar seus próprios NFTs, fazer personagens jogáveis com os NFTs que você mintou e permitir que usuários ganhem suas próprias criptomoedas conforme eles jogam o seu jogo!
+          Aprenda Cadence e construa uma coleção NFT no Flow! Este é um projeto de fim de semana curto e assíncrono para desenvolvedores curiosos que desejam começar no Flow. Você aprenderá como escrever e implantar seu primeiro contrato inteligente Flow usando o Cadence, criar um aplicativo web3 React e conectá-los todos juntos para permitir que as pessoas conectem suas carteiras e mintem NFTs.
           </p>
         </div>
         <br />
