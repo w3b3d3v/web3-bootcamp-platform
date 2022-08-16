@@ -54,7 +54,7 @@ function Lessons({ course, lesson }) {
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
-      if (item.lesson === lesson && item.user == auth.user?.uid) {
+      if (item.lesson === lesson && item.user == auth.user?.uid && item.cohort_id == cohort.id) {
         setUserSubmission(item.content.value)
         validateUserSubmission(item.content.value)
         setLessonSent(true)
