@@ -102,7 +102,7 @@ function Course({ course, currentDate }) {
   }
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if (lesson.lesson == allLessons.file && lesson.user == user.uid) return true
+      if (lesson.lesson == allLessons.file && lesson.user == user.uid && lesson.cohort_id === cohort.id) return true
       return false
     })
     if (userSubmitted.every((item) => item === false)) counter++
