@@ -40,6 +40,7 @@ export default function GeneralInfoCard() {
     setValue,
   } = useForm({
     mode: 'onChange',
+    reValidateMode: 'onSubmit',
     resolver: yupResolver(profileSchema),
   })
 
@@ -52,8 +53,8 @@ export default function GeneralInfoCard() {
           name: userSession?.name,
           email: userSession?.email,
           bio: userSession?.bio,
-          devExp: new Date().getFullYear() - userSession?.devExp,
-          blockchainExp: new Date().getFullYear() - userSession?.blockchainExp,
+          devExp: userSession?.devExp || null,
+          blockchainExp: userSession?.blockchainExp || null,
         })
         setValue(
           'technologies',
@@ -76,7 +77,6 @@ export default function GeneralInfoCard() {
     })
   }
   const findSocialLinks = (name) => user?.socialLinks.find((link) => link.name === name)
-  const calcYearsOfXp = (year) => new Date().getFullYear() - year
 
   const updateUserData = async (data) => {
     const userData = {
@@ -87,19 +87,19 @@ export default function GeneralInfoCard() {
       twitter: data?.twitter ?? findSocialLinks('twitter')?.url,
       personalWebsite: data?.personalWebsite ?? findSocialLinks('personalWebsite')?.url,
       linkedIn: data?.linkedin ?? findSocialLinks('linkedin')?.url,
-      devExp: calcYearsOfXp(data?.devExp) ?? user?.devExp,
-      blockchainExp: calcYearsOfXp(data?.blockchainExp) ?? user?.blockchainExp,
+      devExp: data?.devExp ?? user?.devExp,
+      blockchainExp: data?.blockchainExp ?? user?.blockchainExp,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
     }
     await updateUserInFirestore(userData, user.uid)
-      .catch((error) => {
-        console.log(error)
-        toast.error('Erro ao atualizar dados')
-      })
       .then(async () => {
         if (file) await updateUserProfilePic()
         toast.success('Dados atualizados com sucesso!')
         //window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error('Erro ao atualizar dados')
       })
   }
   const connectGithub = async (e) => {
@@ -261,7 +261,7 @@ export default function GeneralInfoCard() {
                         <Input
                           {...field}
                           label="Qual ano você começou a trabalhar com desenvolvimento?"
-                          defaultValue={new Date().getFullYear() - +user?.devExp || ''}
+                          defaultValue={user?.devExp}
                           id="devExp"
                           placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
                         />
@@ -277,7 +277,7 @@ export default function GeneralInfoCard() {
                         <Input
                           {...field}
                           label="Qual ano você começou a trabalhar com blockchains?"
-                          defaultValue={new Date().getFullYear() - +user?.blockchainExp || ''}
+                          defaultValue={user?.blockchainExp}
                           id="blockchainExp"
                           placeholder="Insira o ano de início da sua experiência profissional com blockchain"
                         />
