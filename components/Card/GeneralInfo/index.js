@@ -65,17 +65,14 @@ export default function GeneralInfoCard() {
     })
   }, [])
 
-  const updateUserProfilePic = async (e) => {
-    e.preventDefault()
+  const updateUserProfilePic = async () => {
     setLoading(true)
     const storageRef = ref(storage, `users/${user.uid}/profilePic`)
     await uploadBytes(storageRef, file)
     await getDownloadURL(storageRef).then((url) => {
       updateUserProfilePicInFirestore(user.uid, url)
-      toast.success('Profile picture updated successfully')
       authO.user.photoUrl = url
       setLoading(false)
-      window.location.reload()
     })
   }
   const findSocialLinks = (name) => user?.socialLinks.find((link) => link.name === name)
@@ -99,8 +96,10 @@ export default function GeneralInfoCard() {
         console.log(error)
         toast.error('Erro ao atualizar dados')
       })
-      .then(() => {
+      .then(async () => {
+        if (file) await updateUserProfilePic()
         toast.success('Dados atualizados com sucesso!')
+        //window.location.reload()
       })
   }
   const connectGithub = async (e) => {
@@ -144,7 +143,7 @@ export default function GeneralInfoCard() {
           </p>
           <div className="mt-7 flex flex-col lg:flex-row">
             <form onSubmit={handleSubmit(updateUserData)}>
-              <div className='className="mb-6 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-2/3'>
+              <div className='className="mb-6 mx-12 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-1/3'>
                 <div className="grow sm:basis-5/12">
                   <Controller
                     name="name"
@@ -253,66 +252,68 @@ export default function GeneralInfoCard() {
                   />
                   <small className="text-red-500">{errors.personalWebsite?.message}</small>
                 </div>
-                <div className="grow sm:basis-5/12 ">
-                  <Controller
-                    name="devExp"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        label="Qual ano você começou a trabalhar com desenvolvimento?"
-                        defaultValue={new Date().getFullYear() - +user?.devExp || ''}
-                        id="devExp"
-                        placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
-                      />
-                    )}
-                  />
-                  <small className="text-red-500">{errors.devExp?.message}</small>
-                </div>
-                <div className="grow sm:basis-5/12 ">
-                  <Controller
-                    name="blockchainExp"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        label="Qual ano você começou a trabalhar com blockchain?"
-                        defaultValue={new Date().getFullYear() - +user?.blockchainExp || ''}
-                        id="blockchainExp"
-                        placeholder="Insira o ano de início da sua experiência profissional com blockchain"
-                      />
-                    )}
-                  />
-                  <small className="text-red-500">{errors.blockchainExp?.message}</small>
-                </div>
-                <div className="grow sm:basis-5/12 ">
-                  <div className="flex flex-col">
-                    <label
-                      htmlFor="technologies"
-                      className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
-                    >
-                      Tecnologias com que trabalha
-                    </label>
+                <div className="flex w-full flex-col gap-x-8 lg:flex-row">
+                  <div className="grow sm:basis-2/12 ">
                     <Controller
-                      id="technologies"
-                      name="technologies"
+                      name="devExp"
                       control={control}
                       render={({ field }) => (
-                        <Select
+                        <Input
                           {...field}
-                          instanceId="technologies"
-                          isMulti
-                          className="mb-3 w-full resize-y rounded-lg border-2 border-solid p-2 
-                            font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-black-100"
-                          options={langOptions.map((option) => ({
-                            label: option,
-                            value: option,
-                          }))}
-                          styles={colourStyles}
+                          label="Qual ano você começou a trabalhar com desenvolvimento?"
+                          defaultValue={new Date().getFullYear() - +user?.devExp || ''}
+                          id="devExp"
+                          placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
                         />
                       )}
                     />
-                    <small className="text-red-500">{errors.linguagens?.message}</small>
+                    <small className="text-red-500">{errors.devExp?.message}</small>
+                  </div>
+                  <div className="grow sm:basis-2/12 ">
+                    <Controller
+                      name="blockchainExp"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          label="Qual ano você começou a trabalhar com blockchains?"
+                          defaultValue={new Date().getFullYear() - +user?.blockchainExp || ''}
+                          id="blockchainExp"
+                          placeholder="Insira o ano de início da sua experiência profissional com blockchain"
+                        />
+                      )}
+                    />
+                    <small className="text-red-500">{errors.blockchainExp?.message}</small>
+                  </div>
+                  <div className="grow sm:basis-5/12">
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor="technologies"
+                        className="mb-1 text-sm font-medium leading-none text-black-200 dark:text-gray-100 lg:mb-9 xl:mb-6 2xl:mb-3"
+                      >
+                        Tecnologias com que trabalha
+                      </label>
+                      <Controller
+                        id="technologies"
+                        name="technologies"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            instanceId="technologies"
+                            isMulti
+                            className="mb-3 w-full resize-y rounded-lg border-2 border-solid p-2 
+                            font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-black-100"
+                            options={langOptions.map((option) => ({
+                              label: option,
+                              value: option,
+                            }))}
+                            styles={colourStyles}
+                          />
+                        )}
+                      />
+                      <small className="text-red-500">{errors.linguagens?.message}</small>
+                    </div>
                   </div>
                 </div>
                 <div className="grow basis-full">
@@ -352,14 +353,6 @@ export default function GeneralInfoCard() {
                     name="lessonPrint"
                     className="mt-2"
                   />
-                  <button
-                    className="text-white my-2 inline-flex cursor-pointer rounded-md border border-transparent
-                  bg-green-600 px-4 py-2 text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 
-                    focus:ring-green-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
-                    onClick={(e) => updateUserProfilePic(e)}
-                  >
-                    Enviar
-                  </button>
                   {loading && (
                     <div className="mt-2.5 ml-2.5">
                       <Loading />
