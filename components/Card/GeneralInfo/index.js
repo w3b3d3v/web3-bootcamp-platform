@@ -215,7 +215,7 @@ export default function GeneralInfoCard() {
                         render={({ field }) => (
                           <Input
                             {...field}
-                            label="twitter"
+                            label="Twitter"
                             defaultValue={findSocialLinks('twitter')?.url}
                             id="twitter"
                             placeholder="https://twitter.com/username"
@@ -235,7 +235,7 @@ export default function GeneralInfoCard() {
                         render={({ field }) => (
                           <Input
                             {...field}
-                            label="linkedin"
+                            label="Linkedin"
                             defaultValue={findSocialLinks('linkedin')?.url}
                             id="linkedin"
                             placeholder="https://linkedin.com/username"
@@ -255,7 +255,7 @@ export default function GeneralInfoCard() {
                         render={({ field }) => (
                           <Input
                             {...field}
-                            label="github"
+                            label="Github"
                             defaultValue={findSocialLinks('github')?.url}
                             id="github"
                             placeholder="https://github.com/username"
@@ -291,7 +291,7 @@ export default function GeneralInfoCard() {
                       render={({ field }) => (
                         <Input
                           {...field}
-                          label="personalWebsite"
+                          label="Site Pessoal"
                           defaultValue={findSocialLinks('personalWebsite')?.url}
                           id="personalWebsite"
                           placeholder="https://meuwebsite.com"
