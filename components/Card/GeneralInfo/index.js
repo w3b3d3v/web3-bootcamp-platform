@@ -364,7 +364,6 @@ export default function GeneralInfoCard() {
                     <small className="text-red-500">{errors.linguagens?.message}</small>
                   </div>
                 </div>
-
                 <div className="grow basis-full">
                   <div className="flex flex-col">
                     <Controller
