@@ -22,9 +22,9 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import Loading from '../../Loading'
 import Image from 'next/image'
 import { Controller, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { langOptions } from '../../../lib/utils/constants'
+import { profileSchema } from '../../../lib/yup'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -32,48 +32,15 @@ export default function GeneralInfoCard() {
   const authO = useAuth()
   const [loading, setLoading] = useState(false)
 
-  const schema = yup
-    .object({
-      name: yup.string().required('Nome é obrigatório'),
-      email: yup.string().email('Email inválido').required('Email é obrigatório'),
-      twitter: yup
-        .string()
-        .url()
-        .matches(/^https:\/\/twitter.com\/.*$/, 'Twitter inválido'),
-      linkedin: yup
-        .string()
-        .url()
-        .matches(/linkedin.com/),
-      github: yup
-        .string()
-        .url()
-        .matches(/github.com/),
-      personalWebsite: yup.string().url(),
-      bio: yup.string(),
-      devExp: yup
-        .number()
-        .integer('Somente números inteiros')
-        .positive()
-        .min(0)
-        .max(30, 'Programava em cartão? O máximo é 30 :)'),
-      blockchainExp: yup
-        .number()
-        .integer('Somente números inteiros')
-        .positive()
-        .min(0)
-        .max(15, 'Vitalik, é você? O máximo é 15 :)'),
-    })
-    .required()
-
   const {
-    register,
     control,
     handleSubmit,
     reset,
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(schema),
+    mode: 'onChange',
+    resolver: yupResolver(profileSchema),
   })
 
   useEffect(() => {
@@ -85,12 +52,12 @@ export default function GeneralInfoCard() {
           name: userSession?.name,
           email: userSession?.email,
           bio: userSession?.bio,
-          devExp: userSession?.devExp,
-          blockchainExp: userSession?.blockchainExp,
+          devExp: new Date().getFullYear() - userSession?.devExp,
+          blockchainExp: new Date().getFullYear() - userSession?.blockchainExp,
         })
         setValue(
-          'linguagens',
-          userSession?.linguagens?.map((obj) => {
+          'technologies',
+          userSession?.technologies?.map((obj) => {
             return { label: obj, value: obj }
           })
         )
@@ -112,6 +79,7 @@ export default function GeneralInfoCard() {
     })
   }
   const findSocialLinks = (name) => user?.socialLinks.find((link) => link.name === name)
+  const calcYearsOfXp = (year) => new Date().getFullYear() - year
 
   const updateUserData = async (data) => {
     const userData = {
@@ -122,9 +90,9 @@ export default function GeneralInfoCard() {
       twitter: data?.twitter ?? findSocialLinks('twitter')?.url,
       personalWebsite: data?.personalWebsite ?? findSocialLinks('personalWebsite')?.url,
       linkedIn: data?.linkedin ?? findSocialLinks('linkedin')?.url,
-      devExp: data?.devExp ?? user?.devExp,
-      blockchainExp: data?.blockchainExp ?? user?.blockchainExp,
-      linguagens: data?.linguagens?.map((obj) => obj.label) ?? user?.linguagens,
+      devExp: calcYearsOfXp(data?.devExp) ?? user?.devExp,
+      blockchainExp: calcYearsOfXp(data?.blockchainExp) ?? user?.blockchainExp,
+      technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
     }
     await updateUserInFirestore(userData, user.uid)
       .catch((error) => {
@@ -178,72 +146,62 @@ export default function GeneralInfoCard() {
             <form onSubmit={handleSubmit(updateUserData)}>
               <div className='className="mb-6 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-2/3'>
                 <div className="grow sm:basis-5/12">
-                  <div className="flex flex-col">
-                    <Controller
-                      name="name"
-                      control={control}
-                      render={({ field }) => (
-                        <Input {...field} label="Nome" defaultValue={user?.name} id="name" />
-                      )}
-                    />
-                    <small className="text-red-500">{errors.name?.message}</small>
-                  </div>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }) => (
+                      <Input {...field} label="Nome" defaultValue={user?.name} id="name" />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.name?.message}</small>
+                </div>
+                <div className="grow sm:basis-5/12">
+                  <Controller
+                    name="email"
+                    control={control}
+                    render={({ field }) => (
+                      <Input {...field} label="Email" defaultValue={user?.email} id="email" />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.email?.message}</small>
                 </div>
                 <div className="grow sm:basis-5/12">
                   <div className="flex flex-col">
                     <Controller
-                      name="email"
+                      name="twitter"
                       control={control}
                       render={({ field }) => (
-                        <Input {...field} label="Email" defaultValue={user?.email} id="email" />
+                        <Input
+                          {...field}
+                          label="Twitter"
+                          defaultValue={findSocialLinks('twitter')?.url}
+                          id="twitter"
+                          placeholder="https://twitter.com/username"
+                        />
                       )}
                     />
-                    <small className="text-red-500">{errors.email?.message}</small>
+                    <small className="text-red-500">{errors.twitter?.message}</small>
                   </div>
                 </div>
                 <div className="grow sm:basis-5/12">
-                  <div className="flex flex-col">
-                    <div className="flex flex-col">
-                      <Controller
-                        name="twitter"
-                        control={control}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            label="Twitter"
-                            defaultValue={findSocialLinks('twitter')?.url}
-                            id="twitter"
-                            placeholder="https://twitter.com/username"
-                          />
-                        )}
+                  <Controller
+                    name="linkedin"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        label="Linkedin"
+                        defaultValue={findSocialLinks('linkedin')?.url}
+                        id="linkedin"
+                        placeholder="https://linkedin.com/username"
                       />
-                      <small className="text-red-500">{errors.twitter?.message}</small>
-                    </div>
-                  </div>
-                </div>
-                <div className="grow sm:basis-5/12">
-                  <div className="flex flex-col">
-                    <div className="flex flex-col">
-                      <Controller
-                        name="linkedin"
-                        control={control}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            label="Linkedin"
-                            defaultValue={findSocialLinks('linkedin')?.url}
-                            id="linkedin"
-                            placeholder="https://linkedin.com/username"
-                          />
-                        )}
-                      />
-                      <small className="text-red-500">{errors.linkedin?.message}</small>
-                    </div>
-                  </div>
+                    )}
+                  />
+                  <small className="text-red-500">{errors.linkedin?.message}</small>
                 </div>
                 <div className="grow sm:basis-5/12">
                   {user?.socialLinks.find((item) => item.name == 'github').url ? (
-                    <div className="flex flex-col">
+                    <>
                       <Controller
                         name="github"
                         control={control}
@@ -257,7 +215,8 @@ export default function GeneralInfoCard() {
                           />
                         )}
                       />
-                    </div>
+                      <small className="text-red-500">{errors.github?.message}</small>
+                    </>
                   ) : (
                     <div className="flex flex-col">
                       <label
@@ -279,75 +238,69 @@ export default function GeneralInfoCard() {
                   )}
                 </div>
                 <div className="grow sm:basis-5/12 ">
-                  <div className="flex flex-col">
-                    <Controller
-                      name="personalWebsite"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Site Pessoal"
-                          defaultValue={findSocialLinks('personalWebsite')?.url}
-                          id="personalWebsite"
-                          placeholder="https://meuwebsite.com"
-                        />
-                      )}
-                    />
-                    <small className="text-red-500">{errors.personalWebsite?.message}</small>
-                  </div>
+                  <Controller
+                    name="personalWebsite"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        label="Site Pessoal"
+                        defaultValue={findSocialLinks('personalWebsite')?.url}
+                        id="personalWebsite"
+                        placeholder="https://meuwebsite.com"
+                      />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.personalWebsite?.message}</small>
                 </div>
                 <div className="grow sm:basis-5/12 ">
-                  <div className="flex flex-col">
-                    <Controller
-                      name="devExp"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Há quantos anos trabalha com desenvolvimento?"
-                          defaultValue={user?.devExp}
-                          id="devExp"
-                          placeholder="Insira quantos anos de experiência você tem com desenvolvimento"
-                        />
-                      )}
-                    />
-                    <small className="text-red-500">{errors.devExp?.message}</small>
-                  </div>
+                  <Controller
+                    name="devExp"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        label="Qual ano você começou a trabalhar com desenvolvimento?"
+                        defaultValue={new Date().getFullYear() - +user?.devExp || ''}
+                        id="devExp"
+                        placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
+                      />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.devExp?.message}</small>
                 </div>
                 <div className="grow sm:basis-5/12 ">
-                  <div className="flex flex-col">
-                    <Controller
-                      name="blockchainExp"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Há quantos anos trabalha com blockchain?"
-                          defaultValue={user?.blockchainExp}
-                          id="blockchainExp"
-                          placeholder="Insira quantos anos de experiência você tem com desenvolvimento"
-                        />
-                      )}
-                    />
-                    <small className="text-red-500">{errors.blockchainExp?.message}</small>
-                  </div>
+                  <Controller
+                    name="blockchainExp"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        label="Qual ano você começou a trabalhar com blockchain?"
+                        defaultValue={new Date().getFullYear() - +user?.blockchainExp || ''}
+                        id="blockchainExp"
+                        placeholder="Insira o ano de início da sua experiência profissional com blockchain"
+                      />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.blockchainExp?.message}</small>
                 </div>
                 <div className="grow sm:basis-5/12 ">
                   <div className="flex flex-col">
                     <label
-                      htmlFor="linguagens"
+                      htmlFor="technologies"
                       className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
                     >
                       Tecnologias com que trabalha
                     </label>
                     <Controller
-                      id="linguagens"
-                      name="linguagens"
+                      id="technologies"
+                      name="technologies"
                       control={control}
                       render={({ field }) => (
                         <Select
                           {...field}
-                          instanceId="linguagens"
+                          instanceId="technologies"
                           isMulti
                           className="mb-3 w-full resize-y rounded-lg border-2 border-solid p-2 
                             font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-black-100"
@@ -363,23 +316,21 @@ export default function GeneralInfoCard() {
                   </div>
                 </div>
                 <div className="grow basis-full">
-                  <div className="flex flex-col">
-                    <Controller
-                      id="biografia"
-                      name="bio"
-                      control={control}
-                      render={({ field }) => (
-                        <Textarea
-                          {...field}
-                          label="Escreva um resumo sobre você"
-                          defaultValue={user?.bio}
-                          id="biografia"
-                          placeholder="Meu nome é ...."
-                        />
-                      )}
-                    />
-                    <small className="text-red-500">{errors.bio?.message}</small>
-                  </div>
+                  <Controller
+                    id="biography"
+                    name="bio"
+                    control={control}
+                    render={({ field }) => (
+                      <Textarea
+                        {...field}
+                        label="Escreva um resumo sobre você"
+                        defaultValue={user?.bio}
+                        id="biography"
+                        placeholder="Meu nome é ...."
+                      />
+                    )}
+                  />
+                  <small className="text-red-500">{errors.bio?.message}</small>
                 </div>
               </div>
               <div className="flex flex-col items-center lg:basis-1/3">
