@@ -371,7 +371,7 @@ export default function GeneralInfoCard() {
                       name="biografia"
                       control={control}
                       render={({ field }) => (
-                        <Input
+                        <Textarea
                           {...field}
                           label="Escreva um resumo sobre você"
                           defaultValue={user?.bio}
