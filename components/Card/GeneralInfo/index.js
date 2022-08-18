@@ -24,29 +24,14 @@ import Image from 'next/image'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { langOptions } from '../../../lib/utils/constants'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
   const [file, setFile] = useState()
   const authO = useAuth()
   const [loading, setLoading] = useState(false)
-  const options = [
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'TypeScript', label: 'TypeScript' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'C#', label: 'C#' },
-    { value: 'C', label: 'C' },
-    { value: 'C++', label: 'C++' },
-    { value: 'Ruby', label: 'Ruby' },
-    { value: 'Rust', label: 'Rust' },
-    { value: 'Go', label: 'Go' },
-    { value: 'Scala', label: 'Scala' },
-    { value: 'Kotlin', label: 'Kotlin' },
-    { value: 'Swift', label: 'Swift' },
-    { value: 'Rust', label: 'Rust' },
-    { value: 'Elixir', label: 'Elixir' },
-  ]
+
   const schema = yup
     .object({
       name: yup.string().required('Nome é obrigatório'),
@@ -121,16 +106,16 @@ export default function GeneralInfoCard() {
 
   const updateUserData = async (data) => {
     const userData = {
-      name: data?.name || user?.name,
-      email: data?.email || user?.email,
-      bio: data?.bio || user?.bio,
-      github: data?.github || findSocialLinks('github')?.url,
-      twitter: data?.twitter || findSocialLinks('twitter')?.url,
-      personalWebsite: data?.personalWebsite || findSocialLinks('personalWebsite')?.url,
-      linkedIn: data?.linkedin || findSocialLinks('linkedin')?.url,
-      devExp: data?.devExp || user?.devExp,
-      blockchainExp: data?.blockchainExp || user?.blockchainExp,
-      linguagens: data?.linguagens?.map((obj) => obj.label) || user?.linguagens,
+      name: data?.name ?? user?.name,
+      email: data?.email ?? user?.email,
+      bio: data?.bio ?? user?.bio,
+      github: data?.github ?? findSocialLinks('github')?.url,
+      twitter: data?.twitter ?? findSocialLinks('twitter')?.url,
+      personalWebsite: data?.personalWebsite ?? findSocialLinks('personalWebsite')?.url,
+      linkedIn: data?.linkedin ?? findSocialLinks('linkedin')?.url,
+      devExp: data?.devExp ?? user?.devExp,
+      blockchainExp: data?.blockchainExp ?? user?.blockchainExp,
+      linguagens: data?.linguagens?.map((obj) => obj.label) ?? user?.linguagens,
     }
     await updateUserInFirestore(userData, user.uid)
       .catch((error) => {
@@ -170,6 +155,7 @@ export default function GeneralInfoCard() {
         color: 'white',
       }
     },
+    input: (styles) => ({ ...styles, color: 'white' }),
   }
 
   return (
@@ -356,7 +342,10 @@ export default function GeneralInfoCard() {
                           isMulti
                           className="mb-3 w-full resize-y rounded-lg border-2 border-solid p-2 
                             font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-black-100"
-                          options={options}
+                          options={langOptions.map((option) => ({
+                            label: option,
+                            value: option,
+                          }))}
                           styles={colourStyles}
                         />
                       )}
@@ -368,7 +357,7 @@ export default function GeneralInfoCard() {
                   <div className="flex flex-col">
                     <Controller
                       id="biografia"
-                      name="biografia"
+                      name="bio"
                       control={control}
                       render={({ field }) => (
                         <Textarea
