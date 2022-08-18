@@ -36,10 +36,19 @@ export default function GeneralInfoCard() {
     .object({
       name: yup.string().required('Nome é obrigatório'),
       email: yup.string().email('Email inválido').required('Email é obrigatório'),
-      twitter: yup.string(),
-      linkedin: yup.string(),
-      github: yup.string(),
-      personalWebsite: yup.string(),
+      twitter: yup
+        .string()
+        .url()
+        .matches(/^https:\/\/twitter.com\/.*$/, 'Twitter inválido'),
+      linkedin: yup
+        .string()
+        .url()
+        .matches(/linkedin.com/),
+      github: yup
+        .string()
+        .url()
+        .matches(/github.com/),
+      personalWebsite: yup.string().url(),
       bio: yup.string(),
       devExp: yup
         .number()
@@ -329,7 +338,7 @@ export default function GeneralInfoCard() {
                       htmlFor="linguagens"
                       className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
                     >
-                      Linguagens com que trabalha
+                      Tecnologias com que trabalha
                     </label>
                     <Controller
                       id="linguagens"
