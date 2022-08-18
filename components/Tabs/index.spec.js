@@ -6,6 +6,7 @@ const db = {
   course: null,
   lessons: null,
   user_id: 'tFOYKWIm6OMlKHtmxarRfVY77W63',
+  cohort: { id: 'lloRUGwzJAG4Lj2B3bmJ' },
 }
 
 describe('Tabs util functions', () => {
@@ -21,19 +22,22 @@ describe('Tabs util functions', () => {
       db.course,
       lesson,
       'Section_0',
-      db.user_id
+      db.user_id,
+      db.cohort
     )
     expect(colorTab(isSectionCompleted, currentSection)).toBe('bg-green-500')
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
-    const completed = checkSections(db.course, db.lessons, 'Section_0', db.user_id)
-    const notCompleted = checkSections(db.course, db.lessons, 'Section_1', db.user_id)
+    const completed = checkSections(db.course, db.lessons, 'Section_0', db.user_id, db.cohort)
+    const notCompleted = checkSections(db.course, db.lessons, 'Section_2', db.user_id, db.cohort)
     expect(colorTab(completed.isSectionCompleted, completed.currentSection)).toBe('bg-green-500')
     expect(colorTab(notCompleted.isSectionCompleted, notCompleted.currentSection)).toBe(
       'bg-violet-600'
     )
-    expect(checkSections(db.course, db.lessons, 'Section_0', db.user_id)).not.toBe('bg-violet-600')
+    expect(checkSections(db.course, db.lessons, 'Section_0', db.user_id, db.cohort)).not.toBe(
+      'bg-violet-600'
+    )
   })
 
   it('should return purple background on uncompleted all lessons of a section', () => {
@@ -41,7 +45,8 @@ describe('Tabs util functions', () => {
       db.course,
       db.lessons,
       'Section_5',
-      db.user_id
+      db.user_id,
+      db.cohort
     )
     expect(colorTab(isSectionCompleted, currentSection)).toBe('')
   })
@@ -55,12 +60,12 @@ describe('Tabs util functions', () => {
       },
       {
         section: 'Section_1',
-        completed: 4,
+        completed: 5,
         total: 5,
       },
       {
         section: 'Section_2',
-        completed: 4,
+        completed: 3,
         total: 4,
       },
       {
@@ -70,10 +75,12 @@ describe('Tabs util functions', () => {
       },
       {
         section: 'Section_4',
-        completed: 2,
+        completed: 1,
         total: 2,
       },
     ]
-    expect(checkLessonsSubmitted(db.course, db.lessons, db.user_id)).toStrictEqual(expectedResult)
+    expect(checkLessonsSubmitted(db.course, db.lessons, db.user_id, db.cohort)).toStrictEqual(
+      expectedResult
+    )
   })
 })

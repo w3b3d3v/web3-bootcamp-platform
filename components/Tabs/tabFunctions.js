@@ -1,10 +1,10 @@
-import { getLessonsByCourse, filterUserLessons, completedResult } from '../../lib/lessons'
+import { getLessonsByCourse, filterUserLessonsByCohort, completedResult } from '../../lib/lessons'
 import { checkSectionsCompleted, lessonsCompletedBySection } from '../../lib/sections'
 
-export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id) => {
+export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id, cohort) => {
   const { list, lessonsBySection } = getLessonsByCourse(course)
 
-  const userLessons = filterUserLessons(lessonsSubmitted, user_id)
+  const userLessons = filterUserLessonsByCohort(lessonsSubmitted, user_id, cohort)
 
   const sectionsCompleted = checkSectionsCompleted(userLessons, list)
 
@@ -13,8 +13,8 @@ export const checkLessonsSubmitted = (course, lessonsSubmitted, user_id) => {
   return completedResult(lessonsBySection, completedSectionNumbers)
 }
 
-export const checkSections = (course, lessonsSubmitted, section, user_id) => {
-  const completedLessonsBySection = checkLessonsSubmitted(course, lessonsSubmitted, user_id)
+export const checkSections = (course, lessonsSubmitted, section, user_id, cohort) => {
+  const completedLessonsBySection = checkLessonsSubmitted(course, lessonsSubmitted, user_id, cohort)
   const isSectionCompleted = checkSectionIsCompleted(completedLessonsBySection, section)
   const currentSection =
     completedLessonsBySection.find((item) => item.completed < item.total)?.section == section

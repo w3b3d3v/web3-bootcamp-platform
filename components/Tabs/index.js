@@ -23,9 +23,9 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                 {isLessonPage ? (
                   <div
                     className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${colorTab(
-                      checkSections(course, lessonsSubmitted, section, user?.uid)
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
                         .isSectionCompleted,
-                      checkSections(course, lessonsSubmitted, section, user?.uid).currentSection
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection
                     )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
@@ -35,9 +35,9 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                     href={`#${!isLessonPage ? section : ''}`}
                     onClick={() => toggle(section)}
                     className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 ${colorTab(
-                      checkSections(course, lessonsSubmitted, section, user?.uid)
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
                         .isSectionCompleted,
-                      checkSections(course, lessonsSubmitted, section, user?.uid).currentSection
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection
                     )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
