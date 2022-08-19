@@ -87,8 +87,8 @@ export default function GeneralInfoCard() {
       twitter: data?.twitter ?? findSocialLinks('twitter')?.url,
       personalWebsite: data?.personalWebsite ?? findSocialLinks('personalWebsite')?.url,
       linkedIn: data?.linkedin ?? findSocialLinks('linkedin')?.url,
-      devExp: data?.devExp ?? user?.devExp,
-      blockchainExp: data?.blockchainExp ?? user?.blockchainExp,
+      devExp: data?.devExp ?? null,
+      blockchainExp: data?.blockchainExp ?? null,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
     }
     await updateUserInFirestore(userData, user.uid)
