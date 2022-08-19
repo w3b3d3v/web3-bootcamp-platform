@@ -33,14 +33,15 @@ export default function GeneralInfoCard() {
   const [loading, setLoading] = useState(false)
 
   const {
+    register,
     control,
     handleSubmit,
     reset,
     formState: { errors },
     setValue,
   } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onSubmit',
+    mode: 'all',
+    reValidateMode: 'all',
     resolver: yupResolver(profileSchema),
   })
 
@@ -254,35 +255,39 @@ export default function GeneralInfoCard() {
                 </div>
                 <div className="flex w-full flex-col gap-x-8 lg:flex-row">
                   <div className="grow sm:basis-2/12 ">
-                    <Controller
-                      name="devExp"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Qual ano você começou a trabalhar com desenvolvimento?"
-                          defaultValue={user?.devExp}
-                          id="devExp"
-                          placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
-                        />
-                      )}
-                    />
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor={'devExp'}
+                        className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
+                      >
+                        Qual ano você começou a trabalhar com desenvolvimento?
+                      </label>
+                      <input
+                        {...register('devExp')}
+                        id={'devExp'}
+                        placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
+                        className="mb-3 w-full rounded-lg border-2 border-solid p-2 font-sans 
+                          text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
+                      />
+                    </div>
                     <small className="text-red-500">{errors.devExp?.message}</small>
                   </div>
                   <div className="grow sm:basis-2/12 ">
-                    <Controller
-                      name="blockchainExp"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Qual ano você começou a trabalhar com blockchains?"
-                          defaultValue={user?.blockchainExp}
-                          id="blockchainExp"
-                          placeholder="Insira o ano de início da sua experiência profissional com blockchain"
-                        />
-                      )}
-                    />
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor={'blockchainExp'}
+                        className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
+                      >
+                        Qual ano você começou a trabalhar com blockchains?
+                      </label>
+                      <input
+                        {...register('blockchainExp')}
+                        id={'blockchainExp'}
+                        placeholder="Insira o ano de início da sua experiência profissional com blockchain"
+                        className="mb-3 w-full rounded-lg border-2 border-solid p-2 font-sans 
+                          text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
+                      />
+                    </div>
                     <small className="text-red-500">{errors.blockchainExp?.message}</small>
                   </div>
                   <div className="grow sm:basis-5/12">
