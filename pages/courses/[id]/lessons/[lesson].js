@@ -5,12 +5,11 @@ import Layout from '../../../../components/layout'
 import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
-import { getAllCourses } from '../../../../lib/courses'
 import React, { useState, useEffect } from 'react'
 import { getLessonsSubmissions } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
 import useAuth from '../../../../hooks/useAuth'
-import { getAllCohorts } from '../../../../lib/cohorts'
+import { getAllCohorts, getCurrentCohort } from '../../../../lib/cohorts'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import rehypeRaw from 'rehype-raw'
@@ -18,7 +17,7 @@ import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import TwitterModal from '../../../../components/TwitterModal.js'
 
-function Lessons({ course, lesson }) {
+function Lessons({ course, lesson, currentDate }) {
   const [open, setOpen] = useState(false)
   const [lessonSent, setLessonSent] = useState(false)
   const [userSubmission, setUserSubmission] = useState()
@@ -40,13 +39,11 @@ function Lessons({ course, lesson }) {
     setCohorts(await getAllCohorts())
     getSubmissionData()
   }, [])
-
   useEffect(async () => {
     if (cohorts) {
-      const currentCohort = cohorts.find((c) => c.courseId === course.id)
-      setCohort(currentCohort)
+      setCohort(getCurrentCohort(auth.user, cohorts, course, currentDate))
     }
-  }, [cohorts])
+  }, [cohorts, auth.user])
 
   useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions(auth.user?.uid))
@@ -54,7 +51,11 @@ function Lessons({ course, lesson }) {
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
-      if (item.lesson === lesson && item.user == auth.user?.uid && item.cohort_id == cohort.id) {
+      if (
+        item?.lesson === lesson &&
+        item?.user == auth?.user?.uid &&
+        item?.cohort_id == cohort?.id
+      ) {
         setUserSubmission(item.content.value)
         validateUserSubmission(item.content.value)
         setLessonSent(true)
@@ -120,11 +121,8 @@ function Lessons({ course, lesson }) {
   return (
     <Layout>
       <Head>
-          <meta property="og:title" content={`Lesson - ${lesson}`} />
-          <meta
-            property="og:image"
-            content={course.image_url}
-          />
+        <meta property="og:title" content={`Lesson - ${lesson}`} />
+        <meta property="og:image" content={course.image_url} />
         <title>Lição - {lesson} - Bootcamp Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
@@ -225,29 +223,17 @@ function Lessons({ course, lesson }) {
     </Layout>
   )
 }
-export async function getStaticProps({ params }) {
+
+export async function getServerSideProps({ params }) {
   const course = await getCourse(params.id)
+  const currentDate = new Date().toISOString()
   const lesson = params.lesson
   return {
     props: {
       course,
       lesson,
+      currentDate,
     },
-  }
-}
-
-export async function getStaticPaths() {
-  const lessons = (await getAllCourses())
-    .filter((courses) => courses.active && courses.sections)
-    .map((course) =>
-      Object.values(course.sections)
-        .flat()
-        .map((lesson) => `/courses/${course.id}/lessons/${lesson.file}`)
-    )
-    .flat()
-  return {
-    paths: [...lessons],
-    fallback: false,
   }
 }
 
