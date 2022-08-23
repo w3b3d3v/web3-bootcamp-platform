@@ -15,7 +15,7 @@ import Link from 'next/link'
 import ICalendarLink from 'react-icalendar-link'
 import countdown from '../../lib/utils/countdown'
 import Head from 'next/head'
-import { getAllCohorts } from '../../lib/cohorts'
+import { getAllCohorts, getCurrentCohort } from '../../lib/cohorts'
 import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
@@ -39,21 +39,7 @@ function Course({ course, currentDate }) {
   }, [user])
   useEffect(async () => {
     if (cohorts) {
-      const sortCohortsByDate = cohorts.sort((a, b) => {
-        return new Date(a.endDate) - new Date(b.endDate)
-      })
-
-      const currentCohort =
-        userIsRegisteredInPreviousCohort() ??
-        sortCohortsByDate.find((cohort) => {
-          return (
-            cohort.courseId == course.id &&
-            ((cohort.startDate <= new Date(currentDate) &&
-              cohort.endDate >= new Date(currentDate)) ||
-              cohort.startDate >= new Date(currentDate))
-          )
-        })
-      setCohort(currentCohort)
+      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
     }
   }, [cohorts, user])
 
@@ -96,10 +82,7 @@ function Course({ course, currentDate }) {
       (userCohort) => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
     )
   }
-  const userIsRegisteredInPreviousCohort = () => {
-    const userCohort = user?.cohorts.find((userCohort) => userCohort.course_id == course.id)
-    return userCohort ? cohorts.find((cohort) => cohort.id === userCohort.cohort_id) : null
-  }
+
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
       if (lesson.lesson == allLessons.file && lesson.user == user.uid && lesson.cohort_id === cohort.id) return true
