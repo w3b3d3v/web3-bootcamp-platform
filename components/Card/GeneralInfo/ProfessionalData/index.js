@@ -4,7 +4,7 @@ import { langOptions } from '../../../../lib/utils/constants'
 
 export default function ProfessionalData({ Controller, control, errors, register }) {
   const colourStyles = {
-    control: (styles) => ({ ...styles, backgroundColor: 'rgb(59, 59, 59)' }),
+    control: (styles) => ({ ...styles, backgroundColor: 'rgb(59, 59, 59)', border: '2px solid rgb(99 102 241)' }),
     option: (styles, { isFocused }) => {
       return {
         ...styles,
@@ -30,8 +30,7 @@ export default function ProfessionalData({ Controller, control, errors, register
               {...register('devExp')}
               id={'devExp'}
               placeholder="Insira o ano de início da sua experiência profissional com desenvolvimento"
-              className="mb-3 w-full rounded-lg border-2 border-solid p-2 font-sans 
-                          text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
+              className="border-3 mb-3 w-full border-indigo-200 border-t-transparent border-r-transparent border-l-transparent border-b-indigo-500 bg-transparent p-2 font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
             />
           </div>
           <small className="text-red-500">{errors.devExp?.message}</small>
@@ -48,8 +47,7 @@ export default function ProfessionalData({ Controller, control, errors, register
               {...register('blockchainExp')}
               id={'blockchainExp'}
               placeholder="Insira o ano de início da sua experiência profissional com blockchain"
-              className="mb-3 w-full rounded-lg border-2 border-solid p-2 font-sans 
-                          text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
+              className="border-3 mb-3 w-full border-indigo-200 border-t-transparent border-r-transparent border-l-transparent border-b-indigo-500 bg-transparent p-2 font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
             />
           </div>
           <small className="text-red-500">{errors.blockchainExp?.message}</small>
@@ -72,8 +70,7 @@ export default function ProfessionalData({ Controller, control, errors, register
                 {...field}
                 instanceId="technologies"
                 isMulti
-                className="mb-3 w-full resize-y rounded-lg border-2 border-solid p-2 
-                            font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-black-100"
+                className=""
                 options={langOptions.map((option) => ({
                   label: option,
                   value: option,
