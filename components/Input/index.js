@@ -2,13 +2,7 @@ import React from 'react'
 
 export const Input = React.forwardRef((props, ref) => {
   return (
-    <div className="flex flex-col">
-      <label
-        htmlFor={props?.id}
-        className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
-      >
-        {props?.label}
-      </label>
+    <div className="flex w-full flex-col">
       <input
         type={props?.type || 'text'}
         ref={ref}
@@ -16,8 +10,7 @@ export const Input = React.forwardRef((props, ref) => {
         placeholder={props?.placeholder}
         defaultValue={props?.defaultValue}
         onChange={props?.onChange}
-        className="mb-3 w-full rounded-lg border-2 border-solid p-2 font-sans 
-            text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
+        className={`border-3 mb-3 w-full border-indigo-200 border-t-transparent border-r-transparent border-l-transparent border-b-indigo-500 bg-transparent p-2 font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100`}
       ></input>
     </div>
   )
