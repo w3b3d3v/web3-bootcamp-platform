@@ -4,9 +4,6 @@ export const Textarea = React.forwardRef((props, ref) => {
   return (
     <>
       <div className="flex flex-col">
-        <label htmlFor={props?.id} className="text-sm font-medium leading-none text-black-200 dark:text-gray-100 mb-2">
-          {props?.label}
-        </label>
         <textarea
           type={props?.type || 'text'}
           ref={ref}
@@ -14,8 +11,7 @@ export const Textarea = React.forwardRef((props, ref) => {
           placeholder={props?.placeholder}
           defaultValue={props?.defaultValue}
           onChange={props?.onChange}
-          className="w-full rounded-lg border-2 p-2 border-solid text-black-300 dark:text-white-100 
-            font-medium text-sm font-sans focus:outline-primary-200 resize-y mb-3"
+          className="border-4 mb-3 w-full border-indigo-200 border-t-transparent border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 bg-transparent p-2 font-sans text-sm font-medium text-black-300 focus:outline-primary-200 dark:text-white-100"
         >
         </textarea>
       </div>
