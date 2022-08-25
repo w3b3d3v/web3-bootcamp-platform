@@ -122,6 +122,7 @@ export default function GeneralInfoCard() {
       devExp,
       blockchainExp,
       technologies,
+      builder
     } = watch()
 
     const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0
@@ -132,7 +133,7 @@ export default function GeneralInfoCard() {
       github?.length > 0 &&
       personalWebsite?.length > 0
 
-    const professionalData = devExp && blockchainExp && technologies?.length > 0
+    const professionalData = devExp && blockchainExp && technologies?.length > 0 && builder?.length
 
     personalData ? setFilledPersonalData(true) : setFilledPersonalData(false)
     socialData ? setFilledSocialData(true) : setFilledSocialData(false)
