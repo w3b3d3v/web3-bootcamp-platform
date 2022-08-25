@@ -38,6 +38,7 @@ export default function GeneralInfoCard() {
     reset,
     formState: { errors },
     setValue,
+    getValues,
     watch,
   } = useForm({
     mode: 'all',
@@ -61,6 +62,7 @@ export default function GeneralInfoCard() {
           github: findSocialLinks('github', userSession)?.url,
           personalWebsite: findSocialLinks('personalWebsite', userSession)?.url,
         })
+        setValue('builder', userSession?.builder)
         setValue(
           'technologies',
           userSession?.technologies?.map((obj) => {
@@ -94,6 +96,7 @@ export default function GeneralInfoCard() {
       devExp: data?.devExp ?? null,
       blockchainExp: data?.blockchainExp ?? null,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
+      builder: data?.builder ?? user?.builder,
     }
     await updateUserInFirestore(userData, user.uid)
       .then(async () => {
@@ -151,8 +154,11 @@ export default function GeneralInfoCard() {
             👩‍🎤 Informações Gerais
           </p>
           <div className="mt-7 flex flex-col lg:flex-row">
-            <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))} className='max-w-4xl'>
-              <div className='mb-6 mx-12 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-1/3 h-56 max-h-56'>
+            <form
+              onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}
+              className="max-w-4xl"
+            >
+              <div className="mx-12 mb-6 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-1/3">
                 {showPersonalData && (
                   <PersonalData
                     Controller={Controller}
@@ -178,6 +184,8 @@ export default function GeneralInfoCard() {
                     control={control}
                     errors={errors}
                     register={register}
+                    getValues={getValues}
+                    setValue={setValue}
                   />
                 )}
               </div>
