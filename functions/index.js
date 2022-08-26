@@ -165,7 +165,7 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
     return result
   }
 
-  const emails = (await included_users(users, req)).map((u) => u.data().email)
+  const emails = Array.from(new Set((await included_users(users, req)).map((u) => u.data().email)))
 
   enqueueEmails(emails, req.query.template, req.query.subject || cohort.email_content.subject, {
     cohort,
