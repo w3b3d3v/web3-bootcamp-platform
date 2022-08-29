@@ -98,7 +98,7 @@ export default function GeneralInfoCard() {
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
       builder: data?.builder ?? user?.builder,
     }
-    await updateUserInFirestore(userData, user.uid)
+    await updateUserInFirestore(userData, user?.uid)
       .then(async () => {
         if (file) await updateUserProfilePic()
         toast.success('Dados atualizados com sucesso!')
@@ -142,7 +142,10 @@ export default function GeneralInfoCard() {
   useEffect(() => renderFormSteps, [watch()])
 
   return (
-    <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
+    <div
+      className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200"
+      data-testid="general-info-card"
+    >
       <div className="flex">
         <ProfileProgress
           filledPersonalData={filledPersonalData}

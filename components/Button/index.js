@@ -18,6 +18,7 @@ export const Button = React.forwardRef((props, ref) => {
       type={props?.type || 'button'}
       ref={ref}
       id={props?.id}
+      data-testid={props.dataTestId}
       className={
         props?.style === 'primary'
           ? primaryButton
