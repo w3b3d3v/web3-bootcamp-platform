@@ -122,7 +122,7 @@ export default function GeneralInfoCard() {
       devExp,
       blockchainExp,
       technologies,
-      builder
+      builder,
     } = watch()
 
     const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0
@@ -143,10 +143,10 @@ export default function GeneralInfoCard() {
 
   return (
     <div
-      className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200"
+      className="flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 lg:flex-row"
       data-testid="general-info-card"
     >
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row mt-5">
         <ProfileProgress
           filledPersonalData={filledPersonalData}
           filledSocialData={filledSocialData}

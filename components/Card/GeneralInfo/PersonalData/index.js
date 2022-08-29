@@ -59,7 +59,7 @@ export default function PersonalData({
         />
         <small className="text-red-500">{errors.bio?.message}</small>
       </div>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full items-center justify-center flex-col lg:flex-row">
         Alterar foto de perfil:
         <input
           type="file"

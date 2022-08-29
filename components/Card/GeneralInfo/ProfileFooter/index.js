@@ -30,11 +30,11 @@ export default function ProfileFooter({
     }
   }
   return (
-    <div className="flex justify-between lg:py-8" data-testid="profile-footer">
+    <div className="flex justify-between lg:py-8 flex-col-reverse lg:flex-row" data-testid="profile-footer">
       <Button type="submit" id="update-profile">
         Salvar
       </Button>
-      <div className="flex w-1/3 justify-around lg:w-2/5">
+      <div className="flex justify-around lg:w-2/5 justify-between mb-4 lg:mb-0 ">
         <Button
           onClick={previousFormStep}
           customClass="bg-orange-300 p-4 rounded-lg text-black-100 disabled:bg-slate-50 dark:hover:text-white-100 disabled:dark:hover:text-black-100"
