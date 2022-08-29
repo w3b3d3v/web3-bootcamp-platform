@@ -7,7 +7,7 @@ export default function ProfileFooter({
   setShowPersonalData,
   setShowProfessionalData,
   setShowSocialData,
-  showSocialData
+  showSocialData,
 }) {
   const nextFormStep = (e) => {
     e.preventDefault()
@@ -30,15 +30,16 @@ export default function ProfileFooter({
     }
   }
   return (
-    <div className="flex justify-between lg:py-8">
-      <Button type="submit" id="update-profile" >
+    <div className="flex justify-between lg:py-8" data-testid="profile-footer">
+      <Button type="submit" id="update-profile">
         Salvar
       </Button>
-      <div className="flex lg:w-2/5 w-1/3 justify-around">
+      <div className="flex w-1/3 justify-around lg:w-2/5">
         <Button
           onClick={previousFormStep}
           customClass="bg-orange-300 p-4 rounded-lg text-black-100 disabled:bg-slate-50 dark:hover:text-white-100 disabled:dark:hover:text-black-100"
           disabled={showPersonalData}
+          dataTestId="previous-profile-form-step"
         >
           Voltar
         </Button>
@@ -46,6 +47,7 @@ export default function ProfileFooter({
           onClick={nextFormStep}
           customClass="bg-orange-300 p-4 rounded-lg text-black-100 disabled:bg-slate-50 dark:hover:text-white-100 disabled:dark:hover:text-black-100"
           disabled={showProfessionalData}
+          dataTestId="next-profile-form-step"
         >
           Avançar
         </Button>

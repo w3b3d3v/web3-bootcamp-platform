@@ -25,7 +25,7 @@ export default function SocialData({ Controller, control, errors, user }) {
   }
   return (
     <>
-      <div className="grow sm:basis-6/12">
+      <div className="grow sm:basis-6/12" data-testid="social-data">
         <div className="flex flex-col">
           <Controller
             name="twitter"
@@ -41,7 +41,9 @@ export default function SocialData({ Controller, control, errors, user }) {
               />
             )}
           />
-          <small className="text-red-500">{errors.twitter?.message}</small>
+          <small className="text-red-500" data-testid="twitter-error-message">
+            {errors.twitter?.message}
+          </small>
         </div>
       </div>
       <div className="grow sm:basis-6/12">
@@ -59,7 +61,9 @@ export default function SocialData({ Controller, control, errors, user }) {
             />
           )}
         />
-        <small className="text-red-500">{errors.linkedin?.message}</small>
+        <small className="text-red-500" data-testid="linkedin-error-message">
+          {errors.linkedin?.message}
+        </small>
       </div>
       <div className="grow sm:basis-6/12">
         {user?.socialLinks?.find((item) => item.name == 'github').url ? (
@@ -78,10 +82,12 @@ export default function SocialData({ Controller, control, errors, user }) {
                 />
               )}
             />
-            <small className="text-red-500">{errors.github?.message}</small>
+            <small className="text-red-500" data-testid="github-error-message">
+              {errors.github?.message}
+            </small>
           </>
         ) : (
-          <div className="flex flex-col">
+          <div className="flex flex-col" data-testid="github-connect-button">
             <label
               htmlFor="githubConnect"
               className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
@@ -115,7 +121,9 @@ export default function SocialData({ Controller, control, errors, user }) {
             />
           )}
         />
-        <small className="text-red-500">{errors.personalWebsite?.message}</small>
+        <small className="text-red-500" data-testid="personalWebsite-error-message">
+          {errors.personalWebsite?.message}
+        </small>
       </div>
     </>
   )
