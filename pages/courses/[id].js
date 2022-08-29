@@ -85,7 +85,12 @@ function Course({ course, currentDate }) {
 
   const userSubmissions = (allLessons) => {
     const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if (lesson.lesson == allLessons.file && lesson.user == user.uid && lesson.cohort_id === cohort.id) return true
+      if (
+        lesson.lesson == allLessons.file &&
+        lesson.user == user.uid &&
+        lesson.cohort_id === cohort.id
+      )
+        return true
       return false
     })
     if (userSubmitted.every((item) => item === false)) counter++
@@ -148,20 +153,27 @@ function Course({ course, currentDate }) {
       .filter(Boolean)
     return userEndedCohorts?.length > 0
   }
+
   return (
     <Layout>
       <Head>
         <meta property="og:title" content={course.title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
-        <meta property="og:image" content={course.image_url} />
         <meta property="og:description" content={course.description} />
+        <meta property="og:image" content={course?.resized_img_url || course.image_url} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content={`${course.title} Bootcamp Cover`} />
+        <meta property="og:image:width" content="256" />
+        <meta property="og:image:height" content="256" />
 
+        {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://bootcamp.web3dev.com.br/" />
         <meta property="twitter:title" content={course.title} />
         <meta property="twitter:description" content={course.description} />
         <meta property="twitter:image" content={course.image_url} />
+        {/*Twitter End*/}
 
         <title>Curso {course.id} - Bootcamp Web3Dev</title>
       </Head>
