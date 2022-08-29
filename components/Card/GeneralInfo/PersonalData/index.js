@@ -42,7 +42,7 @@ export default function PersonalData({
         />
         <small className="text-red-500">{errors.email?.message}</small>
       </div>
-      <div className="mt-2 grow basis-12/12">
+      <div className="basis-12/12 mt-2 grow">
         <Controller
           id="biography"
           name="bio"
@@ -66,10 +66,11 @@ export default function PersonalData({
           onChange={(event) => setFile(event.target.files[0])}
           id="change-profile-picture"
           name="change-profile-picture"
+          data-testid="change-profile-picture"
           className="ml-6"
         />
       </div>
-      <div className="flex flex-col w-full items-center justify-center">
+      <div className="flex w-full flex-col items-center justify-center">
         {file && (
           <>
             <Image
