@@ -9,10 +9,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="WEB3DEV Bootcamp" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
-          <meta
-            property="og:image:secure_url"
-            content="https://web3dev-forem-production.s3.amazonaws.com/uploads/logos/resized_logo_dQF5hMwMXhqcpZy165dN.png"
-          />
+          <meta property="og:image" content="/assets/img/w3d-logo-symbol-ac.svg" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
