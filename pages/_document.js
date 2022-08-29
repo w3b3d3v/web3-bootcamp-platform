@@ -11,11 +11,13 @@ class MyDocument extends Document {
           <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
           <meta
             property="og:image"
+            itemprop="image"
             content="http://web3dev-forem-production.s3.amazonaws.com/uploads/logos/resized_logo_dQF5hMwMXhqcpZy165dN.png"
           />
           <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="300" />
-          <meta property="og:image:height" content="300" />
+          <meta property="og:image:alt" content="WEB3DEV Logo" />
+          <meta property="og:image:width" content="256" />
+          <meta property="og:image:height" content="256" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
