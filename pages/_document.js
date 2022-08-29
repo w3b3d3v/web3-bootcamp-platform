@@ -10,9 +10,18 @@ class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
           <meta
+            property="og:description"
+            content="Plataforma de bootcamps web3 100% em português!"
+          />
+          <meta
             property="og:image"
             itemprop="image"
-            content="http://web3dev-forem-production.s3.amazonaws.com/uploads/logos/resized_logo_dQF5hMwMXhqcpZy165dN.png"
+            content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/web3dev-logo.png?alt=media&token=6365a9fc-5d25-46be-be24-dd9bd0f324fc"
+          />
+          <meta
+            property="og:image:secure_url"
+            itemprop="image"
+            content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/web3dev-logo.png?alt=media&token=6365a9fc-5d25-46be-be24-dd9bd0f324fc"
           />
           <meta property="og:image:type" content="image/png" />
           <meta property="og:image:alt" content="WEB3DEV Logo" />
