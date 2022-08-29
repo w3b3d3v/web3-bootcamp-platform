@@ -10,7 +10,7 @@ class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
           <meta
-            property="og:image"
+            property="og:image:secure_url"
             content="https://web3dev-forem-production.s3.amazonaws.com/uploads/logos/resized_logo_dQF5hMwMXhqcpZy165dN.png"
           />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
