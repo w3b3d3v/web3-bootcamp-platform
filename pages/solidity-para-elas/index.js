@@ -18,6 +18,10 @@ export default function Home() {
       <Head>
         <meta property="og:title" content="Home Turma Inovadoras - Bootcamp Web3dev" />
         <meta
+          property="og:description"
+          content="Aprenda um projeto real de web3 app em 10 dias. Nele você irá desenvolver um Smart Contract com Solidity - a linguagem mais popular - na Blockchain Ethereum. Essa é uma oportunidade somente para mulheres entusiastas em tecnologia e, ao concluir o projeto você terá um NFT de certificação exclusivo da Turma Inovadoras."
+        />
+        <meta
           property="og:image"
           content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2Fsolidity_female_bt_cover.png?alt=media&token=d6ffd6e5-06ce-48a6-872c-3410d40fb18e"
         />
