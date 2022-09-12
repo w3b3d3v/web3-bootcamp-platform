@@ -16,6 +16,8 @@ import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import TwitterModal from '../../../../components/TwitterModal.js'
+import { getUserFromFirestore } from '../../../../lib/user'
+import { auth } from '../../../../firebase/initFirebase'
 
 function Lessons({ course, lesson, currentDate }) {
   const [open, setOpen] = useState(false)
@@ -31,29 +33,37 @@ function Lessons({ course, lesson, currentDate }) {
   const [lessonsSubmitted, setLessonsSubmitted] = useState([])
   const [twitterShare, setTwitterShare] = useState(null)
   const [twitterModal, setTwitterModal] = useState(false)
+  const [user, setUser] = useState()
   const ref = React.createRef()
-  const auth = useAuth()
   const router = useRouter()
   let testUrl
+
+  useEffect(async () => {
+    if (auth.currentUser) {
+      const userSession = await getUserFromFirestore(auth.currentUser)
+      setUser(userSession)
+    }
+  }, [auth.currentUser])
+
   useEffect(async () => {
     setCohorts(await getAllCohorts())
     getSubmissionData()
   }, [])
   useEffect(async () => {
     if (cohorts) {
-      setCohort(getCurrentCohort(auth.user, cohorts, course, currentDate))
+      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
     }
-  }, [cohorts, auth.user])
+  }, [cohorts, user])
 
   useEffect(async () => {
-    setLessonsSubmitted(await getLessonsSubmissions(auth.user?.uid))
-  }, [auth.user, open])
+    setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
+  }, [user, open])
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
       if (
         item?.lesson === lesson &&
-        item?.user == auth?.user?.uid &&
+        item?.user == user?.uid &&
         item?.cohort_id == cohort?.id
       ) {
         setUserSubmission(item.content.value)
