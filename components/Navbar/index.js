@@ -43,7 +43,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="h-full ">
+      <div className="h-full">
         {/* Code block starts */}
         <nav className="hidden bg-gray-50 dark:bg-black-300 xl:block">
           <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
@@ -165,7 +165,7 @@ export default function Navbar() {
                   <a
                     id="mobile-home-logo"
                     href="/"
-                    className="flex items-center justify-center text-black-300 transition duration-150 ease-in-out hover:text-primary-300 hover:no-underline dark:text-white-100 dark:hover:text-primary-300"
+                    className="flex items-center justify-center text-black-300 transition ease-in hover:text-primary-300 hover:no-underline dark:text-white-100 dark:hover:text-primary-300"
                   >
                     <>
                       <Image
@@ -192,7 +192,7 @@ export default function Navbar() {
                       key={link.name}
                       id={'desktop-' + link.name}
                       href={link?.href}
-                      className="flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:bg-gray-100 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 dark:hover:bg-black-200"
+                      className="flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition ease-out hover:scale-105 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 font-bold"
                     >
                       {link?.name}
                     </a>
