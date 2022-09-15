@@ -249,7 +249,7 @@ function authPage() {
                 alt="GitHub-Login-Icon"
                 loginGithub={() => loginGithub()}
                 textContent={'Login com o Github'}
-                imgSize={'80'}
+                imgSize={'32'}
               />
               <LoginButton
                 id={'sign-in-with-google'}
