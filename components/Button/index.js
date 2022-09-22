@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Button = React.forwardRef((props, ref) => {
   const stdClass =
-    'text-black-300 flex border-transparent font-bold text-sm rounded-lg bg-primary-300 px-2 py-2 transition duration-150 ease-in-out no-underline'
+    'text-black-300 border-transparent font-bold text-sm rounded-lg bg-primary-300 px-2 py-2 transition duration-150 ease-in-out no-underline'
   const primaryButton = props?.disabled
     ? `${stdClass} ${props?.customClass}`
     : `${stdClass} cursor-pointer hover:scale-105 ${
