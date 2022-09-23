@@ -1,4 +1,4 @@
-import { GithubAuthProvider, linkWithCredential, linkWithPopup } from 'firebase/auth'
+import { GithubAuthProvider,linkWithPopup,getAuth } from 'firebase/auth'
 import React from 'react'
 import { findSocialLinks } from '../../../../lib/user'
 import { Input } from '../../../Input'
@@ -7,8 +7,8 @@ export default function SocialData({ Controller, control, errors, user }) {
   const connectGithub = async (e) => {
     e.preventDefault()
     const provider = new GithubAuthProvider()
-    await linkWithCredential
-    await linkWithPopup(user, provider)
+    const auth = getAuth()
+    await linkWithPopup(auth.currentUser, provider)
       .then((result) => {
         const github_id = result.user.providerData.find(
           (item) => item.providerId == result.providerId
