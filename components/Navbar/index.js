@@ -197,7 +197,7 @@ export default function Navbar() {
                       {link?.name}
                     </a>
                   ))}
-                  {user ? (
+                  
                     <a
                       href="/courses"
                       id={'desktop-access-courses'}
@@ -205,7 +205,7 @@ export default function Navbar() {
                     >
                       Cursos
                     </a>
-                  ) : null}
+                  
                   <ThemeSwitch />
                 </div>
                 <div className="hidden items-center xl:flex">
