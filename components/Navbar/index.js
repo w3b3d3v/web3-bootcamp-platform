@@ -201,7 +201,7 @@ export default function Navbar() {
                     <a
                       href="/courses"
                       id={'desktop-access-courses'}
-                      className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:bg-white-200 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 dark:hover:bg-black-200"
+                      className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 hover:scale-105 font-bold"
                     >
                       Cursos
                     </a>
