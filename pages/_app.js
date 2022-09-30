@@ -4,7 +4,6 @@ import { ThemeProvider } from 'next-themes'
 
 import { AuthProvider } from '../context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
-//import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
 import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
 import 'regenerator-runtime/runtime'
 
