@@ -23,7 +23,7 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2Fsolidity_female_bt_cover.png?alt=media&token=d6ffd6e5-06ce-48a6-872c-3410d40fb18e"
+          content="https://storage.cloud.google.com/web3dev-bootcamp.appspot.com/courses_cover/NFT_COLLECTION_INOVADORAS_resized.png?authuser=1"
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:alt" content="Nft collection para elas" />
