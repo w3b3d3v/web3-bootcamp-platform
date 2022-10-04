@@ -470,7 +470,6 @@ export default function Navbar() {
                         </a>
                       ))}
 
-                      {user ? (
                         <a
                           id="mobile-menu-side-bar-courses"
                           href="/courses"
@@ -484,7 +483,7 @@ export default function Navbar() {
                             </div>
                           </li>
                         </a>
-                      ) : null}
+                      
                     </ul>
                   </div>
                   <div className="w-full pt-4">
