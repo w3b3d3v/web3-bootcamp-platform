@@ -395,8 +395,8 @@ export default function Navbar() {
           <div
             className={
               show
-                ? 'absolute z-40 h-full w-full translate-x-0  transform  xl:hidden '
-                : '   absolute z-40 h-full w-full -translate-x-full  transform xl:hidden'
+                ? 'absolute z-40 h-full w-full translate-x-0  transform  xl:hidden transition duration-300 ease-in-out'
+                : '   absolute z-40 h-full w-full -translate-x-full  transform xl:hidden transition duration-300 ease-in-out'
             }
           >
             <div
