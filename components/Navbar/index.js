@@ -400,7 +400,7 @@ export default function Navbar() {
             }
           >
             <div
-              className="h-full w-full bg-gray-800 opacity-50"
+              className="h-full w-full"
               onClick={() => setShow(!show)}
             />
             <div className="fixed top-0 z-40 h-full w-64 flex-col justify-between overflow-y-auto bg-white-100 pb-4 text-black-300 shadow transition duration-150 ease-in-out dark:bg-black-300 xl:hidden">
