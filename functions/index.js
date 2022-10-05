@@ -252,25 +252,34 @@ exports.onUserCreated = functions.firestore
     const topic = pubsub.topic('router-pubsub')
     const rawData = {
       incoming_topic: 'user_created',
-      user_id: userId,
-      user_email: userEmail,
+      user,
     }
     const data = Buffer.from(JSON.stringify(rawData))
     return await topic.publishMessage({ data })
   })
 
-exports.router = functions.pubsub.topic('router-pubsub').onPublish((message) => {
+exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
-  console.log(`GOT TO THE ROUTER, YEA ! ${data.incoming_topic}`)
+  console.log(`GOT TO THE ROUTER 2, YEA ! ${data.incoming_topic}`)
 
-  switch (data.incoming_topic) {
-    case 'user_created':
-      return newUser(data)
-    case 'cohort_signup':
-      return cohortSignup(data)
-    case 'add_dc_user_to_role_on_cohort_signup':
-      return addDiscordUserToRole(data)
-    default:
-      return console.log('invalid topic')
-  }
+  const topic = pubsub.topic(data.incomin_topic)
+  return await topic.publishMessage({ data: message.data })
 })
+
+exports.userCreated = functions.pubsub.topic('user_created').onPublish((message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  return newUser(data)
+})
+
+exports.onCohortSignup = functions.pubsub.topic('cohort_signup').onPublish((message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  return cohortSignup(data)
+})
+
+exports.discordRoles = functions.pubsub
+  .topic('add_dc_user_to_role_on_cohort_signup')
+  .onPublish((message) => {
+    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    return addDiscordUserToRole(data)
+  })
+
