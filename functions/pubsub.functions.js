@@ -21,8 +21,9 @@ async function addDiscordUserToRole(data) {
     console.log(error)
   }
 }
+
 function newUser(data) {
-  return console.log('new user has been created with email', data.user_email)
+  return console.log('new user has been created with email', data)
 }
 
 module.exports = { cohortSignup, newUser, addDiscordUserToRole }
