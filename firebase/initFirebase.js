@@ -26,10 +26,17 @@ const auth = getAuth(app)
 const db = getFirestore()
 const storage = getStorage(app)
 
-if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') {
-  connectFirestoreEmulator(db, 'localhost', 8080)
-  connectAuthEmulator(auth, 'http://localhost:9099')
-  connectStorageEmulator(storage, 'localhost', 9199)
+function startEmulators() {
+  if (!global['EMULATORS_STARTED']) {
+    global['EMULATORS_STARTED'] = true
+    connectFirestoreEmulator(db, 'localhost', 8080)
+    connectAuthEmulator(auth, 'http://localhost:9099')
+    connectStorageEmulator(storage, 'localhost', 9199)
+  }
+}
+
+if (process.env.NODE_ENV === 'development') {
+  startEmulators()
 }
 // const analytics = getAnalytics(app);
 

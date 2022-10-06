@@ -259,11 +259,12 @@ exports.onUserCreated = functions.firestore
   })
 
 exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
-  const data = JSON.parse(Buffer.from(message.data, 'base64'))
-  console.log(`GOT TO THE ROUTER 2, YEA ! ${data.incoming_topic}`)
+  const json = JSON.parse(Buffer.from(message.data, 'base64'))
+  console.log(`GOT TO THE ROUTER 2, YEA ! ${json.incoming_topic}`)
 
-  const topic = pubsub.topic(data.incomin_topic)
-  return await topic.publishMessage({ data: message.data })
+  const topic = pubsub.topic(json.incoming_topic)
+  const data = Buffer.from(JSON.stringify(json))
+  return await topic.publishMessage({ data })
 })
 
 exports.userCreated = functions.pubsub.topic('user_created').onPublish((message) => {
