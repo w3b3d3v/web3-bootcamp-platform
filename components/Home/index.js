@@ -5,7 +5,7 @@ import Cover from './Cover'
 export default function Main() {
   const ref = React.createRef()
   return (
-    <main className="container mx-auto my-24 flex flex-col justify-between py-2 px-2 sm:my-6 sm:px-6 md:my-6 md:flex-row md:px-6 lg:my-24 lg:px-16 xl:px-32 xl:py-0">
+    <main className="container mx-auto md:mt-24 my-24 flex flex-col justify-between py-2 px-2 sm:my-6 sm:px-6 md:my-6 md:flex-row md:px-6 lg:my-24 lg:px-16 xl:px-32 xl:py-0">
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
