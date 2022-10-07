@@ -259,14 +259,14 @@ function Course({ course, currentDate }) {
             )}
             {userIsRegisteredAndCohortWillOpenSoon() && (
               <>
-                <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
+                <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6 ">
                   <div className="flex w-3/4 flex-col items-center justify-center">
                     <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
                     <p className="text-sm lg:text-base">
                       No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
                       calendário para não esquecer. Nos veremos lá!
                     </p>
-                    <div className="mt-3 flex w-full flex-row flex-wrap items-start items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl">
+                    <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl md:flex-col">
                       {timeLeft && '⏰' + timeLeft}
                       <button
                         className="mt-3 flex flex-row items-center rounded-lg bg-indigo-500 p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
