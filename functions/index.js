@@ -1,14 +1,11 @@
 const functions = require('firebase-functions')
 const { sendEmail, enqueueEmails } = require('./emails')
-const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
-
-admin.initializeApp()
-
-const db = admin.firestore()
+const { db } = require('./lib/firebaseInit')
+const { fetchByLocation } = require('./github_metrics/github_metrics')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -174,6 +171,12 @@ exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
 
   resp.send('OK')
 })
+
+exports.saveGithub = functions.https.onRequest(async (req, resp) => {
+  fetchByLocation('Brasil')
+  resp.send('ok')
+})
+
 
 exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
   addUserToRole(req.query.user_id, req.query.role_id).then((r) => resp.send('OK'))
