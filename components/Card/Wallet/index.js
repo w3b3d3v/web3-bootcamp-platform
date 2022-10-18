@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { getUserFromFirestore, updateUserWalletInFirestore } from '../../../lib/user';
 import { auth } from '../../../firebase/initFirebase';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image'
 
 export default function WalletCard() {
   const [userAddress, setUserAddress] = useState();
@@ -54,12 +55,15 @@ export default function WalletCard() {
   return (
     <>
       {user?.wallet ? (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
+        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 h-full flex items-center justify-center">
           <div className="flex">
             <div className="px-6 py-5">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                ✅ Carteira Conectada
-              </p>
+              <div className='flex items-center gap-2'>
+                <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+                  ✅ Carteira Conectada
+                </p>
+                <Image src="/assets/img/metamask.svg" width="28" height="28" />
+              </div>
               <p className="pt-2 text-xs flex-wrap leading-5 text-gray-500 dark:text-gray-400">
                 Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
@@ -70,12 +74,16 @@ export default function WalletCard() {
           </div>
         </div>
       ) : (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
-          <div className="flex">
+        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 h-full flex items-center">
+          <div className='flex'>
             <div className="px-6 py-5">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-                ❌ Conecte sua carteira ETH
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+                  ❌ Conecte sua carteira ETH
+                
+                </p>
+                <Image src="/assets/img/metamask.svg" width="28" height="28" />
+              </div>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                 Você ganhará NFTs por completar tarefas! Além disso, você
                 precisará de uma carteira para trabalhar com o material do
