@@ -312,7 +312,7 @@ function Course({ course, currentDate }) {
                   <div className='flex-grow'>
                     <DiscordCard />
                   </div>
-                  <div>
+                  <div className='flex-grow'>
                     <WalletCard />
                   </div>
                 </div>

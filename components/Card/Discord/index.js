@@ -41,25 +41,29 @@ export default function DiscordCard() {
         <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
           <div className="flex">
             <div className="px-6 py-5">
-              
+            <div>
                 <p className="text-base font-medium text-black-200 dark:text-gray-100">
-                  ❌ Você ainda não liberou a categoria exclusiva do bootcamp no <span className='text-blue-400 font-semibold'>discord</span>
+                  ❌ Atenção ! Você ainda não liberou o acesso a sua turma no discord
                 </p>
-                
+            </div> 
               
-              <p className="pt-2 text-sm leading-5 text-gray-500 dark:text-gray-400">
-                <p className='dark:text-white-100 text-black-400'><strong><span className='text-orange-600 '>Aviso: </span>Você precisa estar conectado em nosso discord antes clicar em Liberar Salas, caso não esteja conectado  clique <a href='https://discord.com/invite/UXDUzG2hhE' alt='Link para conectar discord' className=''>  aqui</a>.</strong></p>
-                Quando você tiver acesso,não deixe de interagir!
+              <p className="mt-5 leading-5 text-gray-500 dark:text-gray-400">
+                <p className='text-base text-amber-400 text-bold font-semibold mb-4'>Siga o passo a passo:</p>
+                <ol className='text-base dark:text-white-100 '>
+                  <li>Conecte-se ao discord da web3dev, clicando <a href="https://discord.com/invite/UXDUzG2hhE" className='uppercase'>aqui</a>.</li>
+                  <li>Clique em conectar discord no botão abaixo.</li>
+                </ol>
+                <p>Você ira desbloquear uma categoria exclusiva dentro do discord da web3dev onde podera interagir, tirar suas dúvidas, e postar seu progresso, não deixe se de conectar.</p>
               </p>
-              <div className="pt-4 flex gap-2 items-center">
+                
                 <Button ref={ref} id="connect-discord" onClick={() => signIn('discord')}>
-                  Liberar Salas
+                  Conectar discord
                 </Button>
-                <Image src="/assets/img/discord_icon.svg" width="43" height="43"/>
+               
               </div>
             </div>
           </div>
-        </div>
+        
       )}
       {discordConnected && (
         <>
@@ -70,13 +74,13 @@ export default function DiscordCard() {
                   ✅ {user?.discord?.username || session?.discord.username} Conectado
                 </p>
                 <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                  Explore as oportunidades na nossa comunidade,obrigado por ser um de nossos membros ❤️. 
+                  Não deixe de interagir com seus colegas de bootcamp, postar seu progresso,e tirar suas dúvidas.
                 </p>
-                <p className='dark:text-white-100 text-black-400 text-sm'>Não se esqueca que cada bootcamp que você está inscrito tem uma categoria para você interagir.</p>
-              <div className="pt-4 flex gap-2 items-center">
+                <p className='dark:text-white-100 text-black-400 text-sm'>Não se esqueca que cada bootcamp que você está inscrito tem uma categoria exclusiva para você interagir.</p>
+               
                 <Button onClick={() => signIn('discord')}>Reconectar</Button>
-                <Image src="/assets/img/discord_icon.svg" width="43" height="43"/>
-              </div>
+        
+              
                 {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>
                 </div>*/}

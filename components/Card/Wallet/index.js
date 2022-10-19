@@ -55,7 +55,7 @@ export default function WalletCard() {
   return (
     <>
       {user?.wallet ? (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 h-full flex items-center justify-center">
+        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200 h-full flex items-center ">
           <div className="flex">
             <div className="px-6 py-5">
               <div className='flex items-center gap-2'>
