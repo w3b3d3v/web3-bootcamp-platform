@@ -84,8 +84,8 @@ export default function WalletCard() {
                 </p>
                 <Image src="/assets/img/metamask.svg" width="28" height="28" />
               </div>
-              <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Você ganhará NFTs por completar tarefas! Além disso, você
+              <p className="pt-2 text-sm leading-5 text-gray-500 dark:text-gray-400">
+                Você ganhará uma NFT ao completar o bootcamp! Além disso, você
                 precisará de uma carteira para trabalhar com o material do
                 projeto.
               </p>
