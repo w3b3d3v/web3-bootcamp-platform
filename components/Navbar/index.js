@@ -197,15 +197,14 @@ export default function Navbar() {
                       {link?.name}
                     </a>
                   ))}
-                  
+                  <Link href="/courses">
                     <a
-                      href="/courses"
                       id={'desktop-access-courses'}
                       className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 hover:scale-105 font-bold"
                     >
                       Cursos
                     </a>
-                  
+                  </Link>
                   <ThemeSwitch />
                 </div>
                 <div className="hidden items-center xl:flex">
@@ -272,11 +271,13 @@ export default function Navbar() {
                     </div>
                   ) : (
                     <div className="relative">
-                      <a id="mobile-login-nav-icon" href="/auth">
+                      <Link href="/auth">
+                      <a id="mobile-login-nav-icon">
                         <Button id="login" ref={ref}>
                           Acessar Plataforma
                         </Button>
                       </a>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -316,7 +317,9 @@ export default function Navbar() {
                             className="flex items-center"
                           >
                             <Link href="/profile">
+                              <a>
                               <span className="ml-2">Meu perfil</span>
+                              </a>
                             </Link>
                           </div>
                         </li>
@@ -469,10 +472,9 @@ export default function Navbar() {
                           </li>
                         </a>
                       ))}
-
+                        <Link href="/courses">
                         <a
                           id="mobile-menu-side-bar-courses"
-                          href="/courses"
                           className="cursor-pointer"
                         >
                           <li className="pt-10 text-gray-800">
@@ -483,7 +485,7 @@ export default function Navbar() {
                             </div>
                           </li>
                         </a>
-                      
+                        </Link>
                     </ul>
                   </div>
                   <div className="w-full pt-4">
@@ -519,7 +521,8 @@ export default function Navbar() {
                       ) : (
                         <div className="relative">
                           <ul className="flex">
-                            <a href="/auth" className="cursor-pointer">
+                            <Link href="/auth">
+                            <a className="cursor-pointer">
                               <li className="pt-2 text-gray-800">
                                 <div className="flex items-center">
                                   <p className="ml-3 text-base text-black-300 dark:text-white-100 xl:text-base">
@@ -528,6 +531,7 @@ export default function Navbar() {
                                 </div>
                               </li>
                             </a>
+                            </Link>
                           </ul>
                         </div>
                       )}
