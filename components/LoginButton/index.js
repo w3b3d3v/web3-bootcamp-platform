@@ -14,7 +14,7 @@ export default function LoginButton(props) {
           <button
             id={id}
             className={`dark:hover:bg-grey-400 fw-bold mb-5 flex
-            w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-white-100 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-black-200 font-bold py-1 hover:scale-105 border-none`}
+            w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-white-100 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-black-200 font-bold py-1 hover:scale-[1.02] border-none`}
             onClick={() => loginGithub()}
           >
             {buttonImage()}
@@ -22,7 +22,7 @@ export default function LoginButton(props) {
           </button>
         </div>
       ) : (
-        <section className="flex w-full items-center justify-center bg-white-100 rounded-lg hover:bg-gray-300 hover:scale-105">
+        <section className="flex w-full items-center justify-center bg-white-100 rounded-lg hover:bg-gray-300 hover:scale-[1.02]">
           {buttonImage()}
           <button
             id={id}
