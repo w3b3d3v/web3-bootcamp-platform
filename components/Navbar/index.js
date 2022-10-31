@@ -198,12 +198,12 @@ export default function Navbar() {
                     </a>
                   ))}
                   <Link href="/courses">
-                    <a
+                    <span
                       id={'desktop-access-courses'}
-                      className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 hover:scale-105 font-bold"
+                      className="cursos flex items-center px-5 py-6 text-sm leading-5 text-black-300 transition duration-150 ease-in-out hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100 hover:scale-105 font-bold cursor-pointer"
                     >
                       Cursos
-                    </a>
+                    </span>
                   </Link>
                   <ThemeSwitch />
                 </div>
@@ -473,7 +473,7 @@ export default function Navbar() {
                         </a>
                       ))}
                         <Link href="/courses">
-                        <a
+                        <span
                           id="mobile-menu-side-bar-courses"
                           className="cursor-pointer"
                         >
@@ -484,7 +484,7 @@ export default function Navbar() {
                               </p>
                             </div>
                           </li>
-                        </a>
+                        </span>
                         </Link>
                     </ul>
                   </div>
