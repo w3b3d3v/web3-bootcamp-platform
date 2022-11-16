@@ -9,23 +9,24 @@ export default function Main() {
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
-            Crie seu primeiro
+            Crie uma coleção
             <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
             <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
-              dApp Solana{' '}
+              NFT{' '}
             </span>
-            com Rust
+            em Solana
           </div>
-          <p className="mt-8">
-            Este é um projeto de muito aprendizado e diversão, de uma semana para desenvolvedores
-            curiosos que querem hackear Solana. Você aprenderá um pouco de Rust, escreverá e
-            implementará um programa Solana e conectará tudo a um aplicativo React web3 com o qual
-            qualquer pessoa com uma carteira Solana poderá interagir!
-          </p>
+          
+          <p className="mt-8">Crie uma coleção de NFTs e um website para mintá-los.</p>
+
+          <p className="mt-8">Esse projeto é um dos maiores do Brasil, quando se trata da Blockchain Solana e NFTs. Com um programa completo e dinâmico, você vai aprender como criar uma coleção de NFTs e um website para seus amigos conectarem suas carteiras e mintá-los.</p>
+
+          <p className="mt-8">Os únicos pré-requisitos necessários para esse Bootcamp, são conhecimentos básicos de Terminal, JavaScript e Next.JS.</p>
+          
         </div>
         <br />
         <div className="flex w-full justify-start">
-          <a href="/courses/Solana_And_Web3">
+          <a href="/courses/Solana_NFTs">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
             </Button>
