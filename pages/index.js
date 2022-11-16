@@ -7,7 +7,7 @@ import Layout from '../components/layout'
 export default function Home() {
   const cards = [
     'Bootcamp 100% gratuito, sempre!',
-    'Crie seu própio mini-jogo NFT de turnos',
+    'Cria uma celção de NFTs',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
     'Trabalhe como dev em projetos web3',
