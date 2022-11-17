@@ -59,8 +59,8 @@ async function runTest() {
 
     const contract = await getContract(nft_Contract.address)
     const tx = await contract.addCourse(
-      'JS DAO',
-      'Certification for completing the JS DAO bootcamp'
+      'Solana NFT',
+      'Certification for completing the Solana NFT bootcamp'
     )
     console.log('Course registered at: %s', tx.hash)
     await tx.wait()
