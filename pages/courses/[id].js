@@ -154,7 +154,12 @@ function Course({ course, currentDate }) {
     return userEndedCohorts?.length > 0
   }
 
+  const styleImageCover = {
+    borderRadius:'10px'
+  }
+
   return (
+    
     <Layout>
       <Head>
         <meta property="og:title" content={course.title} />
@@ -177,21 +182,28 @@ function Course({ course, currentDate }) {
 
         <title>Curso {course.id} - Bootcamp Web3Dev</title>
       </Head>
-      <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        {/* Page title starts */}
-        <div className="relative z-10 pt-8 pb-16">
-          <div className="container mx-auto flex flex-col items-start justify-between lg:flex-row lg:items-center">
-            <div className="flex flex-col items-start lg:flex-row lg:items-center">
-              <div className="mt-10 ml-0 lg:my-0">
-                <h1 className="mb-2 text-2xl font-bold">{course?.title}</h1>
+      
+      <div className="mx-auto max-w-7xl px-6 mt-0 lg:mt-10">
 
-                <p className="flex w-2/3 items-center text-xs text-gray-500 dark:text-gray-300">
-                  {course?.description /*.substring(0, 100) + '...'*/}
-                </p>
-              </div>
-            </div>
+      <div className="flex justify-between mb-8 flex-col lg:flex-row">
+
+        <div className='self-center lg:max-w-lg max-w-3xl'>
+
+          <h1 className="text-2xl font-bold">{course?.title}</h1>
+
+            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">
+              {course?.description /*.substring(0, 100) + '...'*/}
+            </p>
           </div>
-        </div>
+            <div className='h-full lg:mx-0 mx-auto'>
+              <Image 
+              src={course?.image_url}               
+              width="300px"
+              height='300px'
+              style={styleImageCover}></Image>
+            </div>
+      </div>
+        
         {loading ? (
           <div className="flex items-center justify-center">
             <Loading />
@@ -210,7 +222,7 @@ function Course({ course, currentDate }) {
             )}
 
             {userIsRegisteredAndCohortIsFuture() && (
-              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
+              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center ">
                 <div className="flex flex-col items-center justify-center">
                   <Link href={'https://discord.web3dev.com.br/'}>
                     <a id="discord-logo-link" target="_blank">
@@ -289,11 +301,11 @@ function Course({ course, currentDate }) {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-8 lg:flex-row">
-                  <div className="item flex-grow">
+                <div className="flex flex-col lg:flex-row">
+                  <div className="">
                     <DiscordCard />
                   </div>
-                  <div className="item flex-grow">
+                  <div className="">
                     <WalletCard />
                   </div>
                 </div>
@@ -308,18 +320,18 @@ function Course({ course, currentDate }) {
             )}
             {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
               <>
-                <div className="flex flex-col gap-8 lg:flex-row">
-                  <div className="item flex-grow">
+                <div className="flex flex-col lg:flex-row gap-11">
+                  <div className="">
                     <DiscordCard />
                   </div>
-                  <div className="item flex-grow">
+                  <div className="">
                     <WalletCard />
                   </div>
                 </div>
-                <div className="container my-8">
+                <div className="my-8">
                   <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
-                  <div className="relative z-10 my-8 w-full rounded-lg bg-white-100 p-8 shadow-xl dark:bg-black-200">
+                  <div className="z-10 my-8 w-full rounded-lg bg-white-100 shadow-xl dark:bg-black-200 p-7">
                     {course?.sections &&
                       Object.keys(course?.sections)
                         .sort()
@@ -329,13 +341,13 @@ function Course({ course, currentDate }) {
                               <span id={section} className="mb-4 font-bold">
                                 {section?.replace('Section_', 'Seção ')}
                               </span>
-                              <ul className="mt-2 mb-8 flex list-none flex-col	">
+                              <ul className="mt-4 mb-4 flex list-none flex-col	">
                                 {course?.sections[section]
                                   .map((lesson) => {
                                     return (
                                       <li
                                         key={lesson.title}
-                                        className="mb-2 items-center rounded bg-white-200 px-2 py-2 dark:bg-black-300"
+                                        className="mb-4 items-center rounded bg-white-200 py-2 dark:bg-black-300 px-4"
                                       >
                                         <div className="flex items-center">
                                           <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
@@ -396,6 +408,7 @@ function Course({ course, currentDate }) {
           </>
         )}
       </div>
+    
     </Layout>
   )
 }

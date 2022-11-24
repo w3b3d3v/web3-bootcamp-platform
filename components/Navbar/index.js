@@ -43,12 +43,12 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="h-full">
+      <div className="h-full max-w-7xl mx-auto px-6">
         {/* Code block starts */}
         <nav className="hidden bg-gray-50 dark:bg-black-300 xl:block">
-          <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
+          <div className="mx-auto">
             <div className="flex items-center justify-between">
-              <div className="inset-y-0 left-0 flex items-center xl:hidden">
+              <div className="flex items-center xl:hidden">
                 <div className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition duration-150 ease-in-out hover:text-gray-100 focus:outline-none">
                   <div className="visible xl:hidden">
                     <ul className="absolute left-0 right-0 mt-8 hidden rounded border-r bg-white-100 p-2 shadow md:mt-8">
@@ -286,7 +286,7 @@ export default function Navbar() {
           </div>
         </nav>
         <nav>
-          <div className="fixed top-0 z-40 flex w-full items-center justify-between bg-gray-50 py-4 px-6 dark:bg-black-300 xl:hidden">
+          <div className="z-40 flex w-full items-center justify-between bg-gray-50 py-4 dark:bg-black-300 xl:hidden">
             <div>
               <a id="mobile-home" href="/" className="flex items-center">
                 <>
