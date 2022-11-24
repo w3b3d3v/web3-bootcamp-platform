@@ -8,9 +8,9 @@ export default function NotFound() {
   const ref = React.createRef();
   return (
     <Layout>
-      <div className="lg container mt-24 flex flex-col justify-center px-6 pb-12 sm:mt-20 sm:px-6 md:mt-20 md:flex md:px-6 lg:mt-6 lg:px-32">
+      <div className="mx-auto max-w-7xl flex flex-col justify-center px-6 ">
         <div className="w-full">
-          <h1 className="py-4 text-3xl font-extrabold text-white-100 lg:text-4xl">
+          <h1 className="text-3xl font-extrabold text-white-100 lg:text-4xl">
             Oops!
           </h1>
           <p className="mb-4 py-4 text-base text-white-100">

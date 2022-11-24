@@ -5,7 +5,7 @@ import Cover from '../Inovadoras-nft-collection/Cover'
 function Main() {
   const ref = React.createRef()
   return (
-    <main className="container mx-auto my-24 flex flex-col justify-between py-2 px-2 sm:my-6 sm:px-6 md:my-6 md:flex-row md:px-6 lg:my-24 lg:px-16 xl:px-32 xl:py-0">
+    <main className="max-w-7xl mx-auto flex flex-col justify-between px-8 mt-4 lg:mt-16 md:flex-row mb-14">
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
@@ -20,7 +20,7 @@ function Main() {
           </p>
         </div>
         <br />
-        <div className="flex w-full justify-start">
+        <div className="lg:self-start">
           <a href="/courses/NFT_Collection">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!

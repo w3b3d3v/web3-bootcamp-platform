@@ -5,7 +5,7 @@ import Cover from './Cover'
 export default function Main() {
   const ref = React.createRef()
   return (
-    <main className="container mx-auto my-24 flex flex-col justify-between py-2 px-2 sm:my-6 sm:px-6 md:my-6 md:mt-24 md:flex-row md:px-6 lg:my-24 lg:px-16 xl:px-32 xl:py-0">
+    <main className="max-w-7xl mx-auto flex flex-col justify-between px-8 mt-0 lg:mt-16 md:flex-row mb-14">
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
@@ -17,21 +17,21 @@ export default function Main() {
             em Solana
           </div>
 
-          <p className="mt-8">Crie uma coleção de NFTs e um website para mintá-los.</p>
+          <p className="mt-6">Crie uma coleção de NFTs e um website para mintá-los.</p>
 
-          <p className="mt-8">
+          <p>
             ​A Solana é uma das maiores blockchains do mundo e seu ecossistema de NFTs não fica pra
             trás. Com um programa completo e dinâmico, você vai aprender como criar uma coleção de
             NFTs e um website para seus amigos conectarem suas carteiras e mintá-los.
           </p>
 
-          <p className="mt-8">
+          <p>
             Os únicos pré-requisitos necessários para esse Bootcamp, são conhecimentos básicos de
             Terminal, JavaScript e Next.JS
           </p>
         </div>
         <br />
-        <div className="flex w-full justify-start">
+        <div className="lg:self-start">
           <a href="/courses/Solana_NFTs">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
@@ -40,7 +40,9 @@ export default function Main() {
         </div>
         <br />
       </div>
+      <div className='lg:m-0 mx-auto'>
       <Cover />
+      </div>
     </main>
   )
 }
