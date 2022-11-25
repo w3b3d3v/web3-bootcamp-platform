@@ -13,7 +13,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
   }
 
   return (
-    <div className="flex flex-col rounded-lg bg-white-100 p-4 shadow-xl dark:bg-black-200 ">
+    <div className="flex flex-col rounded-lg bg-white-100 p-4 shadow-xl dark:bg-black-200 lg:mt-12 mt-6">
       <div className="flex flex-row justify-between maxsm:flex-col maxsm:text-center">
         {Object.keys(getCourse?.sections)
           .sort()
