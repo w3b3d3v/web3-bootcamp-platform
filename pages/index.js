@@ -7,7 +7,7 @@ import Layout from '../components/layout'
 export default function Home() {
   const cards = [
     'Bootcamp 100% gratuito, sempre!',
-    'Cria uma celção de NFTs',
+    'Crie uma loja virtual que aceita criptomoedas',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
     'Trabalhe como dev em projetos web3',
@@ -27,7 +27,7 @@ export default function Home() {
         <meta
           property="og:image"
           itemprop="image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/web3dev-logo.png?alt=media&token=6365a9fc-5d25-46be-be24-dd9bd0f324fc"
+          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolana_Pay_Store_256.jpeg?alt=media&token=c1e28101-d7e2-4512-9f5b-b199e6df10e4"
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:alt" content="WEB3DEV Logo" />
@@ -45,7 +45,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/web3dev-logo.png?alt=media&token=6365a9fc-5d25-46be-be24-dd9bd0f324fc"
+          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolana_Pay_Store_256.jpeg?alt=media&token=c1e28101-d7e2-4512-9f5b-b199e6df10e4"
         />
 
         {/* Twitter */}

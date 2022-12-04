@@ -9,20 +9,24 @@ export default function Main() {
       <div className="flex flex-col items-center justify-center text-start md:w-1/2">
         <div>
           <div className="text-5xl font-bold">
-            Crie uma coleção
+            Crie uma loja online pela rede blockchain
             <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
             <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
-              NFT{' '}
+              Solana{' '}
             </span>
-            em Solana
+        
           </div>
 
-          <p className="mt-6">Crie uma coleção de NFTs e um website para mintá-los.</p>
+          <p>
+          Crie sua própria loja online na Web3 com <strong>Solana Pay</strong>, nesse bootcamp você irá construir uma loja para vender seu produto com upload direto no IPFS. 
+          </p>
 
           <p>
-            ​A Solana é uma das maiores blockchains do mundo e seu ecossistema de NFTs não fica pra
-            trás. Com um programa completo e dinâmico, você vai aprender como criar uma coleção de
-            NFTs e um website para seus amigos conectarem suas carteiras e mintá-los.
+          A Solana é uma das principais redes blockchains do ecossistema e possui toda infraestrutura, além de ser muito rápida para construir uma loja e receber pagamentos em criptomoedas. 
+          </p>
+
+          <p>
+          Se você estava esperando uma oportunidade para empreender na web3, a hora é agora! Esse bootcamp vai conduzir você passo a passo na criação desta loja.
           </p>
 
           <p>
@@ -32,7 +36,7 @@ export default function Main() {
         </div>
         <br />
         <div className="lg:self-start">
-          <a href="/courses/Solana_NFTs">
+          <a href="/courses/Solana_Pay_Store">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
             </Button>
