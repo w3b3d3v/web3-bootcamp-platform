@@ -11,9 +11,9 @@ function Profile() {
       <Head>
         <title>Perfil - Bootcamp Web3Dev</title>
       </Head>
-      <main className="container mx-auto mt-16 px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
+      <main className="max-w-7xl mx-auto px-6 py-2 md:px-6 ">
         <div className="flex flex-col gap-6 pb-6 lg:flex-row">
-          <div className="item flex-grow lg:max-w-[41rem] xl:max-w-7xl">
+          <div className="item flex-grow xl:max-w-7xl">
             <GeneralInfoCard />
           </div>
         </div>
