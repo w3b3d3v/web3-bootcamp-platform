@@ -54,40 +54,33 @@ export default function WalletCard() {
   return (
     <>
       {user?.wallet ? (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
-          <div className="flex">
-            <div className="px-6 py-5">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+        <div className="flex flex-col items-center rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6  h-52 justify-center">
+              <p className="text-base text-black-200 dark:text-gray-100 m-0 p-0">
                 ✅ Carteira Conectada
               </p>
-              <p className="pt-2 text-xs flex-wrap leading-5 text-gray-500 dark:text-gray-400">
+              <p className="lg:text-base text-xs leading-5 text-gray-500 dark:text-gray-400 m-0 p-0">
                 Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
               <div className="pt-4">
                 <a className='cursor-pointer' id='disconnect-wallet' onClick={() => handleDisconnect()}>Desconectar</a>
               </div>
-            </div>
-          </div>
         </div>
       ) : (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
-          <div className="flex">
-            <div className="px-6 py-5">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+        <div className="flex flex-col  rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center">
+
+              <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
                 ❌ Conecte sua carteira ETH
               </p>
-              <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Você ganhará NFTs por completar tarefas! Além disso, você
+              <p className="lg:text-base text-xs leading-5 text-gray-500 dark:text-gray-400 p-0 m-0">
+                Você ganhará NFTs ao completar o bootcamp! Além disso, você
                 precisará de uma carteira para trabalhar com o material do
                 projeto.
               </p>
-              <div className="pt-4">
+              
                 <Button ref={ref} id='connect-wallet' onClick={() => handleConnectWallet()}>
                   Conectar carteira
                 </Button>
-              </div>
-            </div>
-          </div>
+              
         </div>
       )}
     </>

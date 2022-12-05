@@ -301,11 +301,11 @@ function Course({ course, currentDate }) {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col lg:flex-row">
-                  <div className="">
+                <div className="flex flex-col lg:flex-row gap-11">
+                  <div className="flex-1">
                     <DiscordCard />
                   </div>
-                  <div className="">
+                  <div className="flex-1">
                     <WalletCard />
                   </div>
                 </div>
@@ -320,11 +320,11 @@ function Course({ course, currentDate }) {
             )}
             {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
               <>
-                <div className="flex flex-col lg:flex-row gap-11">
-                  <div className="">
+                <div className="flex flex-col lg:flex-row gap-11 content-end">
+                  <div className="flex-1">
                     <DiscordCard />
                   </div>
-                  <div className="">
+                  <div className="flex-1">
                     <WalletCard />
                   </div>
                 </div>
