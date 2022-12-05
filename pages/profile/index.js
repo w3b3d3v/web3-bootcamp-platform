@@ -17,11 +17,11 @@ function Profile() {
             <GeneralInfoCard />
           </div>
         </div>
-        <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="item flex-grow">
+        <div className="flex flex-col lg:flex-row gap-11 content-end">
+          <div className="flex-1">
             <DiscordCard />
           </div>
-          <div className="item flex-grow">
+          <div className="flex-1">
             <WalletCard />
           </div>
         </div>

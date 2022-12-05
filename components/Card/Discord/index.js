@@ -37,43 +37,43 @@ export default function DiscordCard() {
   return (
     <>
       {!discordConnected && (
-        <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
-          <div className="flex">
-            <div className="px-6 py-5">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+        <div className="flex flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center ">
+              <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
                 ❌ Conecte seu Discord
               </p>
-              <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Tenha acesso aos canais supersecretos para em nosso grupo. Quando você tiver acesso,
-                não deixe de dizer olá!
+              <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
+                Tenha acesso aos canais supersecretos de cada bootcamp.
               </p>
-              <div className="pt-4">
-                <Button ref={ref} id="connect-discord" onClick={() => signIn('discord')}>
+
+                <Button 
+                ref={ref} 
+                id="connect-discord" 
+                onClick={() => signIn('discord')}
+                >
                   Conectar Discord
                 </Button>
-              </div>
-            </div>
-          </div>
         </div>
       )}
       {discordConnected && (
         <>
-          <div className=" rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
-            <div className="flex">
-              <div className="px-6 py-5">
-                <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+          <div className="flex flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center">
+                <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
                   ✅ {user?.discord?.username || session?.discord.username} Conectado
                 </p>
-                <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                  Estamos ansiosos para te conhecer, venha dar uma olhada!
+                <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
+                  Estamos ansiosos para te conhecer ! Não deixe de interagir, postar suas duvidas, e compartilhar o seu progresso.
                 </p>
-                <Button onClick={() => signIn('discord')}>Reconectar Discord</Button>
+                
+                  <Button 
+                  onClick={() => signIn('discord')}
+                  >
+                    Reconectar Discord
+                  </Button>
                 {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>
                 </div>*/}
               </div>
-            </div>
-          </div>
+          
         </>
       )}
     </>
