@@ -8,10 +8,10 @@ export default function ProfileProgress({
 }) {
   return (
     <div
-      className="flex max-w-sm items-center justify-center lg:w-96 my-4 lg:my-0"
+      className="lg:flex max-w-sm items-center justify-center lg:w-96 my-4 lg:my-0 hidden"
       data-testid="profile-progress"
     >
-      <div className="flex flex-col items-center justify-center sm:text-sm lg:text-lg lg:text-xs">
+      <div className="flex flex-col items-center justify-center sm:text-sm">
         <div className='flex flex-col items-center'>
           <span className="">Dados Pessoais</span>
           <CheckCircleIcon
