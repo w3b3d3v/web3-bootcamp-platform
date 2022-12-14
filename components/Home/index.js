@@ -5,18 +5,18 @@ import Cover from './Cover'
 export default function Main() {
   const ref = React.createRef()
   return (
-    <main className="max-w-7xl mx-auto mb-14 flex flex-col justify-between px-8 mt-4 lg:mt-16 md:flex-row ">
-      <div className="flex flex-col items-center md:w-1/2">
+    <main className="max-w-7xl mx-auto mb-14 px-8 mt-4 flex flex-col justify-between lg:mt-16 lg:flex-row ">
+      <div className="flex flex-col items-center mx-auto flex-1">
         <div>
-          <div className="text-5xl font-bold text-center sm:text-start">
-            Crie uma loja online pela rede blockchain
-            <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
-            <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
-              Solana{' '}
-            </span>
         
-          </div>
-
+            <h1 className='text-4xl font-bold text-center sm:text-start'>
+              Crie uma loja online pela rede blockchain
+              <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
+              <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
+                Solana{' '}
+              </span>
+            </h1>
+        
           <p>
           Crie sua própria loja online na Web3 com <strong>Solana Pay</strong>, nesse bootcamp você irá construir uma loja para vender seu produto com upload direto no IPFS. 
           </p>
