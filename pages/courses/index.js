@@ -30,7 +30,7 @@ function Courses({ allCourses }) {
               />
             )
           })}
-        </ul>
+        </section>
       </div>
     </Layout>
   )
