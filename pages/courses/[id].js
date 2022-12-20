@@ -19,6 +19,7 @@ import { getAllCohorts, getCurrentCohort } from '../../lib/cohorts'
 import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
+import {dateFormat} from '../../lib/dateFormat'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -157,7 +158,20 @@ function Course({ course, currentDate }) {
   const styleImageCover = {
     borderRadius:'10px'
   }
+  
+  const [kickoffStartDate,setKickoffStartDate] = useState()
+  const [kickoffEndDate,setKickoffEndDate] = useState()
 
+
+  useEffect(() => {
+    if (!cohort?.kickoffStartTime && !cohort?.kickoffEndTime) return
+    const cohortKickoffDateGMTPattern = dateFormat(cohort?.kickoffStartTime)
+    const cohortKickoffEndDateGTMPattern = dateFormat(cohort?.kickoffEndTime)
+    setKickoffStartDate(cohortKickoffDateGMTPattern)
+    setKickoffEndDate(cohortKickoffEndDateGTMPattern)
+    
+  },[cohort])
+  
   return (
     
     <Layout>
@@ -204,6 +218,7 @@ function Course({ course, currentDate }) {
             </div>
       </div>
         
+
         {loading ? (
           <div className="flex items-center justify-center">
             <Loading />
@@ -281,7 +296,7 @@ function Course({ course, currentDate }) {
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl md:flex-col">
                       {timeLeft && '⏰' + timeLeft}
                       <button
-                        className="mt-3 flex flex-row items-center rounded-lg bg-indigo-500 p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
+                        className="mt-3 flex flex-row items-center rounded-lg bg-transparent p-2 text-sm lg:flex-row lg:p-3 lg:text-base mb-4 border-none"
                         onClick={() => calendarFunction()}
                       >
                         <ICalendarLink
@@ -297,7 +312,22 @@ function Course({ course, currentDate }) {
                           <CalendarIcon className="mr-2 h-7 w-7" />
                           Adicionar ao calendário
                         </ICalendarLink>
+                        
                       </button>
+
+                        <button 
+                        className='bg-black-300 p-2 rounded-lg flex items-center border-black-400 max-w-xs'
+                        type='button'
+                        >
+                        <img src="/assets/img/google-logo.svg" className='w-9 h-9' />  
+                        <a
+                        href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${course?.title}`}
+                        target="_blank"
+                        >
+                          <p className="text-white-100 text-sm font-bold">Adicionar ao calendário Google </p>
+                        </a>
+                        </button>
+
                     </div>
                   </div>
                 </div>
