@@ -29,7 +29,7 @@ export default function Home() {
           itemprop="image"
           content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolana_Pay_Store_256.jpeg?alt=media&token=c1e28101-d7e2-4512-9f5b-b199e6df10e4"
         />
-        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:alt" content="WEB3DEV Logo" />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
