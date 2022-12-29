@@ -59,16 +59,19 @@ export default function PersonalData({
         />
         <small className="text-red-500">{errors.bio?.message}</small>
       </div>
-      <div className="flex w-full items-center justify-center flex-col lg:flex-row">
-        Alterar foto de perfil:
-        <input
-          type="file"
-          onChange={(event) => setFile(event.target.files[0])}
-          id="change-profile-picture"
-          name="change-profile-picture"
-          data-testid="change-profile-picture"
-          className="ml-6"
-        />
+      <div className="flex w-full items-center justify-center flex-col lg:flex-row mt-2">
+        
+        <label className='bg-black-500 dark:bg-white-100 text-black-400 p-3 rounded-md text-sm cursor-pointer' >
+        Alterar foto de perfil  📷
+          <input
+            type="file"
+            onChange={(event) => setFile(event.target.files[0])}
+            id="change-profile-picture"
+            name="change-profile-picture"
+            data-testid="change-profile-picture"
+            className="hidden"
+          />
+          </label>
       </div>
       <div className="flex w-full flex-col items-center justify-center">
         {file && (

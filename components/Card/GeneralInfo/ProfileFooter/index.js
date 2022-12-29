@@ -30,28 +30,34 @@ export default function ProfileFooter({
     }
   }
   return (
-    <div className="flex justify-between lg:py-8 flex-col-reverse lg:flex-row" data-testid="profile-footer">
-      <Button type="submit" id="update-profile">
-        Salvar
-      </Button>
-      <div className="flex justify-around lg:w-2/5 justify-between mb-4 lg:mb-0 ">
-        <Button
-          onClick={previousFormStep}
-          customClass="bg-orange-300 p-4 rounded-lg text-black-100 disabled:bg-slate-50 dark:hover:text-white-100 disabled:dark:hover:text-black-100"
-          disabled={showPersonalData}
-          dataTestId="previous-profile-form-step"
-        >
-          Voltar
-        </Button>
-        <Button
-          onClick={nextFormStep}
-          customClass="bg-orange-300 p-4 rounded-lg text-black-100 disabled:bg-slate-50 dark:hover:text-white-100 disabled:dark:hover:text-black-100"
-          disabled={showProfessionalData}
-          dataTestId="next-profile-form-step"
-        >
-          Avançar
-        </Button>
+    <div className="lg:py-8 lg:flex-row " data-testid="profile-footer">
+      
+        <div className='flex justify-between gap-56 mt-4 mb-4'>
+          <Button
+            onClick={previousFormStep}
+            customClass="rounded-lg w-24 h-10"
+            disabled={showPersonalData}
+            dataTestId="previous-profile-form-step"
+          >
+            Voltar
+          </Button>
+          
+          <Button
+            onClick={nextFormStep}
+            customClass="rounded-lg mb-2 w-24"
+            disabled={showProfessionalData}
+            dataTestId="next-profile-form-step"
+          >
+            Avançar
+          </Button>
+      
       </div>
+
+      <div className="flex justify-center">
+          <Button type="submit" id="update-profile" customClass='w-60 bg-primary-400 text-white-400 m-auto'>
+            Salvar 💾
+          </Button>
+        </div>
     </div>
   )
 }
