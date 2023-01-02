@@ -17,6 +17,9 @@ import React, { useEffect } from "react"
 
 import { mixpanel } from '../lib/utils/mixpanel'
 
+import Navbar from '../components/Navbar/index'
+import Footer from '../components/Footer/index'
+
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
 }
@@ -63,6 +66,7 @@ function MyApp({ Component, pageProps }) {
               />
               <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
             </Head>
+            <Navbar />
             <CookieNotice
             cookieName='web3dev-user-cookie' 
             descriptionLabel={cookieText}
@@ -71,6 +75,7 @@ function MyApp({ Component, pageProps }) {
             declineButtonLabel='Rejeitar'
             />
             <Component {...pageProps} />
+            <Footer />
             <ToastContainer />
           </SessionProvider>
         </ThirdwebProvider>
