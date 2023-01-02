@@ -7,7 +7,7 @@ import React from 'react'
 export default function NotFound() {
   const ref = React.createRef();
   return (
-    <Layout>
+    <>
       <div className="mx-auto max-w-7xl flex flex-col justify-center px-6 ">
         <div className="w-full">
           <h1 className="text-3xl font-extrabold text-white-100 lg:text-4xl">
@@ -21,6 +21,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }

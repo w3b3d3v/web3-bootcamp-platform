@@ -16,7 +16,7 @@ function Stats() {
   }, [])
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Lessons Stats - Bootcamp Web3Dev</title>
       </Head>
@@ -62,7 +62,7 @@ function Stats() {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

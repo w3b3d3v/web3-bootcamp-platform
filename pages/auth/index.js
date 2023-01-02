@@ -53,7 +53,7 @@ function authPage() {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Login - Bootcamp Web3Dev</title>
       </Head>
@@ -263,7 +263,7 @@ function authPage() {
           )}
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 
