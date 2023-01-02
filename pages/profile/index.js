@@ -7,7 +7,7 @@ import WalletCard from '../../components/Card/Wallet'
 
 function Profile() {
   return (
-    <Layout>
+    <>
       <Head>
         <title>Perfil - Bootcamp Web3Dev</title>
       </Head>
@@ -26,7 +26,7 @@ function Profile() {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

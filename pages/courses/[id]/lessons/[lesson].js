@@ -129,7 +129,7 @@ function Lessons({ course, lesson, currentDate }) {
     if (twitterShare) setTwitterModal(true)
   }
   return (
-    <Layout>
+    <>
       <Head>
         <meta property="og:title" content={`Lesson - ${lesson}`} />
         <meta property="og:image" content={course?.resized_img_url || course.image_url} />
@@ -234,7 +234,7 @@ function Lessons({ course, lesson, currentDate }) {
           </Button>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

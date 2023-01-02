@@ -28,7 +28,7 @@ export default function CreateCohort() {
     return toast.success('Cohort criado com sucesso!')
   }
   return (
-    <Layout>
+    <>
       <Head>
         <title>Create Cohort - Bootcamp Web3Dev</title>
       </Head>
@@ -143,6 +143,6 @@ export default function CreateCohort() {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
