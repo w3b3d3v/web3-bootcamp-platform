@@ -5,7 +5,7 @@ import Card from '../../components/Card'
 
 function Courses({ allCourses }) {
   return (
-    <Layout>
+    <>
       <Head>
         <meta property="og:title" content="Lista de Bootcamps" />
         <title>Lista de Bootcamps - Bootcamp Web3Dev</title>
@@ -32,7 +32,7 @@ function Courses({ allCourses }) {
           })}
         </section>
       </div>
-    </Layout>
+    </>
   )
 }
 

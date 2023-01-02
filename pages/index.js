@@ -14,7 +14,7 @@ export default function Home() {
   ]
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Home - Bootcamp Web3Dev</title>
         <meta property="og:title" content="WEB3DEV Bootcamp" />
@@ -52,6 +52,6 @@ export default function Home() {
       </Head>
       <Main />
       <HomeCards cards={cards} />
-    </Layout>
+    </>
   )
 }

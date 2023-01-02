@@ -28,8 +28,7 @@ function signUpPage() {
   }
 
   return (
-    <>
-      <Layout>
+      <>
         <Head>
           <title>Cadastro - Bootcamp Web3Dev</title>
         </Head>
@@ -181,7 +180,6 @@ function signUpPage() {
             </div>
           </div>
         </div>
-      </Layout>
     </>
   )
 }

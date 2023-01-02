@@ -14,7 +14,7 @@ export default function Home() {
   ]
 
   return (
-    <Layout>
+    <>
       <Head>
         <meta property="og:title" content="Home Turma Inovadoras - Bootcamp Web3dev" />
         <meta
@@ -33,6 +33,6 @@ export default function Home() {
       </Head>
       <Main />
       <HomeCards cards={cards} />
-    </Layout>
+    </>
   )
 }

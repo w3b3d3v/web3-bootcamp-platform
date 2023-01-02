@@ -173,8 +173,7 @@ function Course({ course, currentDate }) {
   },[cohort])
   
   return (
-    
-    <Layout>
+    <>
       <Head>
         <meta property="og:title" content={course.title} />
         <meta property="og:type" content="website" />
@@ -438,8 +437,7 @@ function Course({ course, currentDate }) {
           </>
         )}
       </div>
-    
-    </Layout>
+    </>
   )
 }
 
