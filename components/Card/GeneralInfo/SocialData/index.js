@@ -6,10 +6,13 @@ import { Input } from '../../../Input'
 export default function SocialData({ Controller, control, errors, user }) {
   const connectGithub = async (e) => {
     e.preventDefault()
+
     const provider = new GithubAuthProvider()
     const auth = getAuth()
+
     await linkWithPopup(auth.currentUser, provider)
       .then((result) => {
+
         const github_id = result.user.providerData.find(
           (item) => item.providerId == result.providerId
         ).uid
@@ -17,8 +20,9 @@ export default function SocialData({ Controller, control, errors, user }) {
           .then((res) => res.json())
           .then(async (data) => {
             await updateUserData(data.html_url)
+            })
           })
-      })
+
       .catch((err) => {
         console.log(err)
       })
@@ -46,7 +50,7 @@ export default function SocialData({ Controller, control, errors, user }) {
           </small>
         </div>
       </div>
-      <div className="grow sm:basis-6/12">
+      <div className="grow sm:basis-6/12 w-full">
         <Controller
           name="linkedin"
           control={control}
@@ -65,48 +69,8 @@ export default function SocialData({ Controller, control, errors, user }) {
           {errors.linkedin?.message}
         </small>
       </div>
+
       <div className="grow sm:basis-6/12">
-        {user?.socialLinks?.find((item) => item.name == 'github').url ? (
-          <>
-            <Controller
-              name="github"
-              control={control}
-              defaultValue={findSocialLinks('github', user)?.url}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Github"
-                  defaultValue={findSocialLinks('github', user)?.url}
-                  id="github"
-                  placeholder="https://github.com/username"
-                />
-              )}
-            />
-            <small className="text-red-500" data-testid="github-error-message">
-              {errors.github?.message}
-            </small>
-          </>
-        ) : (
-          <div className="flex flex-col" data-testid="github-connect-button">
-            <label
-              htmlFor="githubConnect"
-              className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
-            >
-              Github
-            </label>
-            <button
-              id="githubConnect"
-              className="text-white inline-flex cursor-pointer rounded-md border border-transparent bg-green-600 p-2
-                        text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
-                        focus:ring-offset-2 sm:w-auto sm:text-sm"
-              onClick={connectGithub}
-            >
-              Conectar Github
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="grow sm:basis-6/12 ">
         <Controller
           name="personalWebsite"
           control={control}
@@ -125,6 +89,40 @@ export default function SocialData({ Controller, control, errors, user }) {
           {errors.personalWebsite?.message}
         </small>
       </div>
+
+      <div className="grow sm:basis-6/12">
+        {user?.socialLinks?.find((item) => item.name == 'github').url ? (
+          <div className='flex justify-center'>
+            <button
+                id="githubConnect"
+                className="flex justify-center gap-x-1 font-bold items-center text-md text-black-400 dark:bg-white-100 bg-gray-300 border-none rounded-md px-2 "
+              >
+                <img src="/assets/img/GitHub-Logo.svg" alt="" className='w-6 h-6' />
+                <p>✅</p>
+            </button>
+            <small className="text-red-500" data-testid="github-error-message">
+              {errors.github?.message}
+            </small>
+          </div>
+        ) : (
+          <div className="flex flex-col" data-testid="github-connect-button">
+            <label
+              htmlFor="githubConnect"
+              className="mb-2 text-sm font-medium leading-none text-black-200 dark:text-gray-100"
+            >
+            </label>
+              <button
+                id="githubConnect"
+                className="flex justify-center gap-x-4 font-bold items-center text-md text-black-400 dark:bg-white-100 bg-gray-300 border-none rounded-md"
+                onClick={connectGithub}
+              >
+                <p>Conectar Github</p>
+                <img src="/assets/img/GitHub-Logo.svg" alt="" className='w-7 h-7' />
+              </button>
+          </div>
+        )}
+      </div>
+      
     </>
   )
 }
