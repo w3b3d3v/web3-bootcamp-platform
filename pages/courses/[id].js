@@ -159,8 +159,8 @@ function Course({ course, currentDate }) {
     borderRadius:'10px'
   }
   
-  const [kickoffStartDate,setKickoffStartDate] = useState()
-  const [kickoffEndDate,setKickoffEndDate] = useState()
+  const [kickoffStartDate, setKickoffStartDate] = useState()
+  const [kickoffEndDate, setKickoffEndDate] = useState()
 
 
   useEffect(() => {
