@@ -58,7 +58,7 @@ export default function Navbar() {
                       src="/assets/img/w3d-logo-symbol-ac.svg"
                     />
 
-                    <p className="hidden pl-3 text-xl font-bold leading-normal sm:block">
+                    <p className="hidden pl-3 text-xl font-bold leading-normal sm:block cursor-pointer">
                       WEB3DEV
                     </p>
 
