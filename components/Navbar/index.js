@@ -91,7 +91,7 @@ export default function Navbar() {
                   <span
                     className=" text-black-300 dark:text-white-100 transition duration-150 ease-in-out hover:no-underline focus:bg-gray-100 focus:outline-none hover:scale-105 font-bold cursor-pointer"
                   >
-                    Cursos
+                    Builds
                   </span>
                 </Link>
                 
@@ -275,7 +275,7 @@ export default function Navbar() {
 
                     <Link href="/courses">
                       <li className="list-none">
-                        Bootcamps
+                        Builds
                       </li>
                     </Link>
 

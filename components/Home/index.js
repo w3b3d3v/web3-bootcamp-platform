@@ -18,7 +18,7 @@ export default function Main() {
             </h1>
         
           <p>
-          Crie sua própria loja online na Web3 com <strong>Solana Pay</strong>, nesse bootcamp você irá construir uma loja para vender seu produto com upload direto no IPFS. 
+          Crie sua própria loja online na Web3 com <strong>Solana Pay</strong>,você irá construir uma loja para vender seu produto com upload direto no IPFS. 
           </p>
 
           <p>
@@ -26,11 +26,11 @@ export default function Main() {
           </p>
 
           <p>
-          Se você estava esperando uma oportunidade para empreender na web3, a hora é agora! Esse bootcamp vai conduzir você passo a passo na criação desta loja.
+          Se você estava esperando uma oportunidade para empreender na web3, a hora é agora! Vamos conduzir você passo a passo na criação desta loja.
           </p>
 
           <p>
-            Os únicos pré-requisitos necessários para esse Bootcamp, são conhecimentos básicos de
+            Os únicos pré-requisitos necessários são conhecimentos básicos de
             Terminal, JavaScript e Next.JS
           </p>
         </div>

@@ -29,7 +29,7 @@ export default function WalletCard() {
       });
       await window.ethereum.request({
         method: 'personal_sign',
-        params: ['Sign In Message - Logging in Web3Dev Bootcamp', accounts[0]],
+        params: ['Sign In Message - Logging in Web3Dev', accounts[0]],
       });
       const address = accounts.pop();
       if(address && auth.currentUser) await updateUserWalletInFirestore(address, auth.currentUser?.uid);
@@ -72,7 +72,7 @@ export default function WalletCard() {
                 ❌ Conecte sua carteira ETH
               </p>
               <p className="lg:text-base text-xs leading-5 text-gray-500 dark:text-gray-400 p-0 m-0">
-                Você ganhará NFTs ao completar o bootcamp! Além disso, você
+                Você ganhará NFTs de conclusão ! Além disso, você
                 precisará de uma carteira para trabalhar com o material do
                 projeto.
               </p>

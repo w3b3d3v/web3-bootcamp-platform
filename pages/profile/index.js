@@ -9,7 +9,7 @@ function Profile() {
   return (
     <>
       <Head>
-        <title>Perfil - Bootcamp Web3Dev</title>
+        <title>Perfil -Web3Dev</title>
       </Head>
       <main className="max-w-7xl mx-auto px-6 py-2 md:px-6 ">
         <div className="flex flex-col gap-6 pb-6 lg:flex-row">
