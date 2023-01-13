@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps }) {
         >
           <SessionProvider session={pageProps.session}>
             <Head>
-              <title>Home - Bootcamp Web3Dev</title>
+              <title>Home - Web3Dev</title>
               <meta
                 name="viewport"
                 content="initial-scale=1.0, width=device-width"

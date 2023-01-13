@@ -6,7 +6,7 @@ import Layout from '../../components/layout'
 
 export default function Home() {
   const cards = [
-    'Bootcamp 100% gratuito, sempre!',
+    '100% gratuito, sempre!',
     'Crie seu primeiro smart-contract na blockchain!',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <meta property="og:title" content="Home Turma Inovadoras - Bootcamp Web3dev" />
+        <meta property="og:title" content="Home Turma Inovadoras -Web3Dev" />
         <meta
           property="og:description"
           content="Aprenda um projeto real de web3 app em 10 dias. Nele você irá desenvolver um Smart Contract com Solidity - a linguagem mais popular - na Blockchain Ethereum. Essa é uma oportunidade somente para mulheres entusiastas em tecnologia e, ao concluir o projeto você terá um NFT de certificação exclusivo da Turma Inovadoras."
@@ -29,7 +29,7 @@ export default function Home() {
         <meta property="og:image:alt" content="Solidity Para Elas" />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-        <title>Home Turma Inovadoras - Bootcamp Web3dev</title>
+        <title>Home Turma Inovadoras -Web3Dev</title>
       </Head>
       <Main />
       <HomeCards cards={cards} />

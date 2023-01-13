@@ -79,7 +79,7 @@ function Lessons({ course, lesson, currentDate }) {
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const nextLesson = sortedLessons[currentLessonIndex + 1]
-    if (lessonSent && !nextLesson) return toast.success('Você terminou o bootcamp, parabéns!')
+    if (lessonSent && !nextLesson) return toast.success('Você terminou, parabéns!')
     if (lessonSent)
       return (window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`)
     return toast.error('Você ainda não enviou o exercício desta lição')
@@ -134,10 +134,10 @@ function Lessons({ course, lesson, currentDate }) {
         <meta property="og:title" content={`Lesson - ${lesson}`} />
         <meta property="og:image" content={course?.resized_img_url || course.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${course.title} Bootcamp Cover`} />
+        <meta property="og:image:alt" content={`${course.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-        <title>Lição - {lesson} - Bootcamp Web3Dev</title>
+        <title>Lição - {lesson} -Web3Dev</title>
       </Head>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
