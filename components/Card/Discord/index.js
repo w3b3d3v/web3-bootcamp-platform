@@ -42,7 +42,7 @@ export default function DiscordCard() {
                 ❌ Conecte seu Discord
               </p>
               <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
-                Tenha acesso aos canais supersecretos de cada bootcamp.
+                Tenha acesso aos canais supersecretos 🤫
               </p>
 
                 <Button 

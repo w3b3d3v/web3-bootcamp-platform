@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 
 export default function Home() {
   const cards = [
-    'Bootcamp 100% gratuito, sempre!',
+    '100% gratuito, sempre!',
     'Crie uma loja virtual que aceita criptomoedas',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
@@ -16,13 +16,13 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home - Bootcamp Web3Dev</title>
-        <meta property="og:title" content="WEB3DEV Bootcamp" />
+        <title>Home - Web3Dev</title>
+        <meta property="og:title" content="WEB3DEV" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
         <meta
           property="og:description"
-          content="Cansou de procurar conteúdo sobre web3 confiável e em português? E se eu te disser que além de ter encontrado os melhores Bootcamps sobre o assunto, você pode se inscrever gratuitamente, ter suporte da comunidade e ainda ganhar um NFT de certificação. Aproveite esse achado, inscreva-se!"
+          content="Está em busca de conteúdo gratuito e em português para aprender a programar na web3? Aqui você encontrará uma comunidade grande e engajada, centenas de artigos, vídeos e todo o suporte necessário para evoluir. E como extra ainda ganhará certificações em NFT para compartilhar com os amigos. Venha conhecer e se inscreva já!"
         />
         <meta
           property="og:image"
@@ -38,10 +38,10 @@ export default function Home() {
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://bootcamp.web3dev.com.br/" />
-        <meta property="twitter:title" content="WEB3DEV Bootcamp" />
+        <meta property="twitter:title" content="WEB3DEV" />
         <meta
           property="twitter:description"
-          content="Cansou de procurar conteúdo sobre web3 confiável e em português? E se eu te disser que além de ter encontrado os melhores Bootcamps sobre o assunto, você pode se inscrever gratuitamente, ter suporte da comunidade e ainda ganhar um NFT de certificação. Aproveite esse achado, inscreva-se!"
+          content="Está em busca de conteúdo gratuito e em português para aprender a programar na web3? Aqui você encontrará uma comunidade grande e engajada, centenas de artigos, vídeos e todo o suporte necessário para evoluir. E como extra ainda ganhará certificações em NFT para compartilhar com os amigos. Venha conhecer e se inscreva já!"
         />
         <meta
           property="twitter:image"

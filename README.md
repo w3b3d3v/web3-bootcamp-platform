@@ -1,6 +1,6 @@
-### Plataform Bootcamp 
+### Plataform 
 
-Web3 learning platform through bootcamps
+Web3 learning platform 
 
 
 ### Requirements

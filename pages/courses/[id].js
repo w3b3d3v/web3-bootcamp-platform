@@ -181,7 +181,7 @@ function Course({ course, currentDate }) {
         <meta property="og:description" content={course.description} />
         <meta property="og:image" content={course?.resized_img_url || course.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${course.title} Bootcamp Cover`} />
+        <meta property="og:image:alt" content={`${course.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
 
@@ -193,7 +193,7 @@ function Course({ course, currentDate }) {
         <meta property="twitter:image" content={course.image_url} />
         {/*Twitter End*/}
 
-        <title>Curso {course.id} - Bootcamp Web3Dev</title>
+        <title>Curso {course.id} -Web3Dev</title>
       </Head>
       
       <div className="mx-auto max-w-7xl px-6 mt-0 lg:mt-10">
@@ -228,8 +228,7 @@ function Course({ course, currentDate }) {
               <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
                 <div className="flex w-3/4 flex-col items-center justify-center">
                   <p className="text-center text-2xl">
-                    As inscrições para este bootcamp estão encerradas, aguarde a próxima turma abrir
-                    para se inscrever!
+                    As inscrições estão encerradas, aguarde a próxima turma abrir para se inscrever!
                   </p>
                 </div>
               </div>
