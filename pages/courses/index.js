@@ -11,9 +11,6 @@ function Courses({ allCourses }) {
         <title>Web3Dev</title>
       </Head>
       <div className="max-w-7xl mx-auto py-2 px-6">
-        <h1 className="mb-6 text-2xl font-bold text-black-300 dark:text-white-100">
-          Cursos
-        </h1>
         <section className="grid grid-flow-row md:grid-cols-3 gap-8 overflow-hidden p-2 grid-cols-1">
           {allCourses.map((c) => {
             return (
