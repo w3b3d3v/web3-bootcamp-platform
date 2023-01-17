@@ -10,33 +10,21 @@ export default function Main() {
         <div>
         
             <h1 className='text-4xl font-bold text-center sm:text-start m-0'>
-              Crie uma loja online pela rede blockchain
+              Desenvolva um Smart Contract em 
               <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
-              <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500">
-                Solana{' '}
+              <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
+                Solidity{' '}
               </span>
             </h1>
         
           <p>
-          Crie sua própria loja online na Web3 com <strong>Solana Pay</strong>,você irá construir uma loja para vender seu produto com upload direto no IPFS. 
+          Aprenda desenvolver um Smart Contract usando Solidity e conheça mais sobre desenvolvimente na blockchain da <em>Ethereum</em>. Um projeto criado para pessoas que buscam ingressar no mercado da Web3.
           </p>
 
-          <p>
-          A Solana é uma das principais redes blockchains do ecossistema e possui toda infraestrutura, além de ser muito rápida para construir uma loja e receber pagamentos em criptomoedas. 
-          </p>
-
-          <p>
-          Se você estava esperando uma oportunidade para empreender na web3, a hora é agora! Vamos conduzir você passo a passo na criação desta loja.
-          </p>
-
-          <p>
-            Os únicos pré-requisitos necessários são conhecimentos básicos de
-            Terminal, JavaScript e Next.JS
-          </p>
         </div>
         <br />
         <div className="lg:self-start mb-8">
-          <a href="/courses/Solana_Pay_Store">
+          <a href="/courses/Solidity_And_Smart_Contracts">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
             </Button>
