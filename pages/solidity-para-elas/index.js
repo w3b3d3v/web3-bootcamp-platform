@@ -29,7 +29,7 @@ export default function Home() {
         <meta property="og:image:alt" content="Solidity Para Elas" />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-        <title>Web3Dev</title>
+        <title>Web3Dev - for mens</title>
       </Head>
       <Main />
       <HomeCards cards={cards} />
