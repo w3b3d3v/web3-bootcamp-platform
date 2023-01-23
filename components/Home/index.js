@@ -17,7 +17,7 @@ export default function Main() {
             </h1>
           <p>
           Aprenda desenvolver um Smart Contract com Solidity e conheça mais sobre desenvolvimento na blockchain da <em>Ethereum</em>.
-          <p>Um projeto criado para pessoas que buscam ingressar no mercado da Web3.</p> 
+          <p>Um projeto criado para pessoas que buscam ingressar no mercado da Web3. </p> 
           </p>
         </div>
         <br />
