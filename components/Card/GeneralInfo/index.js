@@ -18,6 +18,7 @@ import PersonalData from './PersonalData'
 import SocialData from './SocialData'
 import ProfessionalData from './ProfessionalData'
 import ProfileFooter from './ProfileFooter'
+import { Container } from '@nextui-org/react'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -142,56 +143,38 @@ export default function GeneralInfoCard() {
   useEffect(() => renderFormSteps, [watch()])
 
   return (
-    <div
-      className="flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 lg:flex-row"
-      data-testid="general-info-card"
-    >
-      <div className="flex flex-col lg:flex-row mt-5">
-        <ProfileProgress
-          filledPersonalData={filledPersonalData}
-          filledSocialData={filledSocialData}
-          filledProfessionalData={filledProfessionalData}
-        />
-        <div className="-ml-0.5 w-0.5 bg-primary-300"></div>
-        <div className="px-6 py-5">
-          <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
-            👩‍🎤 Informações Gerais
-          </p>
+    <Container>
+      <div className="mt-10 flex flex-col lg:flex-row">
+        {/* <ProfileProgress
+            filledPersonalData={filledPersonalData}
+            filledSocialData={filledSocialData}
+            filledProfessionalData={filledProfessionalData}
+          /> */}
+        <div className="">
+          <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
           <div className="mt-7 flex flex-col lg:flex-row">
-            <form
-              onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}
-              className="max-w-4xl"
-            >
-              <div className="mx-12 mb-6 flex flex-row flex-wrap gap-x-6 gap-y-3 lg:mb-0 lg:basis-1/3">
-                {showPersonalData && (
-                  <PersonalData
-                    Controller={Controller}
-                    control={control}
-                    errors={errors}
-                    user={user}
-                    file={file}
-                    setFile={setFile}
-                    loading={loading}
-                  />
-                )}
-                {showSocialData && (
-                  <SocialData
-                    Controller={Controller}
-                    control={control}
-                    errors={errors}
-                    user={user}
-                  />
-                )}
-                {showProfessionalData && (
-                  <ProfessionalData
-                    Controller={Controller}
-                    control={control}
-                    errors={errors}
-                    register={register}
-                    getValues={getValues}
-                    setValue={setValue}
-                  />
-                )}
+            <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
+              <div className="flex flex-col">
+                <PersonalData
+                  Controller={Controller}
+                  control={control}
+                  errors={errors}
+                  user={user}
+                  file={file}
+                  setFile={setFile}
+                  loading={loading}
+                />
+                <h1 className="text-center">Redes Sociais</h1>
+                <SocialData Controller={Controller} control={control} errors={errors} user={user} />
+                <h1 className="text-center">Skills🛠</h1>
+                <ProfessionalData
+                  Controller={Controller}
+                  control={control}
+                  errors={errors}
+                  register={register}
+                  getValues={getValues}
+                  setValue={setValue}
+                />
               </div>
               <ProfileFooter
                 showPersonalData={showPersonalData}
@@ -205,6 +188,6 @@ export default function GeneralInfoCard() {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

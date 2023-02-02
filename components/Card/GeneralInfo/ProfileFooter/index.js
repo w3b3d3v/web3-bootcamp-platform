@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../../../Button'
+import { Button } from '@nextui-org/react'
 
 export default function ProfileFooter({
   showPersonalData,
@@ -30,9 +30,8 @@ export default function ProfileFooter({
     }
   }
   return (
-    <div className="lg:py-8 lg:flex-row " data-testid="profile-footer">
-      
-        <div className='flex justify-between gap-56 mt-4 mb-4'>
+    <div data-testid="profile-footer">
+        {/* <div className='flex justify-between gap-56 mt-4 mb-4'>
           <Button
             onClick={previousFormStep}
             customClass="rounded-lg w-24 h-10"
@@ -51,11 +50,11 @@ export default function ProfileFooter({
             Avançar
           </Button>
       
-      </div>
+      </div> */}
 
-      <div className="flex justify-center">
-          <Button type="submit" id="update-profile" customClass='w-60 bg-primary-400 text-white-400 m-auto'>
-            Salvar 💾
+      <div className="flex justify-center mt-8 w-full">
+          <Button type="submit" id="update-profile" color={'success'} shadow autoFocus css={{ widht:'100%' }} >
+            Salvar 
           </Button>
         </div>
     </div>

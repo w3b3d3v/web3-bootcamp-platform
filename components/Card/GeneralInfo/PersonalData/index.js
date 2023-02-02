@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
-import { Input } from '../../../Input'
 import Loading from '../../../Loading'
-import { Textarea } from '../../../Textarea'
+import { Col, Container, Input,NextUIProvider,Textarea } from '@nextui-org/react'
 
 export default function PersonalData({
   Controller,
@@ -14,55 +13,69 @@ export default function PersonalData({
   loading,
 }) {
   return (
-    <>
-      <div className="grow sm:basis-5/12">
-        <Controller
-          name="name"
-          control={control}
-          render={({ field }) => (
-            <Input {...field} label="Nome" defaultValue={user?.name} id="name" placeholder="Nome" />
-          )}
-        />
-        <small className="text-red-500">{errors.name?.message}</small>
-      </div>
-      <div className="grow sm:basis-5/12">
-        <Controller
-          name="email"
-          control={control}
-          defaultValue={user?.email}
-          render={({ field }) => (
-            <Input
-              {...field}
-              label="Email"
+    <Container css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', h:'70vh' }}>
+        <div className='flex flex-col justify-center' >
+          <div className="align-center mb-16 flex justify-center gap-x-24">
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  defaultValue={user?.name}
+                  labelPlaceholder="Nome"
+                  id="name"
+                  placeholder="Nome"
+                  size="md"
+                  bordered
+                  helperText={errors.name?.message}
+                />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
               defaultValue={user?.email}
-              id="email"
-              placeholder="Email"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  labelPlaceholder="Email"
+                  defaultValue={user?.email}
+                  id="email"
+                  placeholder="Email"
+                  size="md"
+                  bordered
+                  helperText={errors.name?.message}
+                />
+              )}
             />
-          )}
-        />
-        <small className="text-red-500">{errors.email?.message}</small>
-      </div>
-      <div className="basis-12/12 mt-2 grow">
-        <Controller
-          id="biography"
-          name="bio"
-          control={control}
-          defaultValue={user?.bio}
-          render={({ field }) => (
-            <Textarea
-              {...field}
-              placeholder="Escreva um resumo sobre você"
-              defaultValue={user?.bio}
+          </div>
+          <div>
+            <Controller
               id="biography"
+              name="bio"
+              control={control}
+              defaultValue={user?.bio}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  labelPlaceholder="Descreva de maneira breve sua experiência com web3"
+                  defaultValue={user?.bio}
+                  id="biography"
+                  size="lg"
+                  clearable
+                  bordered
+                  helperText={errors.bio?.message}
+                  width={'100%'}
+                />
+              )}
             />
-          )}
-        />
-        <small className="text-red-500">{errors.bio?.message}</small>
-      </div>
-      <div className="flex w-full items-center justify-center flex-col lg:flex-row mt-2">
-        
-        <label className='bg-black-500 dark:bg-white-100 text-black-400 p-3 rounded-md text-sm cursor-pointer' >
-        Alterar foto de perfil  📷
+          </div>
+        </div>
+
+      <div className="mt-2 hidden w-full flex-col items-center justify-center lg:flex-row">
+        <label className="bg-black-500 cursor-pointer rounded-md p-3 text-sm text-black-400 dark:bg-white-100">
+          Alterar foto de perfil 📷
           <input
             type="file"
             onChange={(event) => setFile(event.target.files[0])}
@@ -71,7 +84,7 @@ export default function PersonalData({
             data-testid="change-profile-picture"
             className="hidden"
           />
-          </label>
+        </label>
       </div>
       <div className="flex w-full flex-col items-center justify-center">
         {file && (
@@ -91,6 +104,6 @@ export default function PersonalData({
           </>
         )}
       </div>
-    </>
+    </Container>
   )
 }
