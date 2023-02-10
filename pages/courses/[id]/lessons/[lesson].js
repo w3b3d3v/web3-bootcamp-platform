@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import ReactMarkdown from 'react-markdown'
 import { Button } from '../../../../components/Button'
-import Layout from '../../../../components/layout'
 import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'

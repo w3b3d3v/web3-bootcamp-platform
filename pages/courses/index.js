@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Layout from '../../components/layout'
 import { getAllCourses } from '../../lib/courses'
 import Card from '../../components/Card'
 

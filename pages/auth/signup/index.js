@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useAuth from '../../../hooks/useAuth'
 import { withPublic } from '../../../hooks/route'
-import Layout from '../../../components/layout'
 import LoginButton from '../../../components/LoginButton'
 
 function signUpPage() {

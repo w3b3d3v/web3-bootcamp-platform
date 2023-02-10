@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { createCohortInFirestore } from '../../lib/cohorts'
-import Layout from '../../components/layout'
 import Head from 'next/head'
 
 export default function CreateCohort() {
