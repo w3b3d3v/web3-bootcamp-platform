@@ -1,7 +1,6 @@
 // 404.js
 import Link from 'next/link'
 import { Button } from '../components/Button'
-import Layout from '../components/layout'
 import React from 'react'
 
 export default function NotFound() {
