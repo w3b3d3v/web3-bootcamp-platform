@@ -16,7 +16,7 @@ export default function ThemeSwitch() {
     <button
       data-testid="ThemeSwitch"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="text-white dark:text-black cursor-pointer rounded-full border-transparent bg-transparent p-2"
+      className="text-white dark:text-white-100 dark:text-black cursor-pointer rounded-full border-transparent bg-transparent p-2"
     >
       {theme === 'light' ? (
         <MoonIcon
