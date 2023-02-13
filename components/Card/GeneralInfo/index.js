@@ -19,6 +19,7 @@ import SocialData from './SocialData'
 import ProfessionalData from './ProfessionalData'
 import ProfileFooter from './ProfileFooter'
 import { Container } from '@nextui-org/react'
+import { TollTip } from '../../../components/TollTip.js'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -144,6 +145,7 @@ export default function GeneralInfoCard() {
 
   return (
     <Container>
+      <TollTip />
       <div className="mt-10 flex flex-col lg:flex-row">
         {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
