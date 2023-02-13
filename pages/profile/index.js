@@ -8,7 +8,7 @@ function Profile() {
       <Head>
         <title>Perfil -Web3Dev</title>
       </Head>
-            <GeneralInfoCard />
+      <GeneralInfoCard />
     </>
   )
 }
