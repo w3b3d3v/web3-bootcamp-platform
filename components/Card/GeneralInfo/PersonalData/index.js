@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import React from 'react'
 import Loading from '../../../Loading'
-import { Col, Container, Input,NextUIProvider,Textarea } from '@nextui-org/react'
+import {  Container, Input, Textarea, Radio, Col, Spacer } from '@nextui-org/react'
+import { Content, EnglishLevelContainer, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
+import { ScrollDownButton } from '../../../Button/ScrollDown'
 
 export default function PersonalData({
   Controller,
@@ -13,65 +15,84 @@ export default function PersonalData({
   loading,
 }) {
   return (
-    <Container css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', h:'70vh' }}>
-        <div className='flex flex-col justify-center' >
-          <div className="align-center mb-16 flex justify-center gap-x-24">
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  defaultValue={user?.name}
-                  labelPlaceholder="Nome"
-                  id="name"
-                  placeholder="Nome"
-                  size="md"
-                  bordered
-                  helperText={errors.name?.message}
-                />
-              )}
-            />
-            <Controller
-              name="email"
-              control={control}
-              defaultValue={user?.email}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  labelPlaceholder="Email"
-                  defaultValue={user?.email}
-                  id="email"
-                  placeholder="Email"
-                  size="md"
-                  bordered
-                  helperText={errors.name?.message}
-                />
-              )}
-            />
-          </div>
-          <div>
-            <Controller
-              id="biography"
-              name="bio"
-              control={control}
-              defaultValue={user?.bio}
-              render={({ field }) => (
-                <Textarea
-                  {...field}
-                  labelPlaceholder="Descreva de maneira breve sua experiência com web3"
-                  defaultValue={user?.bio}
-                  id="biography"
-                  size="lg"
-                  clearable
-                  bordered
-                  helperText={errors.bio?.message}
-                  width={'100%'}
-                />
-              )}
-            />
-          </div>
+    <Container>
+      <Content>
+        <InputsContainer>
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                defaultValue={user?.name}
+                labelPlaceholder="Nome"
+                id="name"
+                placeholder="Nome"
+                bordered
+                helperText={errors.name?.message}
+                width={'100%'}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            defaultValue={user?.email}
+            render={({ field }) => (
+              <Input
+                {...field}
+                labelPlaceholder="Email"
+                defaultValue={user?.email}
+                id="email"
+                placeholder="Email"
+                bordered
+                helperText={errors.name?.message}
+                width={'100%'}
+              />
+            )}
+          />
+        </InputsContainer>
+
+        <div>
+          <Controller
+            id="biography"
+            name="bio"
+            control={control}
+            defaultValue={user?.bio}
+            render={({ field }) => (
+              <Textarea
+                {...field}
+                label="Descreva de maneira breve sua experiência com web3"
+                defaultValue={user?.bio}
+                id="biography"
+                size="lg"
+                clearable
+                bordered
+                helperText={errors.bio?.message}
+                width={'100%'}
+              />
+            )}
+          />
         </div>
+
+        <EnglishLevelContainer>
+          <Radio.Group
+            label="Nivel de inglês"
+            defaultValue="1"
+            orientation="horizontal"
+            color={'secondary'}
+            size={'sm'}
+          >
+            <Radio value="1">Básico</Radio>
+            <Radio value="2">Intermediario</Radio>
+            <Radio value="3">Avançado</Radio>
+            <Radio value="4">Fluente</Radio>
+          </Radio.Group>
+        </EnglishLevelContainer>
+      </Content>
+      <a href="#socialLinks">
+        <ScrollDownButton />
+      </a>
 
       <div className="mt-2 hidden w-full flex-col items-center justify-center lg:flex-row">
         <label className="bg-black-500 cursor-pointer rounded-md p-3 text-sm text-black-400 dark:bg-white-100">
@@ -86,6 +107,7 @@ export default function PersonalData({
           />
         </label>
       </div>
+
       <div className="flex w-full flex-col items-center justify-center">
         {file && (
           <>

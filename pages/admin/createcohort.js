@@ -33,7 +33,7 @@ export default function CreateCohort() {
         <title>Create Cohort -Web3Dev</title>
       </Head>
       <main className="container mx-auto mt-16 px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        <div className="mb-3 mt-6  bg-white-100 p-3 dark:bg-black-200">
+        <div className="mb-3   bg-white-100 p-3 dark:bg-black-200">
           <div className="rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
             <div className="flex">
               <div className="px-6 py-5">
