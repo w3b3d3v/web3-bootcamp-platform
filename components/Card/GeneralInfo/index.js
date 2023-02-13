@@ -152,40 +152,42 @@ export default function GeneralInfoCard() {
           /> */}
         <div className="">
           <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
-          <div className="mt-7 flex flex-col lg:flex-row">
-            <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
-              <div className="flex flex-col">
-                <PersonalData
-                  Controller={Controller}
-                  control={control}
-                  errors={errors}
-                  user={user}
-                  file={file}
-                  setFile={setFile}
-                  loading={loading}
-                />
-                <h1 className="text-center">Redes Sociais</h1>
-                <SocialData Controller={Controller} control={control} errors={errors} user={user} />
-                <h1 className="text-center">Skills🛠</h1>
-                <ProfessionalData
-                  Controller={Controller}
-                  control={control}
-                  errors={errors}
-                  register={register}
-                  getValues={getValues}
-                  setValue={setValue}
-                />
-              </div>
-              <ProfileFooter
-                showPersonalData={showPersonalData}
-                showProfessionalData={showProfessionalData}
-                setShowPersonalData={setShowPersonalData}
-                setShowProfessionalData={setShowProfessionalData}
-                setShowSocialData={setShowSocialData}
-                showSocialData={showSocialData}
+          <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
+            <div className="flex flex-col">
+              <PersonalData
+                Controller={Controller}
+                control={control}
+                errors={errors}
+                user={user}
+                file={file}
+                setFile={setFile}
+                loading={loading}
               />
-            </form>
-          </div>
+              <h1 className="text-center" id="socialLinks">
+                Redes Sociais
+              </h1>
+              <SocialData Controller={Controller} control={control} errors={errors} user={user} />
+              <h1 className="text-center" id="professionalData">
+                Skills🛠
+              </h1>
+              <ProfessionalData
+                Controller={Controller}
+                control={control}
+                errors={errors}
+                register={register}
+                getValues={getValues}
+                setValue={setValue}
+              />
+            </div>
+            <ProfileFooter
+              showPersonalData={showPersonalData}
+              showProfessionalData={showProfessionalData}
+              setShowPersonalData={setShowPersonalData}
+              setShowProfessionalData={setShowProfessionalData}
+              setShowSocialData={setShowSocialData}
+              showSocialData={showSocialData}
+            />
+          </form>
         </div>
       </div>
     </Container>

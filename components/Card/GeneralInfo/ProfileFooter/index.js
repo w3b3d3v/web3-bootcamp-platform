@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@nextui-org/react'
-
+import { GiSave } from 'react-icons/gi'
+ 
 export default function ProfileFooter({
   showPersonalData,
   showProfessionalData,
@@ -31,7 +32,7 @@ export default function ProfileFooter({
   }
   return (
     <div data-testid="profile-footer">
-        {/* <div className='flex justify-between gap-56 mt-4 mb-4'>
+      {/* <div className='flex justify-between gap-56 mt-4 mb-4'>
           <Button
             onClick={previousFormStep}
             customClass="rounded-lg w-24 h-10"
@@ -52,11 +53,19 @@ export default function ProfileFooter({
       
       </div> */}
 
-      <div className="flex justify-center mt-8 w-full">
-          <Button type="submit" id="update-profile" color={'success'} shadow autoFocus css={{ widht:'100%' }} >
-            Salvar 
-          </Button>
-        </div>
+      <div className="mt-8 flex w-full justify-center">
+        <Button
+          type="submit"
+          id="update-profile"
+          icon={<GiSave  size={30} />}
+          color={'secondary'}
+          shadow
+          autoFocus
+          auto
+        >
+          Salvar
+        </Button>
+      </div>
     </div>
   )
 }

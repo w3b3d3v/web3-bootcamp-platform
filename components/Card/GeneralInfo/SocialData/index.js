@@ -1,7 +1,10 @@
 import { GithubAuthProvider,linkWithPopup,getAuth } from 'firebase/auth'
 import React from 'react'
 import { findSocialLinks } from '../../../../lib/user'
-import { Input, Button, Container, Col } from '@nextui-org/react'
+import { Input, Button, Container } from '@nextui-org/react'
+import { FiGithub } from 'react-icons/fi'
+import { ScrollDownButton } from '../../../Button/ScrollDown'
+
 
 export default function SocialData({ Controller, control, errors, user }) {
   const connectGithub = async (e) => {
@@ -28,8 +31,15 @@ export default function SocialData({ Controller, control, errors, user }) {
       })
   }
   return (
-    <Container css={{ height: '70vh', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="mb-4 flex flex-col">
+    <Container
+      css={{
+        height: '70vh',
+        alignItems: 'center',
+        justifyContent: 'center',
+        maxW: '800px',
+      }}
+    >
+      <div className="mb-4 flex flex-col gap-4">
         <Controller
           name="twitter"
           control={control}
@@ -38,7 +48,6 @@ export default function SocialData({ Controller, control, errors, user }) {
             <Input
               {...field}
               label="Twitter"
-              color={'primary'}
               bordered
               defaultValue={findSocialLinks('twitter', user)?.url}
               id="twitter"
@@ -47,6 +56,7 @@ export default function SocialData({ Controller, control, errors, user }) {
             />
           )}
         />
+
         <Controller
           name="linkedin"
           control={control}
@@ -55,15 +65,16 @@ export default function SocialData({ Controller, control, errors, user }) {
             <Input
               {...field}
               label="Linkedin"
-              color={'primary'}
               bordered
               defaultValue={findSocialLinks('linkedin', user)?.url}
               id="linkedin"
               placeholder="https://linkedin.com/username"
               helperText={errors.linkedin?.message}
+              width={'100%'}
             />
           )}
         />
+
         <Controller
           name="personalWebsite"
           control={control}
@@ -94,19 +105,38 @@ export default function SocialData({ Controller, control, errors, user }) {
             </small>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center " data-testid="github-connect-button">
+          <div
+            className="flex items-center justify-center gap-4"
+            data-testid="github-connect-button"
+          >
             <label htmlFor="githubConnect"></label>
-            <Button 
-            id="githubConnect" 
-            onClick={connectGithub} 
-            color={''}
-            size={'sm'}
+            <Button
+              id="githubConnect"
+              rounded
+              onClick={connectGithub}
+              size={'md'}
+              css={{ color: 'White', background: 'black', display: 'flex', gap: '$5' }}
+              icon={<FiGithub />}
             >
-              <div className="flex items-center justify-center gap-4">
-                <p className="text-black-100">Conectar Github</p>
-                <img src="/assets/img/GitHub-Logo.svg" alt="" className="h-7 w-7" />
-              </div>
+              Conectar Github
             </Button>
+            <a href="#professionalData">
+              <ScrollDownButton />
+            </a>
+            {/* 
+            button to use when connect whit linkedin feature 
+            <Button
+              id="linkedinConnect"
+              shadow
+              rounded
+              onClick={''}
+              size={'md'}
+              css={{ color: 'White', display: 'flex', gap: '$5' }}
+              icon={<GrLinkedin />}
+              disabled
+            >
+              Conectar Linkedin
+            </Button> */}
           </div>
         )}
       </div>
