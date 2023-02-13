@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Loading from '../../../Loading'
-import {  Container, Input, Textarea, Radio, Col, Spacer } from '@nextui-org/react'
+import {  Container, Input, Textarea, Radio, Col, Spacer, Button } from '@nextui-org/react'
 import { Content, EnglishLevelContainer, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
 import { ScrollDownButton } from '../../../Button/ScrollDown'
 
@@ -17,6 +17,38 @@ export default function PersonalData({
   return (
     <Container>
       <Content>
+        <Button color={'gradient'} css={{ maxWidth: '300px', margin: 'auto' }}>
+          <label className="">
+            Alterar foto de perfil 📷
+            <input
+              type="file"
+              onChange={(event) => setFile(event.target.files[0])}
+              id="change-profile-picture"
+              name="change-profile-picture"
+              data-testid="change-profile-picture"
+              className="hidden"
+            />
+          </label>
+        </Button>
+        <div className="flex w-full flex-col items-center justify-center">
+          {file && (
+            <>
+              <Image
+                src={URL.createObjectURL(file)}
+                alt="profile-pic-preview"
+                width="200px"
+                height="200px"
+                className="h-10 w-10 rounded-full object-cover"
+              />
+              {loading && (
+                <div className="mt-2.5 ml-2.5">
+                  <Loading />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
         <InputsContainer>
           <Controller
             name="name"
@@ -24,11 +56,11 @@ export default function PersonalData({
             render={({ field }) => (
               <Input
                 {...field}
+                helperColor="success"
                 defaultValue={user?.name}
                 labelPlaceholder="Nome"
                 id="name"
                 placeholder="Nome"
-                bordered
                 helperText={errors.name?.message}
                 width={'100%'}
               />
@@ -45,7 +77,6 @@ export default function PersonalData({
                 defaultValue={user?.email}
                 id="email"
                 placeholder="Email"
-                bordered
                 helperText={errors.name?.message}
                 width={'100%'}
               />
@@ -67,7 +98,6 @@ export default function PersonalData({
                 id="biography"
                 size="lg"
                 clearable
-                bordered
                 helperText={errors.bio?.message}
                 width={'100%'}
               />
@@ -93,39 +123,6 @@ export default function PersonalData({
       <a href="#socialLinks">
         <ScrollDownButton />
       </a>
-
-      <div className="mt-2 hidden w-full flex-col items-center justify-center lg:flex-row">
-        <label className="bg-black-500 cursor-pointer rounded-md p-3 text-sm text-black-400 dark:bg-white-100">
-          Alterar foto de perfil 📷
-          <input
-            type="file"
-            onChange={(event) => setFile(event.target.files[0])}
-            id="change-profile-picture"
-            name="change-profile-picture"
-            data-testid="change-profile-picture"
-            className="hidden"
-          />
-        </label>
-      </div>
-
-      <div className="flex w-full flex-col items-center justify-center">
-        {file && (
-          <>
-            <Image
-              src={URL.createObjectURL(file)}
-              alt="profile-pic-preview"
-              width="200px"
-              height="200px"
-              className="h-10 w-10 rounded-full object-cover"
-            />
-            {loading && (
-              <div className="mt-2.5 ml-2.5">
-                <Loading />
-              </div>
-            )}
-          </>
-        )}
-      </div>
     </Container>
   )
 }
