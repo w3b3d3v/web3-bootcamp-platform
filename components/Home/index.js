@@ -8,21 +8,29 @@ export default function Main() {
     <main className="max-w-7xl mx-auto mb-14 px-8 mt-4 flex flex-col justify-between lg:mt-16 lg:flex-row items-center gap-0 lg:gap-52">
       <div className="flex flex-col items-center mx-auto flex-1">
         <div>
-            <h1 className='text-4xl font-bold text-center sm:text-start m-0'>
-              Desenvolva um Smart Contract em 
-              <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
-              <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
-                Solidity{' '}
-              </span>
-            </h1>
+           <h1 className="m-0 text-center text-4xl font-bold sm:text-start">
+            Contrua um Dapp de{' '}
+            <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
+            <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
+              Dao{' '}
+            </span>
+            com sistema de votações com Javascript
+          </h1>
           <p>
-          Aprenda desenvolver (D)App Full-Stack usando Smart Contract com Solidity e conheça mais sobre desenvolvimento na blockchain da <em>Ethereum</em>.
+            Este projeto é uma maneira rápida, prática, e o mais legal, em português pra você
+            aprender como criar um Dapp de uma DAO com um Front End em React.js.
           </p>
-          <p>Um projeto criado para pessoas que buscam ingressar no mercado da Web3.</p> 
+          <p>Tudo isso usando apenas Javascript, dando deploy passo a passo no final.</p>
+          <p>Não fique de fora deste novo modelo descentralizado das novas organizações WEB3.</p>
+          <p>
+            {' '}
+            <strong>O mais íncrivel :</strong> Seus amigos e colegas podem testar seu app após o
+            deploy ser feito 😊 Além de poder crescer seu portofolio em WEB3.
+          </p>
         </div>
         <br />
         <div className="lg:self-start mb-8">
-          <a href="/courses/Solidity_And_Smart_Contracts">
+          <a href="/courses/JS_DAO">
             <Button id="wish-to-sign-in" ref={ref}>
               Quero me inscrever!
             </Button>
