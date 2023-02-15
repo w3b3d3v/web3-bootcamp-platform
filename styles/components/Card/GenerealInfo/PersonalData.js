@@ -21,5 +21,10 @@ export const Content = styled('div', {
   gap: '$10',
   justifyContent: 'space-between',
   maxW: '800px',
-  margin:'auto'
+  margin:'auto',
+
+  div: {
+    marginBottom:'$1'
+  }
+
 })
