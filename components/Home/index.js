@@ -25,7 +25,7 @@ export default function Main() {
           <p>
             {' '}
             <strong>O mais íncrivel :</strong> Seus amigos e colegas podem testar seu app após o
-            deploy ser feito 😊 Além de poder crescer seu portofolio em WEB3.
+            deploy ser feito 😊 Além de poder crescer seu portfólio em WEB3.
           </p>
         </div>
         <br />
