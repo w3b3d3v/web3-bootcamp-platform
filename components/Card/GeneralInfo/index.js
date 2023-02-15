@@ -145,7 +145,6 @@ export default function GeneralInfoCard() {
 
   return (
     <Container>
-      <TollTip />
       <div className="mt-10 flex flex-col lg:flex-row">
         {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
