@@ -50,7 +50,6 @@ function MyApp({ Component, pageProps }) {
   }
   const cookieText = 'Ao clicar em aceitar, você consente com o uso dos cookies que você proveu em nosso website, para fornecer uma melhor experiência de usuário.'
   return (
-    <ThemeProvider attribute="class">
       <AuthProvider>
         <ThirdwebProvider
           supportedChainIds={supportedChainIds}
@@ -80,7 +79,6 @@ function MyApp({ Component, pageProps }) {
           </SessionProvider>
         </ThirdwebProvider>
       </AuthProvider>
-    </ThemeProvider>
   )
 }
 
