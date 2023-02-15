@@ -105,7 +105,7 @@ export default function PersonalData({
           />
         </div>
 
-        <EnglishLevelContainer>
+        {/* <EnglishLevelContainer>
           <Radio.Group
             label="Nivel de inglês"
             defaultValue="1"
@@ -118,7 +118,8 @@ export default function PersonalData({
             <Radio value="3">Avançado</Radio>
             <Radio value="4">Fluente</Radio>
           </Radio.Group>
-        </EnglishLevelContainer>
+        </EnglishLevelContainer> */}
+        
       </Content>
       <a href="#socialLinks">
         <ScrollDownButton />
