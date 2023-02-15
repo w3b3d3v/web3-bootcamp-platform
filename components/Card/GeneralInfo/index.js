@@ -162,9 +162,6 @@ export default function GeneralInfoCard() {
                 setFile={setFile}
                 loading={loading}
               />
-              <h1 className="text-center" id="socialLinks">
-                Redes Sociais
-              </h1>
               <SocialData Controller={Controller} control={control} errors={errors} user={user} />
               <h1 className="text-center" id="professionalData">
                 Skills🛠
