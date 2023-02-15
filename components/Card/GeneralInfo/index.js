@@ -13,13 +13,11 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { profileSchema } from '../../../lib/yup'
-import ProfileProgress from './ProfileProgress'
 import PersonalData from './PersonalData'
 import SocialData from './SocialData'
 import ProfessionalData from './ProfessionalData'
 import ProfileFooter from './ProfileFooter'
 import { Container } from '@nextui-org/react'
-import { TollTip } from '../../../components/TollTip.js'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -144,7 +142,7 @@ export default function GeneralInfoCard() {
   useEffect(() => renderFormSteps, [watch()])
 
   return (
-    <Container>
+    <Container>  
       <div className="mt-10 flex flex-col lg:flex-row">
         {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
