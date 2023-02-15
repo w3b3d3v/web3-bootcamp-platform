@@ -95,7 +95,7 @@ export default function Navbar() {
                   </span>
                 </Link>
                 
-                <ThemeSwitch />
+                {/* <ThemeSwitch /> */}
 
                 <div className="hidden items-center xl:flex">
                   
