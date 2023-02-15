@@ -39,6 +39,9 @@ export default function SocialData({ Controller, control, errors, user }) {
         maxW: '800px',
       }}
     >
+      <h1 className="text-center" id="socialLinks">
+        Redes Sociais
+      </h1>
       <div className="mb-4 flex flex-col gap-4">
         <Controller
           name="twitter"
