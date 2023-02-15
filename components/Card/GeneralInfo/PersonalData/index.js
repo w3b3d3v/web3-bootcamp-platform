@@ -3,7 +3,6 @@ import React from 'react'
 import Loading from '../../../Loading'
 import {  Container, Input, Textarea, Radio, Col, Spacer, Button } from '@nextui-org/react'
 import { Content, EnglishLevelContainer, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
-import { ScrollDownButton } from '../../../Button/ScrollDown'
 
 export default function PersonalData({
   Controller,
@@ -121,9 +120,6 @@ export default function PersonalData({
         </EnglishLevelContainer> */}
         
       </Content>
-      <a href="#socialLinks">
-        <ScrollDownButton />
-      </a>
     </Container>
   )
 }

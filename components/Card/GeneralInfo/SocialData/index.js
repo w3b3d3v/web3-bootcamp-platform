@@ -3,7 +3,6 @@ import React from 'react'
 import { findSocialLinks } from '../../../../lib/user'
 import { Input, Button, Container } from '@nextui-org/react'
 import { FiGithub } from 'react-icons/fi'
-import { ScrollDownButton } from '../../../Button/ScrollDown'
 import { Content } from '../../../../styles/components/Card/SocialData/index'
  
 
@@ -115,9 +114,6 @@ export default function SocialData({ Controller, control, errors, user }) {
               >
                 Conectar Github
               </Button>
-              <a href="#professionalData">
-                <ScrollDownButton />
-              </a>
               {/*
               button to use when connect whit linkedin feature
               <Button
