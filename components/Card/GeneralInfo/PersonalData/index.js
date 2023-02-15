@@ -16,7 +16,7 @@ export default function PersonalData({
   return (
     <Container>
       <Content>
-        <Button color={'gradient'} css={{ maxWidth: '300px', margin: 'auto' }}>
+        <Button color={''} css={{ maxWidth: '100px', margin: 'auto' }}>
           <label className="">
             Alterar foto de perfil 📷
             <input
