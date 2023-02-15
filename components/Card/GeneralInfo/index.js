@@ -151,7 +151,7 @@ export default function GeneralInfoCard() {
         <div className="">
           <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
           <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-10 ">
               <PersonalData
                 Controller={Controller}
                 control={control}
