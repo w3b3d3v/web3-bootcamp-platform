@@ -143,7 +143,6 @@ export default function GeneralInfoCard() {
 
   return (
     <Container>  
-      <div className="mt-10 flex flex-col lg:flex-row">
         {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
             filledSocialData={filledSocialData}
@@ -185,7 +184,6 @@ export default function GeneralInfoCard() {
             />
           </form>
         </div>
-      </div>
     </Container>
   )
 }
