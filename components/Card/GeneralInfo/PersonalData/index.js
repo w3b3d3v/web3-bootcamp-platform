@@ -35,8 +35,8 @@ export default function PersonalData({
               <Image
                 src={URL.createObjectURL(file)}
                 alt="profile-pic-preview"
-                width="200px"
-                height="200px"
+                width="100px"
+                height="100px"
                 className="h-10 w-10 rounded-full object-cover"
               />
               {loading && (
@@ -55,6 +55,7 @@ export default function PersonalData({
             render={({ field }) => (
               <Input
                 {...field}
+                bordered
                 helperColor="success"
                 defaultValue={user?.name}
                 labelPlaceholder="Nome"
@@ -72,6 +73,7 @@ export default function PersonalData({
             render={({ field }) => (
               <Input
                 {...field}
+                bordered
                 labelPlaceholder="Email"
                 defaultValue={user?.email}
                 id="email"
@@ -92,6 +94,7 @@ export default function PersonalData({
             render={({ field }) => (
               <Textarea
                 {...field}
+                bordered
                 label="Descreva de maneira breve sua experiência com web3"
                 defaultValue={user?.bio}
                 id="biography"
