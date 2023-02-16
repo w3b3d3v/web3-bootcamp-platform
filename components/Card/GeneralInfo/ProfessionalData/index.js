@@ -123,7 +123,7 @@ export default function ProfessionalData({
 
         <div className="py-2">
           Que tipo de <bold>builder</bold> {''}
-          é você ? Selecione até 3 opções
+          é você? Selecione até 3 opções
           <br />
           <Grid.Container gap={2} justify="center">
             <div className="flex flex-wrap items-center justify-center">
