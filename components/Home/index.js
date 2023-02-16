@@ -14,18 +14,16 @@ export default function Main() {
             <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
               Dao{' '}
             </span>
-            com sistema de votações com Javascript
+             com sistema de votações usando Javascript
           </h1>
           <p>
-            Este projeto é uma maneira rápida, prática, e o mais legal, em português pra você
-            aprender como criar um Dapp de uma DAO com um Front End em React.js.
+           Este projeto é uma maneira rápida e prática pra você aprender como criar um Dapp de uma DAO com um Front End em React.js, e o mais legal é que está 100% ensinado em português.
           </p>
-          <p>Tudo isso usando apenas Javascript, dando deploy passo a passo no final.</p>
+          <p>Tudo isso usando apenas Javascript, fazendo deploy no final com ajuda de um passo a passo bem simples.</p>
           <p>Não fique de fora deste novo modelo descentralizado das novas organizações WEB3.</p>
           <p>
-            {' '}
-            <strong>O mais íncrivel :</strong> Seus amigos e colegas podem testar seu app após o
-            deploy ser feito 😊 Além de poder crescer seu portfólio em WEB3.
+            <strong>O mais íncrivel :</strong> Seus amigos e colegas podem testar seu app após o deploy ser feito 😊
+            Além de poder crescer seu portfólio em WEB3.
           </p>
         </div>
         <br />
