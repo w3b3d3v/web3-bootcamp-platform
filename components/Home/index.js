@@ -12,7 +12,7 @@ export default function Main() {
             Contrua um Dapp de{' '}
             <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
             <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
-              Dao{' '}
+              DAO{' '}
             </span>
              com sistema de votações usando Javascript
           </h1>
