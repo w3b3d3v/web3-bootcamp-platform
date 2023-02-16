@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import Loading from '../../../Loading'
-import {  Container, Input, Textarea, Radio, Col, Spacer, Button } from '@nextui-org/react'
-import { Content, EnglishLevelContainer, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
+import {  Container, Input, Textarea, Button } from '@nextui-org/react'
+import { Content,InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
 
 export default function PersonalData({
   Controller,
