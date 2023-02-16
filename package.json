@@ -29,6 +29,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-hook-form": "^7.34.2",
     "react-icalendar-link": "^3.0.2",
+    "react-icons": "^4.7.1",
     "react-markdown": "^8.0.0",
     "react-select": "^5.4.0",
     "react-toastify": "^8.2.0",
