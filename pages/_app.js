@@ -19,6 +19,7 @@ import { mixpanel } from '../lib/utils/mixpanel'
 
 import Navbar from '../components/Navbar/index'
 import Footer from '../components/Footer/index'
+import '../lib/globals.js'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)

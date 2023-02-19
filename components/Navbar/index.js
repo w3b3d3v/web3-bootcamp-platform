@@ -16,14 +16,10 @@ export default function Navbar() {
   const [firestoreUser, setFirestoreUser] = useState()
   const ref = React.createRef()
   const navbarLinks = [
-    {
-      name: 'Fórum',
-      href: 'https://www.web3dev.com.br',
-    },
-    {
-      name: 'Entrar no Discord',
-      href: 'https://discord.web3dev.com.br',
-    },
+    // {
+    //   name: 'Indique e ganhe',
+    //   href: '/referral-modal',
+    // },
   ]
 
   const [show, setShow] = useState(null)
