@@ -10,7 +10,8 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
 import { useSession, signOut } from 'next-auth/react'
-import { getUserFromFirestore } from '../../lib/user'
+import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
+import { checkReferral, saveReferralCookie } from '../../lib/store_referral'
 
 export default function Navbar() {
   const { setVisible, bindings } = useModal()
@@ -26,12 +27,13 @@ export default function Navbar() {
 
   const getUser = async () => {
     if (user?.uid)
-      return await getUserFromFirestore(user).then((user) => {
-        setFirestoreUser(user)
+      return await getUserFromFirestore(user).then((u) => {
+        checkReferral(u, updateUserInFirestore)
+        setFirestoreUser(u)
       })
   }
   useEffect(() => {
-    getUser()
+    saveReferralCookie().then(getUser)
   }, [user])
 
   return (
