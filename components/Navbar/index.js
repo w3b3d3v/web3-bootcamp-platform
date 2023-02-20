@@ -91,7 +91,10 @@ export default function Navbar() {
                       </Modal.Header>
                       <Modal.Body>
                         <Text id="modal-description">
-                          <Input width="100%" value={constants.referral_link + user?.uid}></Input>
+                          <Input
+                            width="100%"
+                            value={window.location.origin + '?referred_by=' + user?.uid}
+                          ></Input>
                         </Text>
                       </Modal.Body>
                       <Modal.Footer>
