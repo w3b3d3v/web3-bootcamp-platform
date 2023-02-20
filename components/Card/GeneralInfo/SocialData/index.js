@@ -8,7 +8,6 @@ import { Content } from '../../../../styles/components/Card/SocialData/index'
 
 export default function SocialData({ Controller, control, errors, user }) {
   const connectGithub = async (e) => {
-    e.preventDefault()
 
     const provider = new GithubAuthProvider()
     const auth = getAuth()
