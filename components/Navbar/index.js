@@ -263,8 +263,14 @@ export default function Navbar() {
                   </a>
                 ))}
 
+                <Link href="#">
+                  <li className="cursor-pointer list-none" onClick={() => setVisible(true)}>
+                    Indique e ganhe
+                  </li>
+                </Link>
+
                 <Link href="/courses">
-                  <li className="list-none">Builds</li>
+                  <li className="cursor-pointer list-none">Builds</li>
                 </Link>
 
                 {user ? (
