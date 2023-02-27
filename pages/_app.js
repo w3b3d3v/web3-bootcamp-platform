@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import Head from 'next/head'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 import { AuthProvider } from '../context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
@@ -17,9 +17,10 @@ import React, { useEffect } from "react"
 
 import { mixpanel } from '../lib/utils/mixpanel'
 
-import Navbar from '../components/Navbar/index'
 import Footer from '../components/Footer/index'
-import '../lib/globals.js'
+
+import { NextUIProvider, createTheme } from '@nextui-org/react'
+import NavbarComponent from '../components/Navbar/index'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
@@ -50,36 +51,57 @@ function MyApp({ Component, pageProps }) {
     injected: {},
   }
   const cookieText = 'Ao clicar em aceitar, você consente com o uso dos cookies que você proveu em nosso website, para fornecer uma melhor experiência de usuário.'
+
+  const lightTheme = createTheme({
+  type: 'light',
+  theme: {
+    colors:{
+      background:'white'
+    }
+  }
+  })
+  const darkTheme = createTheme({
+    type: 'dark',
+  })
   return (
-      <AuthProvider>
-        <ThirdwebProvider
-          supportedChainIds={supportedChainIds}
-          desiredChainId={ChainId.Mainnet}
-          connectors={connectors}
-        >
-          <SessionProvider session={pageProps.session}>
-            <Head>
-              <title>Home - Web3Dev</title>
-              <meta
-                name="viewport"
-                content="initial-scale=1.0, width=device-width"
+    <NextThemesProvider
+    defaultTheme="dark"
+    attribute="class"
+    value={{
+      light: lightTheme.className,
+      dark: darkTheme.className
+    }}
+  >
+    
+     <NextUIProvider>
+        <AuthProvider>
+          <ThirdwebProvider
+            supportedChainIds={supportedChainIds}
+            desiredChainId={ChainId.Mainnet}
+            connectors={connectors}
+          >
+            <SessionProvider session={pageProps.session}>
+              <Head>
+                <title>Home - Web3Dev</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
+              </Head>
+              <NavbarComponent />
+              <CookieNotice
+                cookieName="web3dev-user-cookie"
+                descriptionLabel={cookieText}
+                titleLabel="Consentimento de cookies"
+                acceptButtonLabel="Aceitar"
+                declineButtonLabel="Rejeitar"
               />
-              <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
-            </Head>
-            <Navbar />
-            <CookieNotice
-            cookieName='web3dev-user-cookie' 
-            descriptionLabel={cookieText}
-            titleLabel='Consentimento de cookies'
-            acceptButtonLabel='Aceitar'
-            declineButtonLabel='Rejeitar'
-            />
-            <Component {...pageProps} />
-            <Footer />
-            <ToastContainer />
-          </SessionProvider>
-        </ThirdwebProvider>
-      </AuthProvider>
+              <Component {...pageProps} />
+              <Footer />
+              <ToastContainer />
+            </SessionProvider>
+          </ThirdwebProvider>
+        </AuthProvider>
+      </NextUIProvider>
+    </NextThemesProvider>
   )
 }
 

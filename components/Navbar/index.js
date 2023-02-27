@@ -2,10 +2,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { Button } from '../Button'
 import ThemeSwitch from '../ThemeSwitch'
 import { Modal, Button as NUButton, useModal, Text, Input } from '@nextui-org/react'
 import constants from '../../lib/constants'
+import { BsDiscord } from 'react-icons/bs'
+import { FiMoreVertical } from 'react-icons/fi'
+
+import { RiArticleFill } from 'react-icons/ri'
+import { FaLinkedinIn } from 'react-icons/fa'
+import { AiFillYoutube, AiOutlineInstagram, AiOutlinePlus } from 'react-icons/ai'
+import { FiGithub } from 'react-icons/fi'
+ 
+import { Navbar, Text, Dropdown, User, Container, Button, useModal, Modal, Card, styled } from '@nextui-org/react'
+
+
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
@@ -32,212 +42,169 @@ export default function Navbar() {
         setFirestoreUser(u)
       })
   }
+  
   useEffect(() => {
     saveReferralCookie().then(getUser)
   }, [user])
 
   return (
     <>
-      <div className="mx-auto h-full max-w-7xl px-6 ">
-        <nav className="hidden bg-gray-50 dark:bg-black-300 xl:block">
-          <div className="flex items-center justify-between">
-            <div>
-              <Link href="/">
-                <div className="flex items-center justify-center text-black-300 transition ease-in hover:text-primary-300 hover:no-underline dark:text-white-100 dark:hover:text-primary-300">
-                  <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
+      <Navbar variant={'floating'}>
+        <Container display="flex" alignItems="center" css={{ gap: '10px' }}>
+          <Link href="/">
+            <Navbar.Brand alignItems="center" display="flex">
+              <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
+              <Text weight={'bold'}>WEB3DEV</Text>
+            </Navbar.Brand>
+          </Link>
 
-                  <p className="hidden cursor-pointer pl-3 text-xl font-bold leading-normal sm:block">
-                    WEB3DEV
-                  </p>
+          <Button
+            href="https://discord.web3dev.com.br"
+            icon={<BsDiscord size="20px" />}
+            size={'xs'}
+            shadow
+            css={{
+              padding: '0.85rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              maxWidth: '100px',
+              h: '10px',
+            }}
+          ></Button>
+
+          <Button color={''} size={'xs'} light onPress={() => setVisible(true)}>
+            🔗
+          </Button>
+
+          <Modal
+            closeButton
+            scroll={true}
+            blur
+            aria-labelledby="Social-Medias"
+            aria-describedby="Social Medias from Web3Dev"
+            {...bindings}
+          >
+            <Modal.Header>
+              <Text id="modal-title" size={18}>
+                WEB3DEV 🔗
+              </Text>
+            </Modal.Header>
+            <Modal.Body>
+              <Card css={buttonContainer}>
+                <Button icon={<FaLinkedinIn />} color={'default'} size={'sm'} shadow></Button>
+                <Button icon={<FiGithub />} size={'sm'} color={''} shadow></Button>
+                <Button icon={<RiArticleFill />} size={'sm'} color={''}></Button>
+                <Button icon={<AiFillYoutube />} size={'sm'} color={'error'}></Button>
+                <Button icon={<AiOutlineInstagram />} size={'sm'} color={'secondary'}></Button>
+              </Card>
+            </Modal.Body>
+          </Modal>
+        </Container>
+
+        {/* {process.env.NEXT_PUBLIC_ENVIRONMENT && (
+          <div className="w-1/3 bg-gradient-to-r from-green-400 to-violet-500 text-center font-semibold tracking-widest">
+            {process.env.NEXT_PUBLIC_ENVIRONMENT}
+          </div>
+        )} */}
+        <Navbar.Content>
+          <div className="hidden items-center gap-x-6 text-sm font-bold xl:flex">
+            {navbarLinks.map((link) => (
+              <Navbar.Link key={link.name} href={link?.href} target="_blank">
+                {link?.name}
+              </Navbar.Link>
+            ))}
+
+            <Navbar.Link>
+              <Link href="/courses">
+                <Text weight={'bold'}>Builds</Text>
+              </Link>
+            </Navbar.Link>
+            <ThemeSwitch />
+            {user ? (
+              <div>
+                <Container display="flex" alignItems="center">
+                  <User name="vitordev" src="https://i.imgur.com/3dhIq7h.png" />
+                  <Dropdown onChange={() => setProfile(!profile)}>
+                    <Dropdown.Button flat size={'200px'} color={'success'}></Dropdown.Button>
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link href="/profile">Meu perfil</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Navbar.Link
+                          onChange={() => {
+                            signOut({ redirect: false })
+                            logout()
+                          }}
+                        >
+                          <Text>Sair</Text>
+                        </Navbar.Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Container>
+              </div>
+            ) : (
+              <div>
+                <Link href="/auth">
+                  <Button id="login" ref={ref}>
+                    Acessar Plataforma
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
+        </Navbar.Content>
+      </Navbar>
+
+      <nav>
+        <div className="flex items-center justify-between bg-gray-50 py-4 dark:bg-black-300 xl:hidden">
+          <Link href="/">
+            <div className="flex items-center">
+              <>
+                <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
+                <p className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 ">
+                  WEB3DEV
+                </p>
+              </>
+            </div>
+          </Link>
+          <div className="flex items-center gap-x-3">
+            <ThemeSwitch />
+
+            {user ? (
+              <Link href="/profile">
+                <div onClick={() => setProfile(!profile)}>
+                  <div className="flex cursor-pointer rounded-full">
+                    <img
+                      className="h-10 w-10 rounded-full object-cover"
+                      src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
+                      alt="profile-pic"
+                    />
+                  </div>
                 </div>
               </Link>
-            </div>
-
-            {process.env.NEXT_PUBLIC_ENVIRONMENT && (
-              <div className="w-1/3 bg-gradient-to-r from-green-400 to-violet-500 text-center font-semibold tracking-widest">
-                {process.env.NEXT_PUBLIC_ENVIRONMENT}
+            ) : (
+              <div>
+                <Link href="/auth">
+                  <UserCircleIcon className="-mb-1 h-5 w-5" />
+                </Link>
               </div>
             )}
 
-            <div className="flex">
-              <div className="hidden items-center gap-x-6 text-sm font-bold xl:flex">
-                {navbarLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    id={'desktop-' + link.name}
-                    href={link?.href}
-                    target="_blank"
-                    className="text-black-300 transition ease-out hover:scale-105 hover:no-underline focus:outline-none dark:text-white-100 "
-                  >
-                    {link?.name}
-                  </a>
-                ))}
-                {user?.uid && (
-                  <div>
-                    <NUButton auto shadow color="" onPress={() => setVisible(true)}>
-                      Indique e ganhe
-                    </NUButton>
-                    <Modal
-                      scroll
-                      width="600px"
-                      aria-labelledby="modal-title"
-                      aria-describedby="modal-description"
-                      {...bindings}
-                    >
-                      <Modal.Header>
-                        <Text id="modal-title" size={18}>
-                          Compartilhe esse link com seus amigos e concorra a prêmios da WEB3DEV
-                        </Text>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Text id="modal-description">
-                          <Input
-                            width="100%"
-                            value={window.location.origin + '?referred_by=' + user?.uid}
-                          ></Input>
-                        </Text>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <NUButton auto flat onPress={() => setVisible(false)}>
-                          Fechar
-                        </NUButton>
-                      </Modal.Footer>
-                    </Modal>
-                  </div>
-                )}
-                <Link href="/courses">
-                  <span className=" cursor-pointer font-bold text-black-300 transition duration-150 ease-in-out hover:scale-105 hover:no-underline focus:bg-gray-100 focus:outline-none dark:text-white-100">
-                    Builds
-                  </span>
-                </Link>
-
-                {/* <ThemeSwitch /> */}
-
-                <div className="hidden items-center xl:flex">
-                  {user ? (
-                    <div className="relative">
-                      <div
-                        className="relative flex items-center"
-                        onClick={() => setProfile(!profile)}
-                      >
-                        {profile && (
-                          <ul className="absolute right-0 top-0 z-50 mt-16 w-40 list-none rounded bg-white-100 p-2 shadow dark:bg-black-200">
-                            <Link href="/profile">
-                              <li className="ml-2 mb-3 cursor-pointer text-black-300 hover:text-primary-300 hover:underline focus:text-primary-300 focus:outline-none dark:text-white-100">
-                                Meu perfil
-                              </li>
-                            </Link>
-
-                            <button
-                              id="profile-logout"
-                              className="cursor-pointer border-transparent bg-transparent font-bold text-white-100 hover:underline"
-                              onClick={() => {
-                                signOut({ redirect: false })
-                                logout()
-                              }}
-                            >
-                              <li className="cursor-pointer text-sm text-black-300 hover:text-primary-300 focus:text-primary-300 focus:outline-none dark:text-white-100">
-                                Sair
-                              </li>
-                            </button>
-                          </ul>
-                        )}
-
-                        <div className="cursor-pointer">
-                          <img
-                            id="open-menu"
-                            className="h-10 w-10 rounded-full object-cover"
-                            src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
-                            alt="profile-pic"
-                          />
-                        </div>
-
-                        <div className="ml-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-chevron-down cursor-pointer "
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <Link href="/auth">
-                        <Button id="login" ref={ref}>
-                          Acessar Plataforma
-                        </Button>
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <nav>
-          <div className="flex items-center justify-between bg-gray-50 py-4 dark:bg-black-300 xl:hidden">
-            <Link href="/">
-              <div className="flex items-center">
-                <>
-                  <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
-                  <p className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 ">
-                    WEB3DEV
-                  </p>
-                </>
-              </div>
-            </Link>
-            <div className="flex items-center gap-x-3">
-              <ThemeSwitch />
-
-              {user ? (
-                <Link href="/profile">
-                  <div onClick={() => setProfile(!profile)}>
-                    <div className="flex cursor-pointer rounded-full">
-                      <img
-                        className="h-10 w-10 rounded-full object-cover"
-                        src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
-                        alt="profile-pic"
-                      />
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                <div>
-                  <Link href="/auth">
-                    <UserCircleIcon className="-mb-1 h-5 w-5" />
-                  </Link>
-                </div>
-              )}
-
+            <div id="mobile-open-menu" className="relative h-8 w-9" onClick={() => setShow(!show)}>
               <div
-                id="mobile-open-menu"
-                className="relative h-8 w-9"
-                onClick={() => setShow(!show)}
-              >
-                <div
-                  className={
-                    show
-                      ? 'before:absolute before:top-[45%] before:left-[15%] before:h-[3px] before:w-2/3 before:rotate-[-225deg] before:rounded-lg before:bg-red-500 before:content-[""] after:absolute after:top-[45%] after:left-[15%] after:h-[3px] after:w-2/3 after:rotate-[225deg] after:rounded-lg after:bg-red-500 after:content-[""]'
-                      : 'before:absolute before:top-[60%] before:left-[15%] before:h-[3px] before:w-2/3 before:rounded-lg before:bg-primary-100 before:content-[""] after:absolute after:top-[30%] after:left-[15%] after:h-[3px] after:w-2/3 after:rounded-lg after:bg-primary-100 after:content-[""]'
-                  }
-                ></div>
-              </div>
+                className={
+                  show
+                    ? 'before:absolute before:top-[45%] before:left-[15%] before:h-[3px] before:w-2/3 before:rotate-[-225deg] before:rounded-lg before:bg-red-500 before:content-[""] after:absolute after:top-[45%] after:left-[15%] after:h-[3px] after:w-2/3 after:rotate-[225deg] after:rounded-lg after:bg-red-500 after:content-[""]'
+                    : 'before:absolute before:top-[60%] before:left-[15%] before:h-[3px] before:w-2/3 before:rounded-lg before:bg-primary-100 before:content-[""] after:absolute after:top-[30%] after:left-[15%] after:h-[3px] after:w-2/3 after:rounded-lg after:bg-primary-100 after:content-[""]'
+                }
+              ></div>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
 
       <nav>
         <div
@@ -262,17 +229,13 @@ export default function Navbar() {
                     <li className="list-none text-black-300 dark:text-white-100">{link?.name}</li>
                   </a>
                 ))}
-
                 <Link href="#">
                   <li className="cursor-pointer list-none" onClick={() => setVisible(true)}>
                     Indique e ganhe
                   </li>
                 </Link>
-
                 <Link href="/courses">
                   <li className="cursor-pointer list-none">Builds</li>
-                </Link>
-
                 {user ? (
                   <div className="flex items-center justify-center gap-x-4 px-6 ">
                     <div>
