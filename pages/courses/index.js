@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { getAllCourses } from '../../lib/courses'
-import Card from '../../components/Card'
+import { Card, Container, Text, Collapse, Button } from '@nextui-org/react'
 
 function Courses({ allCourses }) {
   return (
@@ -9,25 +9,67 @@ function Courses({ allCourses }) {
         <meta property="og:title" content="Listagem" />
         <title>Web3Dev</title>
       </Head>
-      <div className="max-w-7xl mx-auto py-2 px-6">
-        <section className="grid grid-flow-row md:grid-cols-3 gap-8 overflow-hidden p-2 grid-cols-1">
+
+      <Container
+        css={{
+          mt: 30,
+          mb: 30,
+        }}
+      >
+        <Container
+          css={{
+            display: 'flex',
+            gap: '$10',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           {allCourses.map((c) => {
             return (
-              <Card
-                key={c?.id}
-                active={c?.active}
-                id={c?.id}
-                img={c?.image_url}
-                title={c?.title}
-                desc={c?.description}
-                difficulty={c?.difficulty}
-                duration={c?.duration}
-                tags={c.tags}
-              />
+              <>
+                <Card
+                  css={{
+                    display: 'flex',
+                    mw: '300px',
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 5,
+                  }}
+                  isHoverable
+                >
+                  <Card.Header
+                    css={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      textAlign: 'center',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Card.Image src={c?.image_url} key={c?.id}></Card.Image>
+                  </Card.Header>
+                  <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
+                    <Text weight={'bold'} color={''}>
+                      Começar agora 🚀
+                    </Text>
+                  </Button>
+                  <Button color={'success'} rounded flat size={'xs'}>
+                    {c?.difficulty}
+                  </Button>
+                  <Card.Divider />
+                  <Collapse.Group>
+                    <Collapse title="Saiba mais">
+                      <Text size="$sm">{c?.description}</Text>
+                    </Collapse>
+                  </Collapse.Group>
+                  <Card.Footer></Card.Footer>
+                </Card>
+              </>
             )
           })}
-        </section>
-      </div>
+        </Container>
+      </Container>
     </>
   )
 }
