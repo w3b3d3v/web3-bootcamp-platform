@@ -1,10 +1,22 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import React from "react";
+import { CssBaseline } from "@nextui-org/react";
 
 class MyDocument extends Document {
+  
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      styles: <>{initialProps.styles}</>
+    };
+  }
+
   render() {
     return (
       <Html lang="en">
         <Head>
+          {CssBaseline.flush()}
           <meta charSet="utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
@@ -22,7 +34,7 @@ class MyDocument extends Document {
             }}
           ></script>
         </Head>
-        <body className="bg-gray-50 dark:bg-black-300">
+        <body>
           <noscript
             dangerouslySetInnerHTML={{
               __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}"

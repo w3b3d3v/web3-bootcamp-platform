@@ -1,14 +1,13 @@
-import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import { MoonIcon, SunIcon } from '@heroicons/react/solid'
-import { Switch } from '@nextui-org/react'
+import { useTheme as useNextTheme } from 'next-themes'
+import { Switch, useTheme } from '@nextui-org/react'
 
 import { CgMoon } from 'react-icons/cg'
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-  
+  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true)
@@ -16,5 +15,16 @@ export default function ThemeSwitch() {
 
   if (!mounted) return null
 
-  return <Switch shadow color={'secondary'} iconOn={<CgMoon/>} onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}></Switch>
+    const { setTheme } = useNextTheme();
+    const { isDark, type } = useTheme();
+
+  return <Switch 
+  shadow 
+  color={'secondary'} 
+  iconOn={<CgMoon/>}  
+  checked={isDark}
+  onChange={(e) => 
+  setTheme(e.target.checked ? 'dark' : 'light')}
+  >
+    </Switch>
 }
