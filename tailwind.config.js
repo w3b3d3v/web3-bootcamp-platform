@@ -1,6 +1,5 @@
 module.exports = {
   content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
-  darkMode: 'class', // or 'media'
   theme: {
     screens: {
       'sm': '640px',
