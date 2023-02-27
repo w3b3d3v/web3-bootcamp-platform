@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@nextui-org/react'
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import ThemeSwitch from '../ThemeSwitch'
@@ -14,8 +14,6 @@ import { AiFillYoutube, AiOutlineInstagram, AiOutlinePlus } from 'react-icons/ai
 import { FiGithub } from 'react-icons/fi'
  
 import { Navbar, Text, Dropdown, User, Container, Button, useModal, Modal, Card, styled } from '@nextui-org/react'
-
-
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { LogoutIcon } from '@heroicons/react/outline'
 
@@ -49,7 +47,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Navbar variant={'floating'}>
+      <Navbar variant={'floating'} isBordered >
         <Container display="flex" alignItems="center" css={{ gap: '10px' }}>
           <Link href="/">
             <Navbar.Brand alignItems="center" display="flex">

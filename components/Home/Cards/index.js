@@ -20,7 +20,7 @@ export default function HomeCards({ cards }) {
 
   return ( 
     <footer>
-      <div className="mx-auto max-w-4xl flex flex-col items-center justify-between py-4 text-center text-sm lg:flex-row lg:items-stretch">
+      <div className="mx-auto max-w-4xl flex flex-col items-center justify-between py-4 text-center text-sm lg:flex-row lg:items-stretch font-bold ">
         {cards.map((card, index) => (
           <div
             key={card}
@@ -28,7 +28,7 @@ export default function HomeCards({ cards }) {
               index
             )} p-1 `}
           >
-            <div className="text-black flex h-full w-full items-center rounded-lg bg-slate-50 text-center shadow-xl dark:bg-zinc-900 dark:text-slate-50 sm:p-1 md:p-3 lg:p-4 ">
+            <div className="text-black flex h-full w-full items-center rounded-l text-center shadow-xl  sm:p-1 md:p-3 lg:p-4 ">
               {card}
             </div>
           </div>
