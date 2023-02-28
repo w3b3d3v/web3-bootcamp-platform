@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { Link } from '@nextui-org/react'
+import { Link, Input } from '@nextui-org/react'
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import ThemeSwitch from '../ThemeSwitch'
-import { Modal, Button as NUButton, useModal, Text, Input } from '@nextui-org/react'
+import { Button as NUButton } from '@nextui-org/react'
 import constants from '../../lib/constants'
 import { BsDiscord } from 'react-icons/bs'
 import { FiMoreVertical } from 'react-icons/fi'
@@ -21,7 +21,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
 import { checkReferral, saveReferralCookie } from '../../lib/store_referral'
 
-export default function Navbar() {
+export default function NavbarComponent() {
   const { setVisible, bindings } = useModal()
   const { data: session, status } = useSession()
   const [firestoreUser, setFirestoreUser] = useState()
@@ -89,7 +89,7 @@ export default function Navbar() {
               </Text>
             </Modal.Header>
             <Modal.Body>
-              <Card css={buttonContainer}>
+              <Card>
                 <Button icon={<FaLinkedinIn />} color={'default'} size={'sm'} shadow></Button>
                 <Button icon={<FiGithub />} size={'sm'} color={''} shadow></Button>
                 <Button icon={<RiArticleFill />} size={'sm'} color={''}></Button>
@@ -119,25 +119,59 @@ export default function Navbar() {
               </Link>
             </Navbar.Link>
             <ThemeSwitch />
+              {user?.uid && (
+                  <div>
+                    <NUButton auto  shadow color="success" onPress={() => setVisible(true)}>
+                      <Text weight={'bold'} >Indique e ganhe</Text>
+                    </NUButton>
+                    <Modal
+                      scroll
+                      width="600px"
+                      aria-labelledby="modal-title"
+                      aria-describedby="modal-description"
+                      {...bindings}
+                    >
+                      <Modal.Header>
+                        <Text id="modal-title" weight={'bold'} size={18}>
+                          Compartilhe esse link com seus amigos e concorra a prêmios da WEB3DEV
+                        </Text>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Text id="modal-description">
+                          <Input
+                            value={window.location.origin + '?referred_by=' + user?.uid}
+                            width="100%"
+                          ></Input>
+                        </Text>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <NUButton auto flat onPress={() => setVisible(false)}>
+                          Fechar
+                        </NUButton>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                )}
             {user ? (
               <div>
                 <Container display="flex" alignItems="center">
-                  <User name="vitordev" src="https://i.imgur.com/3dhIq7h.png" />
                   <Dropdown onChange={() => setProfile(!profile)}>
-                    <Dropdown.Button flat size={'200px'} color={'success'}></Dropdown.Button>
+                    <Dropdown.Button  flat size={'200px'} color={'success'}>
+                      <User name="vitordev" bordered css={{ gap:'$10', padding:'$3', borderRadius:'$lg' }} src="https://i.imgur.com/3dhIq7h.png" />
+                    </Dropdown.Button>
                     <Dropdown.Menu>
                       <Dropdown.Item>
                         <Link href="/profile">Meu perfil</Link>
                       </Dropdown.Item>
                       <Dropdown.Item>
-                        <Navbar.Link
-                          onChange={() => {
+                        <Button
+                          title='Sair'
+                          onClick={() => {
                             signOut({ redirect: false })
                             logout()
                           }}
                         >
-                          <Text>Sair</Text>
-                        </Navbar.Link>
+                        </Button>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
@@ -208,13 +242,13 @@ export default function Navbar() {
         <div
           className={
             show
-              ? 'absolute right-0 z-40 h-full w-full translate-x-0  transform  transition duration-300 ease-in-out xl:hidden'
-              : 'absolute right-0 z-40 h-full w-full -translate-x-full  transform transition duration-300 ease-in-out xl:hidden'
+              ? 'absolute right-0 z-40 h-full w-full translate-x-0  transform  transition duration-300 ease-in-out '
+              : 'absolute right-0 z-40 h-full w-full -translate-x-full  transform transition duration-300 ease-in-out '
           }
         >
           <div className="h-full w-full" onClick={() => setShow(!show)} />
 
-          <div className="overflow fixed top-0 left-0 z-40 h-[20000px] w-full bg-gray-50 text-black-300 dark:bg-black-300 xl:hidden">
+          <div className="overflow fixed top-0 left-0 z-40 h-[20000px] w-full bg-gray-50 text-black-300 dark:bg-black-300">
             <div className="flex flex-col items-center justify-center gap-y-4 font-bold text-black-300 dark:text-white-100">
               <ul className="flex flex-col items-center justify-center gap-5 p-0">
                 {navbarLinks.map((link) => (
@@ -224,7 +258,7 @@ export default function Navbar() {
                     href={link?.href}
                     target="_blank"
                   >
-                    <li className="list-none text-black-300 dark:text-white-100">{link?.name}</li>
+                    <li className="list-none">{link?.name}</li>
                   </a>
                 ))}
                 <Link href="#">
@@ -234,6 +268,7 @@ export default function Navbar() {
                 </Link>
                 <Link href="/courses">
                   <li className="cursor-pointer list-none">Builds</li>
+                </Link>
                 {user ? (
                   <div className="flex items-center justify-center gap-x-4 px-6 ">
                     <div>
