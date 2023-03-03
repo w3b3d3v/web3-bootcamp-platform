@@ -206,7 +206,7 @@ export default function NavbarComponent() {
                           <Button icon={<GiExitDoor/>} auto color={'error'}  onClick={logout} />
                         </Link>
                     </div>
-                    <Text>{user?.name || session?.user?.name}</Text>
+                    {/* <Text>{user?.name || session?.user?.name}</Text> */}
                   </Navbar.CollapseItem>
                   
                   <Navbar.CollapseItem
