@@ -1,29 +1,21 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import React from "react";
-import { CssBaseline } from "@nextui-org/react";
+import { CssBaseline } from '@nextui-org/react';
+import React from'react';
 
 class MyDocument extends Document {
-  
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
-      styles: <>{initialProps.styles}</>
+      styles: React.Children.toArray([initialProps.styles])
     };
   }
-
   render() {
     return (
       <Html lang="en">
         <Head>
           {CssBaseline.flush()}
           <meta charSet="utf-8" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700;900&display=swap"
-            rel="stylesheet"
-          />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
