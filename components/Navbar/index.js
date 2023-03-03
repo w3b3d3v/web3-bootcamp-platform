@@ -207,15 +207,15 @@ export default function NavbarComponent() {
                         </Link>
                     </div>
                     <Text>{user?.name || session?.user?.name}</Text>
-                                </Navbar.CollapseItem>
-                                
-                                <Navbar.CollapseItem
-                            css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
-                            >
-                              <Button color={''} onPress={() => setVisible(true)} >
-                                <Text weight={'bold'} >Indique e Ganhe</Text>
-                              </Button>
-                            </Navbar.CollapseItem>
+                  </Navbar.CollapseItem>
+                  
+                  <Navbar.CollapseItem
+              css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
+              >
+                <Button color={''} onPress={() => setVisible(true)} >
+                  <Text weight={'bold'} >Indique e Ganhe</Text>
+                </Button>
+              </Navbar.CollapseItem>
                 </div>
               ) }
 
