@@ -9,8 +9,11 @@ import { withPublic } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import Head from 'next/head'
-import { Button } from '../../components/Button'
+import { Button } from '@nextui-org/react'
 import LoginButton from '../../components/LoginButton'
+import { FcGoogle } from 'react-icons/fc'
+import { GrGithub } from 'react-icons/gr'
+
 
 function authPage() {
   const { login, loginGoogle, loginGithub } = useAuth()
@@ -56,14 +59,8 @@ function authPage() {
       <Head>
         <title>Login -Web3Dev</title>
       </Head>
-      <div className="bg-gray-50 dark:bg-black-300">
+      <div className="">
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
-          <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">
-            <Image src="/assets/img/w3d-logo-symbol-ac.svg" width={42} height={42} />
-            <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
-              web3dev
-            </h2>
-          </div>
           {sessionStorage.getItem('credential') ? (
             <>
               <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
@@ -77,10 +74,10 @@ function authPage() {
               </div>
             </>
           ) : (
-            <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
+            <div className="w-full rounded  px-6 py-6 shadow-lg m:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
               <p
                 tabIndex={0}
-                className="text-2xl font-extrabold leading-6 focus:outline-none dark:text-white-100"
+                className="text-2xl font-extrabold leading-6 focus:outline-none"
               >
                 {isDisable ? 'Resete sua senha' : 'Entre na sua conta'}
               </p>
@@ -242,23 +239,30 @@ function authPage() {
                 <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
                 <hr className="w-full bg-gray-400" />
               </div>
-              <LoginButton
-                id={'sign-in-with-github'}
-                imgSrc={'/assets/img/GitHub-Logo.svg'}
-                alt="GitHub-Login-Icon"
-                loginGithub={() => loginGithub()}
-                textContent={'Login com o Github'}
-                imgSize={'32'}
-              />
-              <LoginButton
-                id={'sign-in-with-google'}
-                imgSrc={'/assets/img/google-logo.svg'}
-                alt="Google-Login-Icon"
-                loginGoogle={() => loginGoogle()}
-                textContent={'Login com o Google'}
-                imgSize={'40'}
-              />
-            </div>
+                <div className='flex flex-col gap-3'>
+                  <Button
+                    onClick={() => loginGithub()}
+                    icon={<GrGithub/>}
+                    size={'lg'}
+                    color={''}
+                    bordered
+                  >
+                
+                  Login com o Github
+                </Button>
+                
+                <Button
+                  icon={<FcGoogle/>}
+                  alt="Google-Login-Icon"
+                  onClick={() => loginGoogle()}
+                  size={'lg'}
+                  color={''}
+                  bordered
+                >
+                  Login com o Google
+                </Button>
+                </div>
+              </div>
           )}
         </div>
       </div>
