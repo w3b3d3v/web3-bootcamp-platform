@@ -203,7 +203,7 @@ function Course({ course, currentDate }) {
 
           <h1 className="text-2xl font-bold">{course?.title}</h1>
 
-            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">
+            <p className="text-sm  mb-6">
               {course?.description /*.substring(0, 100) + '...'*/}
             </p>
           </div>
@@ -358,7 +358,7 @@ function Course({ course, currentDate }) {
                 <div className="my-8">
                   <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
-                  <div className="z-10 my-8 w-full rounded-lg bg-white-100 shadow-xl dark:bg-black-200 p-7">
+                  <div className="z-10 my-8 w-full rounded-lg p-7">
                     {course?.sections &&
                       Object.keys(course?.sections)
                         .sort()
@@ -374,15 +374,15 @@ function Course({ course, currentDate }) {
                                     return (
                                       <li
                                         key={lesson.title}
-                                        className="mb-4 items-center rounded bg-white-200 py-2 dark:bg-black-300 px-4"
+                                        className="mb-4 items-center rounded py-2 bg-gray-500 px-4"
                                       >
-                                        <div className="flex items-center">
+                                        <div className="flex items-center ">
                                           <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
                                             <input
                                               disabled
                                               type="radio"
                                               name="radio"
-                                              className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border border-gray-400 "
+                                              className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border"
                                             />
                                             <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
                                               {userSubmissions(lesson) ? (
@@ -410,7 +410,6 @@ function Course({ course, currentDate }) {
                                             >
                                               <a
                                                 id="access-lesson"
-                                                className="text-black-100 dark:text-white-100"
                                               >
                                                 <p className="m-0 p-0">{lesson.title}</p>
                                               </a>
