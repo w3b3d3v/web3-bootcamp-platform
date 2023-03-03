@@ -37,11 +37,11 @@ export default function DiscordCard() {
   return (
     <>
       {!discordConnected && (
-        <div className="flex flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center ">
-              <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
+        <div className="flex flex-col rounded-lg  shadow-xl x-6 py-5 text-center gap-y-6 h-52 justify-center p-4">
+              <p className="text-base  p-0 m-0">
                 ❌ Conecte seu Discord
               </p>
-              <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
+              <p className="text-xs lg:text-base p-0 m-0">
                 Tenha acesso aos canais supersecretos 🤫
               </p>
 
@@ -56,8 +56,8 @@ export default function DiscordCard() {
       )}
       {discordConnected && (
         <>
-          <div className="flex flex-col rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center">
-                <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
+          <div className="flex flex-col rounded-lg  px-6 py-5 text-center gap-y-6 h-52 justify-center">
+                <p className="text-base  p-0 m-0">
                   ✅ {user?.discord?.username || session?.discord.username} Conectado
                 </p>
                 <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
