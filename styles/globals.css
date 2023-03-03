@@ -13,10 +13,11 @@ body {
 
 * {
   box-sizing: border-box;
+  color:inherit;
 }
 
-a {
-  text-decoration: none;
+a:link, a:visited {
+  color: inherit;
 }
 
 a:hover {
