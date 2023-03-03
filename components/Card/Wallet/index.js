@@ -54,11 +54,11 @@ export default function WalletCard() {
   return (
     <>
       {user?.wallet ? (
-        <div className="flex flex-col items-center rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6  h-52 justify-center">
-              <p className="text-base text-black-200 dark:text-gray-100 m-0 p-0">
+        <div className="flex flex-col items-center rounded-lg px-6 py-5 text-center gap-y-6 h-52 justify-center">
+              <p className="text-base m-0 p-0">
                 ✅ Carteira Conectada
               </p>
-              <p className="lg:text-base text-xs leading-5 text-gray-500 dark:text-gray-400 m-0 p-0">
+              <p className="lg:text-base text-xs leading-5  m-0 p-0">
                 Endereço da carteira: {user?.wallet.substring(0, 4)+'...'+user?.wallet.substring(user?.wallet.length-10)}
               </p>
               <div className="pt-4">
@@ -66,12 +66,12 @@ export default function WalletCard() {
               </div>
         </div>
       ) : (
-        <div className="flex flex-col  rounded-lg bg-white-100 shadow-xl dark:bg-black-200 px-6 py-5 text-center gap-y-6 h-52 justify-center">
+        <div className="flex flex-col  rounded-lg  shadow-xl d px-6 py-5 text-center gap-y-6 h-52 justify-center">
 
-              <p className="text-base text-black-200 dark:text-gray-100 p-0 m-0">
+              <p className="text-base p-0 m-0">
                 ❌ Conecte sua carteira ETH
               </p>
-              <p className="lg:text-base text-xs leading-5 text-gray-500 dark:text-gray-400 p-0 m-0">
+              <p className="lg:text-base text-xs leading-5 p-0 m-0">
                 Você ganhará NFTs de conclusão ! Além disso, você
                 precisará de uma carteira para trabalhar com o material do
                 projeto.
