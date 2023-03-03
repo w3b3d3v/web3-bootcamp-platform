@@ -125,6 +125,13 @@ export default function NavbarComponent() {
                           bordered
                           />
                         </Grid.Container>
+                        {/* <Navbar.CollapseItem 
+                        css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
+                        >
+                          <Button color={''} onPress={() => setVisible(true)} >
+                            <Text weight={'bold'} >Indique e Ganhe</Text>
+                          </Button>
+                        </Navbar.CollapseItem> */}
                       </Dropdown.Button>
                         <Dropdown.Menu css={{ display:'flex', alignItems:'center', flexDirection:'column', gap:'$5' }} >
                           <Dropdown.Item>
@@ -183,30 +190,33 @@ export default function NavbarComponent() {
                 </Link>
               </Navbar.CollapseItem>
               ))}
-              <Navbar.CollapseItem 
-              css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
-              >
-                <Button color={''} onPress={() => setVisible(true)} >
-                  <Text weight={'bold'} >Indique e Ganhe</Text>
-                </Button>
-              </Navbar.CollapseItem>
 
-              { user && (
-                <Navbar.CollapseItem>
-                 <div className="flex items-center justify-center gap-x-4 px-6 flex-col mr-auto ml-auto">
-                      <Link href="/profile" className='flex gap-7 mb-3' >
-                        <Text weight={'extrabold'} >Seu perfil</Text>
-                        <Avatar
-                          bordered
-                          className="h-10 w-10 rounded-full object-cover"
-                          src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
-                          alt="Foto de perfil"
-                        />
-                        <Button icon={<GiExitDoor/>} auto color={'error'}  onClick={logout} />
-                      </Link>
-                  </div>
-                  <Text>{user?.name || session?.user?.name}</Text>
-              </Navbar.CollapseItem>
+              {user && (
+                <div>
+                  <Navbar.CollapseItem>
+                   <div className="flex items-center justify-center gap-x-4 px-6 flex-col mr-auto ml-auto">
+                        <Link href="/profile" className='flex gap-7 mb-3' >
+                          <Text weight={'extrabold'} >Seu perfil</Text>
+                          <Avatar
+                            bordered
+                            className="h-10 w-10 rounded-full object-cover"
+                            src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
+                            alt="Foto de perfil"
+                          />
+                          <Button icon={<GiExitDoor/>} auto color={'error'}  onClick={logout} />
+                        </Link>
+                    </div>
+                    <Text>{user?.name || session?.user?.name}</Text>
+                                </Navbar.CollapseItem>
+                                
+                                <Navbar.CollapseItem
+                            css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
+                            >
+                              <Button color={''} onPress={() => setVisible(true)} >
+                                <Text weight={'bold'} >Indique e Ganhe</Text>
+                              </Button>
+                            </Navbar.CollapseItem>
+                </div>
               ) }
 
               </Navbar.Collapse>
