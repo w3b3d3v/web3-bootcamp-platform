@@ -18,6 +18,7 @@ import React, { useEffect } from "react"
 import { mixpanel } from '../lib/utils/mixpanel'
 
 import Footer from '../components/Footer/index'
+import '../lib/globals.js'
 
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
