@@ -6,7 +6,10 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useAuth from '../../../hooks/useAuth'
 import { withPublic } from '../../../hooks/route'
-import LoginButton from '../../../components/LoginButton'
+import { Button } from '@nextui-org/react'
+
+import { FcGoogle } from 'react-icons/fc'
+import { GrGithub } from 'react-icons/gr'
 
 function signUpPage() {
   const { signup, loginGoogle, loginGithub } = useAuth()
@@ -160,22 +163,29 @@ function signUpPage() {
                 <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
                 <hr className="w-full bg-gray-400" />
               </div>
-              <LoginButton
-                id={'sign-in-with-github'}
-                imgSrc={'/assets/img/GitHub-Logo.svg'}
-                alt="GitHub-Login-Icon"
-                loginGithub={() => loginGithub()}
-                textContent={'Login com o Github'}
-                imgSize={'32'}
-              />
-              <LoginButton
-                id={'sign-in-with-google'}
-                imgSrc={'/assets/img/google-logo.svg'}
-                alt="Google-Login-Icon"
-                textContent={'Login com o Google'}
-                loginGoogle={() => loginGoogle()}
-                imgSize={'40'}
-              />
+              <div className='flex flex-col gap-3'>
+                  <Button
+                    onClick={() => loginGithub()}
+                    icon={<GrGithub/>}
+                    size={'lg'}
+                    color={''}
+                    bordered
+                  >
+                
+                  Login com o Github
+                </Button>
+                
+                <Button
+                  icon={<FcGoogle/>}
+                  alt="Google-Login-Icon"
+                  onClick={() => loginGoogle()}
+                  size={'lg'}
+                  color={''}
+                  bordered
+                >
+                  Login com o Google
+                </Button>
+                </div>
             </div>
           </div>
         </div>
