@@ -19,6 +19,9 @@ import ProfessionalData from './ProfessionalData'
 import ProfileFooter from './ProfileFooter'
 import { Container } from '@nextui-org/react'
 
+import WalletCard from '../../Card/Wallet'
+import DiscordCard from '../../Card/Discord'
+
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
   const [file, setFile] = useState()
@@ -148,7 +151,7 @@ export default function GeneralInfoCard() {
             filledSocialData={filledSocialData}
             filledProfessionalData={filledProfessionalData}
           /> */}
-        <div className="">
+        <div className=" mt-14 ">
           <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
           <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
             <div className="flex flex-col gap-10 ">
@@ -161,6 +164,14 @@ export default function GeneralInfoCard() {
                 setFile={setFile}
                 loading={loading}
               />
+              <div className="flex flex-col lg:flex-row gap-11 content-end max-w-5xl m-auto ">
+              <div className="flex-1">
+                <DiscordCard />
+              </div>
+              <div className="flex-1">
+                <WalletCard />
+              </div>
+              </div>
               <SocialData Controller={Controller} control={control} errors={errors} user={user} />
               <h1 className="text-center" id="professionalData">
                 Skills🛠
