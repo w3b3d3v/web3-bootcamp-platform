@@ -121,7 +121,7 @@ export default function ProfessionalData({
           </div>
         </Container>
 
-        <div className="py-2">
+        <div className="py-2 max-w-5xl m-auto ">
           Que tipo de <bold>builder</bold> {''}
           é você? Selecione até 3 opções
           <br />
