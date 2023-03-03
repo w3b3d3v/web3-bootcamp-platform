@@ -34,24 +34,24 @@ function signUpPage() {
         <Head>
           <title>Cadastro -Web3Dev</title>
         </Head>
-        <div className="bg-gray-50 dark:bg-black-300">
+        <div className="">
           <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
             <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">
               <Image src="/assets/img/w3d-logo-symbol-ac.svg" width={42} height={42} />
-              <h2 className="pl-3 text-xl font-bold leading-normal text-black-300 dark:text-white-100 sm:block">
+              <h2 className="pl-3 text-xl font-bold leading-normal sm:block">
                 web3dev
               </h2>
             </div>
-            <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
+            <div className="w-full rounded  px-6 py-6 shadow-lg d sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
               <p
                 tabIndex={0}
-                className="text-2xl font-extrabold leading-6 focus:outline-none dark:text-white-100"
+                className="text-2xl font-extrabold leading-6 focus:outline-none "
               >
                 Registre sua conta
               </p>
               <p
                 tabIndex={0}
-                className="mt-3 text-sm font-medium leading-none text-black-100 focus:outline-none dark:text-gray-300"
+                className="mt-3 text-sm font-medium leading-none  focus:outline-none"
               >
                 Já tem uma conta?{' '}
                 <Link
@@ -89,7 +89,7 @@ function signUpPage() {
                 <div className="mt-6 w-full">
                   <label
                     htmlFor="password"
-                    className="text-sm font-medium leading-none text-black-300 dark:text-white-100"
+                    className="text-sm font-medium leading-none "
                   >
                     {' '}
                     Senha{' '}
