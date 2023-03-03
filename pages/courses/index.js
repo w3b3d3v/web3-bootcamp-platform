@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { getAllCourses } from '../../lib/courses'
-import { Card, Container, Text, Collapse, Button } from '@nextui-org/react'
-
+import { Card, Container, Text, Collapse, Button, Link } from '@nextui-org/react'
+import { BiTimeFive } from 'react-icons/bi'
+ 
 function Courses({ allCourses }) {
   return (
     <>
@@ -37,6 +38,7 @@ function Courses({ allCourses }) {
                     gap: 5,
                   }}
                   isHoverable
+                  key={c?.id}
                 >
                   <Card.Header
                     css={{
@@ -49,21 +51,25 @@ function Courses({ allCourses }) {
                   >
                     <Card.Image src={c?.image_url} key={c?.id}></Card.Image>
                   </Card.Header>
-                  <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
-                    <Text weight={'bold'} color={''}>
-                      Começar agora 🚀
-                    </Text>
+                  <Button auto color={''} bordered rounded icon={<BiTimeFive/>} >
+                    <Text weight={'bold'} size={'$xs'} > {c?.duration} </Text>
                   </Button>
+                  <Link href={`/courses/${c?.id}`} >
+                    <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
+                      <Text weight={'bold'} color={''}>
+                        Começar agora 🚀
+                      </Text>
+                    </Button>
+                  </Link>
                   <Button color={'success'} rounded flat size={'xs'}>
                     {c?.difficulty}
                   </Button>
                   <Card.Divider />
                   <Collapse.Group>
-                    <Collapse title="Saiba mais">
+                    <Collapse title="Descrição ...">
                       <Text size="$sm">{c?.description}</Text>
                     </Collapse>
                   </Collapse.Group>
-                  <Card.Footer></Card.Footer>
                 </Card>
               </>
             )
