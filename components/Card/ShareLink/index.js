@@ -46,11 +46,11 @@ export default function ShareLinkCard() {
 
   return (
     <>
-      <div className="min-w-full rounded-lg bg-white-100 shadow-xl dark:bg-black-200">
+      <div className="min-w-full rounded-lg">
         <div className="flex min-w-full">
           <div className="flex min-w-full flex-col items-center justify-between px-6 py-5 lg:flex-row lg:items-center">
             <div className="flex-col">
-              <p className="text-base font-medium leading-none text-black-200 dark:text-gray-100">
+              <p className="text-base font-medium leading-none">
                 &#x1F493; Aprenda com seus amigos!
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
@@ -62,7 +62,7 @@ export default function ShareLinkCard() {
             <div className="mt-4 flex flex-col items-center">
               <Image src="/assets/img/twitter-logo.svg" width="40" height="40" />
               <a
-                className="twitter-share-button text-black-100 dark:text-white-100"
+                className="twitter-share-button"
                 id={`share-twitter`}
                 href={`https://twitter.com/intent/tweet?text=Novo curso 100%25 gratuito da Web3Dev sobre Smart Contracts, ainda vou ganhar um NFT no final, eu já me inscrevi, e você? ${shortenedUrl}`}
                 target="_blank"
