@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { MoonIcon, SunIcon } from '@heroicons/react/solid'
 import { useTheme as useNextTheme } from 'next-themes'
 import { Switch, useTheme } from '@nextui-org/react'
 
