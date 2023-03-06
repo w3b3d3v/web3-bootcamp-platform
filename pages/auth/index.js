@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import { useState } from 'react'
@@ -10,10 +9,8 @@ import { auth } from '../../firebase/initFirebase'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import Head from 'next/head'
 import { Button } from '@nextui-org/react'
-import LoginButton from '../../components/LoginButton'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
-
 
 function authPage() {
   const { login, loginGoogle, loginGithub } = useAuth()
