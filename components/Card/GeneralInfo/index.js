@@ -164,12 +164,12 @@ export default function GeneralInfoCard() {
                 loading={loading}
               />
               <div className="flex flex-col lg:flex-row gap-11 content-end max-w-5xl m-auto ">
-              <div className="flex-1">
-                <DiscordCard />
-              </div>
-              <div className="flex-1">
-                <WalletCard />
-              </div>
+                <div className="flex-1">
+                  <DiscordCard />
+                </div>
+                <div className="flex-1">
+                  <WalletCard />
+                </div>
               </div>
               <SocialData Controller={Controller} control={control} errors={errors} user={user} />
               <h1 className="text-center" id="professionalData">
