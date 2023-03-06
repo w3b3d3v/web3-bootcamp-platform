@@ -18,7 +18,6 @@ import SocialData from './SocialData'
 import ProfessionalData from './ProfessionalData'
 import ProfileFooter from './ProfileFooter'
 import { Container } from '@nextui-org/react'
-
 import WalletCard from '../../Card/Wallet'
 import DiscordCard from '../../Card/Discord'
 
