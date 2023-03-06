@@ -28,7 +28,7 @@ function Courses({ allCourses }) {
           {allCourses.map((c) => {
             return (
               <>
-                <Card
+                <Card 
                   css={{
                     display: 'flex',
                     mw: '300px',
@@ -38,7 +38,8 @@ function Courses({ allCourses }) {
                     gap: 5,
                   }}
                   isHoverable
-                  key={c?.id}
+                  key={c.id}
+                  id={c.id}
                 >
                   <Card.Header
                     css={{
