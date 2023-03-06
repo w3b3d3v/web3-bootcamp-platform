@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
-import { links, camelize } from '../../lib/constants'
+import { links, camelize } from '../../lib/constants';
 import Image from 'next/image';
-import { Text } from '@nextui-org/react'
+import { Text } from '@nextui-org/react';
 
 export default function Footer() {
   return (
