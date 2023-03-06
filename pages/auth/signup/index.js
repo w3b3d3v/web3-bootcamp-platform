@@ -165,17 +165,17 @@ function signUpPage() {
               </div>
               <div className='flex flex-col gap-3'>
                   <Button
+                    id={'sign-in-with-github'}
                     onClick={() => loginGithub()}
                     icon={<GrGithub/>}
                     size={'lg'}
                     color={''}
                     bordered
                   >
-                
                   Login com o Github
                 </Button>
-                
                 <Button
+                  id={'sign-in-with-google'}
                   icon={<FcGoogle/>}
                   alt="Google-Login-Icon"
                   onClick={() => loginGoogle()}
