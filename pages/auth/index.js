@@ -238,6 +238,7 @@ function authPage() {
               </div>
                 <div className='flex flex-col gap-3'>
                   <Button
+                    id={'sign-in-with-github'}
                     onClick={() => loginGithub()}
                     icon={<GrGithub/>}
                     size={'lg'}
@@ -249,6 +250,7 @@ function authPage() {
                 </Button>
                 
                 <Button
+                  id={'sign-in-with-google'}
                   icon={<FcGoogle/>}
                   alt="Google-Login-Icon"
                   onClick={() => loginGoogle()}
