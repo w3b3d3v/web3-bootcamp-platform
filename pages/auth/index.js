@@ -56,7 +56,7 @@ function authPage() {
       <Head>
         <title>Login -Web3Dev</title>
       </Head>
-      <div className="">
+      <div>
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
           {sessionStorage.getItem('credential') ? (
             <>
