@@ -225,7 +225,7 @@ function authPage() {
                       className="w-full rounded bg-primary-300 py-4 text-sm font-semibold leading-none text-white-100 transition duration-150 ease-in-out hover:bg-primary-400 focus:outline-none focus:ring-0 focus:ring-primary-300 focus:ring-offset-2 dark:text-black-300"
                       onClick={() => handleResetPassword(auth, email)}
                     >
-                      Resetar Senha
+                      Recuperar senha
                     </button>
                   </div>
                 </>
