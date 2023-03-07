@@ -7,7 +7,6 @@ import { toast } from 'react-toastify'
 import useAuth from '../../../hooks/useAuth'
 import { withPublic } from '../../../hooks/route'
 import { Button } from '@nextui-org/react'
-
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
 
@@ -34,7 +33,7 @@ function signUpPage() {
         <Head>
           <title>Cadastro -Web3Dev</title>
         </Head>
-        <div className="">
+        <div>
           <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
             <div className=" mb-6 flex items-center justify-center sm:mb-8 sm:flex sm:items-center md:hidden lg:hidden">
               <Image src="/assets/img/w3d-logo-symbol-ac.svg" width={42} height={42} />
