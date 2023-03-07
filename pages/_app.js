@@ -1,26 +1,20 @@
-import '../styles/globals.css'
-import Head from 'next/head'
+import '../styles/globals.css';
+import Head from 'next/head';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-
-import { AuthProvider } from '../context/AuthContext'
-import { SessionProvider } from 'next-auth/react'
-import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
-import 'regenerator-runtime/runtime'
-
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
-import 'react-cookienotice/dist/index.css'
-import dynamic from 'next/dynamic'
-import { useRouter } from "next/router"
-import React, { useEffect } from "react"
-
-import { mixpanel } from '../lib/utils/mixpanel'
-
-import Footer from '../components/Footer/index'
-import '../lib/globals.js'
-
-import { NextUIProvider, createTheme } from '@nextui-org/react'
+import { AuthProvider } from '../context/AuthContext';
+import { SessionProvider } from 'next-auth/react';
+import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react';
+import 'regenerator-runtime/runtime';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-cookienotice/dist/index.css';
+import dynamic from 'next/dynamic';
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { mixpanel } from '../lib/utils/mixpanel';
+import Footer from '../components/Footer/index';
+import '../lib/globals.js';
+import { NextUIProvider, createTheme } from '@nextui-org/react';
 import NavbarComponent from '../components/Navbar/index'
 
 export const event = (event_name, props) => {
