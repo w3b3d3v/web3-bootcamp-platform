@@ -6,7 +6,7 @@ function Profile() {
   return (
     <>
       <Head>
-        <title>Perfil -Web3Dev</title>
+        <title>Perfil - Web3Dev</title>
       </Head>
       <GeneralInfoCard />
     </>
