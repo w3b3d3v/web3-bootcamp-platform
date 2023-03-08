@@ -116,15 +116,12 @@ export default function NavbarComponent() {
                 {user ? (
                     <Navbar.Content hideIn={'md'} > 
                         <Dropdown onChange={() => setProfile(!profile)}>
-                          <Dropdown.Button  bordered={'md'} borderWeight={'light'} flat >
-                            <Grid.Container gap={2}>
-                          <Avatar
-                          size="lg"
-                          src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
-                          zoomed
-                          bordered
-                          />
-                        </Grid.Container>
+                          <Dropdown.Button borderWeight={'light'} flat color={''} css={{ paddingBlock:'$10' }} bordered >
+                              <Avatar
+                              size="md"
+                              src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
+                              bordered
+                              />
                         {/* <Navbar.CollapseItem 
                         css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
                         >
