@@ -41,7 +41,7 @@ export default function NavbarComponent() {
   }
   
   useEffect(() => {
-     getUser()
+    saveReferralCookie().then(getUser)
   }, [user])
 
   return (
