@@ -23,6 +23,12 @@ a:link, a:visited {
 a:hover {
   text-decoration: underline;
 }
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
 .lp-gradient-text{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
