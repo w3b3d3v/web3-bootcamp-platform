@@ -89,8 +89,14 @@ export default function SocialData({ Controller, control, errors, user }) {
         <div className="">
           {user?.socialLinks?.find((item) => item.name == 'github').url ? (
             <div className="flex items-center justify-center">
-              <Button id="githubConnect" color={''} boardered>
-                <img src="/assets/img/GitHub-Logo.svg" alt="" className="h-6 w-6" />
+              <Button id="githubConnect" 
+              size={'md'} 
+              color={''} 
+              css={{ display: 'flex', gap: '$5' }}
+              icon={<FiGithub />} 
+              boardered 
+              disabled 
+              >
                 <p>✅</p>
               </Button>
               <small className="text-red-500" data-testid="github-error-message">
@@ -105,11 +111,12 @@ export default function SocialData({ Controller, control, errors, user }) {
               <label htmlFor="githubConnect"></label>
               <Button
                 id="githubConnect"
-                rounded
+                color={''}
                 onClick={connectGithub}
                 size={'md'}
-                css={{ color: 'White', background: 'black', display: 'flex', gap: '$5' }}
+                css={{ display: 'flex', gap: '$5'}}
                 icon={<FiGithub />}
+                bordered
               >
                 Conectar Github
               </Button>
