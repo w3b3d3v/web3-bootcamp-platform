@@ -10,12 +10,12 @@ export default function Main() {
         <div>
           <div className='max-w-lg m-auto' >
             <Text h1 auto className="text-center font-bold mb-4">
-              Contrua um Dapp de{' '}
+              Construa um App em{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
-                DAO{' '}
+                Solana{' '}
               </span>
-              com sistema de votações usando Javascript
+               com React e Rust
             </Text>
           </div>
           <div className='flex justify-center mb-7 text-justify'>
