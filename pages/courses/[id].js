@@ -374,7 +374,7 @@ function Course({ course, currentDate }) {
                                     return (
                                       <li
                                         key={lesson.title}
-                                        className="mb-4 items-center rounded py-2 bg-gray-500 px-4"
+                                        className="mb-4 items-center rounded py-2 px-4"
                                       >
                                         <div className="flex items-center ">
                                           <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
