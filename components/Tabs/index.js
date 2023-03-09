@@ -22,7 +22,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
               <div className={'flex justify-between'} key={section}>
                 {isLessonPage ? (
                   <div
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 mb-3 ${colorTab(
+                    className={`item flex-grow rounded px-4 py-2 font-bold  shadow-lg hover:no-underline  mb-3 ${colorTab(
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
                         .isSectionCompleted,
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection
@@ -34,7 +34,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                   <a
                     href={`#${!isLessonPage ? section : ''}`}
                     onClick={() => toggle(section)}
-                    className={`item flex-grow rounded px-4 py-2 font-bold text-black-100 shadow-lg hover:no-underline dark:text-white-100 mb-3 ${colorTab(
+                    className={`item flex-grow rounded px-4 py-2 font-bold  shadow-lg hover:no-underline b-3 ${colorTab(
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
                         .isSectionCompleted,
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection

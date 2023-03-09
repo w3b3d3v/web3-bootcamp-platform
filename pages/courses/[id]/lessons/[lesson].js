@@ -143,7 +143,7 @@ function Lessons({ course, lesson, currentDate }) {
         <div className="container my-4 flex justify-between">
           <Button
             id="previous-lesson"
-            customClass="bg-slate-300 dark:text-black-100"
+            customClass="bg-slate-300"
             onClick={previousLesson}
           >
             Lição anterior
@@ -155,12 +155,12 @@ function Lessons({ course, lesson, currentDate }) {
           >
             Voltar ao curso
           </Button>
-          <Button id="next-lesson" customClass="bg-violet-600 text-white-200" onClick={nextLesson}>
+          <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson}>
             Próxima lição
           </Button>
         </div>
       </div>
-      <div className="container mx-auto my-8 w-2/3 rounded-lg bg-white-100 px-6 py-2 shadow-xl dark:bg-black-200 sm:px-2 md:px-4 lg:px-14 xl:py-0">
+      <div className="container mx-auto my-8 w-2/3 rounded-lg  px-6 py-2 shadow-xl sm:px-2 md:px-4 lg:px-14 xl:py-0">
         {course &&
           course?.lessons.map((l) => {
             return (
@@ -178,7 +178,7 @@ function Lessons({ course, lesson, currentDate }) {
                         <Button ref={ref} customClass="my-8 opacity-60 dark:opacity-50" disabled>
                           Lição enviada
                         </Button>
-                        <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium text-black-100 dark:text-white-100">
+                        <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium">
                           {url?.length ? (
                             <img className="max-w-md" src={url} alt="submission" height={250} />
                           ) : (
@@ -224,11 +224,11 @@ function Lessons({ course, lesson, currentDate }) {
       </div>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <div className="container my-4 flex justify-between">
-          <Button customClass="bg-slate-300 dark:text-black-100" onClick={previousLesson}>
+          <Button customClass="bg-slate-300" onClick={previousLesson}>
             Lição anterior
           </Button>
           <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button customClass="bg-violet-600 text-white-200" onClick={nextLesson}>
+          <Button customClass="bg-violet-600" onClick={nextLesson}>
             Próxima lição
           </Button>
         </div>
