@@ -44,7 +44,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FJS_DAO.png?alt=media&token=3778f188-89dc-48c7-b557-50ae36732436"
+          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolana_And_Web3.png?alt=media&token=c10c7dc7-2910-4028-83fc-2fc3df3a961f"
         />
 
         {/* Twitter */}
