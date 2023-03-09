@@ -32,7 +32,7 @@ export default function Main() {
         </div>
         <br />
         <div className="lg:self-start m-auto mb-8">
-          <a href="/courses/JS_DAO">
+          <a href="/courses/Solana_And_Web3">
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
               <Text weight={'extrabold'} >Quero me inscrever!</Text>
             </Button>
