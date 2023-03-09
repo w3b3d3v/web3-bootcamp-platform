@@ -1,9 +1,13 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import { getAllCourses } from '../../lib/courses'
 import { Card, Container, Text, Collapse, Button, Link } from '@nextui-org/react'
 import { BiTimeFive } from 'react-icons/bi'
  
 function Courses({ allCourses }) {
+
+  const [showMore, setShowMore]   = useState(false)
+
   return (
     <>
       <Head>
@@ -31,11 +35,14 @@ function Courses({ allCourses }) {
                 <Card 
                   css={{
                     display: 'flex',
-                    mw: '300px',
+                    mw: '500px',
                     textAlign: 'center',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     gap: 5,
+                    height:'auto',
+                    paddingBlock:'$10'
+
                   }}
                   isHoverable
                   key={c.id}
@@ -67,9 +74,11 @@ function Courses({ allCourses }) {
                   </Button>
                   <Card.Divider />
                   <Collapse.Group>
-                    <Collapse title="Descrição ...">
-                      <Text size="$sm">{c?.description}</Text>
-                    </Collapse>
+                        <Text 
+                        size="$sm"
+                        >
+                          {c?.description.substring(0,100) + '...'}
+                        </Text>
                   </Collapse.Group>
                 </Card>
               </>
