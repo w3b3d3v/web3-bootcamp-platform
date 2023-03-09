@@ -6,7 +6,7 @@ import Main from '../components/Home'
 export default function Home() {
   const cards = [
     '100% gratuito, sempre!',
-    'Desenvolva na tecnologia da Ethereum',
+    'Desenvolva na tecnologia da Solana',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
     'Trabalhe como dev em projetos web3',
