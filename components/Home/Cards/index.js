@@ -26,7 +26,7 @@ export default function HomeCards({ cards }) {
               key={card}
               className={`h-32 w-44 rounded-lg bg-gradient-to-br mb-6 mr-0 lg:mr-6 p-1 border`}
             >
-              <div className="text-black flex h-full w-full items-center rounded-l text-center shadow-xl  sm:p-1 md:p-3 lg:p-4 ">
+              <div className="flex h-full w-full items-center rounded-l text-center shadow-xl sm:p-1 md:p-3 lg:p-4 ">
                 {card}
               </div>
             </div>
