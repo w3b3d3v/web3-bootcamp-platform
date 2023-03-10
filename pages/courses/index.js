@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import { getAllCourses } from '../../lib/courses'
-import { Card, Container, Text, Collapse, Button, Link } from '@nextui-org/react'
-import { BiTimeFive } from 'react-icons/bi'
+import { Container } from '@nextui-org/react'
+import { CourseCard } from '../../components/Card/Course'
  
 function Courses({ allCourses }) {
 
-  const [showMore, setShowMore]   = useState(false)
+  const [showMore, setShowMore] = useState(false)
 
   return (
     <>
@@ -32,55 +32,7 @@ function Courses({ allCourses }) {
           {allCourses.map((c) => {
             return (
               <>
-                <Card 
-                  css={{
-                    display: 'flex',
-                    mw: '500px',
-                    textAlign: 'center',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: 5,
-                    height:'auto',
-                    paddingBlock:'$10'
-
-                  }}
-                  isHoverable
-                  key={c.id}
-                  id={c.id}
-                >
-                  <Card.Header
-                    css={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      textAlign: 'center',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Card.Image src={c?.image_url} key={c?.id}></Card.Image>
-                  </Card.Header>
-                  <Button auto color={''} bordered rounded icon={<BiTimeFive/>} >
-                    <Text weight={'bold'} size={'$xs'} > {c?.duration} </Text>
-                  </Button>
-                  <Link href={`/courses/${c?.id}`} >
-                    <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
-                      <Text weight={'bold'} color={''}>
-                        Começar agora 🚀
-                      </Text>
-                    </Button>
-                  </Link>
-                  <Button color={'success'} rounded flat size={'xs'}>
-                    {c?.difficulty}
-                  </Button>
-                  <Card.Divider />
-                  <Collapse.Group>
-                        <Text 
-                        size="$sm"
-                        >
-                          {c?.description.substring(0,100) + '...'}
-                        </Text>
-                  </Collapse.Group>
-                </Card>
+                <CourseCard course={c} />
               </>
             )
           })}
