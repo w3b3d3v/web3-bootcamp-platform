@@ -94,10 +94,10 @@ export default function SocialData({ Controller, control, errors, user }) {
               color={''} 
               css={{ display: 'flex', gap: '$5' }}
               icon={<FiGithub />} 
-              boardered 
+              bordered 
               disabled 
               >
-                <p>✅</p>
+                <p>Conectado ✅</p>
               </Button>
               <small className="text-red-500" data-testid="github-error-message">
                 {errors.github?.message}
