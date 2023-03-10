@@ -74,6 +74,7 @@ export default function ProfessionalData({
             id={'devExp'}
             label="Insira o ano de início da sua experiência profissional com desenvolvimento"
             helperText={errors.devExp?.message}
+            bordered
           />
           <small className="text-red-500"></small>
           <div className="mt-4">
@@ -90,6 +91,7 @@ export default function ProfessionalData({
                   'Insira o ano de início da sua experiência profissional com blockchain'
                 }
                 helperText={errors.blockchainExp?.message}
+                bordered
               />
             </div>
           </div>
