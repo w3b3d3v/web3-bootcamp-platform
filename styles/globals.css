@@ -21,7 +21,7 @@ a:link, a:visited {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 button {
