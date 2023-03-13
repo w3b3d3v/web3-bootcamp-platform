@@ -39,8 +39,16 @@ async function mint(cohort, nft_title, user, callback) {
       created_at: new Date(),
     })
   })
+
+  const maxGasPrice = 200000000000;
+  const gasPrice = await provider.getGasPrice();
+  if (gasPrice > maxGasPrice) {
+    console.log('gas price too high. did not mint')
+    // do something
+  }
+
   const tx = await nftContract.mintCertificate(cohort.name, nft_title, user.wallet, {
-    gasPrice: 60000000000,
+    gasPrice: gasPrice,
   })
 
   await tx.wait()
