@@ -119,7 +119,7 @@ exports.mintAllMissing = functions
   .https.onRequest(async (req, resp) => {
     const userLessons = await db
       .collection('lessons_submissions')
-      .where('lesson', '==', 'Lesson_2_Ship_It.md')
+      .where('lesson', 'in', ['Lesson_2_Ship_It.md', 'Lesson_2_Finalize_And_Celebrate.md', 'Lesson_2_Finishing_Touches_Contract.md'])
       .where('createdAt', '>', new Date(2022, 05, 21, 05))
       .orderBy('createdAt')
       .get()
