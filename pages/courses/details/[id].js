@@ -1,11 +1,11 @@
 import { getCourse } from '../../../lib/course'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import NotFound from '../../404'
 import { Text,Button } from '@nextui-org/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 
-function Course({ course, currentDate }) {
+function Course({ course }) {
     const router = useRouter();
 
     const handleButtonClick = () => {
@@ -50,11 +50,9 @@ function Course({ course, currentDate }) {
 
 export async function getServerSideProps({ params }) {
     const course = await getCourse(params.id)
-    const currentDate = new Date().toISOString()
     return {
         props: {
-            course,
-            currentDate,
+            course
         },
     }
 }
