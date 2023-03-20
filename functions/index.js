@@ -5,6 +5,7 @@ const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
+// New code from Romulo
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
@@ -32,20 +33,18 @@ async function emailParams(cohort) {
 exports.onCohortSignup = functions.firestore
   .document('users/{userId}')
   .onUpdate(async (change, context) => {
-    const previousUserValue = change.before.data()
-    const user = change.after.data()
-    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id)
-    const userNewCohorts = user.cohorts.filter(
-      (item) => !previousCohortData?.includes(item.cohort_id)
+    const previousUserData = change.before.data()
+    const userData = change.after.data()
+    const previousUserCohortData = previousUserData.cohorts.map((item) => item.cohort_id)
+    const userNewCohorts = userData.cohorts.filter(
+      (item) => !previousUserCohortData?.includes(item.cohort_id)
     )
-    const topic = pubsub.topic('router-pubsub')
-
-    for (let cohortSnapshot of userNewCohorts) {
-      const params = await emailParams(cohortSnapshot)
+    for (let newUserCohortId of userNewCohorts) {
+      const params = await emailParams(newUserCohortId)
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       const emailRawData = {
         incoming_topic: 'cohort_signup',
-        user_email: user.email,
+        user_email: userData.email,
         email_subject: params.cohort.email_content.subject,
         params,
       }
@@ -57,8 +56,14 @@ exports.onCohortSignup = functions.firestore
       const emailData = Buffer.from(JSON.stringify(emailRawData))
       const discordData = Buffer.from(JSON.stringify(discordRawData))
 
-      topic.publishMessage({ emailData }, ()=> console.log('Email topic published on cohort signup'))
-      topic.publishMessage({ discordData }, ()=> console.log('Add User to Discord Role published on cohort signup'))
+      pubsub.topic('discord-topic')
+      .publishMessage({ emailData }, 
+      ()=> console.log('Email topic published on cohort signup'))
+
+      pubsub.topic('email-topic')
+      .publishMessage({ discordData }, 
+      () => console.log('Add User to Discord Role published on cohort signup'))
+
     }
   })
 
@@ -243,39 +248,39 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
   resp.send('OK')
 })
 
-exports.onUserCreated = functions.firestore
-  .document('users/{userId}')
-  .onCreate(async (snap, context) => {
-    const user = snap.data()
-    const userId = snap.id
-    const userEmail = user.email
-    const topic = pubsub.topic('router-pubsub')
-    const rawData = {
-      incoming_topic: 'user_created',
-      user,
-    }
-    const data = Buffer.from(JSON.stringify(rawData))
-    return await topic.publishMessage({ data })
-  })
+// exports.iseated = functions.firestore
+//   .document('users/{userId}')
+//   .onCreate(async (snap, context) => {
+//     const user = snap.data()
+//     const userId = snap.id
+//     const userEmail = user.email
+//     const topic = pubsub.topic('router-pubsub')
+//     const rawData = {
+//       incoming_topic: 'user_created',
+//       user,
+//     }
+//     const data = Buffer.from(JSON.stringify(rawData))
+//     return await topic.publish({ data })
+//   })
 
-exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
-  const json = JSON.parse(Buffer.from(message.data, 'base64'))
-  console.log(`GOT TO THE ROUTER 2, YEA ! ${json.incoming_topic}`)
+// exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
+//   const json = JSON.parse(Buffer.from(message.data, 'base64'))
+//   console.log(`GOT TO THE ROUTER 2, YEA ! ${json.incoming_topic}`)
 
-  const topic = pubsub.topic(json.incoming_topic)
-  const data = Buffer.from(JSON.stringify(json))
-  return await topic.publishMessage({ data })
-})
+//   const topic = pubsub.topic(json.incoming_topic)
+//   const data = Buffer.from(JSON.stringify(json))
+//   return await topic.publishMessage({ data })
+// })
 
 exports.userCreated = functions.pubsub.topic('user_created').onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
   return newUser(data)
 })
 
-exports.onCohortSignup = functions.pubsub.topic('cohort_signup').onPublish((message) => {
-  const data = JSON.parse(Buffer.from(message.data, 'base64'))
-  return cohortSignup(data)
-})
+// exports.onCohortSignup = functions.pubsub.topic('cohort_signup').onPublish((message) => {
+//   const data = JSON.parse(Buffer.from(message.data, 'base64'))
+//   return cohortSignup(data)
+// })
 
 exports.discordRoles = functions.pubsub
   .topic('add_dc_user_to_role_on_cohort_signup')
