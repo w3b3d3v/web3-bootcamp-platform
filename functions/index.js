@@ -57,15 +57,38 @@ exports.onCohortSignup = functions.firestore
       const discordData = Buffer.from(JSON.stringify(discordRawData))
 
       pubsub.topic('discord-topic')
-      .publishMessage({ emailData }, 
+      .publishMessage({ discordData }, 
       ()=> console.log('Email topic published on cohort signup'))
 
       pubsub.topic('email-topic')
-      .publishMessage({ discordData }, 
+      .publishMessage({ emailData }, 
       () => console.log('Add User to Discord Role published on cohort signup'))
 
     }
   })
+
+exports.cohortSignupQueue = functions.pubsub.topic('email-topic').onPublish(async (message) => {
+  const emailData = JSON.parse(Buffer.from(message.data, 'base64'))
+  const userEmail = emailData.user_email;
+  const cohort = emailData.params.cohort;
+  const course = emailData.params.course;
+  const mailchimp = require("@mailchimp/mailchimp_marketing");
+
+  mailchimp.setConfig({
+    apiKey: process.env.MAILCHIMP_API_KEY,
+    server: process.env.MAILCHIMP_SERVER,
+  });
+
+  await mailchimp.lists.addListMember(cohort, {
+    email_address: userEmail,
+    status: 'subscribed',
+  });
+
+  await mailchimp.lists.addListMember(course, {
+    email_address: userEmail,
+    status: 'subscribed',
+  });
+})
 
 exports.onDiscordConnect = functions.firestore
   .document('users/{userId}')
