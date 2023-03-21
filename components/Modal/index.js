@@ -164,7 +164,7 @@ export default function Modal({
                         <br />
                         <textarea
                           name="lesson-submission"
-                          className="h-20 w-full p-1"
+                          className="h-20 w-full p-1 z-10"
                           onChange={(event) => setLessonSubmission(event.target.value)}
                         />
                       </div>
