@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import ReactMarkdown from 'react-markdown'
-import { Button } from '../../../../components/Button'
+import { Button } from '@nextui-org/react'
 import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
@@ -16,6 +16,7 @@ import remarkGfm from 'remark-gfm'
 import TwitterModal from '../../../../components/TwitterModal.js'
 import { getUserFromFirestore } from '../../../../lib/user'
 import { auth } from '../../../../firebase/initFirebase'
+import { MdAdsClick } from 'react-icons/md'
 
 function Lessons({ course, lesson, currentDate }) {
   const [open, setOpen] = useState(false)
@@ -144,6 +145,7 @@ function Lessons({ course, lesson, currentDate }) {
             id="previous-lesson"
             customClass="bg-slate-300"
             onClick={previousLesson}
+            color={''}
           >
             Lição anterior
           </Button>
@@ -151,10 +153,11 @@ function Lessons({ course, lesson, currentDate }) {
             id="back-to-course"
             customClass=""
             onClick={() => router.push(`/courses/${course.id}`)}
+            color=''
           >
             Voltar ao curso
           </Button>
-          <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson}>
+          <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson} color={'success'}>
             Próxima lição
           </Button>
         </div>
@@ -171,7 +174,7 @@ function Lessons({ course, lesson, currentDate }) {
                     rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
                     children={fixMarkdown(l?.markdown)}
                   />
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mt-8">
                     {lessonSent ? (
                       <div className="flex flex-col text-center">
                         <Button ref={ref} customClass="my-8 opacity-60 dark:opacity-50" disabled>
@@ -191,6 +194,8 @@ function Lessons({ course, lesson, currentDate }) {
                         id="submit-lesson"
                         customClass="w-2/3 my-8 mx-auto"
                         onClick={() => setOpen(true)}
+                        icon={<MdAdsClick size={"17px"} />}
+                        color='success'
                       >
                         {submissionTitle}
                       </Button>
@@ -223,11 +228,15 @@ function Lessons({ course, lesson, currentDate }) {
       </div>
       <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <div className="container my-4 flex justify-between">
-          <Button customClass="bg-slate-300" onClick={previousLesson}>
+          <Button customClass="bg-slate-300" onClick={previousLesson} color='' >
             Lição anterior
           </Button>
-          <Button onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button customClass="bg-violet-600" onClick={nextLesson}>
+          <Button 
+          color=''
+          onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
+          <Button 
+          onClick={nextLesson} 
+          color='secondary'>
             Próxima lição
           </Button>
         </div>
