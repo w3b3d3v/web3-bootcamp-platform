@@ -190,6 +190,7 @@ function Lessons({ course, lesson, currentDate }) {
                       </div>
                     ) : (
                       <Button
+                        css={{ zIndex:'0', position:'relative' }}
                         ref={ref}
                         id="submit-lesson"
                         customClass="w-2/3 my-8 mx-auto"
@@ -231,7 +232,8 @@ function Lessons({ course, lesson, currentDate }) {
           <Button customClass="bg-slate-300" onClick={previousLesson} color='' >
             Lição anterior
           </Button>
-          <Button 
+          <Button
+          css={{ zIndex:'0', position:'relative' }} 
           color=''
           onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
           <Button 
