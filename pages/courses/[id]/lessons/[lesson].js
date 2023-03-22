@@ -138,29 +138,29 @@ function Lessons({ course, lesson, currentDate }) {
         <meta property="og:image:height" content="256" />
         <title>Lição - {lesson} -Web3Dev</title>
       </Head>
-      <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
+      <div className="mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
         <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
-        <div className="container my-4 flex justify-between">
-          <Button
-            id="previous-lesson"
-            customClass="bg-slate-300"
-            onClick={previousLesson}
-            color={''}
-          >
-            Lição anterior
-          </Button>
-          <Button
-            id="back-to-course"
-            customClass=""
-            onClick={() => router.push(`/courses/${course.id}`)}
-            color=''
-          >
-            Voltar ao curso
-          </Button>
-          <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson} color={'success'}>
-            Próxima lição
-          </Button>
-        </div>
+          <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
+            <Button
+              id="previous-lesson"
+              customClass="bg-slate-300"
+              onClick={previousLesson}
+              color={''}
+            >
+              Lição anterior
+            </Button>
+            <Button
+              id="back-to-course"
+              customClass=""
+              onClick={() => router.push(`/courses/${course.id}`)}
+              color=''
+            >
+              Voltar ao curso
+            </Button>
+            <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson} color={'success'}>
+              Próxima lição
+            </Button>
+          </div>
       </div>
       <div className="container mx-auto my-8 w-2/3 rounded-lg  px-6 py-2 shadow-xl sm:px-2 md:px-4 lg:px-14 xl:py-0">
         {course &&
@@ -227,22 +227,24 @@ function Lessons({ course, lesson, currentDate }) {
             )
           })}
       </div>
-      <div className="container mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
-        <div className="container my-4 flex justify-between">
-          <Button customClass="bg-slate-300" onClick={previousLesson} color='' >
+      <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
+          <Button
+            onClick={nextLesson}
+            color='secondary'>
+            Próxima lição
+          </Button>
+          <Button 
+          customClass="bg-slate-300" 
+          onClick={previousLesson} color='' >
             Lição anterior
           </Button>
           <Button
           css={{ zIndex:'0', position:'relative' }} 
           color=''
-          onClick={() => router.push(`/courses/${course.id}`)}>Voltar ao curso</Button>
-          <Button 
-          onClick={nextLesson} 
-          color='secondary'>
-            Próxima lição
+          onClick={() => router.push(`/courses/${course.id}`)}
+          >Voltar ao curso
           </Button>
         </div>
-      </div>
     </>
   )
 }
