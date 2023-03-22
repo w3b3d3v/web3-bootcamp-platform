@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import ReactMarkdown from 'react-markdown'
-import { Button } from '@nextui-org/react'
+import { Button, Text } from '@nextui-org/react'
 import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
@@ -189,17 +189,22 @@ function Lessons({ course, lesson, currentDate }) {
                         </div>
                       </div>
                     ) : (
-                      <Button
-                        css={{ zIndex:'0', position:'relative' }}
-                        ref={ref}
-                        id="submit-lesson"
-                        customClass="w-2/3 my-8 mx-auto"
-                        onClick={() => setOpen(true)}
-                        icon={<MdAdsClick size={"17px"} />}
-                        color='success'
-                      >
-                        {submissionTitle}
-                      </Button>
+                      <div className='flex gap-5 flex-col items-center' >
+                        <Button
+                          rounded
+                          ref={ref}
+                          id="submit-lesson"
+                          customClass="w-2/3 my-8 mx-auto"
+                          onClick={() => setOpen(true)}
+                          color='success'
+                        >
+                          {submissionTitle}
+                        </Button>
+                        <div className='flex items-center gap-4 flex-col' >
+                          <MdAdsClick size={"17px"} />
+                          <Text size={'$sm'} > Clique no botão acima para enviar o seu relatório de #progresso</Text>
+                        </div>
+                      </div>
                     )}
                     {open && (
                       <Modal
