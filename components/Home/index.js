@@ -5,7 +5,7 @@ import Cover from './Cover'
 export default function Main() {
   const ref = React.createRef()
   return (
-    <div className="max-w-7xl mx-auto mb-14 px-8 mt-4 flex flex-col justify-between lg:mt-16 lg:flex-row items-center gap-0 lg:gap-52">
+    <div className="max-w-7xl mx-auto mb-14 px-8 mt-4 flex flex-col justify-between lg:mt-16 lg:flex-row items-center gap-0 lg:gap-52 z-0">
       <div className="flex flex-col items-center mx-auto flex-1">
         <div>
           <div className='max-w-lg m-auto' >
@@ -31,7 +31,7 @@ export default function Main() {
           </div>
         </div>
         <br />
-        <div className="lg:self-start m-auto mb-8">
+        <div className="lg:self-start m-auto mb-8 z-0">
           <a href="/courses/Solana_And_Web3">
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
               <Text weight={'extrabold'} >Quero me inscrever!</Text>
