@@ -82,13 +82,15 @@ function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
               </Head>
               <NavbarComponent />
-              <CookieNotice
-                cookieName="web3dev-user-cookie"
-                descriptionLabel={cookieText}
-                titleLabel="Consentimento de cookies"
-                acceptButtonLabel="Aceitar"
-                declineButtonLabel="Rejeitar"
-              />
+              <div className='z-10 relative'>
+                <CookieNotice
+                  cookieName="web3dev-user-cookie"
+                  descriptionLabel={cookieText}
+                  titleLabel="Consentimento de cookies"
+                  acceptButtonLabel="Aceitar"
+                  declineButtonLabel="Rejeitar"
+                />
+              </div>
               <Component {...pageProps} />
               <Footer />
               <ToastContainer />
