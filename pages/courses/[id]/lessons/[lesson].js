@@ -164,7 +164,7 @@ function Lessons({ course, lesson, currentDate }) {
             </Button>
           </div>
       </div>
-      <div className="mx-auto rounded-lg px-6 py-2 shadow-xl">
+      <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
         {course &&
           course?.lessons.map((l) => {
             return (
@@ -235,11 +235,6 @@ function Lessons({ course, lesson, currentDate }) {
           })}
       </div>
       <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
-          <Button
-            onClick={nextLesson}
-            color='secondary'>
-            Próxima lição
-          </Button>
           <Button 
           customClass="bg-slate-300" 
           onClick={previousLesson} color='' >
@@ -250,6 +245,11 @@ function Lessons({ course, lesson, currentDate }) {
           color=''
           onClick={() => router.push(`/courses/${course.id}`)}
           >Voltar ao curso
+          </Button>
+          <Button
+            onClick={nextLesson}
+            color='secondary'>
+            Próxima lição
           </Button>
         </div>
       </Container>
