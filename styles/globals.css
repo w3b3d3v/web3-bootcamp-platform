@@ -16,10 +16,6 @@ body {
   color:inherit;
 }
 
-a:link, a:visited {
-  color: inherit;
-}
-
 a:hover {
   text-decoration: none;
 }
