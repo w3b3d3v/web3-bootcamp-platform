@@ -17,6 +17,7 @@ import TwitterModal from '../../../../components/TwitterModal.js'
 import { getUserFromFirestore } from '../../../../lib/user'
 import { auth } from '../../../../firebase/initFirebase'
 import { MdAdsClick } from 'react-icons/md'
+import { Container } from '@nextui-org/react'
 
 function Lessons({ course, lesson, currentDate }) {
   const [open, setOpen] = useState(false)
@@ -138,7 +139,8 @@ function Lessons({ course, lesson, currentDate }) {
         <meta property="og:image:height" content="256" />
         <title>Lição - {lesson} -Web3Dev</title>
       </Head>
-      <div className="mx-auto px-6 py-2 sm:px-6 md:px-6 lg:px-32 xl:py-0">
+      <Container >
+      <div className="mx-auto px-6 py-2">
         <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
           <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
             <Button
@@ -162,7 +164,7 @@ function Lessons({ course, lesson, currentDate }) {
             </Button>
           </div>
       </div>
-      <div className="container mx-auto my-8 w-2/3 rounded-lg  px-6 py-2 shadow-xl sm:px-2 md:px-4 lg:px-14 xl:py-0">
+      <div className="mx-auto rounded-lg px-6 py-2 shadow-xl">
         {course &&
           course?.lessons.map((l) => {
             return (
@@ -250,6 +252,7 @@ function Lessons({ course, lesson, currentDate }) {
           >Voltar ao curso
           </Button>
         </div>
+      </Container>
     </>
   )
 }

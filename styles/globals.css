@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+a:visited {
+  color:'inherit';
+}
+
+blockquote {
+  background-color: white;
+}
+
+code {
+  background: #808080;
+  color: white;
+}
+
+pre {
+  background-color: #3b3b3b;
+  color: white;
+  padding: 2rem;
+}
+
+.code-line {
+  color: white;
+}
+
+.code-highlight {
+  background-color:transparent;
+}
+
 html,
 body {
   padding: 0;
