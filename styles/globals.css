@@ -31,6 +31,10 @@ pre {
   background-color:transparent;
 }
 
+.container-lessons a {
+  color: inherit;
+}
+
 html,
 body {
   padding: 0;

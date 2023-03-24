@@ -195,7 +195,7 @@ function Course({ course, currentDate }) {
         <title>Curso {course.id} -Web3Dev</title>
       </Head>
       
-      <div className="mx-auto max-w-7xl px-6 mt-0 lg:mt-10">
+      <div className="mx-auto max-w-7xl px-6 mt-0 lg:mt-10 container-lessons">
 
       <div className="flex justify-between mb-8 flex-col lg:flex-row">
 
