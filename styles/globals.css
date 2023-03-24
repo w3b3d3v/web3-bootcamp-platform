@@ -13,6 +13,8 @@ blockquote {
 code {
   background: #808080;
   color: white;
+  font-family: monospace;
+  
 }
 
 pre {
