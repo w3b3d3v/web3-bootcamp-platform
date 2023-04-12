@@ -119,13 +119,17 @@ exports.mintAllMissing = functions
   .https.onRequest(async (req, resp) => {
     const userLessons = await db
       .collection('lessons_submissions')
-      .where('lesson', 'in', ['Lesson_2_Ship_It.md', 'Lesson_2_Finalize_And_Celebrate.md', 'Lesson_2_Finishing_Touches_Contract.md'])
-      .where('createdAt', '>', new Date(2022, 05, 21, 05))
+      .where('lesson', 'in', [
+        'Lesson_2_Ship_It.md',
+        'Lesson_2_Finalize_And_Celebrate.md',
+        'Lesson_2_Finishing_Touches_Contract.md',
+      ])
+      .where('createdAt', '>', new Date(2023, 01, 1, 1))
       .orderBy('createdAt')
       .get()
-
     const itens = userLessons.docs
-    for (l of itens.slice(48, 49)) {
+    console.log(itens.length)
+    for (l of itens) {
       const d = l.data()
       console.log({ user_id: d.user_id, date: d.createdAt.toDate() })
       let cohort = await docData('cohorts', d.cohort_id)
@@ -135,7 +139,11 @@ exports.mintAllMissing = functions
         cohort = await getNextCohort(cohort.course_id, db)
         console.log(cohort.name)
       }
-      await issueCertificate(d.user_id, cohort)
+      try {
+        await issueCertificate(d.user_id, cohort)
+      } catch (e) {
+        console.log('error: ' + e)
+      }
     }
     resp.send('ok')
   })
