@@ -10,12 +10,12 @@ export default function Main() {
         <div>
           <div className='max-w-lg m-auto' >
             <Text h1 auto className="text-center font-bold mb-4">
-              Construa um App em{' '}
+              Construa seu Chat de IA com{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
-                Solana{' '}
+                GPT-3{' '}
               </span>
-               com React e Rust
+               e Open AI.
             </Text>
           </div>
           <div className='flex justify-center mb-7 text-justify'>
@@ -23,16 +23,18 @@ export default function Main() {
           </div>
           <div className="max-w-2xl">
             <Text>
-              Este é um projeto prático e intensivo de <strong>10 dias</strong> que oferece uma oportunidade única para desenvolvedores aprofundarem seus conhecimentos em <strong>Solana, Rust e React</strong>. Você aprenderá a criar um aplicativo na blockchain Solana usando Rust para desenvolver contratos inteligentes e React para construir a interface de usuário. Ao concluir o Build, você terá todas as habilidades necessárias para criar um aplicativo em Solana permitindo que usuários com uma carteira Solana interajam facilmente com sua plataforma.
+              A WEB3DEV oferece aos desenvolvedores de software a oportunidade de construir sua própria ferramenta de escrita assistida por AI usando GPT-3 e Open AI. 
+              Os participantes aprenderão sobre as funcionalidades dessas ferramentas e como aplicá-las em seus próprios aplicativos. O projeto ensina a usar essa tecnologia para transformar aplicativos em obras-primas e a ficar atualizado nas tendências de ML/IA. Os desenvolvedores podem se inscrever agora no curso de ChatGPT para aproveitar o poder do GPT-3 em seus aplicativos e se destacar no mercado.
             </Text>
+            <br/>
             <Text>
-              Você também terá a chance de se conectar com outros desenvolvedores em nossa comunidade exclusiva e aprimorar ainda mais suas habilidades em tecnologias emergentes. Junte-se a nós agora e comece a construir o futuro da web3!
+              Você também terá a chance de se conectar com outros desenvolvedores em nossa comunidade exclusiva e aprimorar ainda mais suas habilidades em tecnologias emergentes. Junte-se a nós agora e comece a construir o futuro!
             </Text>
           </div>
         </div>
         <br />
         <div className="lg:self-start m-auto mb-8 z-0">
-          <a href="/courses/Solana_And_Web3">
+          <a href="/courses/GPT3_Writer">
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
               <Text weight={'extrabold'} >Quero me inscrever!</Text>
             </Button>
