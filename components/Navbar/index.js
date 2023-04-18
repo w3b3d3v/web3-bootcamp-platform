@@ -82,7 +82,7 @@ export default function NavbarComponent() {
               <Navbar.Content> 
                 {user?.uid && (
                   <Navbar.Content hideIn={'md'} >
-                    <NUButton auto color={''} onPress={() => setVisible(true)}>
+                    <NUButton auto css={{background: '#17c964'}} color={''} onPress={() => setVisible(true)}>
                     <Text weight={'bold'} >Indique e ganhe</Text>
                     </NUButton>
                     <Modal
@@ -209,7 +209,7 @@ export default function NavbarComponent() {
                   <Navbar.CollapseItem
               css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
               >
-                <Button color={''} onPress={() => setVisible(true)} >
+                <Button css={{background: '#17c964'}} color={''} onPress={() => setVisible(true)} >
                   <Text weight={'bold'} >Indique e Ganhe</Text>
                 </Button>
               </Navbar.CollapseItem>
