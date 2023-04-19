@@ -37,14 +37,56 @@ exports.onCohortSignup = functions.firestore
     )
 
     for (let cohortSnapshot of userNewCohorts) {
-      const params = emailParams(cohortSnapshot)
-      //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
-      await Promise.all([
-        sendEmail('on_cohort_signup.js', params.cohort.email_content.subject, user.email, params),
-        addDiscordRole(user?.discord?.id, params.cohort.discord_role),
-      ])
+      const params = emailParams(cohortSnapshot);
+
+      const emailRawData = {
+        incoming_topic: 'cohort_signup',
+        user_email: userData.email,
+        email_subject: params.cohort.email_content.subject,
+        params,
+      }
+
+      const discordRawData = {
+        incoming_topic: 'add_dc_user_to_role_on_cohort_signup',
+        user_discord_id: user?.discord?.id,
+        params,
+      }
+
+      const emailData = Buffer.from(JSON.stringify(emailRawData))
+      const discordData = Buffer.from(JSON.stringify(discordRawData))
+
+      pubsub.topic('discord-topic')
+      .publishMessage({ discordData }, 
+      ()=> console.log('Email topic published on cohort signup'))
+
+      pubsub.topic('email-topic')
+      .publishMessage({ emailData }, 
+      () => console.log('Add User to Discord Role published on cohort signup'))
     }
-  })
+});
+
+exports.cohortSignupQueue = functions.pubsub.topic('email-topic').onPublish(async (message) => {
+  const emailData = JSON.parse(Buffer.from(message.data, 'base64'))
+  const userEmail = emailData.user_email;
+  const cohort = emailData.params.cohort;
+  const course = emailData.params.course;
+  const mailchimp = require("@mailchimp/mailchimp_marketing");
+
+  mailchimp.setConfig({
+    apiKey: process.env.MAILCHIMP_API_KEY,
+    server: process.env.MAILCHIMP_SERVER,
+  });
+
+  await mailchimp.lists.addListMember(cohort, {
+    email_address: userEmail,
+    status: 'subscribed',
+  });
+
+  await mailchimp.lists.addListMember(course, {
+    email_address: userEmail,
+    status: 'subscribed',
+  });
+});
 
 exports.onDiscordConnect = functions.firestore
   .document('users/{userId}')
@@ -62,10 +104,26 @@ exports.onDiscordConnect = functions.firestore
       const params = {
         cohort: docData('cohorts', cohortSnapshot.cohort_id),
       }
-      //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
-      await Promise.all([addDiscordRole(newUserValue?.discord?.id, params.cohort.discord_role)])
+      
+      
     }
   })
+
+exports.userCreatedQueue = functions.pubsub.topic('user_created').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  const user = data.user
+  const mailchimp = require('@mailchimp/mailchimp_marketing')
+  const listId = data.incoming_topic;
+  const mailchimp = require("@mailchimp/mailchimp_marketing")
+  mailchimp.setConfig({
+    apiKey: process.env.MAILCHIMP_API_KEY,
+    server: process.env.MAILCHIMP_SERVER,
+  });
+  await mailchimp.lists.addListMember(listId, {
+    email_address: user.email,
+    status:'subscribed',
+  });
+})
 
 const GRADUATED_ROLE_ID = '985557210794958948'
 
