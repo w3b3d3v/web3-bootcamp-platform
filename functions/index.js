@@ -72,7 +72,6 @@ const GRADUATED_ROLE_ID = '985557210794958948'
 async function issueCertificate(user_id, cohort) {
   const user = await docData('users', user_id)
   const course = await docData('courses', cohort.course_id)
-
   if (!user.wallet) {
     console.log('user ' + user.email + ' without wallet')
     return
@@ -173,15 +172,18 @@ exports.mintMissingFromBigQuery = functions.runWith({ timeoutSeconds: 540 }).htt
     // Wait for the query to finish
     const [rows] = await job.getQueryResults();
 
+
     Promise.all(rows.map(async (row) => {
       let cohort = {
         id: row.cohort_id,
+        course_id: row.course_id,
       };
       try {
         console.log('minting for user ' + row.user_id + ' cohort ' + row.cohort_id);
         await issueCertificate(row.user_id, cohort);
       } catch (e) {
         console.log('error: ' + e);
+        console.error(e.stack)
       }
     }));
 
