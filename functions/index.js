@@ -5,10 +5,13 @@ const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
+const { PubSub } = require('@google-cloud/pubsub');
 
 admin.initializeApp()
 
 const db = admin.firestore()
+
+const pubsub = new PubSub();
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -31,17 +34,18 @@ exports.onCohortSignup = functions.firestore
   .onUpdate(async (change, context) => {
     const previousUserValue = change.before.data()
     const user = change.after.data()
+
     const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id)
+
     const userNewCohorts = user.cohorts.filter(
-      (item) => !previousCohortData?.includes(item.cohort_id)
+      (item) => previousCohortData?.includes(item.cohort_id)
     )
 
     for (let cohortSnapshot of userNewCohorts) {
-      const params = emailParams(cohortSnapshot);
-
+      const params = await emailParams(cohortSnapshot);
       const emailRawData = {
         incoming_topic: 'cohort_signup',
-        user_email: userData.email,
+        user_email: user?.email,
         email_subject: params.cohort.email_content.subject,
         params,
       }
@@ -55,12 +59,15 @@ exports.onCohortSignup = functions.firestore
       const emailData = Buffer.from(JSON.stringify(emailRawData))
       const discordData = Buffer.from(JSON.stringify(discordRawData))
 
-      pubsub.topic('discord-topic')
-      .publishMessage({ discordData }, 
-      ()=> console.log('Email topic published on cohort signup'))
+      try {
+        await pubsub.topic('discord-topic').publishMessage({ data: discordData });
+        console.log('Email topic published on cohort signup');
+      } catch (error) {
+        console.error('Failed to publish email topic:', error);
+      }
 
-      pubsub.topic('email-topic')
-      .publishMessage({ emailData }, 
+      await pubsub.topic('email-topic')
+      .publishMessage({ data: emailData }, 
       () => console.log('Add User to Discord Role published on cohort signup'))
     }
 });
@@ -112,9 +119,9 @@ exports.onDiscordConnect = functions.firestore
 exports.userCreatedQueue = functions.pubsub.topic('user_created').onPublish(async (message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
   const user = data.user
-  const mailchimp = require('@mailchimp/mailchimp_marketing')
   const listId = data.incoming_topic;
-  const mailchimp = require("@mailchimp/mailchimp_marketing")
+  const mailchimp = require('@mailchimp/mailchimp_marketing')
+
   mailchimp.setConfig({
     apiKey: process.env.MAILCHIMP_API_KEY,
     server: process.env.MAILCHIMP_SERVER,
