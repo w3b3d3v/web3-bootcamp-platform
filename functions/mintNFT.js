@@ -40,10 +40,10 @@ async function mint(cohort, nft_title, user, callback) {
     })
   })
 
-  const maxGasPrice = 200000000000;
+  const maxGasPrice = 500000000000
   const gasPrice = await provider.getGasPrice();
   if (gasPrice > maxGasPrice) {
-    console.log('gas price too high. did not mint')
+    console.log(`gas price too high (${gasPrice}). did not mint`)
     // do something
   }
 
