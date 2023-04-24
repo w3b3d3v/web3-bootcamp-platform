@@ -170,21 +170,21 @@ async function getMissingNftsBigquery() {
 }
 
 exports.mintMissingFromBigQuery = functions.runWith({ timeoutSeconds: 540 }).https.onRequest(async(req, resp) => {
-    const [rows] = await getMissingNftsBigquery();
-
-    await Promise.all(rows.map(async (row) => {
-      let cohort = {
-        id: row.cohort_id,
-        course_id: row.course_id,
-      };
-      try {
-        console.log('minting for user ' + row.user_id + ' cohort ' + row.cohort_id);
-        await issueCertificate(row.user_id, cohort);
-      } catch (e) {
-        console.log('error: ' + e);
-      }
-    }));
-    resp.send('ok');
+  const [rows] = await getMissingNftsBigquery();
+  
+  for (const row of rows) {
+    let cohort = {
+      id: row.cohort_id,
+      course_id: row.course_id,
+    };
+    try {
+      console.log('minting for user ' + row.user_id + ' cohort ' + row.cohort_id);
+      await issueCertificate(row.user_id, cohort);
+    } catch (e) {
+      console.log('error: ' + e);
+    }
+  }
+  resp.send('ok');
     return;
 });
 
