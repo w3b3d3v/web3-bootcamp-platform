@@ -217,6 +217,44 @@ exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
   resp.send({ size: users.length, users: users })
 })
 
+exports.addNewDiscordUserRole = functions.runWith({ timeoutSeconds: 540 }).https.onRequest(async(req, resp) => {
+
+  const discord_id = req.body.discordId;
+  if(!discord_id) {
+    resp.send('missing discord id');
+  }
+
+  const user = await db
+      .collection('users')
+      .where('discord.id', '==', discord_id )
+      .get();
+    
+  if(user.empty) {
+    console.log('user not found by discord');
+    return resp.send('user not found by discord');
+  }
+
+  for (const userDoc of user.docs) {
+    const user = userDoc.data();
+    const cohorts = user.cohorts || []; 
+
+    for (const userCohort of cohorts) {
+      const cohort_id = userCohort.cohort_id;
+      
+      const cohort = await docData('cohorts', cohort_id);
+      try {
+        console.log('adding role to user ' + user.uid + ' cohort ' + cohort_id);
+        await addDiscordRole(discord_id, cohort.discord_role);
+      }
+      catch (e) {
+        console.log('error: ' + e);
+        return resp.send('error')
+      }
+    }
+  }
+  resp.send('ok');
+});
+
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, resp) => {
   const cohort_id = req.query.cohort_id
   const cohort = docData('cohorts', cohort_id)
