@@ -35,7 +35,7 @@ exports.onCohortSignup = functions.firestore
     const previousUserValue = change.before.data()
     const user = change.after.data()
 
-    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id)
+    const previousCohortData = previousUserValue?.cohorts.map((item) => item?.cohort_id)
 
     const userNewCohorts = user.cohorts.filter(
       (item) => previousCohortData?.includes(item.cohort_id)
