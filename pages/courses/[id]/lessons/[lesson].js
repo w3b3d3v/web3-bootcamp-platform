@@ -5,7 +5,7 @@ import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
 import React, { useState, useEffect } from 'react'
-import { getLessonsSubmissions } from '../../../../lib/lessons'
+import { getLessonsSubmissions, getCountLessonsSubmitted } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
 import { getAllCohorts, getCurrentCohort } from '../../../../lib/cohorts'
 import { useRouter } from 'next/router'
@@ -31,6 +31,7 @@ function Lessons({ course, lesson, currentDate }) {
   const [submissionTitle, setSubmissionTitle] = useState()
   const [submissionText, setSubmissionText] = useState()
   const [lessonsSubmitted, setLessonsSubmitted] = useState([])
+  const [countAllLessonsSubmitted, setCountAllLessonsSubmitted] = useState()
   const [twitterShare, setTwitterShare] = useState(null)
   const [twitterModal, setTwitterModal] = useState(false)
   const [user, setUser] = useState()
@@ -58,6 +59,10 @@ function Lessons({ course, lesson, currentDate }) {
   useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
   }, [user, open])
+
+  useEffect(async () => {
+    setCountAllLessonsSubmitted(await getCountLessonsSubmitted(lesson))
+  }, [lesson])
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
@@ -163,6 +168,9 @@ function Lessons({ course, lesson, currentDate }) {
               Próxima lição
             </Button>
           </div>
+      </div>
+      <div className="mx-auto px-6 py-2">
+        <h5>Você está nessa lição com mais { countAllLessonsSubmitted } pessoas!</h5>
       </div>
       <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
         {course &&
