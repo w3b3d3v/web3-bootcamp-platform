@@ -71,7 +71,7 @@ function Lessons({ course, lesson, currentDate }) {
 
   useEffect(async () => {
     if (section && course) {
-      setBuildSectionAnalytics(await getSectionAnalytics(section, course.id))
+      setBuildSectionAnalytics(await getSectionAnalytics(section, course.id));
     }
   }, [section, cohort]);
 
@@ -144,6 +144,7 @@ function Lessons({ course, lesson, currentDate }) {
     setOpen(false)
     if (twitterShare) setTwitterModal(true)
   }
+
   return (
     <>
       <Head>
@@ -179,9 +180,30 @@ function Lessons({ course, lesson, currentDate }) {
               Próxima lição
             </Button>
           </div>
-          <div className="mx-auto px-6 py-2">
-              
+          <div>
+
+          <div style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem' }}>
+            {buildSectionAnalytics && (
+              <h4>Você está nessa seção com { buildSectionAnalytics.students } outros estudantes!</h4>
+            )}
+            {buildSectionAnalytics && buildSectionAnalytics.photoUrls.slice(0, 3).map((source, index) => (
+              <img
+                key={source}
+                src={source}
+                alt="User avatar"
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: `${index * 25}px`,
+                  zIndex: buildSectionAnalytics.length - index
+                }}
+              />
+            ))}
           </div>
+
+    </div>
       </div>
       <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
         {course &&
