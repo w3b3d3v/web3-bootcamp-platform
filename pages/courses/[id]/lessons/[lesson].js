@@ -5,7 +5,7 @@ import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
 import React, { useState, useEffect } from 'react'
-import { getLessonsSubmissions } from '../../../../lib/lessons'
+import { getLessonsSubmissions, getCountPeopleInSection } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
 import { getAllCohorts, getCurrentCohort } from '../../../../lib/cohorts'
 import { useRouter } from 'next/router'
@@ -34,6 +34,8 @@ function Lessons({ course, lesson, currentDate }) {
   const [twitterShare, setTwitterShare] = useState(null)
   const [twitterModal, setTwitterModal] = useState(false)
   const [user, setUser] = useState()
+  const [peopleInSection, setPeopleInSection] = useState()
+  const [section, setSection] = useState()
   const ref = React.createRef()
   const router = useRouter()
   let testUrl
@@ -49,15 +51,29 @@ function Lessons({ course, lesson, currentDate }) {
     setCohorts(await getAllCohorts())
     getSubmissionData()
   }, [])
+
   useEffect(async () => {
     if (cohorts) {
-      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
+      setCohort(getCurrentCohort(user, cohorts, course, currentDate));
     }
   }, [cohorts, user])
 
   useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
   }, [user, open])
+
+  useEffect(() => {
+    const sectionResult = getSection();
+    if (sectionResult) {
+      setSection(sectionResult);
+    }
+  }, [lesson]);
+
+  useEffect(async () => {
+    if (cohort && section) {
+      setPeopleInSection(await getCountPeopleInSection(section, cohort.id))
+    }
+  }, [section, cohort]);
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
@@ -162,6 +178,11 @@ function Lessons({ course, lesson, currentDate }) {
             <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson} color={'success'}>
               Próxima lição
             </Button>
+          </div>
+          <div className="mx-auto px-6 py-2">
+              {peopleInSection && (
+                <h5>Você está nessa seção com mais { peopleInSection } pessoas!</h5>
+              )}
           </div>
       </div>
       <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
