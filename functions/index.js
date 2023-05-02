@@ -5,6 +5,7 @@ const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
+const { fetchUsersPerSection, storeUsersPerCohort } = require('./build_analytics')
 
 admin.initializeApp()
 
@@ -253,3 +254,15 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
   })
   resp.send('OK')
 })
+
+exports.fetch_store_build_analytics = functions.https.onRequest(async (req, resp) => {
+  try {
+      const [rows] = await fetchUsersPerSection();
+      await storeUsersPerCohort(db, rows);
+      resp.send('OK');
+  }
+  catch(e) {
+      console.log('error: ' + e);
+      resp.send('error: ' + e);
+  }
+});
