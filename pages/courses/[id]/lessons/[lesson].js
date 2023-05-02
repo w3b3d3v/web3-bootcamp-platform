@@ -5,7 +5,7 @@ import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
 import React, { useState, useEffect } from 'react'
-import { getLessonsSubmissions, getCountPeopleInSection } from '../../../../lib/lessons'
+import { getLessonsSubmissions, getSectionAnalytics } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
 import { getAllCohorts, getCurrentCohort } from '../../../../lib/cohorts'
 import { useRouter } from 'next/router'
@@ -34,7 +34,7 @@ function Lessons({ course, lesson, currentDate }) {
   const [twitterShare, setTwitterShare] = useState(null)
   const [twitterModal, setTwitterModal] = useState(false)
   const [user, setUser] = useState()
-  const [peopleInSection, setPeopleInSection] = useState()
+  const [buildSectionAnalytics, setBuildSectionAnalytics] = useState()
   const [section, setSection] = useState()
   const ref = React.createRef()
   const router = useRouter()
@@ -70,8 +70,8 @@ function Lessons({ course, lesson, currentDate }) {
   }, [lesson]);
 
   useEffect(async () => {
-    if (cohort && section) {
-      setPeopleInSection(await getCountPeopleInSection(section, cohort.id))
+    if (section && course) {
+      setBuildSectionAnalytics(await getSectionAnalytics(section, course.id))
     }
   }, [section, cohort]);
 
@@ -180,9 +180,7 @@ function Lessons({ course, lesson, currentDate }) {
             </Button>
           </div>
           <div className="mx-auto px-6 py-2">
-              {peopleInSection && (
-                <h5>Você está nessa seção com mais { peopleInSection } pessoas!</h5>
-              )}
+              
           </div>
       </div>
       <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
