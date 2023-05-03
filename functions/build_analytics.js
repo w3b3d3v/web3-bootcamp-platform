@@ -1,8 +1,7 @@
-const {BigQuery} = require('@google-cloud/bigquery');
+const { getQueryResults } = require('../lib/utils/bigQuery')
 
-async function fetchUsersPerSection() {
-    const bigquery = new BigQuery();
-    const query = `select 
+async function usersPerSection() {
+  const query = `select 
     c.course_id, section, 
     count(distinct l.user_id) students,
     array_agg(u.photoUrl IGNORE NULLS limit 5) photoUrls
@@ -10,40 +9,33 @@ async function fetchUsersPerSection() {
     join web3dev-bootcamp.web3dev_bootcamp.cohorts c on c.id = l.cohort_id
     join web3dev-bootcamp.web3dev_bootcamp.users u on u.id = l.user_id
     group by 1,2
-    order by 1,2`;
+    order by 1,2`
 
-    const options = {
-    query: query,
-    location: 'US',
-    };
-
-    const [job] = await bigquery.createQueryJob(options);
-
-    return await job.getQueryResults();
+  return getQueryResults(query)
 }
 
 async function storeUsersPerCohort(db, rows) {
-    const analyticsRef = db.collection('builds_analytics');
-  
-    // Check if the collection exists
-    const analyticsSnapshot = await analyticsRef.get();
-    if (analyticsSnapshot.empty) {
-      // Create the collection if it doesn't exist
-      await analyticsRef.doc().set({});
-    }
-  
-    // Loop through the rows and store them in the collection
-    for (const row of rows) {
-        const { course_id, section, students, photoUrls } = row;
-        const documentRef = analyticsRef.doc();
-        const data = {
-        course_id,
-        section,
-        students,
-        photoUrls,
-        };
-        await documentRef.set(data);
-    }
+  const analyticsRef = db.collection('builds_analytics')
+
+  // Check if the collection exists
+  const analyticsSnapshot = await analyticsRef.get()
+  if (analyticsSnapshot.empty) {
+    // Create the collection if it doesn't exist
+    await analyticsRef.doc().set({})
   }
 
-module.exports = { fetchUsersPerSection, storeUsersPerCohort }
+  // Loop through the rows and store them in the collection
+  for (const row of rows) {
+    const { course_id, section, students, photoUrls } = row
+    const documentRef = analyticsRef.doc()
+    const data = {
+      course_id,
+      section,
+      students,
+      photoUrls,
+    }
+    await documentRef.set(data)
+  }
+}
+
+module.exports = { usersPerSection, storeUsersPerCohort }
