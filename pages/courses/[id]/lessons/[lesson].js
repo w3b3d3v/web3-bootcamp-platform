@@ -73,7 +73,7 @@ function Lessons({ course, lesson, currentDate }) {
     if (section && course) {
       setBuildSectionAnalytics(await getSectionAnalytics(section, course.id));
     }
-  }, [section, cohort]);
+  }, [section, course]);
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
