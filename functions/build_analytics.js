@@ -1,6 +1,6 @@
 const { getQueryResults } = require('../lib/utils/bigQuery')
 
-async function usersPerSection() {
+async function usersBySection() {
   const query = `select 
     c.course_id, section, 
     count(distinct l.user_id) students,
@@ -17,25 +17,54 @@ async function usersPerSection() {
 async function storeUsersPerCohort(db, rows) {
   const analyticsRef = db.collection('builds_analytics')
 
-  // Check if the collection exists
-  const analyticsSnapshot = await analyticsRef.get()
-  if (analyticsSnapshot.empty) {
-    // Create the collection if it doesn't exist
-    await analyticsRef.doc().set({})
-  }
-
-  // Loop through the rows and store them in the collection
-  for (const row of rows) {
-    const { course_id, section, students, photoUrls } = row
-    const documentRef = analyticsRef.doc()
-    const data = {
-      course_id,
-      section,
-      students,
-      photoUrls,
+  const result = structureData(rows);
+  const promises = result.map(async item => {
+    const { course_id, sections } = item
+    const querySnapshot = await analyticsRef.where('course_id', '==', course_id).get()
+    if (querySnapshot.empty) {
+      const documentRef = analyticsRef.doc()
+      await documentRef.set({ course_id, sections })
+      return { course_id, result: 'created' }
+    } 
+    
+    else {
+      const documentRef = querySnapshot.docs[0].ref
+      await documentRef.update({ sections })
+      return { course_id, result: 'updated' }
     }
-    await documentRef.set(data)
-  }
+  })
+  await Promise.all(promises)
 }
 
-module.exports = { usersPerSection, storeUsersPerCohort }
+function structureData(rows) {
+  result = rows.reduce((acc, row) => {
+    const { course_id, section, students, photoUrls } = row
+    const courseIndex = acc.findIndex(item => item.course_id === course_id)
+      if (courseIndex === -1) {
+        acc.push({
+          course_id,
+          sections: [{
+            section: section,
+            students,
+            photoUrls
+          }]
+        })
+      } else {
+        const sectionIndex = acc[courseIndex].sections.findIndex(item => item.section_name === section)
+        if (sectionIndex === -1) {
+          acc[courseIndex].sections.push({
+            section_name: section,
+            students,
+            photoUrls
+          })
+        } else {
+          acc[courseIndex].sections[sectionIndex].students += students
+          acc[courseIndex].sections[sectionIndex].photoUrls = acc[courseIndex].sections[sectionIndex].photoUrls.concat(photoUrls)
+        }
+      }
+    return acc
+  }, [])
+  return result;
+}
+
+module.exports = { usersBySection, storeUsersPerCohort }
