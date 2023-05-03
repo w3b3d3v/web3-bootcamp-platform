@@ -117,56 +117,24 @@ exports.mintNFT = functions.firestore
 exports.mintAllMissing = functions
   .runWith({ timeoutSeconds: 540 })
   .https.onRequest(async (req, resp) => {
-    const userLessons = await db
-      .collection('lessons_submissions')
-      .where('lesson', 'in', [
-        'Lesson_2_Ship_It.md',
-        'Lesson_2_Finalize_And_Celebrate.md',
-        'Lesson_2_Finishing_Touches_Contract.md',
-      ])
-      .where('createdAt', '>', new Date(2023, 1, 1, 1))
-      .orderBy('createdAt')
-      .get()
-    const itens = userLessons.docs
-    console.log(itens.length)
-    for (l of itens) {
-      const d = l.data()
-      console.log({ user_id: d.user_id, date: d.createdAt.toDate() })
-      let cohort = await docData('cohorts', d.cohort_id)
+    const { getMissingNfts } = require('../lib/nft_mints')
+    const [rows] = await getMissingNfts()
 
-      if (cohort.endDate.toDate() < d.createdAt.toDate()) {
-        console.log('changing cohort...')
-        cohort = await getNextCohort(cohort.course_id, db)
-        console.log(cohort.name)
-      }
+    console.log('minting for ' + rows.length + ' users')
+
+    for (const row of rows) {
+      let cohort = await docData('cohorts', row.cohort_id)
+
       try {
-        await issueCertificate(d.user_id, cohort)
+        console.log('minting for user ' + row.user_id + ' cohort ' + row.cohort_id)
+        await issueCertificate(row.user_id, cohort)
       } catch (e) {
         console.log('error: ' + e)
       }
     }
     resp.send('ok')
+    return
   })
-
-
-
-exports.mintMissingFromBigQuery = functions.runWith({ timeoutSeconds: 540 }).https.onRequest(async(req, resp) => {
-  const { getMissingNftsBigquery } = require('./bigQuery');
-  const [rows] = await getMissingNftsBigquery();
-
-  for (const row of rows) {
-    let cohort = await docData('cohorts', row.cohort_id)
-
-    try {
-      console.log('minting for user ' + row.user_id + ' cohort ' + row.cohort_id);
-      await issueCertificate(row.user_id, cohort);
-    } catch (e) {
-      console.log('error: ' + e);
-    }
-  }
-  resp.send('ok');
-    return;
-});
 
 exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
@@ -257,12 +225,11 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
 
 exports.fetch_store_build_analytics = functions.https.onRequest(async (req, resp) => {
   try {
-      const [rows] = await fetchUsersPerSection();
-      await storeUsersPerCohort(db, rows);
-      resp.send('OK');
+    const [rows] = await usersPerSection()
+    await storeUsersPerCohort(db, rows)
+    resp.send('OK')
+  } catch (e) {
+    console.log('error: ' + e)
+    resp.send('error: ' + e)
   }
-  catch(e) {
-      console.log('error: ' + e);
-      resp.send('error: ' + e);
-  }
-});
+})
