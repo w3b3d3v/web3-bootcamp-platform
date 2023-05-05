@@ -223,7 +223,7 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
   resp.send('OK')
 })
 
-exports.fetch_store_build_analytics = functions.https.onRequest(async (req, resp) => {
+exports.fetchStoreBuildAnalytics = functions.https.onRequest(async (req, resp) => {
   try {
     const [rows] = await usersBySection()
     await storeUsersPerCohort(db, rows)
