@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { checkSections, colorTab } from './tabFunctions'
 import { getCourseAnalytics } from '../../lib/courses'
@@ -25,77 +25,58 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
         {Object.keys(getCourse?.sections)
           .sort()
           .map((section) => {
+            const sectionAnalytics = buildAnalytics?.find((item) => item.section === section);
+  
             return (
-              <div className={'flex justify-between'} key={section}>
+              <div className="flex justify-between flex-col" key={section}>
                 {isLessonPage ? (
                   <div
-                    className={`item flex-grow rounded px-4 py-2 font-bold  shadow-lg hover:no-underline  mb-3 ${colorTab(
-                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
-                        .isSectionCompleted,
+                    className={`item flex-grow rounded px-4 py-2 font-bold shadow-lg hover:no-underline mb-3 ${colorTab(
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort).isSectionCompleted,
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection
-                    )}  `}
+                    )}`}
                   >
-                    <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
-                    <div>
-                      <p>{
-                        buildAnalytics.find((item) => item.section === section).students
-                      }</p>
-
-                      {buildAnalytics.find((item) => item.section === section).photoUrls.slice(0, 3).map((source, index) => (
-                          <img
-                            key={source}
-                            src={source}
-                            alt="User avatar"
-                            style={{
-                              width: '50px',
-                              height: '50px',
-                              borderRadius: '50%',
-                              position: 'absolute',
-                              left: `${index * 25}px`,
-                              zIndex: item.length - index
-                            }}
-                          />
-                      ))}
-                    </div>
+                    <p className="m-0 p-0 text-center center">{section?.replace('Section_', 'Seção ')}</p>
                   </div>
                 ) : (
                   <a
                     href={`#${!isLessonPage ? section : ''}`}
                     onClick={() => toggle(section)}
-                    className={`item flex-grow rounded px-4 py-2 font-bold  shadow-lg hover:no-underline b-3 ${colorTab(
-                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort)
-                        .isSectionCompleted,
+                    className={`item flex-grow rounded px-4 py-2 font-bold shadow-lg hover:no-underline b-3 ${colorTab(
+                      checkSections(course, lessonsSubmitted, section, user?.uid, cohort).isSectionCompleted,
                       checkSections(course, lessonsSubmitted, section, user?.uid, cohort).currentSection
-                    )}  `}
+                    )}`}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
                   </a>
+                )}
+                {sectionAnalytics && (
+                  <div className="flex flex-col items-center">
+                  <p className="m-0 p-0 mt-2">{sectionAnalytics?.students} pessoas construindo!</p>
+                  <div className="flex flex-row ml-2 items-center">
+                    {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (
+                      <img
+                        key={source}
+                        src={source}
+                        alt="User avatar"
+                        style={{
+                          width: '50px',
+                          height: '50px',
+                          borderRadius: '50%',
+                          marginLeft: index !== 0 ? '-25px' : '15px',
+                          marginTop: '1rem',
+                          marginBottom: '1rem',
+                          zIndex: sectionAnalytics?.photoUrls.length - index,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>  
                 )}
               </div>
             )
           })}
       </div>
     </div>
-  )
-}
-
-<div style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem' }}>
-            {buildSectionAnalytics && (
-              <h4>Você está nessa seção com { buildSectionAnalytics.students } outros estudantes!</h4>
-            )}
-            {buildSectionAnalytics && buildSectionAnalytics.photoUrls.slice(0, 3).map((source, index) => (
-              <img
-                key={source}
-                src={source}
-                alt="User avatar"
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '50%',
-                  position: 'absolute',
-                  left: `${index * 25}px`,
-                  zIndex: buildSectionAnalytics.length - index
-                }}
-              />
-            ))}
-          </div>
+  );  
+}  
