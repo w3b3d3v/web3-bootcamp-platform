@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { checkSections, colorTab } from './tabFunctions'
+import { getCourseAnalytics } from '../../lib/courses'
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
   const getCourse = course
@@ -8,6 +9,12 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
   if (!getCourse?.sections) return null
   // list all the section as tabs
   const [activeTab, setActiveTab] = useState(Object.keys(getCourse?.sections).sort())
+  const [buildAnalytics, setBuildAnalytics] = useState();
+
+  useEffect(async () => {
+    setBuildAnalytics(await getCourseAnalytics(course.id))
+  }, [course])
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab)
   }
@@ -29,6 +36,27 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                     )}  `}
                   >
                     <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
+                    <div>
+                      <p>{
+                        buildAnalytics.find((item) => item.section === section).students
+                      }</p>
+
+                      {buildAnalytics.find((item) => item.section === section).photoUrls.slice(0, 3).map((source, index) => (
+                          <img
+                            key={source}
+                            src={source}
+                            alt="User avatar"
+                            style={{
+                              width: '50px',
+                              height: '50px',
+                              borderRadius: '50%',
+                              position: 'absolute',
+                              left: `${index * 25}px`,
+                              zIndex: item.length - index
+                            }}
+                          />
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <a
@@ -50,3 +78,24 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
     </div>
   )
 }
+
+<div style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem' }}>
+            {buildSectionAnalytics && (
+              <h4>Você está nessa seção com { buildSectionAnalytics.students } outros estudantes!</h4>
+            )}
+            {buildSectionAnalytics && buildSectionAnalytics.photoUrls.slice(0, 3).map((source, index) => (
+              <img
+                key={source}
+                src={source}
+                alt="User avatar"
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: `${index * 25}px`,
+                  zIndex: buildSectionAnalytics.length - index
+                }}
+              />
+            ))}
+          </div>
