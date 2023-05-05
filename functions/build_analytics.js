@@ -1,7 +1,8 @@
 const { getQueryResults } = require('../lib/utils/bigQuery')
 
 async function usersBySection() {
-  const query = `WITH sections AS (select 
+  return getQueryResults(`
+    WITH sections AS (select 
     c.course_id, section, 
     count(distinct l.user_id) students,
     array_agg(u.photoUrl IGNORE NULLS limit 5) photoUrls
@@ -12,9 +13,8 @@ async function usersBySection() {
     order by 1,2)
     select course_id, array_agg(struct(section, students, photoUrls)) as sections
     from sections
-    group by 1`
-
-  return getQueryResults(query)
+    group by 1
+  `)
 }
 
 async function storeUsersPerCohort(db, rows) {
