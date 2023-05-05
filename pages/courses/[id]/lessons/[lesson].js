@@ -5,7 +5,7 @@ import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
 import { getCourse } from '../../../../lib/course'
 import React, { useState, useEffect } from 'react'
-import { getLessonsSubmissions, getSectionAnalytics } from '../../../../lib/lessons'
+import { getLessonsSubmissions } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
 import { getAllCohorts, getCurrentCohort } from '../../../../lib/cohorts'
 import { useRouter } from 'next/router'
@@ -34,8 +34,6 @@ function Lessons({ course, lesson, currentDate }) {
   const [twitterShare, setTwitterShare] = useState(null)
   const [twitterModal, setTwitterModal] = useState(false)
   const [user, setUser] = useState()
-  const [buildSectionAnalytics, setBuildSectionAnalytics] = useState()
-  const [section, setSection] = useState()
   const ref = React.createRef()
   const router = useRouter()
   let testUrl
@@ -61,19 +59,6 @@ function Lessons({ course, lesson, currentDate }) {
   useEffect(async () => {
     setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
   }, [user, open])
-
-  useEffect(() => {
-    const sectionResult = getSection();
-    if (sectionResult) {
-      setSection(sectionResult);
-    }
-  }, [lesson]);
-
-  useEffect(async () => {
-    if (section && course) {
-      setBuildSectionAnalytics(await getSectionAnalytics(section, course.id));
-    }
-  }, [section, course]);
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
@@ -180,29 +165,7 @@ function Lessons({ course, lesson, currentDate }) {
               Próxima lição
             </Button>
           </div>
-          <div>
-
-          <div style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem' }}>
-            {buildSectionAnalytics && (
-              <h4>Você está nessa seção com { buildSectionAnalytics.students } outros estudantes!</h4>
-            )}
-            {buildSectionAnalytics && buildSectionAnalytics.photoUrls.slice(0, 3).map((source, index) => (
-              <img
-                key={source}
-                src={source}
-                alt="User avatar"
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '50%',
-                  position: 'absolute',
-                  left: `${index * 25}px`,
-                  zIndex: buildSectionAnalytics.length - index
-                }}
-              />
-            ))}
-          </div>
-
+        <div>
     </div>
       </div>
       <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
