@@ -10,12 +10,11 @@ export default function Main() {
         <div>
           <div className='max-w-lg m-auto' >
             <Text h1 auto className="text-center font-bold mb-4">
-              Construa seu Chat de IA com{' '}
+              Crie uma coleção de NFTs em{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-green-400 to-teal-400"></span>{' '}
               <span className="lp-gradient-text bg-gradient-to-r from-teal-400 to-fuchsia-500 ">
-                GPT-3{' '}
+                Solana{' '}
               </span>
-               e Open AI.
             </Text>
           </div>
           <div className='flex justify-center mb-7 text-justify'>
@@ -23,18 +22,18 @@ export default function Main() {
           </div>
           <div className="max-w-2xl">
             <Text>
-              A WEB3DEV oferece aos desenvolvedores de software a oportunidade de construir sua própria ferramenta de escrita assistida por AI usando GPT-3 e Open AI. 
-              Os participantes aprenderão sobre as funcionalidades dessas ferramentas e como aplicá-las em seus próprios aplicativos. O projeto ensina a usar essa tecnologia para transformar aplicativos em obras-primas e a ficar atualizado nas tendências de ML/IA. Os desenvolvedores podem se inscrever agora no curso de ChatGPT para aproveitar o poder do GPT-3 em seus aplicativos e se destacar no mercado.
+            Além de criar uma coleção de NFTs, você terá nesse projeto, um website para mintá-los.
+Esse projeto é super acessível, tanto por ser em português e gratuito, quanto por ensinar passo a passo como funciona as NFTs na Solana. Desta forma, você pode usar uma Blockchain de alta perfomance, muito ágil e assim se destacar com um mega diferencial na web3.
             </Text>
             <br/>
             <Text>
-              Você também terá a chance de se conectar com outros desenvolvedores em nossa comunidade exclusiva e aprimorar ainda mais suas habilidades em tecnologias emergentes. Junte-se a nós agora e comece a construir o futuro!
+             Com um projeto completo e funcional, você ao concluir vai compreender todo o processo de criação de uma coleção de NFTs e também desenvolver a parte de front end para apresentar seus NFTs, permitindo que quem conecte suas carteiras possam mintá-los. Os únicos pré-requisitos necessários para esse Build, são conhecimentos básicos de Terminal, JavaScript e Next.JS.
             </Text>
           </div>
         </div>
         <br />
         <div className="lg:self-start m-auto mb-8 z-0">
-          <a href="/courses/GPT3_Writer">
+          <a href="/courses/Solana_NFTs">
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
               <Text weight={'extrabold'} >Quero me inscrever!</Text>
             </Button>
