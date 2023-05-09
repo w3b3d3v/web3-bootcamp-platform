@@ -1,4 +1,4 @@
-const { getQueryResults } = require('../lib/utils/bigQuery')
+const { getQueryResults } = require('./lib/bigQuery')
 
 async function usersBySection() {
   return getQueryResults(`
@@ -19,16 +19,14 @@ async function usersBySection() {
 
 async function storeUsersPerCohort(db, rows) {
   const analyticsRef = db.collection('builds_analytics')
-  const promises = rows.map(async item => {
+  const promises = rows.map(async (item) => {
     const { course_id, sections } = item
     const querySnapshot = await analyticsRef.where('course_id', '==', course_id).get()
     if (querySnapshot.empty) {
       const documentRef = analyticsRef.doc()
       await documentRef.set({ course_id, sections })
       return { course_id, result: 'created' }
-    } 
-    
-    else {
+    } else {
       const documentRef = querySnapshot.docs[0].ref
       await documentRef.update({ sections })
       return { course_id, result: 'updated' }
@@ -36,6 +34,5 @@ async function storeUsersPerCohort(db, rows) {
   })
   await Promise.all(promises)
 }
-
 
 module.exports = { usersBySection, storeUsersPerCohort }
