@@ -25,8 +25,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
         {Object.keys(getCourse?.sections)
           .sort()
           .map((section) => {
-            const sectionAnalytics = buildAnalytics?.find((item) => item.section === section);
-  
+            let sectionAnalytics = buildAnalytics?.sections?.find((item) => item.section === section);
             return (
               <div className="flex justify-between flex-col" key={section}>
                 {isLessonPage ? (
@@ -52,7 +51,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                 )}
                 {sectionAnalytics && (
                   <div className="flex flex-col items-center">
-                  <p className="m-0 p-0 mt-2">{sectionAnalytics?.students} pessoas construindo!</p>
+                  <p className="m-0 p-0 mt-2" style={{ fontSize: "14px" }}>{sectionAnalytics?.students} pessoas construindo nessa seção!</p>
                   <div className="flex flex-row ml-2 items-center">
                     {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (
                       <img
