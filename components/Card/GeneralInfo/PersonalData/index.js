@@ -83,6 +83,23 @@ export default function PersonalData({
               />
             )}
           />
+          <Controller
+            name="cep"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                bordered
+                helperColor="success"
+                labelPlaceholder="CEP"
+                id="cep"
+                placeholder="90000000"
+                helperText={errors.cep?.message}
+                width={'100%'}
+                onChange={}
+              />
+            )}
+          />
         </InputsContainer>
 
         <div>
