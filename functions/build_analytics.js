@@ -2,18 +2,31 @@ const { getQueryResults } = require('./lib/bigQuery')
 
 async function usersBySection() {
   return getQueryResults(`
-    WITH sections AS (select 
-    c.course_id, section, 
-    count(distinct l.user_id) students,
-    array_agg(u.photoUrl IGNORE NULLS limit 5) photoUrls
-    from web3dev_bootcamp.lesson_submissions l 
-    join web3dev_bootcamp.cohorts c on c.id = l.cohort_id
-    join web3dev_bootcamp.users u on u.id = l.user_id
-    group by 1,2
-    order by 1,2)
-    select course_id, array_agg(struct(section, students, photoUrls)) as sections
-    from sections
-    group by 1
+  WITH sections AS (
+    SELECT
+      c.course_id,
+      section,
+      COUNT(l.user_id) AS students,
+      ARRAY_AGG(u.photoUrl IGNORE NULLS LIMIT 3) AS photoUrls
+    FROM web3dev-bootcamp.web3dev_bootcamp.lesson_submissions l
+    JOIN web3dev-bootcamp.web3dev_bootcamp.cohorts c ON c.id = l.cohort_id
+    JOIN web3dev-bootcamp.web3dev_bootcamp.users u ON u.id = l.user_id
+    GROUP BY 1, 2
+  )
+  SELECT
+    course_id,
+    STRUCT(
+      ARRAY_AGG(
+        STRUCT(
+          section,
+          students,
+          photoUrls
+        ) ORDER BY section
+      )
+    ) AS sections
+  FROM sections
+  GROUP BY course_id
+  ORDER BY course_id;
   `)
 }
 
