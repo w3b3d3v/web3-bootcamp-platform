@@ -25,7 +25,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
         {Object.keys(getCourse?.sections)
           .sort()
           .map((section) => {
-            let sectionAnalytics = buildAnalytics?.sections?.find((item) => item.section === section);
+            let sectionAnalytics = buildAnalytics?.sections?._field_1?.find((item) => item.section === section);
             return (
               <div className="flex justify-between flex-col" key={section}>
                 {isLessonPage ? (
