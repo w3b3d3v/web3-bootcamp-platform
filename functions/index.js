@@ -6,10 +6,14 @@ const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLe
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
+<<<<<<< HEAD
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
+=======
+const { getUserByDiscordId } = require('../lib/user')
+>>>>>>> [feat] cloud function to grant discord role to newcomers that are already in a cohort
 
 admin.initializeApp()
 
@@ -302,3 +306,23 @@ exports.discordRoles = functions.pubsub
     return addDiscordUserToRole(data)
   })
 
+exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp) => {
+    const discordId = req.query.discordId;
+    let grantedRoles = 0;
+    try {
+      let user = await getUserByDiscordId(discordId);
+      let cohorts = user.cohorts;
+      cohorts.forEach(async (cohort) => {
+        let cohortData = await docData('cohorts', cohort.cohort_id);
+        if (cohortData.discord_role) {
+          await addDiscordRole(discordId, cohortData.discord_role);
+          grantedRoles += 1;
+        }
+      });
+
+      resp.send({"status": 200, "grantedRoles": grantedRoles, "userCohortsLenght": cohorts.length});
+    }
+    catch(e) {
+      resp.send({"error": e, "status": 500})
+    }
+});
