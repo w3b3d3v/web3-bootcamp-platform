@@ -1,8 +1,11 @@
-import Image from 'next/image'
-import React from 'react'
-import Loading from '../../../Loading'
-import {  Container, Input, Textarea, Button } from '@nextui-org/react'
-import { Content,InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
+import React, { useState } from 'react';
+import { Container, Input, Textarea, Button } from '@nextui-org/react';
+import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData';
+import { countries } from 'countries-list';
+import Select from 'react-select';
+import Image from 'next/image';
+import Loading from '../../../Loading';
+
 
 export default function PersonalData({
   Controller,
@@ -13,6 +16,19 @@ export default function PersonalData({
   setFile,
   loading,
 }) {
+
+  const handleChange = (selectedOption) => {
+    setCountry(selectedOption);
+  };
+
+  const countryOptions = Object.keys(countries).map((countryCode) => ({
+    value: countryCode,
+    label: countries[countryCode].name,
+  }));
+
+  const [country, setCountry] = useState(countryOptions.find(option => option.label === 'Brazil'));
+
+
   return (
     <Container>
       <Content>
@@ -84,20 +100,20 @@ export default function PersonalData({
             )}
           />
           <Controller
-            name="cep"
+            name="country"
             control={control}
             render={({ field }) => (
-              <Input
+              <>
+                <span style={{"margin-bottom": "-2rem"}}>Onde você está?</span>
+                <Select
                 {...field}
-                bordered
-                helperColor="success"
-                labelPlaceholder="CEP"
-                id="cep"
-                placeholder="90000000"
-                helperText={errors.cep?.message}
+                value={country}
+                onChange={handleChange}
+                options={countryOptions}
+                placeholder="Selecione um país"
                 width={'100%'}
-                onChange={}
               />
+              </>
             )}
           />
         </InputsContainer>
