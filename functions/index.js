@@ -6,6 +6,7 @@ const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLe
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
+const { getUserByDiscordId } = require('../lib/user')
 
 admin.initializeApp()
 
@@ -233,3 +234,24 @@ exports.fetchStoreBuildAnalytics = functions.https.onRequest(async (req, resp) =
     resp.send('error: ' + e)
   }
 })
+
+exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp) => {
+    const discordId = req.query.discordId;
+    let grantedRoles = 0;
+    try {
+      let user = await getUserByDiscordId(discordId);
+      let cohorts = user.cohorts;
+      cohorts.forEach(async (cohort) => {
+        let cohortData = await docData('cohorts', cohort.cohort_id);
+        if (cohortData.discord_role) {
+          await addDiscordRole(discordId, cohortData.discord_role);
+          grantedRoles += 1;
+        }
+      });
+
+      resp.send({"status": 200, "grantedRoles": grantedRoles, "userCohortsLenght": cohorts.length});
+    }
+    catch(e) {
+      resp.send({"error": e, "status": 500})
+    }
+});
