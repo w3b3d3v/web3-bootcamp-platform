@@ -4,7 +4,7 @@ async function usersBySection() {
   return getQueryResults(`
   WITH max_section AS (
     SELECT l.user_id, l.cohort_id, MAX(l.section) AS max_section
-    FROM web3dev-bootcamp.web3dev_bootcamp.lesson_submissions l
+    FROM web3dev-development.web3dev_bootcamp.lesson_submissions l
     GROUP BY l.user_id, l.cohort_id
   ),
   section_data AS (
@@ -14,8 +14,8 @@ async function usersBySection() {
       COUNT(DISTINCT m.user_id) AS students,
       ARRAY_AGG(u.photoUrl IGNORE NULLS LIMIT 3) AS photoUrls
     FROM max_section m
-    JOIN web3dev-bootcamp.web3dev_bootcamp.cohorts c ON c.id = m.cohort_id
-    JOIN web3dev-bootcamp.web3dev_bootcamp.users u ON u.id = m.user_id
+    JOIN web3dev-development.web3dev_bootcamp.cohorts c ON c.id = m.cohort_id
+    JOIN web3dev-development.web3dev_bootcamp.users u ON u.id = m.user_id
     GROUP BY c.course_id, m.max_section
   )
   SELECT
