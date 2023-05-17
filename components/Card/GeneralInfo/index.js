@@ -99,6 +99,7 @@ export default function GeneralInfoCard() {
       blockchainExp: data?.blockchainExp ?? null,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
       builder: data?.builder ?? user?.builder,
+      location: data?.location ?? user?.location,
     }
     await updateUserInFirestore(userData, user?.uid)
       .then(async () => {
@@ -125,9 +126,10 @@ export default function GeneralInfoCard() {
       blockchainExp,
       technologies,
       builder,
+      location,
     } = watch()
 
-    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0
+    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0 && location?.length > 0
 
     const socialData =
       twitter?.length > 0 &&
