@@ -104,19 +104,34 @@ export default function PersonalData({
             control={control}
             render={({ field }) => (
               <>
-                <span style={{"margin-bottom": "-2rem"}}>Onde você está?</span>
+                <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
                 <Select
-                {...field}
-                value={country}
-                onChange={handleChange}
-                options={countryOptions}
-                placeholder="Selecione um país"
-                width={'100%'}
-              />
+                  {...field}
+                  value={country}
+                  onChange={handleChange}
+                  options={countryOptions}
+                  placeholder="Selecione um país"
+                  width={'100%'}
+                />
               </>
             )}
           />
+          <Controller
+            name="complement"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                bordered
+                labelPlaceholder="Complemento de localização"
+                id="complement"
+                placeholder="Complemento de localização"
+                width={'100%'}
+              />
+            )}
+          />
         </InputsContainer>
+
 
         <div>
           <Controller
