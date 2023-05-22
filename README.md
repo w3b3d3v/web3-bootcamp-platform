@@ -10,8 +10,8 @@ Web3 learning platform
 
 ### Environment 
 - Copy the contents in `.env.example` to `.env` 
-- Set the Firebase and the Discord variables
-- Set all the other necessary variables
+- Set the Firebase and the Discord variables. You can find discord variables [here](https://discord.com/developers/applications). Create an application if you don't have one. 
+- Set all the other necessary variables. 
 
 ### Loading Firebase contents on your project
 
@@ -19,7 +19,14 @@ You must have an active google cloud account. Maybe you will have to activate th
 - Install [gsutil](https://cloud.google.com/storage/docs/gsutil)
 - Install [gcloud](https://cloud.google.com/sdk/gcloud)
 - run `gcloud config set project <YOUR_FIREBASE_PROJECT>`
-- run `./load_db.sh`
+FIREBASE_PROJECT is the name of the project you created on firebase. For example, for me, it is `web3dev-development`.
+
+The script bellow will restore a sample database for Firestore, so you can have some data to work with. 
+Run it passing your Google Cloud Bucket as an argument. [Reference](https://cloud.google.com/storage/docs/creating-buckets)
+- run `./load_db.sh YOUR_GCLOUD_BUCKET`
+
+If you want only a local database (it will not interact with many things in the platform), you can simply unzip `bkp` folder in local and start firebase emulators importing bkp:
+`firebase emulators:start --import bkp --export-on-exit bkp`
 
 ### Getting started
 
@@ -49,10 +56,12 @@ Open http://localhost:3000 with your favorite browser to see your project.
 ├── components               # Atomic layout components
 ├── context                  # Context 
 ├── firebase                 # Firebase configuration
+├── functions                # Cloud functions
 ├── hooks                    # Hooks
 ├── lib                      # Content library
 ├── pages                    # Next JS pages
 ├── styles                   # PostCSS style folder with Tailwind
+├── scripts                  # Task-specific scripts
 ├── .env.example             #  ENV example file
 ├── tailwind.config.js       # Tailwind CSS configuration
 └── tsconfig.json            # TypeScript configuration
