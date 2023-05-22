@@ -10,6 +10,7 @@ const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
+const { insertMember } = require('./orbit')
 
 admin.initializeApp()
 
@@ -164,6 +165,14 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
 
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
+
+exports.insertOrbitMember = functions.pubsub.topic('topic?').onPublish(async (message) => {
+  const member = JSON.parse(Buffer.from(message.data, 'base64'))
+
+  console.log(`Inserting user into Orbit`);
+
+  await insertOrbitMember(member);
+});
 
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
