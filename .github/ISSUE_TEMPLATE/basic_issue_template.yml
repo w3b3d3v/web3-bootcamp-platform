@@ -1,0 +1,80 @@
+name: Web3dev platform Issue Template
+description: Use this template to report any issue
+body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What type of issue would you like to report?
+      multiple: false
+      options:
+        - Bug
+        - Build/Install
+        - Performance
+        - Support
+        - Feature Request
+        - Documentation Feature Request
+        - Documentation Bug
+        - Others
+    validations:
+      required: true
+
+  - type: dropdown
+    id: Code
+    attributes:
+      label: Custom Code
+      description: 
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: input
+    id: OS
+    attributes:
+      label: OS Platform and Distribution
+      description: 
+      placeholder: e.g., Linux Ubuntu 16.04
+    validations:
+      required: false
+  - type: input
+    id: Mobile
+    attributes:
+      label: Mobile device
+      description: 
+      placeholder: e.g., Linux Ubuntu 16.04
+    validations:
+      required: false
+  - type: input
+    id: Node
+    attributes:
+      label: Node Version
+      description: 
+      placeholder: e.g., 18.0.1
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      value: "A bug appeared!"
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: code-to-reproduce
+    attributes:
+      label: Code to reproduce the issue
+      description: Provide a reproducible test case that is the bare minimum necessary to generate the problem. If possible, please share a link or gist.
+      placeholder: How did you found this bug?
+      value: 
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code.
+      render: shell
