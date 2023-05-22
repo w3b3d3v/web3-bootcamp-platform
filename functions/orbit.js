@@ -7,6 +7,18 @@ const HEADERS = {
 
 async function insertMember(member) {
     // should we add any tag to user?
+    let user = formatMember(member);
+
+    try {
+        const res = await axios.post(ORBIT_API_URL + "members", user, { headers: HEADERS });
+        console.log(res.data);
+    }
+    catch (err) {
+        console.error("Error inserting member: ", err);
+    }
+}
+
+function formatMember(member) {
     const toInsert = {};
     const attributesToInclude = ['name', 'email', 'bio'];
 
@@ -19,12 +31,7 @@ async function insertMember(member) {
     let user = {
         "member": toInsert,
     }
-
-    try {
-        const res = await axios.post(ORBIT_API_URL + "members", user, { headers: HEADERS });
-        console.log(res.data);
-    }
-    catch (err) {
-        console.error("Error inserting member: ", err);
-    }
+    return user;
 }
+
+exports.module = { insertMember }
