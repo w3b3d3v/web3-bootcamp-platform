@@ -52,9 +52,6 @@ describe('insertMember', () => {
       bio: 'Lorem ipsum dolor sit amet',
     };
 
-    process.env.ORBIT_WORKSPACE_ID = 'your-workspace-id';
-    process.env.ORBIT_API_KEY = 'your-api-key';
-
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
 
     const result = await insertMember(member);
