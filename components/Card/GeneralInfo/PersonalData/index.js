@@ -17,17 +17,21 @@ export default function PersonalData({
   loading,
 }) {
 
-  const handleChange = (selectedOption) => {
-    setCountry(selectedOption);
-  };
-
   const countryOptions = Object.keys(countries).map((countryCode) => ({
     value: countryCode,
     label: countries[countryCode].name,
   }));
 
   const [country, setCountry] = useState(countryOptions.find(option => option.label === 'Brazil'));
+  const [cep, setCep] = useState('');
 
+  const handleCountry = (selectedOption) => {
+    setCountry(selectedOption);
+  };
+
+  const handleCep = (cep) => {
+    setCep(cep.target.value);
+  }
 
   return (
     <Container>
@@ -108,7 +112,7 @@ export default function PersonalData({
                 <Select
                   {...field}
                   value={country}
-                  onChange={handleChange}
+                  onChange={handleCountry}
                   options={countryOptions}
                   placeholder="Selecione um país"
                   width={'100%'}
@@ -117,15 +121,16 @@ export default function PersonalData({
             )}
           />
           <Controller
-            name="complement"
+            name="cep"
             control={control}
             render={({ field }) => (
               <Input
                 {...field}
+                onChange={handleCep}
                 bordered
-                labelPlaceholder="Complemento de localização"
-                id="complement"
-                placeholder="Complemento de localização"
+                labelPlaceholder="CEP / Zip Code"
+                id="cep"
+                placeholder="90000004"
                 width={'100%'}
               />
             )}
