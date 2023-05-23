@@ -3,17 +3,14 @@ require('dotenv').config();
 
 const { insertMember } = require('../orbit');
 
-// Mock the axios library
 jest.mock('axios');
 
 describe('insertMember', () => {
-  // Restore the original implementation after each test
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
   it('should insert a member successfully', async () => {
-    // Mock successful API response
     axios.post.mockResolvedValueOnce({});
 
     const member = {
@@ -43,7 +40,6 @@ describe('insertMember', () => {
   });
 
   it('should return false and log an error if insertion fails', async () => {
-    // Mock error response
     axios.post.mockRejectedValueOnce(new Error('Failed to insert member'));
 
     const member = {
