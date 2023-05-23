@@ -127,10 +127,10 @@ export default function GeneralInfoCard() {
       technologies,
       builder,
       location,
-      complement,
+      cep,
     } = watch()
 
-    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0 && location?.length > 0 && complement?.length >= 0
+    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0 && location?.length > 0 && cep?.length >= 0
 
     const socialData =
       twitter?.length > 0 &&
