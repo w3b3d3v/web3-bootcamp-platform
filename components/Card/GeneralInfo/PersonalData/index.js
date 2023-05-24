@@ -14,17 +14,16 @@ export default function PersonalData({
   user,
   file,
   setFile,
+  setCountry,
+  country,
+  setCep,
   loading,
 }) {
-
-  const [cep, setCep] = useState('');
 
   const countryOptions = Object.keys(countries).map((countryCode) => ({
     value: countryCode,
     label: countries[countryCode].name,
   }));
-
-  const [country, setCountry] = React.useState(new Set(["Brazil"]));
 
   const selectedValue = React.useMemo(
     () => Array.from(country).join(", ").replaceAll("_", " "),
@@ -112,7 +111,7 @@ export default function PersonalData({
             render={({ field }) => (
               <>
                 <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
-                <Dropdown>
+                <Dropdown {...field}>
                   <Dropdown.Button flat css={{ tt: "capitalize" }}>
                     {selectedValue}
                   </Dropdown.Button>
