@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Input, Textarea, Button } from '@nextui-org/react';
 import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData';
 import { countries } from 'countries-list';
-import Select from 'react-select';
+import { Dropdown } from "@nextui-org/react";
 import Image from 'next/image';
 import Loading from '../../../Loading';
 
@@ -24,6 +24,7 @@ export default function PersonalData({
 
   const [country, setCountry] = useState(countryOptions.find(option => option.label === 'Brazil'));
   const [cep, setCep] = useState('');
+  const [activeTab, setActiveTab] = useState('a');
 
   const handleCountry = (selectedOption) => {
     setCountry(selectedOption);
@@ -36,6 +37,20 @@ export default function PersonalData({
   return (
     <Container>
       <Content>
+      <Button.Group size="xl">
+  <Button
+    onClick={() => setActiveTab('a')}
+    light={activeTab !== 'a'}
+    bordered={activeTab === 'a'}>a</Button>
+  <Button
+    onClick={() => setActiveTab('b')}
+    light={activeTab !== 'b'}
+    bordered={activeTab === 'b'}>b</Button>
+  <Button
+    onClick={() => setActiveTab('c')}
+    light={activeTab !== 'c'}
+    bordered={activeTab === 'c'}>c</Button>
+</Button.Group>
         <Button color={''} css={{ maxWidth: '100px', margin: 'auto' }}>
           <label className="">
             Alterar foto de perfil 📷
@@ -109,14 +124,19 @@ export default function PersonalData({
             render={({ field }) => (
               <>
                 <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
-                <Select
-                  {...field}
-                  value={country}
-                  onChange={handleCountry}
-                  options={countryOptions}
-                  placeholder="Selecione um país"
-                  width={'100%'}
-                />
+                <Dropdown>
+                  <Dropdown.Button flat>Selecione um país</Dropdown.Button>
+                  <Dropdown.Menu>
+                    {countryOptions.map((option) => (
+                      <Dropdown.Item
+                        key={option.value}
+                        onClick={() => handleCountryChange(option.value)}
+                      >
+                        {option.label}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </>
             )}
           />
