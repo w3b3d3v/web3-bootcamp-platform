@@ -32,6 +32,8 @@ export default function GeneralInfoCard() {
   const [filledPersonalData, setFilledPersonalData] = useState(false)
   const [filledSocialData, setFilledSocialData] = useState(false)
   const [filledProfessionalData, setFilledProfessionalData] = useState(false)
+  const [country, setCountry] = useState(new Set(["Brazil"]));
+  const [cep, setCep] = useState()
 
   const {
     register,
@@ -99,8 +101,10 @@ export default function GeneralInfoCard() {
       blockchainExp: data?.blockchainExp ?? null,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
       builder: data?.builder ?? user?.builder,
-      location: data?.location ?? user?.location,
+      country: country.values().next().value ?? user?.country,
+      cep: cep ?? user?.cep,
     }
+    console.log("userData: ", userData)
     await updateUserInFirestore(userData, user?.uid)
       .then(async () => {
         if (file) await updateUserProfilePic()
@@ -126,11 +130,11 @@ export default function GeneralInfoCard() {
       blockchainExp,
       technologies,
       builder,
-      location,
+      country,
       cep,
     } = watch()
 
-    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0 && location?.length > 0 && cep?.length >= 0
+    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0 && country?.length > 0 && cep?.length >= 0
 
     const socialData =
       twitter?.length > 0 &&
@@ -163,7 +167,11 @@ export default function GeneralInfoCard() {
                 errors={errors}
                 user={user}
                 file={file}
+                country={country}
+                setCountry={setCountry}
                 setFile={setFile}
+                cep={cep}
+                setCep={setCep}
                 loading={loading}
               />
               <div className="flex flex-col lg:flex-row gap-11 content-end max-w-5xl m-auto ">
