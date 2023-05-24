@@ -37,20 +37,6 @@ export default function PersonalData({
   return (
     <Container>
       <Content>
-      <Button.Group size="xl">
-  <Button
-    onClick={() => setActiveTab('a')}
-    light={activeTab !== 'a'}
-    bordered={activeTab === 'a'}>a</Button>
-  <Button
-    onClick={() => setActiveTab('b')}
-    light={activeTab !== 'b'}
-    bordered={activeTab === 'b'}>b</Button>
-  <Button
-    onClick={() => setActiveTab('c')}
-    light={activeTab !== 'c'}
-    bordered={activeTab === 'c'}>c</Button>
-</Button.Group>
         <Button color={''} css={{ maxWidth: '100px', margin: 'auto' }}>
           <label className="">
             Alterar foto de perfil 📷
