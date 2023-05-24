@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Container, Input, Textarea, Button } from '@nextui-org/react';
 import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData';
 import { countries } from 'countries-list';
@@ -17,18 +17,20 @@ export default function PersonalData({
   loading,
 }) {
 
+  const [cep, setCep] = useState('');
+
   const countryOptions = Object.keys(countries).map((countryCode) => ({
     value: countryCode,
     label: countries[countryCode].name,
   }));
 
-  const [country, setCountry] = useState(countryOptions.find(option => option.label === 'Brazil'));
-  const [cep, setCep] = useState('');
-  const [activeTab, setActiveTab] = useState('a');
+  const [country, setCountry] = React.useState(new Set(["Brazil"]));
 
-  const handleCountry = (selectedOption) => {
-    setCountry(selectedOption);
-  };
+  const selectedValue = React.useMemo(
+    () => Array.from(country).join(", ").replaceAll("_", " "),
+    [country]
+  );
+  
 
   const handleCep = (cep) => {
     setCep(cep.target.value);
@@ -111,16 +113,23 @@ export default function PersonalData({
               <>
                 <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
                 <Dropdown>
-                  <Dropdown.Button flat>Selecione um país</Dropdown.Button>
-                  <Dropdown.Menu>
-                    {countryOptions.map((option) => (
-                      <Dropdown.Item
-                        key={option.value}
-                        onClick={() => handleCountryChange(option.value)}
-                      >
-                        {option.label}
-                      </Dropdown.Item>
-                    ))}
+                  <Dropdown.Button flat css={{ tt: "capitalize" }}>
+                    {selectedValue}
+                  </Dropdown.Button>
+                  <Dropdown.Menu
+                    disallowEmptySelection
+                    selectionMode="single"
+                    selectedKeys={country}
+                    onSelectionChange={setCountry}
+                  >
+                  {countryOptions.map((option) => (
+                    <Dropdown.Item
+                      key={option.label}
+                      value={option.label}
+                    >
+                      {option.label}
+                    </Dropdown.Item>
+                  ))}
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -165,7 +174,6 @@ export default function PersonalData({
             )}
           />
         </div>
-
         {/* <EnglishLevelContainer>
           <Radio.Group
             label="Nivel de inglês"
