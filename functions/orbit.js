@@ -34,7 +34,7 @@ async function findMemberByEmail(email) {
 async function updateMemberIdentity(user, member_slug) {
     try {
         let formatedIdentity = formatIdentity(user);
-        let response = await axios.get(
+        let response = await axios.post(
             ORBIT_API_URL + `members/${member_slug}/identities`, formatedIdentity, { headers: HEADERS }
         );
         return response.data.data;
