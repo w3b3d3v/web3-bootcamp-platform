@@ -11,6 +11,7 @@ const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
 const { insertMember } = require('./orbit')
+const { insertMember, findMemberByEmail, updateMemberIdentity} = require('./orbit')
 
 admin.initializeApp()
 
@@ -354,10 +355,17 @@ exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp)
 });
 
 exports.insertOrbitMember = functions.pubsub.topic('topic?').onPublish(async (message) => {
-  const member = JSON.parse(Buffer.from(message.data, 'base64'))
+  const user = JSON.parse(Buffer.from(message.data, 'base64'))
   console.log(`Inserting user into Orbit`);
 
-  let inserted = await insertOrbitMember(member);
+  found = findMemberByEmail(user.email);
+  if(found) {
+    await updateMemberIdentity(user, found.slug);
+    console.log(`User updated in Orbit`);
+    return;
+  }
+
+  let inserted = await insertMember(member);
   if(inserted) {
     console.log(`User inserted into Orbit`);
   }
