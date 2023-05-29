@@ -23,6 +23,7 @@ async function insertMember(member) {
 function formatMember(member) {
     return {
         "member": {
+            "name": member.username,
             "email": member.email,
         },
         "identity": {
