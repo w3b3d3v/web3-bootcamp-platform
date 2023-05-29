@@ -1,7 +1,11 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const { insertMember } = require('../orbit');
+const {
+  insertMember,
+  findMemberByEmail,
+  updateMemberIdentity
+} = require('../orbit');
 
 jest.mock('axios');
 
@@ -14,9 +18,8 @@ describe('insertMember', () => {
     axios.post.mockResolvedValueOnce({});
 
     const member = {
-      name: 'John Doe',
+      username: 'John Doe',
       email: 'john@example.com',
-      bio: 'Lorem ipsum dolor sit amet',
     };
 
     const result = await insertMember(member);
@@ -28,7 +31,14 @@ describe('insertMember', () => {
         member: {
           name: 'John Doe',
           email: 'john@example.com',
-          bio: 'Lorem ipsum dolor sit amet',
+        },
+        identity: {
+          name: 'Web3dev',
+          source: 'web3devBuild',
+          source_host: 'https://bootcamp.web3dev.com.br/',
+          username: 'John Doe',
+          uid: undefined,
+          email: 'john@example.com',
         },
       },
       {
@@ -43,9 +53,8 @@ describe('insertMember', () => {
     axios.post.mockRejectedValueOnce(new Error('Failed to insert member'));
 
     const member = {
-      name: 'Jane Smith',
+      username: 'Jane Smith',
       email: 'jane@example.com',
-      bio: 'Lorem ipsum dolor sit amet',
     };
 
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
@@ -55,6 +64,103 @@ describe('insertMember', () => {
     expect(result).toBe(false);
     expect(consoleErrorMock).toHaveBeenCalledWith(
       'Error inserting member: ',
+      expect.any(Error)
+    );
+  });
+});
+
+describe('findMemberByEmail', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should find a member by email successfully', async () => {
+    const email = 'john@example.com';
+    const responseData = { data: 'member data' };
+    axios.get.mockResolvedValueOnce({ data: responseData });
+
+    const result = await findMemberByEmail(email);
+
+    expect(result).toBe(responseData.data);
+    expect(axios.get).toHaveBeenCalledWith(
+      `https://app.orbit.love/api/v1/${process.env.ORBIT_WORKSPACE_ID}/members/find?source=email&email=${email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.ORBIT_API_KEY}`,
+        },
+      }
+    );
+  });
+
+  it('should return null and log an error if member lookup fails', async () => {
+    const email = 'jane@example.com';
+    axios.get.mockRejectedValueOnce(new Error('Failed to find member'));
+
+    const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
+
+    const result = await findMemberByEmail(email);
+
+    expect(result).toBe(null);
+    expect(consoleErrorMock).toHaveBeenCalledWith(
+      'Error finding member: ',
+      expect.any(Error)
+    );
+  });
+});
+
+describe('updateMemberIdentity', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should update member identity successfully', async () => {
+    const user = {
+      username: 'John Doe',
+      id: '123',
+      email: 'john@example.com',
+    };
+    const memberSlug = 'member-slug';
+    const responseData = { data: 'updated identity data' };
+    axios.post.mockResolvedValueOnce({ data: responseData });
+  
+    const result = await updateMemberIdentity(user, memberSlug);
+  
+    expect(result).toBe(responseData.data);
+    expect(axios.post).toHaveBeenCalledWith(
+      `https://app.orbit.love/api/v1/${process.env.ORBIT_WORKSPACE_ID}/members/${memberSlug}/identities`,
+      {
+        name: 'Web3dev',
+        source: 'web3devBuild',
+        source_host: 'https://bootcamp.web3dev.com.br/',
+        username: 'John Doe',
+        uid: '123',
+        email: 'john@example.com',
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.ORBIT_API_KEY}`,
+        },
+      }
+    );
+  });
+  
+
+  it('should return null and log an error if member identity update fails', async () => {
+    const user = {
+      username: 'Jane Smith',
+      id: '456',
+      email: 'jane@example.com',
+    };
+    const memberSlug = 'member-slug';
+    axios.get.mockRejectedValueOnce(new Error('Failed to update member identity'));
+
+    const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
+
+    const result = await updateMemberIdentity(user, memberSlug);
+
+    expect(result).toBe(null);
+    expect(consoleErrorMock).toHaveBeenCalledWith(
+      'Error updating member identity: ',
       expect.any(Error)
     );
   });
