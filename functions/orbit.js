@@ -7,13 +7,11 @@ const HEADERS = {
     Authorization: `Bearer ${process.env.ORBIT_API_KEY}`,
 }
 
-
 async function insertMember(member) {
-    // should we add any tag to user?
-    let user = formatMember(member);
+    let buildMember = formatMember(member);
 
     try {
-        await axios.post(ORBIT_API_URL + "members", user, { headers: HEADERS });
+        await axios.post(ORBIT_API_URL + "members", buildMember, { headers: HEADERS });
         return true;
     }
     catch (err) {
@@ -23,19 +21,19 @@ async function insertMember(member) {
 }
 
 function formatMember(member) {
-    const toInsert = {};
-    const attributesToInclude = ['name', 'email', 'bio'];
-
-    for (const attr of attributesToInclude) {
-        if (member[attr]) {
-            toInsert[attr] = member[attr];
+    return {
+        "member": {
+            "email": member.email,
+        },
+        "identity": {
+            "name": "Web3dev",
+            "source": "web3devBuild",
+            "source_host": "https://bootcamp.web3dev.com.br/",
+            "username": member.username,
+            "uid": member.id,
+            "email": member.email,
         }
     }
-
-    let user = {
-        "member": toInsert,
-    }
-    return user;
 }
 
 module.exports = { insertMember }
