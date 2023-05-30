@@ -31,9 +31,9 @@ async function findMemberByEmail(email) {
     }
 }
 
-async function updateMemberIdentity(user, member_slug) {
+async function updateMemberIdentity(user, member_slug, entity_name) {
     try {
-        let formatedIdentity = formatIdentity(user);
+        let formatedIdentity = formatIdentity(user, entity_name);
         let response = await axios.post(
             ORBIT_API_URL + `members/${member_slug}/identities`, formatedIdentity, { headers: HEADERS }
         );
@@ -45,30 +45,29 @@ async function updateMemberIdentity(user, member_slug) {
     }
 }
 
-function formatIdentity(user) {
-    return {
-        "name": "Web3dev",
-        "source": "web3devBuild",
-        "source_host": "https://bootcamp.web3dev.com.br/",
-        "username": user.username,
-        "uid": user.id,
-        "email": user.email,
+function formatIdentity(user, entity_name) {
+    let identities = {
+        "web3devBuilds": {
+            "name": "Web3dev",
+            "source": "web3devBuild",
+            "source_host": "https://bootcamp.web3dev.com.br/",
+            "username": user.username,
+            "uid": user.id,
+            "email": user.email,
+        }
     }
+    return identities[entity_name];
 }
 
-function formatUserToMember(member) {
+function formatUserToMember(member, entity_name) {
+    let identity = formatIdentity(member, entity_name);
     return {
         "member": {
             "name": member.username,
             "email": member.email,
         },
         "identity": {
-            "name": "Web3dev",
-            "source": "web3devBuild",
-            "source_host": "https://bootcamp.web3dev.com.br/",
-            "username": member.username,
-            "uid": member.id,
-            "email": member.email,
+            identity
         }
     }
 }
