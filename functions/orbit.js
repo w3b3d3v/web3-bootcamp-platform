@@ -7,6 +7,30 @@ const HEADERS = {
     Authorization: `Bearer ${process.env.ORBIT_API_KEY}`,
 }
 
+function getActivity(activityName) {
+    listedActivities = {
+        "buildSubscription": {
+            "activity_type": "buildSubscription",
+            "tags": ["subscription"],
+            "title": "Build Subscription",
+            "description": "Build Subscription",
+            "link": "https://bootcamp.web3dev.com.br/",
+            "weight": 1,
+        }
+    }
+}
+
+async function createActivity(member, activity) {
+    try {
+        let response = await axios.post(ORBIT_API_URL + "activities", activity, { headers: HEADERS });
+        return response.data.data;
+    }
+    catch(error) {
+        console.error("Error creating activity: ", error);
+        return null;
+    }
+}
+
 async function insertMember(user) {
     let buildMember = formatUserToMember(user);
 
