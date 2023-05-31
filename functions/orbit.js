@@ -78,7 +78,15 @@ function formatIdentity(user, entity_name) {
             "username": user.username,
             "uid": user.id,
             "email": user.email,
-        }
+        },
+        "forem": {
+            "name": "Forem",
+            "source": "forem",
+            "source_host": "https://web3dev.com.br/",
+            "username": user.username,
+            "uid": user.id,
+            "email": user.email,
+        },
     }
     return identities[entity_name];
 }
