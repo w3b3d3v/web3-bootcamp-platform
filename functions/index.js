@@ -371,3 +371,21 @@ exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('topic?').onPubl
     console.log(`User inserted into Orbit`);
   }
 });
+
+exports.insertOrbitMemberForem = functions.pubsub.topic('topic?').onPublish(async (message) => {
+  const user = JSON.parse(Buffer.from(message.data, 'base64'))
+  console.log(`Inserting user into Orbit`);
+  let entity_name = "forem";
+
+  found = findMemberByEmail(user.email);
+  if(found) {
+    await updateMemberIdentity(user, found.slug, entity_name);
+    console.log(`User updated in Orbit`);
+    return;
+  }
+
+  let inserted = await insertMember(member, entity_name);
+  if(inserted) {
+    console.log(`User inserted into Orbit`);
+  }
+});
