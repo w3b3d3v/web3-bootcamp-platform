@@ -223,13 +223,16 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
   resp.send('OK')
 })
 
-exports.fetchStoreBuildAnalytics = functions.https.onRequest(async (req, resp) => {
-  try {
-    const [rows] = await usersBySection()
-    await storeUsersPerCohort(db, rows)
-    resp.send('OK')
-  } catch (e) {
-    console.log('error: ' + e)
-    resp.send('error: ' + e)
-  }
-})
+exports.fetchStoreBuildAnalytics = functions.pubsub
+  .schedule('0 0 * * *')
+  .timeZone('America/Sao_Paulo')
+  .onRun(async (context) => {
+    try {
+      const [rows] = await usersBySection()
+      await storeUsersPerCohort(db, rows)
+      return true
+    } catch (e) {
+      console.log('error: ' + e)
+      return false
+    }
+  })
