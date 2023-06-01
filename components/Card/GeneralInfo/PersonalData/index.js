@@ -16,23 +16,21 @@ export default function PersonalData({
   setFile,
   setCountry,
   country,
-  setCep,
+  setZip,
   loading,
 }) {
-
   const countryOptions = Object.keys(countries).map((countryCode) => ({
     value: countryCode,
     label: countries[countryCode].name,
-  }));
+  }))
 
   const selectedValue = React.useMemo(
-    () => Array.from(country).join(", ").replaceAll("_", " "),
+    () => Array.from(country).join(', ').replaceAll('_', ' '),
     [country]
-  );
-  
+  )
 
-  const handleCep = (cep) => {
-    setCep(cep.target.value);
+  const handleZip = (zip) => {
+    setZip(zip.target.value)
   }
 
   return (
@@ -112,7 +110,7 @@ export default function PersonalData({
               <>
                 <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
                 <Dropdown {...field}>
-                  <Dropdown.Button flat css={{ tt: "capitalize" }}>
+                  <Dropdown.Button flat css={{ tt: 'capitalize' }}>
                     {selectedValue}
                   </Dropdown.Button>
                   <Dropdown.Menu
@@ -121,36 +119,32 @@ export default function PersonalData({
                     selectedKeys={country}
                     onSelectionChange={setCountry}
                   >
-                  {countryOptions.map((option) => (
-                    <Dropdown.Item
-                      key={option.label}
-                      value={option.label}
-                    >
-                      {option.label}
-                    </Dropdown.Item>
-                  ))}
+                    {countryOptions.map((option) => (
+                      <Dropdown.Item key={option.label} value={option.label}>
+                        {option.label}
+                      </Dropdown.Item>
+                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
               </>
             )}
           />
           <Controller
-            name="cep"
+            name="zip"
             control={control}
             render={({ field }) => (
               <Input
                 {...field}
-                onChange={handleCep}
+                onChange={handleZip}
                 bordered
                 labelPlaceholder="CEP / Zip Code"
-                id="cep"
+                id="zip"
                 placeholder="90000004"
                 width={'100%'}
               />
             )}
           />
         </InputsContainer>
-
 
         <div>
           <Controller
@@ -187,7 +181,6 @@ export default function PersonalData({
             <Radio value="4">Fluente</Radio>
           </Radio.Group>
         </EnglishLevelContainer> */}
-        
       </Content>
     </Container>
   )
