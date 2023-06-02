@@ -1,5 +1,5 @@
 #!/bin/bash
-
+gcloud config set project web3dev-development
 firebase use dev
 gsutil rm -r gs://web3dev-development.appspot.com/firestore-bkp
 gcloud firestore export gs://web3dev-development.appspot.com/firestore-bkp

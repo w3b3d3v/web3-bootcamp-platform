@@ -9,6 +9,7 @@ const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
+const { createUser } = require('./lib/mailchimp')
 
 admin.initializeApp()
 
@@ -58,8 +59,12 @@ exports.onCohortSignup = functions.firestore
       const emailData = Buffer.from(JSON.stringify(emailRawData))
       const discordData = Buffer.from(JSON.stringify(discordRawData))
 
-      topic.publishMessage({ emailData }, ()=> console.log('Email topic published on cohort signup'))
-      topic.publishMessage({ discordData }, ()=> console.log('Add User to Discord Role published on cohort signup'))
+      topic.publishMessage({ emailData }, () =>
+        console.log('Email topic published on cohort signup')
+      )
+      topic.publishMessage({ discordData }, () =>
+        console.log('Add User to Discord Role published on cohort signup')
+      )
     }
   })
 
@@ -264,6 +269,7 @@ exports.onUserCreated = functions.firestore
       incoming_topic: 'user_created',
       user,
     }
+    console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
     const data = Buffer.from(JSON.stringify(rawData))
     return await topic.publishMessage({ data })
   })
@@ -277,10 +283,12 @@ exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (messag
   return await topic.publishMessage({ data })
 })
 
-exports.userCreated = functions.pubsub.topic('user_created').onPublish((message) => {
-  const data = JSON.parse(Buffer.from(message.data, 'base64'))
-  return newUser(data)
-})
+exports.sendUserToMailchimpOnUserCreation = functions.pubsub
+  .topic('user_created')
+  .onPublish((message) => {
+    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    return createUser(data.user)
+  })
 
 exports.onCohortSignup = functions.pubsub.topic('cohort_signup').onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
