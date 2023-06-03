@@ -354,8 +354,8 @@ exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp)
     }
 });
 
-exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('topic?').onPublish(async (message) => {
-  const user = JSON.parse(Buffer.from(message.data, 'base64'))
+exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('user_created').onPublish(async (message) => {
+  const user = JSON.parse(Buffer.from(message.data, 'base64')).user;
   console.log(`Inserting user into Orbit`);
   let entity_name = "web3devBuilds";
 
@@ -372,7 +372,7 @@ exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('topic?').onPubl
   }
 });
 
-exports.insertOrbitMemberForem = functions.pubsub.topic('topic?').onPublish(async (message) => {
+exports.insertOrbitMemberForem = functions.pubsub.topic('').onPublish(async (message) => {
   const user = JSON.parse(Buffer.from(message.data, 'base64'))
   console.log(`Inserting user into Orbit`);
   let entity_name = "forem";
