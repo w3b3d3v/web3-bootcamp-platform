@@ -166,14 +166,6 @@ exports.sendEmailJob = functions.pubsub.topic('course_day_email').onPublish((mes
   return sendEmail(data.template, data.subject, data.to, data.params)
 })
 
-exports.insertOrbitMember = functions.pubsub.topic('topic?').onPublish(async (message) => {
-  const member = JSON.parse(Buffer.from(message.data, 'base64'))
-
-  console.log(`Inserting user into Orbit`);
-
-  await insertOrbitMember(member);
-});
-
 exports.sendEmailToAllUsers = functions.https.onRequest(async (req, resp) => {
   const cohort = await docData('cohorts', req.query.cohort_id)
   const course = await docData('courses', cohort.course_id)
@@ -311,3 +303,12 @@ exports.discordRoles = functions.pubsub
     return addDiscordUserToRole(data)
   })
 
+exports.insertOrbitMember = functions.pubsub.topic('topic?').onPublish(async (message) => {
+  const member = JSON.parse(Buffer.from(message.data, 'base64'))
+  console.log(`Inserting user into Orbit`);
+
+  let inserted = await insertOrbitMember(member);
+  if(inserted) {
+    console.log(`User inserted into Orbit`);
+  }
+});
