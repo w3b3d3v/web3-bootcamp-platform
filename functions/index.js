@@ -293,8 +293,6 @@ exports.onUserCreated = functions.firestore
   .document('users/{userId}')
   .onCreate(async (snap, context) => {
     const user = snap.data()
-    const userId = snap.id
-    const userEmail = user.email
     const topic = pubsub.topic('router-pubsub')
     const rawData = {
       incoming_topic: 'user_created',
