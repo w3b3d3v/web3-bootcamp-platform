@@ -10,7 +10,6 @@ const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
-const { insertMember } = require('./orbit')
 const { insertMember, findMemberByEmail, updateMemberIdentity} = require('./orbit')
 
 admin.initializeApp()
@@ -293,6 +292,8 @@ exports.onUserCreated = functions.firestore
   .document('users/{userId}')
   .onCreate(async (snap, context) => {
     const user = snap.data()
+    user.id = snap.id
+  
     const topic = pubsub.topic('router-pubsub')
     const rawData = {
       incoming_topic: 'user_created',
@@ -313,7 +314,7 @@ exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (messag
 })
 
 exports.sendUserToMailchimpOnUserCreation = functions.pubsub
-  .topic('user_created')
+  .topic('user_create')
   .onPublish((message) => {
     const data = JSON.parse(Buffer.from(message.data, 'base64'))
     return createUser(data.user)
@@ -357,16 +358,16 @@ exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('user_created').
   console.log(`Inserting user into Orbit`);
   let entity_name = "web3devBuilds";
 
-  found = findMemberByEmail(user.email);
+  let found = await findMemberByEmail(user.email);
   if(found) {
     await updateMemberIdentity(user, found.slug, entity_name);
     console.log(`User updated in Orbit`);
     return;
   }
-
-  let inserted = await insertMember(member, entity_name);
+  console.log("Member not found. Will create a new one.")
+  let inserted = await insertMember(user, entity_name);
   if(inserted) {
-    console.log(`User inserted into Orbit`);
+    console.log(`New user created into orbit.`);
   }
 });
 
