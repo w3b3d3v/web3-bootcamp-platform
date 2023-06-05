@@ -1,8 +1,7 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const WORKSPACE_ID = process.env.ORBIT_WORKSPACE_ID;
-const ORBIT_API_URL = `https://app.orbit.love/api/v1/${WORKSPACE_ID}/`;
+const ORBIT_API_URL = `https://app.orbit.love/api/v1/` + process.env.ORBIT_WORKSPACE_ID + `/`;
 const HEADERS = {
     Authorization: `Bearer ${process.env.ORBIT_API_KEY}`,
 }
@@ -31,9 +30,8 @@ async function createActivity(member, activity) {
     }
 }
 
-async function insertMember(user) {
-    let buildMember = formatUserToMember(user);
-
+async function insertMember(user, entity_name) {
+    let buildMember = formatUserToMember(user, entity_name);
     try {
         await axios.post(ORBIT_API_URL + "members", buildMember, { headers: HEADERS });
         return true;
@@ -50,8 +48,7 @@ async function findMemberByEmail(email) {
         return response.data.data;
     }
     catch(error) {
-        console.error("Error finding member: ", error);
-        return null;
+        return false;
     }
 }
 
@@ -74,18 +71,16 @@ function formatIdentity(user, entity_name) {
         "web3devBuilds": {
             "name": "Web3dev",
             "source": "web3devBuild",
-            "source_host": "https://bootcamp.web3dev.com.br/",
-            "username": user.username,
+            "source_host": "bootcamp.web3dev.com.br",
+            "username": user.username || user.email?.split("@")[0],
             "uid": user.id,
-            "email": user.email,
         },
         "forem": {
             "name": "Forem",
             "source": "forem",
-            "source_host": "https://web3dev.com.br/",
-            "username": user.username,
+            "source_host": "web3dev.com.br",
+            "username": user.username || user.email?.split("@")[0],
             "uid": user.id,
-            "email": user.email,
         },
     }
     return identities[entity_name];
@@ -95,12 +90,10 @@ function formatUserToMember(member, entity_name) {
     let identity = formatIdentity(member, entity_name);
     return {
         "member": {
-            "name": member.username,
+            "name": member.username || member.email?.split("@")[0],
             "email": member.email,
         },
-        "identity": {
-            identity
-        }
+        identity
     }
 }
 
