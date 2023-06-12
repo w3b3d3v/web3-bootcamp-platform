@@ -7,6 +7,9 @@ const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> finished function to add discord to user
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
@@ -246,6 +249,35 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
     }
   })
   resp.send('OK')
+})
+
+exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp) => {
+  let grantedRoles = 0
+  try {
+    const users = (
+      await db.collection('users').where('discord.id', '==', req.query.discordId).get()
+    ).docs
+
+    if (users.length === 0) {
+      return resp.send({ status: 404 })
+    } else {
+      const user = users[0].data()
+
+      let cohorts = user.cohorts
+      for (userCohort of cohorts) {
+        let cohort = await docData('cohorts', userCohort.cohort_id)
+        if (cohort.discord_role) {
+          console.log('adding role ' + cohort.discord_role + ' to user ' + user.discord.username)
+          await addDiscordRole(req.query.discordId, cohort.discord_role)
+          grantedRoles += 1
+        }
+      }
+
+      resp.send({ status: 200, grantedRoles: grantedRoles, userCohortsLenght: cohorts.length })
+    }
+  } catch (e) {
+    resp.send({ error: e, status: 500 })
+  }
 })
 
 exports.fetchStoreBuildAnalytics = functions.pubsub
