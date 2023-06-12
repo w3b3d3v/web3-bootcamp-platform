@@ -32,6 +32,8 @@ export default function GeneralInfoCard() {
   const [filledPersonalData, setFilledPersonalData] = useState(false)
   const [filledSocialData, setFilledSocialData] = useState(false)
   const [filledProfessionalData, setFilledProfessionalData] = useState(false)
+  const [country, setCountry] = useState(new Set(["Brazil"]));
+  const [zip, setZip] = useState()
 
   const {
     register,
@@ -99,7 +101,10 @@ export default function GeneralInfoCard() {
       blockchainExp: data?.blockchainExp ?? null,
       technologies: data?.technologies?.map((obj) => obj.label) ?? user?.technologies,
       builder: data?.builder ?? user?.builder,
+      country: country.values().next().value ?? user?.country,
+      zip: zip ?? user?.zip,
     }
+    console.log('userData: ', userData)
     await updateUserInFirestore(userData, user?.uid)
       .then(async () => {
         if (file) await updateUserProfilePic()
@@ -125,9 +130,16 @@ export default function GeneralInfoCard() {
       blockchainExp,
       technologies,
       builder,
+      country,
+      zip,
     } = watch()
 
-    const personalData = name?.length > 0 && email?.length > 0 && bio?.length > 0
+    const personalData =
+      name?.length > 0 &&
+      email?.length > 0 &&
+      bio?.length > 0 &&
+      country?.length > 0 &&
+      zip?.length >= 0
 
     const socialData =
       twitter?.length > 0 &&
@@ -144,56 +156,60 @@ export default function GeneralInfoCard() {
   useEffect(() => renderFormSteps, [watch()])
 
   return (
-    <Container>  
-        {/* <ProfileProgress
+    <Container>
+      {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
             filledSocialData={filledSocialData}
             filledProfessionalData={filledProfessionalData}
           /> */}
-        <div className=" mt-14 ">
-          <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
-          <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
-            <div className="flex flex-col gap-10 ">
-              <PersonalData
-                Controller={Controller}
-                control={control}
-                errors={errors}
-                user={user}
-                file={file}
-                setFile={setFile}
-                loading={loading}
-              />
-              <div className="flex flex-col lg:flex-row gap-11 content-end max-w-5xl m-auto ">
-                <div className="flex-1">
-                  <DiscordCard />
-                </div>
-                <div className="flex-1">
-                  <WalletCard />
-                </div>
-              </div>
-              <SocialData Controller={Controller} control={control} errors={errors} user={user} />
-              <h1 className="text-center" id="professionalData">
-                Skills🛠
-              </h1>
-              <ProfessionalData
-                Controller={Controller}
-                control={control}
-                errors={errors}
-                register={register}
-                getValues={getValues}
-                setValue={setValue}
-              />
-            </div>
-            <ProfileFooter
-              showPersonalData={showPersonalData}
-              showProfessionalData={showProfessionalData}
-              setShowPersonalData={setShowPersonalData}
-              setShowProfessionalData={setShowProfessionalData}
-              setShowSocialData={setShowSocialData}
-              showSocialData={showSocialData}
+      <div className=" mt-14 ">
+        <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
+        <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
+          <div className="flex flex-col gap-10 ">
+            <PersonalData
+              Controller={Controller}
+              control={control}
+              errors={errors}
+              user={user}
+              file={file}
+              country={country}
+              setCountry={setCountry}
+              setFile={setFile}
+              zip={zip}
+              setZip={setZip}
+              loading={loading}
             />
-          </form>
-        </div>
+            <div className="m-auto flex max-w-5xl flex-col content-end gap-11 lg:flex-row ">
+              <div className="flex-1">
+                <DiscordCard />
+              </div>
+              <div className="flex-1">
+                <WalletCard />
+              </div>
+            </div>
+            <SocialData Controller={Controller} control={control} errors={errors} user={user} />
+            <h1 className="text-center" id="professionalData">
+              Skills🛠
+            </h1>
+            <ProfessionalData
+              Controller={Controller}
+              control={control}
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setValue={setValue}
+            />
+          </div>
+          <ProfileFooter
+            showPersonalData={showPersonalData}
+            showProfessionalData={showProfessionalData}
+            setShowPersonalData={setShowPersonalData}
+            setShowProfessionalData={setShowProfessionalData}
+            setShowSocialData={setShowSocialData}
+            showSocialData={showSocialData}
+          />
+        </form>
+      </div>
     </Container>
   )
 }

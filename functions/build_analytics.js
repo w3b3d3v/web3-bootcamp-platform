@@ -2,35 +2,47 @@ const { getQueryResults } = require('./lib/bigQuery')
 
 async function usersBySection() {
   return getQueryResults(`
-    WITH sections AS (select 
-    c.course_id, section, 
-    count(distinct l.user_id) students,
-    array_agg(u.photoUrl IGNORE NULLS limit 5) photoUrls
-    from web3dev_bootcamp.lesson_submissions l 
-    join web3dev_bootcamp.cohorts c on c.id = l.cohort_id
-    join web3dev_bootcamp.users u on u.id = l.user_id
-    group by 1,2
-    order by 1,2)
-    select course_id, array_agg(struct(section, students, photoUrls)) as sections
-    from sections
-    group by 1
-  `)
+WITH max_section AS (
+    SELECT l.user_id, c.course_id, MAX(l.section) AS max_section
+    FROM web3dev_bootcamp.lesson_submissions l
+    JOIN web3dev_bootcamp.cohorts c ON c.id = l.cohort_id
+    GROUP BY l.user_id, c.course_id
+  ),
+  section_data AS (
+    SELECT
+      m.course_id,
+      m.max_section,
+      COUNT(DISTINCT m.user_id) AS students,
+      ARRAY_AGG(u.photoUrl IGNORE NULLS LIMIT 3) AS photoUrls
+    FROM max_section m
+    JOIN web3dev_bootcamp.users u ON u.id = m.user_id
+    GROUP BY m.course_id, m.max_section
+  )
+  SELECT
+    course_id,
+    (SELECT
+        ARRAY_AGG(
+          STRUCT(
+            CAST(max_section AS STRING) AS section,
+            students,
+            photoUrls
+          )
+        ) AS sections
+     FROM section_data sd
+     WHERE sd.course_id = cd.course_id
+    ) AS sections
+  FROM section_data cd
+  GROUP BY course_id
+  ORDER BY course_id;  
+`)
 }
 
 async function storeUsersPerCohort(db, rows) {
-  const analyticsRef = db.collection('builds_analytics')
   const promises = rows.map(async (item) => {
     const { course_id, sections } = item
-    const querySnapshot = await analyticsRef.where('course_id', '==', course_id).get()
-    if (querySnapshot.empty) {
-      const documentRef = analyticsRef.doc()
-      await documentRef.set({ course_id, sections })
-      return { course_id, result: 'created' }
-    } else {
-      const documentRef = querySnapshot.docs[0].ref
-      await documentRef.update({ sections })
-      return { course_id, result: 'updated' }
-    }
+    const course = db.collection('courses').doc(course_id)
+    await course.update({ analytics: sections })
+    return { course_id, result: 'updated' }
   })
   await Promise.all(promises)
 }

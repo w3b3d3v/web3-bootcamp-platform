@@ -1,8 +1,11 @@
-import Image from 'next/image'
-import React from 'react'
-import Loading from '../../../Loading'
-import {  Container, Input, Textarea, Button } from '@nextui-org/react'
-import { Content,InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
+import React, { useState, useMemo } from 'react';
+import { Container, Input, Textarea, Button } from '@nextui-org/react';
+import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData';
+import { countries } from 'countries-list';
+import { Dropdown } from "@nextui-org/react";
+import Image from 'next/image';
+import Loading from '../../../Loading';
+
 
 export default function PersonalData({
   Controller,
@@ -11,8 +14,25 @@ export default function PersonalData({
   user,
   file,
   setFile,
+  setCountry,
+  country,
+  setZip,
   loading,
 }) {
+  const countryOptions = Object.keys(countries).map((countryCode) => ({
+    value: countryCode,
+    label: countries[countryCode].name,
+  }))
+
+  const selectedValue = React.useMemo(
+    () => Array.from(country).join(', ').replaceAll('_', ' '),
+    [country]
+  )
+
+  const handleZip = (zip) => {
+    setZip(zip.target.value)
+  }
+
   return (
     <Container>
       <Content>
@@ -83,6 +103,47 @@ export default function PersonalData({
               />
             )}
           />
+          <Controller
+            name="country"
+            control={control}
+            render={({ field }) => (
+              <>
+                <span style={{ marginBottom: '-2rem' }}>Onde você está?</span>
+                <Dropdown {...field}>
+                  <Dropdown.Button flat css={{ tt: 'capitalize' }}>
+                    {selectedValue}
+                  </Dropdown.Button>
+                  <Dropdown.Menu
+                    disallowEmptySelection
+                    selectionMode="single"
+                    selectedKeys={country}
+                    onSelectionChange={setCountry}
+                  >
+                    {countryOptions.map((option) => (
+                      <Dropdown.Item key={option.label} value={option.label}>
+                        {option.label}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+            )}
+          />
+          <Controller
+            name="zip"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                onChange={handleZip}
+                bordered
+                labelPlaceholder="CEP / Zip Code"
+                id="zip"
+                placeholder="90000004"
+                width={'100%'}
+              />
+            )}
+          />
         </InputsContainer>
 
         <div>
@@ -106,7 +167,6 @@ export default function PersonalData({
             )}
           />
         </div>
-
         {/* <EnglishLevelContainer>
           <Radio.Group
             label="Nivel de inglês"
@@ -121,7 +181,6 @@ export default function PersonalData({
             <Radio value="4">Fluente</Radio>
           </Radio.Group>
         </EnglishLevelContainer> */}
-        
       </Content>
     </Container>
   )
