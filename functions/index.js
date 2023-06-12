@@ -6,17 +6,10 @@ const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLe
 const { mint } = require('./mintNFT.js')
 const { getNextCohort } = require('./second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> finished function to add discord to user
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
-=======
-const { getUserByDiscordId } = require('../lib/user')
->>>>>>> [feat] cloud function to grant discord role to newcomers that are already in a cohort
 
 admin.initializeApp()
 
