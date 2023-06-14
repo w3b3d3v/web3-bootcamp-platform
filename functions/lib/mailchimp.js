@@ -28,15 +28,17 @@ exports.createUser = async function (user) {
       status: 'subscribed',
       merge_fields: objectWithUppercasedKeys(user),
     })
-  } catch (erro) {
-    console.error(erro)
+  } catch (error) {
+    console.error(error)
   }
 }
 
 function objectWithUppercasedKeys(object) {
   const newObject = {}
   Object.keys(object).forEach((key) => {
-    newObject[key.toUpperCase()] = object[key]
+    if(object[key]) {
+      newObject[key.toUpperCase()] = object[key]
+    }
   })
   return newObject
 }
