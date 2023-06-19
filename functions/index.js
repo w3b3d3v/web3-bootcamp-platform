@@ -10,7 +10,7 @@ const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
-const { insertMember, findMemberByEmail, updateMemberIdentity} = require('./orbit')
+const { insertMember, findMemberByEmail, updateMemberIdentity, createActivity } = require('./orbit')
 
 admin.initializeApp()
 
@@ -303,6 +303,35 @@ exports.onUserCreated = functions.firestore
     const data = Buffer.from(JSON.stringify(rawData))
     return await topic.publishMessage({ data })
   })
+
+exports.onCohortSubscriptions = functions.firestore
+  .document('users/{userId}')
+  // usamos onWrite para capturar criação e update, já que a lista cohorts n é deletada
+  .onWrite(async (snap, context) => {
+    const before = snap.before.data()
+    const after = snap.after.data()
+
+    if(before && after && before.cohorts !== after.cohorts ) {
+      const user = after;
+      user.id = snap.after.id
+      const topic = pubsub.topic('router-pubsub')
+      const rawData = {
+        incoming_topic: 'cohort_signup_test',
+        user,
+      }
+      console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+      const data = Buffer.from(JSON.stringify(rawData))
+      return await topic.publishMessage({ data })
+    }
+    return;
+  })
+
+exports.createOrbitActivity = functions.pubsub.topic('cohort_signup_test').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  const activityName = "buildSubscription"
+  console.log("received cohort_signup test yeah!")
+  return await createActivity(data.user, activityName)
+});
 
 exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
   const json = JSON.parse(Buffer.from(message.data, 'base64'))
