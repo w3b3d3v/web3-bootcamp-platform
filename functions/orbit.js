@@ -17,15 +17,29 @@ function getActivity(activityName) {
             "weight": 1,
         }
     }
+    return listedActivities[activityName];
 }
 
-async function createActivity(member, activity) {
+async function createActivity(member, activityName) {
+    const activity = getActivity(activityName);
+    const memberObj = {
+        "name": member.username || member.email?.split("@")[0],
+        "email": member.email,
+    }
+    activity.member = memberObj;
+
+    let payload = {
+        activity,
+    }
+
     try {
-        let response = await axios.post(ORBIT_API_URL + "activities", activity, { headers: HEADERS });
+        let response = await axios.post(ORBIT_API_URL + "activities", payload, { headers: HEADERS });
+        console.log(response)
         return response.data.data;
     }
     catch(error) {
         console.error("Error creating activity: ", error);
+        console.log(error.response.data.errors)
         return null;
     }
 }
@@ -97,4 +111,4 @@ function formatUserToMember(member, entity_name) {
     }
 }
 
-module.exports = { insertMember, findMemberByEmail, updateMemberIdentity }
+module.exports = { insertMember, findMemberByEmail, updateMemberIdentity, createActivity }
