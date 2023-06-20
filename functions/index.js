@@ -326,7 +326,30 @@ exports.onCohortSubscriptions = functions.firestore
     return;
   })
 
-exports.createOrbitActivity = functions.pubsub.topic('cohort_signup_test').onPublish(async (message) => {
+exports.onLessonSubmission = functions.firestore
+  .document('lesson_submissions/{lessonSubmissionId}')
+  .onCreate(async (snap, context) => {
+    const lessonSubmission = snap.data();
+
+    const topic = pubsub.topic('router-pubsub')
+    const rawData = {
+      incoming_topic: 'lesson_submission',
+      lessonSubmission,
+    }
+    console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+    const data = Buffer.from(JSON.stringify(rawData))
+    return await topic.publishMessage({ data })
+  });
+
+exports.createOrbitActivityLessonSubmission = functions.pubsub.topic('lesson_submission').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  const activityName = "lessonSubmission"
+  console.log("received lesson_submission yeah!")
+  let user = await docData('users', data.lessonSubmission.user_id);
+  return await createActivity(user, activityName)
+});
+
+exports.createOrbitActivityBuildSubscription = functions.pubsub.topic('cohort_signup_test').onPublish(async (message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
   const activityName = "buildSubscription"
   console.log("received cohort_signup test yeah!")
