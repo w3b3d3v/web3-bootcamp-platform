@@ -15,7 +15,15 @@ function getActivity(activityName) {
             "description": "Build Subscription",
             "link": "https://bootcamp.web3dev.com.br/",
             "weight": 1,
-        }
+        },
+        "lessonSubmission": {
+            "activity_type": "lessonSubmission",
+            "tags": ["lesson"],
+            "title": "Lesson Submission",
+            "description": "Lesson Submission",
+            "link": "https://bootcamp.web3dev.com.br/",
+            "weight": 1,
+        },
     }
     return listedActivities[activityName];
 }
