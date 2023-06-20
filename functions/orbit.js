@@ -24,6 +24,14 @@ function getActivity(activityName) {
             "link": "https://bootcamp.web3dev.com.br/",
             "weight": 1,
         },
+        "profileFullfillment": {
+            "activity_type": "profileFullfillment",
+            "tags": ["profile"],
+            "title": "Profile Fullfillment",
+            "description": "Profile Fullfillment",
+            "link": "https://bootcamp.web3dev.com.br/",
+            "weight": 1,
+        }
     }
     return listedActivities[activityName];
 }
