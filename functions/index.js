@@ -11,6 +11,7 @@ const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
 const { insertMember, findMemberByEmail, updateMemberIdentity, createActivity } = require('./orbit')
+const { isObjectFulfilled } = require('./utils/validators')
 
 admin.initializeApp()
 
@@ -329,8 +330,8 @@ exports.onCohortSubscriptions = functions.firestore
 exports.onLessonSubmission = functions.firestore
   .document('lesson_submissions/{lessonSubmissionId}')
   .onCreate(async (snap, context) => {
-    const lessonSubmission = snap.data();
 
+    const lessonSubmission = snap.data();
     const topic = pubsub.topic('router-pubsub')
     const rawData = {
       incoming_topic: 'lesson_submission',
@@ -340,6 +341,42 @@ exports.onLessonSubmission = functions.firestore
     const data = Buffer.from(JSON.stringify(rawData))
     return await topic.publishMessage({ data })
   });
+
+exports.onProfileFullfillment = functions.firestore
+  .document('users/{userId}')
+  .onWrite(async (snap, context) => {
+    console.log("here")
+    const after = snap.after.data();
+    const before = snap.before.data();
+    const profileId = snap.after.id;
+    after.id = profileId;
+
+    if(!before || !after || before == after) {
+      return;
+    }
+    
+    isFulFilled = isObjectFulfilled(after);
+    if(!isFulFilled) {
+      return;
+    }
+
+    const topic = pubsub.topic('router-pubsub');
+    const rawData = {
+      incoming_topic: 'profile_fullfillment',
+      after,
+    }
+
+    console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+    const data = Buffer.from(JSON.stringify(rawData))
+    return await topic.publishMessage({ data })
+  });
+
+exports.createOrbitActivityProfileFullfillment = functions.pubsub.topic('profile_fullfillment').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64')).after;
+  const activityName = "profileFullfillment"
+  console.log("received profile_fullfillment yeah!")
+  return await createActivity(data, activityName);
+});
 
 exports.createOrbitActivityLessonSubmission = functions.pubsub.topic('lesson_submission').onPublish(async (message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
