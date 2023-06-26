@@ -1,3 +1,5 @@
+// as far as I understand, when testing functions in index, we want to be sure that index is calling them the right way. To tes each function implementation, this should be done in the function's own test file. (for example, email sending should be tested in emails.test.js)
+
 
 const { sendEmail } = require('../index');
 const { sendEmail: sendEmailModule } = require('../emails');
