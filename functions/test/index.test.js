@@ -4,6 +4,7 @@
 const { sendEmail } = require('../index');
 const { sendEmail: sendEmailModule } = require('../emails');
 
+
 jest.mock('../emails', () => ({
   sendEmail: jest.fn(),
 }));
@@ -30,6 +31,31 @@ describe('Send Email', () => {
       req.query.to,
     );
 
+    expect(resp.send).toHaveBeenCalledWith('Email sent');
+  });
+
+  it("should send an email with provided subject", async () => {
+    sendEmailModule.mockResolvedValueOnce("Email sent");
+    const req = {
+      query: {
+        template: 'template',
+        to: 'aaa@example.com',
+        subject: 'subject',
+      }
+    };
+
+    const resp = {
+      send: jest.fn(),
+    }
+
+    await sendEmail(req, resp);
+
+    expect(sendEmailModule).toHaveBeenCalledWith(
+      req.query.template,
+      req.query.subject,
+      req.query.to,
+    );
+      
     expect(resp.send).toHaveBeenCalledWith('Email sent');
   });
 });
