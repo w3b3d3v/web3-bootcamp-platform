@@ -41,20 +41,7 @@ module.exports = function (name, options) {
     after: function(done) {
       if (!has_fixtures) {
         var fixtures = nock.recorder.play();
-
-        // Modify the recorded fixture to match the provided example
-        var modifiedFixtures = fixtures.map(function(fixture) {
-          var body = JSON.parse(fixture.body);
-          body.jobReference.jobId = '{job_id}'; // Ignore job_id during playback
-          return {
-            method: fixture.method,
-            path: fixture.path,
-            body: JSON.stringify(body),
-            status: fixture.status,
-            headers: fixture.headers
-          };
-        });
-        var text = "var nock = require('nock');\n" + + JSON.stringify(modifiedFixtures, null, 2);
+        var text = "var nock = require('nock');\n" + fixtures.join('\n');
         for (const key in hide) {
           var replacer = new RegExp(hide[key], 'g')
           text = text.replace(replacer, key);
