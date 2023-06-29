@@ -1,4 +1,4 @@
-// Import the necessary modules/functions
+
 const { mint } = require('../mintNFT');
 const { ethers } = require('ethers');
 
