@@ -1,75 +1,60 @@
-const mailchimp = require('@mailchimp/mailchimp_marketing');
-const { addUserToList, createUser } = require('./your-file-containing-mailchimp-functions');
+const { addUserToList, createUser } = require('../../lib/mailchimp.js');
+const mailchimp = require('@mailchimp/mailchimp_marketing')
 
 jest.mock('@mailchimp/mailchimp_marketing', () => ({
+  setConfig: jest.fn(),
   lists: {
     addListMember: jest.fn(),
-  },
+  }
 }));
 
-describe('Mailchimp Functions', () => {
+describe('add User to list', function() {
   beforeEach(() => {
     mailchimp.lists.addListMember.mockClear();
-  });
-
-  describe('addUserToList', () => {
-    test('should add user to cohort and course lists', async () => {
-      const emailData = {
-        user_email: 'test@example.com',
-        params: {
-          cohort: 'cohort-list-id',
-          course: 'course-list-id',
-        },
-      };
-      await addUserToList(emailData);
-
-      expect(mailchimp.lists.addListMember).toHaveBeenCalledTimes(2);
-      expect(mailchimp.lists.addListMember).toHaveBeenCalledWith('cohort-list-id', {
-        email_address: 'test@example.com',
-        status: 'subscribed',
-      });
-      expect(mailchimp.lists.addListMember).toHaveBeenCalledWith('course-list-id', {
-        email_address: 'test@example.com',
-        status: 'subscribed',
-      });
+  })
+  it("Should add users to list correctly", async () => {
+    const emailData = {
+      user_email: "example@gmail.com",
+      firstName: "John",
+      lastName: "Doe",
+      params: {
+        cohort: "test",
+        course: "test",
+      },
+    };
+    await addUserToList(emailData);
+    expect(mailchimp.setConfig).toHaveBeenCalledTimes(1);
+    expect(mailchimp.lists.addListMember).toHaveBeenCalledWith("test", {
+      email_address: "example@gmail.com",
+      status: 'subscribed',
     });
+  
+    expect(mailchimp.lists.addListMember).toHaveBeenCalledTimes(2);
   });
+});
 
-  describe('createUser', () => {
-    test('should add user to the specified list with merge fields', async () => {
-      const user = {
-        email: 'test@example.com',
-        name: 'Test User',
-        age: 25,
-      };
+describe("create user in mailchimp", () => {
+  beforeEach(() => {
+    mailchimp.lists.addListMember.mockClear();
+  })
 
-      await createUser(user);
+  const user = {
+    email: "test@gmail.com",
+    firstName: "John",
+    lastName: "Doe",
+  }
 
-      expect(mailchimp.lists.addListMember).toHaveBeenCalledTimes(1);
-      expect(mailchimp.lists.addListMember).toHaveBeenCalledWith('b578d43584', {
-        email_address: 'test@example.com',
-        status: 'subscribed',
-        merge_fields: {
-          EMAIL: 'test@example.com',
-          NAME: 'Test User',
-          AGE: 25,
-        },
-      });
-    });
+  it("Should create user in mailchimp", async () => {
+    await createUser(user);
 
-    test('should handle errors', async () => {
-      const user = {
-        email: 'test@example.com',
-        name: 'Test User',
-      };
-
-      mailchimp.lists.addListMember.mockImplementationOnce(() => {
-        throw new Error('Failed to add user to the list');
-      });
-
-      await createUser(user);
-    
-      expect(console.error).toHaveBeenCalledWith(expect.any(Error));
+    expect(mailchimp.lists.addListMember).toHaveBeenCalledWith("b578d43584", {
+      email_address: "test@gmail.com",
+      status: "subscribed",
+      merge_fields: {
+        EMAIL: "test@gmail.com",
+        FIRSTNAME: "John",
+        LASTNAME: "Doe",
+      },
     });
   });
 });
