@@ -386,6 +386,15 @@ exports.createOrbitActivityLessonSubmission = functions.pubsub.topic('lesson_sub
   return await createActivity(user, activityName)
 });
 
+exports.createOrbitActivityDiscordVoice = functions.https.onRequest(async (req, res) => {
+  const data = req.body
+  const activityName = data.activityName
+  const discordId = data.discordId
+  console.log("received discordVoice yeah!")
+  let user = await docData('users', discordId);
+  return await createActivity(user, activityName)
+});
+
 exports.createOrbitActivityBuildSubscription = functions.pubsub.topic('cohort_signup_test').onPublish(async (message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
   const activityName = "buildSubscription"

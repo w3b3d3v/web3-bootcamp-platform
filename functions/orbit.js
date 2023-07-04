@@ -31,7 +31,14 @@ function getActivity(activityName) {
             "description": "Profile Fullfillment",
             "link": "https://bootcamp.web3dev.com.br/",
             "weight": 1,
-        }
+        },
+        "voiceActivity": {
+            "activity_type": "voiceActivity",
+            "tags": ["voice", "discord"],
+            "title": "Voice Activity",
+            "description": "Voice Activity",
+            "weight": 1,
+        },
     }
     return listedActivities[activityName];
 }
