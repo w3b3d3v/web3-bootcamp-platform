@@ -6,25 +6,20 @@ import { SessionProvider } from 'next-auth/react';
 import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react';
 import 'regenerator-runtime/runtime';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-cookienotice/dist/index.css';
-import dynamic from 'next/dynamic';
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
-import { mixpanel } from '../lib/utils/mixpanel';
-import Footer from '../components/Footer/index';
-import '../lib/globals.js';
-import { NextUIProvider, createTheme } from '@nextui-org/react';
+import 'react-toastify/dist/ReactToastify.css'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import { mixpanel } from '../lib/utils/mixpanel'
+import Footer from '../components/Footer/index'
+import '../lib/globals.js'
+import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
 }
 
-
-const CookieNotice = dynamic(() => import('react-cookienotice'), {
-  ssr: false,
-})
 
 function MyApp({ Component, pageProps }) {
   const supportedChainIds = [80001, 4, 137, 1, 250, 43114]
@@ -81,15 +76,7 @@ function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
               </Head>
               <NavbarComponent />
-              <div className="relative z-10">
-                <CookieNotice
-                  cookieName="web3dev-user-cookie"
-                  descriptionLabel={cookieText}
-                  titleLabel="Consentimento de cookies"
-                  acceptButtonLabel="Aceitar"
-                  declineButtonLabel="Rejeitar"
-                />
-              </div>
+              <div className="relative z-10"></div>
               <Component {...pageProps} />
               <Footer />
               <ToastContainer />
