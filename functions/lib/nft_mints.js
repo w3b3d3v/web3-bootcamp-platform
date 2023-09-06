@@ -1,4 +1,4 @@
-const getQueryResults = require('./utils/bigQuery').getQueryResults
+const getQueryResults = require('./bigQuery').getQueryResults
 
 exports.getMissingNfts = async function () {
   const query = `select c.course_id, l.cohort_id, l.user_id

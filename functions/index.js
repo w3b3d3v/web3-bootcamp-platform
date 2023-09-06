@@ -138,7 +138,7 @@ exports.mintNFT = functions.firestore
 exports.mintAllMissing = functions
   .runWith({ timeoutSeconds: 540 })
   .https.onRequest(async (req, resp) => {
-    const { getMissingNfts } = require('../lib/nft_mints')
+    const { getMissingNfts } = require('./lib/nft_mints')
     const [rows] = await getMissingNfts()
 
     console.log('minting for ' + rows.length + ' users')
