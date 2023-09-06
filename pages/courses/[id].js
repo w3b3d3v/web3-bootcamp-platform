@@ -176,7 +176,7 @@ function Course({ course, currentDate }) {
       <Head>
         <meta property="og:title" content={course.title} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
+        <meta property="og:url" content="https://build.w3d.community/" />
         <meta property="og:description" content={course.description} />
         <meta property="og:image" content={course?.resized_img_url || course.image_url} />
         <meta property="og:image:type" content="image/png" />
@@ -186,36 +186,31 @@ function Course({ course, currentDate }) {
 
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://bootcamp.web3dev.com.br/" />
+        <meta property="twitter:url" content="https://build.w3d.community/" />
         <meta property="twitter:title" content={course.title} />
         <meta property="twitter:description" content={course.description} />
         <meta property="twitter:image" content={course.image_url} />
         {/*Twitter End*/}
 
-        <title>Curso {course.id} -Web3Dev</title>
+        <title>Build {course.id} - WEB3DEV</title>
       </Head>
-      
-      <div className="mx-auto max-w-7xl px-6 mt-0 lg:mt-10 container-lessons">
 
-      <div className="flex justify-between mb-8 flex-col lg:flex-row">
+      <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
+        <div className="mb-8 flex flex-col justify-between lg:flex-row">
+          <div className="max-w-3xl self-center lg:max-w-lg">
+            <h1 className="text-2xl font-bold">{course?.title}</h1>
 
-        <div className='self-center lg:max-w-lg max-w-3xl'>
-
-          <h1 className="text-2xl font-bold">{course?.title}</h1>
-
-            <p className="text-sm  mb-6">
-              {course?.description /*.substring(0, 100) + '...'*/}
-            </p>
+            <p className="mb-6  text-sm">{course?.description /*.substring(0, 100) + '...'*/}</p>
           </div>
-            <div className='h-full lg:mx-0 mx-auto'>
-              <Image 
-              src={course?.image_url}               
+          <div className="mx-auto h-full lg:mx-0">
+            <Image
+              src={course?.image_url}
               width="300px"
-              height='300px'
-              style={styleImageCover}></Image>
-            </div>
-      </div>
-        
+              height="300px"
+              style={styleImageCover}
+            ></Image>
+          </div>
+        </div>
 
         {loading ? (
           <div className="flex items-center justify-center">
@@ -236,14 +231,14 @@ function Course({ course, currentDate }) {
             {userIsRegisteredAndCohortIsFuture() && (
               <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center ">
                 <div className="flex flex-col items-center justify-center">
-                  <Link href={'https://discord.web3dev.com.br/'}>
+                  <Link href={'https://pt.discord.w3d.community/'}>
                     <a id="discord-logo-link" target="_blank">
                       <Image src={'/assets/img/discord_icon.svg'} width={128} height={128} />
                     </a>
                   </Link>
                   <p className="mt-0 mb-0 text-center text-2xl text-white-100">
                     Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
-                    <Link href={'https://discord.web3dev.com.br/'}>
+                    <Link href={'https://pt.discord.w3d.community/'}>
                       <a
                         id="discord-text-link"
                         target="_blank"
@@ -255,7 +250,7 @@ function Course({ course, currentDate }) {
                     .
                   </p>
                   <br />
-                  <Link href={'https://discord.web3dev.com.br/'}>
+                  <Link href={'https://pt.discord.w3d.community/'}>
                     <a
                       id="discord-button-link"
                       target="_blank"
@@ -290,10 +285,10 @@ function Course({ course, currentDate }) {
                       No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
                       calendário para não esquecer. Nos veremos lá!
                     </p>
-                    <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 lg:justify-between lg:text-3xl md:flex-col">
+                    <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       {timeLeft && '⏰' + timeLeft}
                       <button
-                        className="mt-3 flex flex-row items-center rounded-lg bg-transparent p-2 text-sm lg:flex-row lg:p-3 lg:text-base mb-4 border-none"
+                        className="mt-3 mb-4 flex flex-row items-center rounded-lg border-none bg-transparent p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
                         onClick={() => calendarFunction()}
                       >
                         <ICalendarLink
@@ -303,32 +298,32 @@ function Course({ course, currentDate }) {
                             description: course?.description,
                             startTime: cohort?.kickoffStartTime,
                             endTime: cohort?.kickoffEndTime,
-                            location: 'https://discord.web3dev.com.br',
+                            location: 'https://pt.discord.w3d.community',
                           }}
                         >
                           <CalendarIcon className="mr-2 h-7 w-7" />
                           Adicionar ao calendário
                         </ICalendarLink>
-                        
                       </button>
 
-                        <button 
-                        className='bg-black-300 p-2 rounded-lg flex items-center border-black-400 max-w-xs'
-                        type='button'
-                        >
-                        <img src="/assets/img/google-logo.svg" className='w-9 h-9' />  
+                      <button
+                        className="flex max-w-xs items-center rounded-lg border-black-400 bg-black-300 p-2"
+                        type="button"
+                      >
+                        <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                        href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${course?.title}`}
-                        target="_blank"
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${course?.title}`}
+                          target="_blank"
                         >
-                          <p className="text-white-100 text-sm font-bold">Adicionar ao calendário Google </p>
+                          <p className="text-sm font-bold text-white-100">
+                            Adicionar ao calendário Google{' '}
+                          </p>
                         </a>
-                        </button>
-
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col lg:flex-row gap-11">
+                <div className="flex flex-col gap-11 lg:flex-row">
                   <div className="flex-1">
                     <DiscordCard />
                   </div>
@@ -347,7 +342,7 @@ function Course({ course, currentDate }) {
             )}
             {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
               <>
-                <div className="flex flex-col lg:flex-row gap-11 content-end">
+                <div className="flex flex-col content-end gap-11 lg:flex-row">
                   <div className="flex-1">
                     <DiscordCard />
                   </div>
@@ -408,9 +403,7 @@ function Course({ course, currentDate }) {
                                             <Link
                                               href={`/courses/${course.id}/lessons/${lesson.file}`}
                                             >
-                                              <a
-                                                id="access-lesson"
-                                              >
+                                              <a id="access-lesson">
                                                 <p className="m-0 p-0">{lesson.title}</p>
                                               </a>
                                             </Link>

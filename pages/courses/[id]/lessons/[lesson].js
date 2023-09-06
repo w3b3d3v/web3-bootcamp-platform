@@ -139,12 +139,12 @@ function Lessons({ course, lesson, currentDate }) {
         <meta property="og:image:alt" content={`${course.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-        <title>Lição - {lesson} -Web3Dev</title>
+        <title>Lição - {lesson} - WEB3DEV</title>
       </Head>
-      <Container >
-      <div className="mx-auto px-6 py-2">
-        <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
-          <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
+      <Container>
+        <div className="mx-auto px-6 py-2">
+          <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+          <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
             <Button
               id="previous-lesson"
               customClass="bg-slate-300"
@@ -157,102 +157,106 @@ function Lessons({ course, lesson, currentDate }) {
               id="back-to-course"
               customClass=""
               onClick={() => router.push(`/courses/${course.id}`)}
-              color=''
+              color=""
             >
               Voltar ao curso
             </Button>
-            <Button id="next-lesson" customClass="bg-violet-600" onClick={nextLesson} color={'success'}>
+            <Button
+              id="next-lesson"
+              customClass="bg-violet-600"
+              onClick={nextLesson}
+              color={'success'}
+            >
               Próxima lição
             </Button>
           </div>
-        <div>
-    </div>
-      </div>
-      <div className="mx-auto rounded-lg px-6 py-2 shadow-xl mb-6">
-        {course &&
-          course?.lessons.map((l) => {
-            return (
-              l.lesson.includes(lesson) && (
-                <div key={l?.section + l?.lesson}>
-                  <h3>{l?.lesson.title}</h3>
-                  <ReactMarkdown
-                    className="react-markdown pt-4"
-                    rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
-                    children={fixMarkdown(l?.markdown)}
-                  />
-                  <div className="flex justify-center mt-8">
-                    {lessonSent ? (
-                      <div className="flex flex-col text-center">
-                        <Button ref={ref} customClass="my-8 opacity-60 dark:opacity-50" disabled>
-                          Lição enviada
-                        </Button>
-                        <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium">
-                          {url?.length ? (
-                            <img className="max-w-md" src={url} alt="submission" height={250} />
-                          ) : (
-                            validateUserSubmission(userSubmission)
-                          )}
+          <div></div>
+        </div>
+        <div className="mx-auto mb-6 rounded-lg px-6 py-2 shadow-xl">
+          {course &&
+            course?.lessons.map((l) => {
+              return (
+                l.lesson.includes(lesson) && (
+                  <div key={l?.section + l?.lesson}>
+                    <h3>{l?.lesson.title}</h3>
+                    <ReactMarkdown
+                      className="react-markdown pt-4"
+                      rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
+                      children={fixMarkdown(l?.markdown)}
+                    />
+                    <div className="mt-8 flex justify-center">
+                      {lessonSent ? (
+                        <div className="flex flex-col text-center">
+                          <Button ref={ref} customClass="my-8 opacity-60 dark:opacity-50" disabled>
+                            Lição enviada
+                          </Button>
+                          <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium">
+                            {url?.length ? (
+                              <img className="max-w-md" src={url} alt="submission" height={250} />
+                            ) : (
+                              validateUserSubmission(userSubmission)
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className='flex gap-5 flex-col items-center' >
-                        <Button
-                          rounded
-                          ref={ref}
-                          id="submit-lesson"
-                          customClass="w-2/3 my-8 mx-auto"
-                          onClick={() => setOpen(true)}
-                          color='success'
-                        >
-                          {submissionTitle}
-                        </Button>
-                        <div className='flex items-center gap-4 flex-col' >
-                          <MdAdsClick size={"17px"} />
-                          <Text size={'$sm'} > Clique no botão acima para enviar o seu relatório de #progresso</Text>
+                      ) : (
+                        <div className="flex flex-col items-center gap-5">
+                          <Button
+                            rounded
+                            ref={ref}
+                            id="submit-lesson"
+                            customClass="w-2/3 my-8 mx-auto"
+                            onClick={() => setOpen(true)}
+                            color="success"
+                          >
+                            {submissionTitle}
+                          </Button>
+                          <div className="flex flex-col items-center gap-4">
+                            <MdAdsClick size={'17px'} />
+                            <Text size={'$sm'}>
+                              {' '}
+                              Clique no botão acima para enviar o seu relatório de #progresso
+                            </Text>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {open && (
-                      <Modal
-                        openExternal={open}
-                        onClose={() => closeModal()}
-                        lesson={lesson}
-                        course={course}
-                        submissionType={submissionType}
-                        submissionText={submissionText}
-                        submissionTitle={submissionTitle}
-                        twitterShare={twitterShare}
-                      />
-                    )}
-                    {twitterModal && (
-                      <TwitterModal
-                        openExternal={twitterModal}
-                        onClose={() => setTwitterModal(false)}
-                        twitterShare={twitterShare}
-                        url={url}
-                      />
-                    )}
+                      )}
+                      {open && (
+                        <Modal
+                          openExternal={open}
+                          onClose={() => closeModal()}
+                          lesson={lesson}
+                          course={course}
+                          submissionType={submissionType}
+                          submissionText={submissionText}
+                          submissionTitle={submissionTitle}
+                          twitterShare={twitterShare}
+                        />
+                      )}
+                      {twitterModal && (
+                        <TwitterModal
+                          openExternal={twitterModal}
+                          onClose={() => setTwitterModal(false)}
+                          twitterShare={twitterShare}
+                          url={url}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
+                )
               )
-            )
-          })}
-      </div>
-      <div className="m-auto flex items-center justify-center w-60 gap-4 flex-col md:flex-row">
-          <Button 
-          customClass="bg-slate-300" 
-          onClick={previousLesson} color='' >
+            })}
+        </div>
+        <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
+          <Button customClass="bg-slate-300" onClick={previousLesson} color="">
             Lição anterior
           </Button>
           <Button
-          css={{ zIndex:'0', position:'relative' }} 
-          color=''
-          onClick={() => router.push(`/courses/${course.id}`)}
-          >Voltar ao curso
+            css={{ zIndex: '0', position: 'relative' }}
+            color=""
+            onClick={() => router.push(`/courses/${course.id}`)}
+          >
+            Voltar ao curso
           </Button>
-          <Button
-            onClick={nextLesson}
-            color='secondary'>
+          <Button onClick={nextLesson} color="secondary">
             Próxima lição
           </Button>
         </div>

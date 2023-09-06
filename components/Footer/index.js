@@ -8,11 +8,14 @@ export default function Footer() {
   return (
     <div
       data-testid="footer"
-      className="mx-auto flex max-w-7xl flex-col justify-center px-6 py-2 text-center sm:px-6 md:px-6 lg:px-32 xl:py-0 mt-14 mb-4 "
+      className="mx-auto mt-14 mb-4 flex max-w-7xl flex-col justify-center px-6 py-2 text-center sm:px-6 md:px-6 lg:px-32 xl:py-0 "
     >
-      <div className='mr-auto flex gap-3 uppercase mb-4' >
-        <Image width={30} height={30} src='/assets/img/w3d-logo-symbol-ac.svg' />
-        <Text transform='uppercase' weight={'bold'} > Web3Dev </Text>
+      <div className="mr-auto mb-4 flex gap-3 uppercase">
+        <Image width={30} height={30} src="/assets/img/w3d-logo-symbol-ac.svg" />
+        <Text transform="uppercase" weight={'bold'}>
+          {' '}
+          WEB3DEV{' '}
+        </Text>
       </div>
       <hr className="w-full border-gray-200" />
       <div className="m-auto flex  ">
@@ -20,10 +23,7 @@ export default function Footer() {
           {['twitter', 'discord', 'github', 'linkedin', 'youtube'].map((link) => {
             return (
               <li className="">
-                <Link 
-                href={links[link]}>
-                  {link.upperFirst()}
-                </Link>
+                <Link href={links[link]}>{link.upperFirst()}</Link>
               </li>
             )
           })}
@@ -32,11 +32,7 @@ export default function Footer() {
           {['forum', 'manual', 'glossario'].map((link) => {
             return (
               <li className="">
-                <Link 
-                href={links[link]}
-                >
-                {link.upperFirst()}
-                  </Link>
+                <Link href={links[link]}>{link.upperFirst()}</Link>
               </li>
             )
           })}
@@ -45,22 +41,14 @@ export default function Footer() {
 
       <p className="flex-row  ">
         Desenvolvido com 💚 pela{' '}
-        <Link href="https://www.web3dev.com.br/">
-          <a
-            data-testid="web3dev-link"
-            target="_blank"
-            className="font-bold"
-          >
+        <Link href="https://links.w3d.community/">
+          <a data-testid="web3dev-link" target="_blank" className="font-bold">
             web3dev
           </a>
         </Link>{' '}
         e inspirado pela{' '}
         <Link href="https://buildspace.so/">
-          <a
-            data-testid="buildspace-link"
-            target="_blank"
-            className="font-bold"
-          >
+          <a data-testid="buildspace-link" target="_blank" className="font-bold">
             Buildspace
           </a>
         </Link>{' '}

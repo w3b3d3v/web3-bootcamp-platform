@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home - Web3Dev</title>
-        <meta property="og:title" content="WEB3DEV" />
+        <title>Crie seu Primeiro Projeto WEB3</title>
+        <meta property="og:title" content="Crie seu Primeiro Projeto WEB3" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bootcamp.web3dev.com.br/" />
+        <meta property="og:url" content="https://build.w3d.community/" />
         <meta
           property="og:description"
           content="Está em busca de conteúdo gratuito e em português para aprender a programar na web3? Aqui você encontrará uma comunidade grande e engajada, centenas de artigos, vídeos e todo o suporte necessário para evoluir. E como extra ainda ganhará certificações em NFT para compartilhar com os amigos. Venha conhecer e se inscreva já!"
@@ -36,7 +36,7 @@ export default function Home() {
         {/* Twitter */}
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://bootcamp.web3dev.com.br/" />
+        <meta property="twitter:url" content="https://build.w3d.community/" />
         <meta property="twitter:title" content="WEB3DEV" />
         <meta
           property="twitter:description"

@@ -60,15 +60,14 @@ function MyApp({ Component, pageProps }) {
   })
   return (
     <NextThemesProvider
-    defaultTheme="dark"
-    attribute="class"
-    value={{
-      light: lightTheme.className,
-      dark: darkTheme.className
-    }}
-  >
-    
-     <NextUIProvider>
+      defaultTheme="dark"
+      attribute="class"
+      value={{
+        light: lightTheme.className,
+        dark: darkTheme.className,
+      }}
+    >
+      <NextUIProvider>
         <AuthProvider>
           <ThirdwebProvider
             supportedChainIds={supportedChainIds}
@@ -77,12 +76,12 @@ function MyApp({ Component, pageProps }) {
           >
             <SessionProvider session={pageProps.session}>
               <Head>
-                <title>Home - Web3Dev</title>
+                <title>Crie seu Primeiro Projeto WEB3</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
               </Head>
               <NavbarComponent />
-              <div className='z-10 relative'>
+              <div className="relative z-10">
                 <CookieNotice
                   cookieName="web3dev-user-cookie"
                   descriptionLabel={cookieText}

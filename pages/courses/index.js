@@ -12,7 +12,7 @@ function Courses({ allCourses }) {
     <>
       <Head>
         <meta property="og:title" content="Listagem" />
-        <title>Web3Dev</title>
+        <title>Lista de Builds - WEB3DEV</title>
       </Head>
 
       <Container

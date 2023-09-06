@@ -54,7 +54,7 @@ function authPage() {
   return (
     <>
       <Head>
-        <title>Login -Web3Dev</title>
+        <title>Login - WEB3DEV</title>
       </Head>
       <div>
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
@@ -71,11 +71,8 @@ function authPage() {
               </div>
             </>
           ) : (
-            <div className="w-full rounded  px-6 py-6 shadow-lg m:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
-              <p
-                tabIndex={0}
-                className="text-2xl font-extrabold leading-6 focus:outline-none"
-              >
+            <div className="m:px-6 w-full  rounded px-6 py-6 shadow-lg sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
+              <p tabIndex={0} className="text-2xl font-extrabold leading-6 focus:outline-none">
                 {isDisable ? 'Resete sua senha' : 'Entre na sua conta'}
               </p>
               <p
@@ -236,22 +233,21 @@ function authPage() {
                 <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
                 <hr className="w-full bg-gray-400" />
               </div>
-                <div className='flex flex-col gap-3'>
-                  <Button
-                    id={'sign-in-with-github'}
-                    onClick={() => loginGithub()}
-                    icon={<GrGithub/>}
-                    size={'lg'}
-                    color={''}
-                    bordered
-                  >
-                
+              <div className="flex flex-col gap-3">
+                <Button
+                  id={'sign-in-with-github'}
+                  onClick={() => loginGithub()}
+                  icon={<GrGithub />}
+                  size={'lg'}
+                  color={''}
+                  bordered
+                >
                   Login com o Github
                 </Button>
-                
+
                 <Button
                   id={'sign-in-with-google'}
-                  icon={<FcGoogle/>}
+                  icon={<FcGoogle />}
                   alt="Google-Login-Icon"
                   onClick={() => loginGoogle()}
                   size={'lg'}
@@ -260,8 +256,8 @@ function authPage() {
                 >
                   Login com o Google
                 </Button>
-                </div>
               </div>
+            </div>
           )}
         </div>
       </div>

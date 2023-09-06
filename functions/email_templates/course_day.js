@@ -9,14 +9,14 @@ function template(params) {
         <!DOCTYPE html>Fala pessoal! danicuki da WEB3DEV aqui.<div><br></div>
         <div><b>Amanhã</b> é o lançamento do bootcamp "${
           params.course.title
-        }".&nbsp; <a href="https://bootcamp.web3dev.com.br/courses/${
+        }".&nbsp; <a href="https://build.w3d.community/courses/${
     params.cohort.course_id
   }">Esse é o link do bootcamp</a>. 
         A live começa exatamente às 19h horário de Brasília no <a href="https://www.twitch.tv/web3dev">nosso Twitch</a>.
     <div><br></div>
     <div><b>Esse projeto é praticamente todo assíncrono.</b>&nbsp;O único momento ao vivo será nossa "live". Se não puder participar, não se preocupe. Ela também será gravada e disponibilizada para você assistir!</div>
     <div><br></div>
-    <div><b>O material do bootcamp será aberto oficialmente as 19h, junto com a live <a href="https://bootcamp.web3dev.com.br/courses/${
+    <div><b>O material do bootcamp será aberto oficialmente as 19h, junto com a live <a href="https://build.w3d.community/courses/${
       params.cohort.course_id
     }">aqui</a>&nbsp;</div>
     <div>

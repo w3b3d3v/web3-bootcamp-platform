@@ -91,7 +91,7 @@ Deploy this project on Vercel in one click:
 ### Contributions
 
 Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
-For more information on how to contribute join our Discord https://discord.web3dev.com.br/
+For more information on how to contribute join our Discord https://pt.discord.w3d.community/
 
 ### License
 
@@ -101,4 +101,4 @@ See [LICENSE](LICENSE) for more information.
 
 ---
 
-Made with ♥ by [web3dev](https://web3dev.com.br) 
+Made with ♥ by [web3dev](https://links.w3d.community) 

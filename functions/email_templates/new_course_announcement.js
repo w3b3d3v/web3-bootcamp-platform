@@ -11,7 +11,7 @@ Fala builder 👷👷‍♀️!<br>
 <br>
 Estamos lançando mais um bootcamp incrível na WEB3DEV!<br>
 <br>
-<b><a href="https://bootcamp.web3dev.com.br/?utm_medium=email&utm_source=non-subscribed">Aprenda a criar sua própria Coleção NFT</a></b><br>
+<b><a href="https://build.w3d.community/?utm_medium=email&utm_source=non-subscribed">Aprenda a criar sua própria Coleção NFT</a></b><br>
 <br>
 O bootcamp começa dia ${d(
     params.cohort.startDate

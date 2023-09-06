@@ -29,8 +29,8 @@ export default function WalletCard() {
       });
       await window.ethereum.request({
         method: 'personal_sign',
-        params: ['Sign In Message - Logging in Web3Dev', accounts[0]],
-      });
+        params: ['Sign In Message - Logging in WEB3DEV', accounts[0]],
+      })
       const address = accounts.pop();
       if(address && auth.currentUser) await updateUserWalletInFirestore(address, auth.currentUser?.uid);
       setUserAddress(address);

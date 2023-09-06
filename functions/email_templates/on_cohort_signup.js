@@ -16,7 +16,7 @@ function template(params) {
       <br>
       <b>Esse projeto é praticamente todo assíncrono.</b>&nbsp;O único momento ao vivo será nossa live. Se não puder participar, não se preocupe. Ela também será gravada e disponibilizada para você assistir!<br>
       <br>
-      <b>O material do bootcamp será aberto oficialmente às 19h, junto com a live <a href="https://bootcamp.web3dev.com.br/courses/${
+      <b>O material do bootcamp será aberto oficialmente às 19h, junto com a live <a href="https://build.w3d.community/courses/${
         params.cohort.course_id
       }">aqui</a>&nbsp;<br>
       <br>
@@ -25,7 +25,7 @@ function template(params) {
         params.cohort.endDate
       )}, você terá direito a receber um <b>NFT exclusivo</b>. Vamos dar para você o cargo de #graduad@ no nosso Discord e terá acesso a vagas de trabalho web3 em nossos parceiros.<br>
       <br>
-      2. Não se esqueça de conectar seu Discord na <a href="https://bootcamp.web3dev.com.br/courses/${
+      2. Não se esqueça de conectar seu Discord na <a href="https://build.w3d.community/courses/${
         params.cohort.course_id
       }">plataforma de bootcamps</a>, pois precisamos adicionar você no canal secreto "#⛺ | ${
     params.cohort.discord_channel
