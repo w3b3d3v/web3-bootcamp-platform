@@ -9293,10 +9293,10 @@ randombytes@^2.0.1, randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
-react-cookienotice@^5.1.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/react-cookienotice/-/react-cookienotice-5.4.0.tgz#2c083faf74ab1006718bac19963cd9cca935166b"
-  integrity sha512-KSBhwrMaaWaElPIXOCaD6k6q/pj7qFtY/1qzRSklGXRvSN4AKFMVa4Y9vypUkZI9QLwoEp5mrLea+BT2yEk/rw==
+react-cookienotice@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/react-cookienotice/-/react-cookienotice-6.0.3.tgz#9073012e252022cd85d1ec43e94ffadb6b64fe59"
+  integrity sha512-wF/xwZcFJ9svSJ/AZAMZ1c7t+JSa08/x6WEYvOPwqTn7B1AfT6sPzlZtgggsUTmHyPLAB8gmED5xSpNgsJZcKQ==
 
 react-cool-dimensions@^2.0.7:
   version "2.0.7"
