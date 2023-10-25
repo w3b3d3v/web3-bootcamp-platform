@@ -1,18 +1,10 @@
 import React from 'react'
 import { Text, Button } from '@nextui-org/react'
-import { getHomeCourse, defaultCourse } from '../../lib/course'
 import Cover from './Cover'
 
-export default function Main() {
+export default function Main({ course }) {
   const ref = React.createRef()
-  const [course, setCourse] = React.useState(null)
   const [link, setLink] = React.useState(null)
-
-  React.useEffect(() => {
-    getHomeCourse().then((course) => {
-      setCourse(course)
-    })
-  }, [])
 
   React.useMemo(() => {
     if (course) {

@@ -2,8 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 import HomeCards from '../components/Home/Cards'
 import Main from '../components/Home'
+import { getHomeCourse, defaultCourse } from '../lib/course'
 
-export default function Home() {
+export default function Home({ course }) {
   const cards = [
     '100% gratuito, sempre!',
     'Desenvolva em JavaScript',
@@ -49,8 +50,16 @@ export default function Home() {
 
         {/* Twitter */}
       </Head>
-      <Main />
+      <Main course={course} />
       <HomeCards cards={cards} />
     </>
   )
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      course: await getHomeCourse(),
+    },
+  }
 }
