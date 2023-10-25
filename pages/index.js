@@ -6,7 +6,7 @@ import Main from '../components/Home'
 export default function Home() {
   const cards = [
     '100% gratuito, sempre!',
-    'Desenvolva na tecnologia da Solana',
+    'Desenvolva em JavaScript',
     'Aprendizado baseado em projetos',
     'Ganhe um NFT para cada projeto finalizado',
     'Trabalhe como dev em projetos web3',
@@ -44,7 +44,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolana_And_Web3.png?alt=media&token=c10c7dc7-2910-4028-83fc-2fc3df3a961f"
+          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FJS_DAO.png?alt=media&token=663e863b-9376-45c6-a18a-bb6cfecaa942"
         />
 
         {/* Twitter */}
