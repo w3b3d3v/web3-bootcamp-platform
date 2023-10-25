@@ -35,3 +35,9 @@ yarn-error.log*
 firebase/firebase-config.json
 .env
 *.log
+
+.env-developement
+.env-production
+.pre-commit-config.yaml
+firebase/dev.json
+firebase/prod.json

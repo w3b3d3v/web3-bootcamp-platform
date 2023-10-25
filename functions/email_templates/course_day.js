@@ -7,16 +7,16 @@ function d(date) {
 function template(params) {
   return `
         <!DOCTYPE html>Fala pessoal! danicuki da WEB3DEV aqui.<div><br></div>
-        <div><b>Amanhã</b> é o lançamento do bootcamp "${
+        <div><b>Amanhã</b> é o lançamento do build "${
           params.course.title
         }".&nbsp; <a href="https://build.w3d.community/courses/${
     params.cohort.course_id
-  }">Esse é o link do bootcamp</a>. 
+  }">Esse é o link do build</a>. 
         A live começa exatamente às 19h horário de Brasília no <a href="https://www.twitch.tv/web3dev">nosso Twitch</a>.
     <div><br></div>
     <div><b>Esse projeto é praticamente todo assíncrono.</b>&nbsp;O único momento ao vivo será nossa "live". Se não puder participar, não se preocupe. Ela também será gravada e disponibilizada para você assistir!</div>
     <div><br></div>
-    <div><b>O material do bootcamp será aberto oficialmente as 19h, junto com a live <a href="https://build.w3d.community/courses/${
+    <div><b>O material do build será aberto oficialmente as 19h, junto com a live <a href="https://build.w3d.community/courses/${
       params.cohort.course_id
     }">aqui</a>&nbsp;</div>
     <div>
@@ -28,10 +28,10 @@ function template(params) {
     <div><br></div>
     <div>2. Esse é o único e-mail que eu vou mandar. O resto estará acontecendo no canal secreto "#⛺ | ${
       params.cohort.discord_channel
-    }" que você terá acesso caso se esteja bootcamp. Para isso, você precisa "linkar" seu Discord na plataforma de bootcamp antes de começar o projeto!
+    }" que você terá acesso. Para isso, você precisa "linkar" seu Discord na plataforma de builds antes de começar o projeto!
     </div>
     <div><br></div>
-    <div>3. Por favor, não chama isso de "curso"! É um projeto, bootcamp, hackday, chama do que quiser. Só quero que você faça um trabalho legal com um pouco de guia :-).</div>
+    <div>3. Por favor, não chama isso de "curso"! É um projeto, build, hackday, chama do que quiser. Só quero que você faça um trabalho legal com um pouco de guia :-).</div>
     <div><br></div>
     <div>Se tiver perguntas, mande no canal #chat-geral.</div>
     <div><br></div>
