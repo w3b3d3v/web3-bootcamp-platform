@@ -52,7 +52,7 @@ function Lessons({ course, lesson, currentDate }) {
 
   useEffect(async () => {
     if (cohorts) {
-      setCohort(getCurrentCohort(user, cohorts, course, currentDate));
+      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
     }
   }, [cohorts, user])
 
@@ -62,11 +62,7 @@ function Lessons({ course, lesson, currentDate }) {
 
   useEffect(() => {
     lessonsSubmitted.map((item) => {
-      if (
-        item?.lesson === lesson &&
-        item?.user == user?.uid &&
-        item?.cohort_id == cohort?.id
-      ) {
+      if (item?.lesson === lesson && item?.user == user?.uid && item?.cohort_id == cohort?.id) {
         setUserSubmission(item.content.value)
         validateUserSubmission(item.content.value)
         setLessonSent(true)
@@ -113,10 +109,15 @@ function Lessons({ course, lesson, currentDate }) {
   }
 
   const fixMarkdown = (markdown) => {
-    return markdown.replace(
+    let result = markdown.replace(
       /\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/,
       '<a href="https://www.loom.com/share/$1" target="_blank"><img className="w-2/3"  src="https://cdn.loom.com/sessions/thumbnails/$1-with-play.gif" /></a>'
     )
+    result = result.replace(
+      /\[Youtube]\(https:\/\/www\.youtube\.com\/watch\?v=([^)]*)\)/,
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" title="Lição" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen>'
+    )
+    return result
   }
   const getSubmissionData = () => {
     const submissionData = course.sections[getSection()].filter((item) => item.file === lesson)[0]
