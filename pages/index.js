@@ -24,11 +24,7 @@ export default function Home({ course }) {
           property="og:description"
           content="Está em busca de conteúdo gratuito e em português para aprender a programar na web3? Aqui você encontrará uma comunidade grande e engajada, centenas de artigos, vídeos e todo o suporte necessário para evoluir. E como extra ainda ganhará certificações em NFT para compartilhar com os amigos. Venha conhecer e se inscreva já!"
         />
-        <meta
-          property="og:image"
-          itemProp="image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FSolidity_And_Smart_Contracts.png?alt=media&token=9837e5a9-888a-4b7f-9292-e1f4626156ab"
-        />
+        <meta property="og:image" itemProp="image" content={course.image_url} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:alt" content="WEB3DEV Logo" />
         <meta property="og:image:width" content="256" />
@@ -43,10 +39,7 @@ export default function Home({ course }) {
           property="twitter:description"
           content="Está em busca de conteúdo gratuito e em português para aprender a programar na web3? Aqui você encontrará uma comunidade grande e engajada, centenas de artigos, vídeos e todo o suporte necessário para evoluir. E como extra ainda ganhará certificações em NFT para compartilhar com os amigos. Venha conhecer e se inscreva já!"
         />
-        <meta
-          property="twitter:image"
-          content="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FJS_DAO.png?alt=media&token=663e863b-9376-45c6-a18a-bb6cfecaa942"
-        />
+        <meta property="twitter:image" content={course.image_url} />
 
         {/* Twitter */}
       </Head>
