@@ -15,7 +15,7 @@ export default function Main({ course }) {
   return course == null ? (
     ''
   ) : (
-    <div className="z-0 mx-auto mb-14 mt-4 flex max-w-7xl flex-col items-center justify-between gap-0 px-8 lg:mt-16 lg:flex-row lg:gap-52">
+    <div className="z-0 mx-auto mb-14 mt-4 flex max-w-7xl flex-col items-center justify-between gap-0 px-8 lg:mt-4 lg:flex-row lg:gap-52">
       <div className="mx-auto flex flex-1 flex-col items-center">
         <div>
           <div className="m-auto max-w-lg">
@@ -31,7 +31,6 @@ export default function Main({ course }) {
             <br />
           </div>
         </div>
-        <br />
         <div className="z-0 m-auto mb-8 lg:self-start">
           <a href={link}>
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
