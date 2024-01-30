@@ -10,6 +10,8 @@ const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
+const { insertMember, findMemberByEmail, updateMemberIdentity, createActivity } = require('./orbit')
+const { isObjectFulfilled } = require('./utils/validators')
 
 admin.initializeApp()
 
@@ -291,8 +293,8 @@ exports.onUserCreated = functions.firestore
   .document('users/{userId}')
   .onCreate(async (snap, context) => {
     const user = snap.data()
-    const userId = snap.id
-    const userEmail = user.email
+    user.id = snap.id
+  
     const topic = pubsub.topic('router-pubsub')
     const rawData = {
       incoming_topic: 'user_created',
@@ -302,6 +304,103 @@ exports.onUserCreated = functions.firestore
     const data = Buffer.from(JSON.stringify(rawData))
     return await topic.publishMessage({ data })
   })
+
+exports.onCohortSubscriptions = functions.firestore
+  .document('users/{userId}')
+  // usamos onWrite para capturar criação e update, já que a lista cohorts n é deletada
+  .onWrite(async (snap, context) => {
+    const before = snap.before.data()
+    const after = snap.after.data()
+
+    if(before && after && before.cohorts !== after.cohorts ) {
+      const user = after;
+      user.id = snap.after.id
+      const topic = pubsub.topic('router-pubsub')
+      const rawData = {
+        incoming_topic: 'cohort_signup_test',
+        user,
+      }
+      console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+      const data = Buffer.from(JSON.stringify(rawData))
+      return await topic.publishMessage({ data })
+    }
+    return;
+  })
+
+exports.onLessonSubmission = functions.firestore
+  .document('lesson_submissions/{lessonSubmissionId}')
+  .onCreate(async (snap, context) => {
+
+    const lessonSubmission = snap.data();
+    const topic = pubsub.topic('router-pubsub')
+    const rawData = {
+      incoming_topic: 'lesson_submission',
+      lessonSubmission,
+    }
+    console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+    const data = Buffer.from(JSON.stringify(rawData))
+    return await topic.publishMessage({ data })
+  });
+
+exports.onProfileFullfillment = functions.firestore
+  .document('users/{userId}')
+  .onWrite(async (snap, context) => {
+    console.log("here")
+    const after = snap.after.data();
+    const before = snap.before.data();
+    const profileId = snap.after.id;
+    after.id = profileId;
+
+    if(!before || !after || before == after) {
+      return;
+    }
+    
+    isFulFilled = isObjectFulfilled(after);
+    if(!isFulFilled) {
+      return;
+    }
+
+    const topic = pubsub.topic('router-pubsub');
+    const rawData = {
+      incoming_topic: 'profile_fullfillment',
+      after,
+    }
+
+    console.log('publishing to router-pubsub:' + JSON.stringify(rawData))
+    const data = Buffer.from(JSON.stringify(rawData))
+    return await topic.publishMessage({ data })
+  });
+
+exports.createOrbitActivityProfileFullfillment = functions.pubsub.topic('profile_fullfillment').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64')).after;
+  const activityName = "profileFullfillment"
+  console.log("received profile_fullfillment yeah!")
+  return await createActivity(data, activityName);
+});
+
+exports.createOrbitActivityLessonSubmission = functions.pubsub.topic('lesson_submission').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  const activityName = "lessonSubmission"
+  console.log("received lesson_submission yeah!")
+  let user = await docData('users', data.lessonSubmission.user_id);
+  return await createActivity(user, activityName)
+});
+
+exports.createOrbitActivityDiscordVoice = functions.https.onRequest(async (req, res) => {
+  const data = req.body
+  const activityName = data.activityName
+  const discordId = data.discordId
+  console.log("received discordVoice yeah!")
+  let user = await docData('users', discordId);
+  return await createActivity(user, activityName)
+});
+
+exports.createOrbitActivityBuildSubscription = functions.pubsub.topic('cohort_signup_test').onPublish(async (message) => {
+  const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  const activityName = "buildSubscription"
+  console.log("received cohort_signup test yeah!")
+  return await createActivity(data.user, activityName)
+});
 
 exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (message) => {
   const json = JSON.parse(Buffer.from(message.data, 'base64'))
@@ -313,7 +412,7 @@ exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (messag
 })
 
 exports.sendUserToMailchimpOnUserCreation = functions.pubsub
-  .topic('user_created')
+  .topic('user_create')
   .onPublish((message) => {
     const data = JSON.parse(Buffer.from(message.data, 'base64'))
     return createUser(data.user)
@@ -350,4 +449,40 @@ exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp)
     catch(e) {
       resp.send({"error": e, "status": 500})
     }
+});
+
+exports.insertOrbitMemberWeb3devBuilds = functions.pubsub.topic('user_created').onPublish(async (message) => {
+  const user = JSON.parse(Buffer.from(message.data, 'base64')).user;
+  console.log(`Inserting user into Orbit`);
+  let entity_name = "web3devBuilds";
+
+  let found = await findMemberByEmail(user.email);
+  if(found) {
+    await updateMemberIdentity(user, found.slug, entity_name);
+    console.log(`User updated in Orbit`);
+    return;
+  }
+  console.log("Member not found. Will create a new one.")
+  let inserted = await insertMember(user, entity_name);
+  if(inserted) {
+    console.log(`New user created into orbit.`);
+  }
+});
+
+exports.insertOrbitMemberForem = functions.pubsub.topic('').onPublish(async (message) => {
+  const user = JSON.parse(Buffer.from(message.data, 'base64'))
+  console.log(`Inserting user into Orbit`);
+  let entity_name = "forem";
+
+  found = findMemberByEmail(user.email);
+  if(found) {
+    await updateMemberIdentity(user, found.slug, entity_name);
+    console.log(`User updated in Orbit`);
+    return;
+  }
+
+  let inserted = await insertMember(member, entity_name);
+  if(inserted) {
+    console.log(`User inserted into Orbit`);
+  }
 });
