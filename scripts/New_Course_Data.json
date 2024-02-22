@@ -1,0 +1,267 @@
+{
+  "active": true,
+  "description": "A guided tutorial to teach the basics of Rust, Blockchain, and the Polkadot SDK.",
+  "difficulty": "Intermediate",
+  "duration": "Not specified",
+  "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
+  "index": 1,
+  "lastLesson": "Understanding Substrate's Macros",
+  "nft_title": "Rust State Machine Certification",
+  "repository_language": "en",
+  "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
+  "tags": ["rust", "blockchain", "polkadot-sdk", "substrate"],
+  "title": "Rust State Machine",
+  "sections": {
+    "Section_1": [
+      {
+        "file": "Lesson_1_Balances_Pallet.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: Balances Pallet",
+        "twitter": "@yourtwitter"
+      },
+      {
+        "file": "Lesson_2_Add_State.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Add State"
+      },
+      {
+        "file": "Lesson_3_Store_And_Read.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Store And Read"
+      },
+      {
+        "file": "Lesson_4_Basic_Tests.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Basic Tests"
+      },
+      {
+        "file": "Lesson_5_Transfer_Balance.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Transfer Balance"
+      }
+    ],
+    "Section_2": [
+      {
+        "file": "Lesson_1_System_Pallet.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: System Pallet"
+      },
+      {
+        "file": "Lesson_2_Block_Number_and_Nonce.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Block Number and Nonce"
+      },
+      {
+        "file": "Lesson_3_Runtime.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Runtime"
+      },
+      {
+        "file": "Lesson_4_Executing_Runtime.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Executing Runtime"
+      },
+      {
+        "file": "Lesson_5_Runtime_Debug.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Runtime Debug"
+      }
+    ],
+    "Section_3": [
+      {
+        "file": "Lesson_1_Generic_Types.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: Generic Types"
+      },
+      {
+        "file": "Lesson_2_Num_Crate.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Num Crate"
+      },
+      {
+        "file": "Lesson_3_Make_Balances_Pallet_Generic.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Make Balances Pallet Generic"
+      },
+      {
+        "file": "Lesson_4_Make_System_Pallet_Generic.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Make System Pallet Generic"
+      },
+      {
+        "file": "Lesson_5_Make_System_Configurable.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Make System Configurable"
+      },
+      {
+        "file": "Lesson_6_Make_Balances_Configurable.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 6: Make Balances Configurable"
+      },
+      {
+        "file": "Lesson_7_Tight_Coupling.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 7: Tight Coupling"
+      }
+    ],
+    "Section_4": [
+      {
+        "file": "Lesson_1_Executing_Blocks_and_Dispatching_Calls.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: Executing Blocks and Dispatching Calls"
+      },
+      {
+        "file": "Lesson_2_Block_Type.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Block Type"
+      },
+      {
+        "file": "Lesson_3_Executing_Blocks.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Executing Blocks"
+      },
+      {
+        "file": "Lesson_4_Dispatching_Calls.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Dispatching Calls"
+      },
+      {
+        "file": "Lesson_5_Execute_Block_With_Extrinsics.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Execute Block With Extrinsics"
+      },
+      {
+        "file": "Lesson_6_Pallet_Level_Dispatch.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 6: Pallet Level Dispatch"
+      },
+      {
+        "file": "Lesson_7_Nested_Dispatch.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 7: Nested Dispatch"
+      }
+    ],
+    "Section_5": [
+      {
+        "file": "Lesson_1_The_Proof_of_Existence_Pallet.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: The Proof of Existence Pallet"
+      },
+      {
+        "file": "Lesson_2_Proof_Of_Existence_Functions.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Proof Of Existence Functions"
+      },
+      {
+        "file": "Lesson_3_Proof_of_Existence_Dispatch.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Proof of Existence Dispatch"
+      },
+      {
+        "file": "Lesson_4_Integrate_Into_Runtime.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Integrate Into Runtime"
+      },
+      {
+        "file": "Lesson_5_Add_Extrinsic_To_Block.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Add Extrinsic To Block"
+      }
+    ],
+    "Section_6": [
+      {
+        "file": "Lesson_1_Rust_Macros.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 1: Rust Macros"
+      },
+      {
+        "file": "Lesson_2_Adding_Call_Macro_to_Balances.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 2: Adding Call Macro to Balances"
+      },
+      {
+        "file": "Lesson_3_Adding_Call_Macro_to_PoE.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 3: Adding Call Macro to PoE"
+      },
+      {
+        "file": "Lesson_4_Use_the_Runtime_Macro.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 4: Use the Runtime Macro"
+      },
+      {
+        "file": "Lesson_5_Course_Completed.md",
+        "submission_text": "Your submission text here.",
+        "submission_title": "Your submission title here.",
+        "submission_type": "text",
+        "title": "Lesson 5: Course Completed"
+      }
+    ]
+  }
+}
