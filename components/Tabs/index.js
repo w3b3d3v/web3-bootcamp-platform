@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { checkSections, colorTab } from './tabFunctions'
+import { useTranslation } from "react-i18next"
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
   const getCourse = course
@@ -8,6 +9,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
   if (!getCourse?.sections) return null
   // list all the section as tabs
   const [activeTab, setActiveTab] = useState(Object.keys(getCourse?.sections).sort())
+  const { t } = useTranslation();
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab)
@@ -19,6 +21,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
         {Object.keys(getCourse?.sections)
           .sort()
           .map((section) => {
+            const sectionNumber = section.replace('Section_', '');
             let sectionAnalytics = course.analytics?.find((item) => item.section === section)
             return (
               <div className="flex flex-col justify-between" key={section}>
@@ -32,7 +35,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                     )}`}
                   >
                     <p className="center m-0 p-0 text-center">
-                      {section?.replace('Section_', 'Seção ')}
+                      {t('section') + ' ' + sectionNumber}
                     </p>
                   </div>
                 ) : (
@@ -46,7 +49,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                         .currentSection
                     )}`}
                   >
-                    <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}</p>
+                    <p className="m-0 p-0">{t('section') + ' ' + sectionNumber}</p>
                   </a>
                 )}
                 {sectionAnalytics && (
