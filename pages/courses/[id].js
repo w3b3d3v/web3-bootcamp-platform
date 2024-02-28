@@ -19,6 +19,7 @@ import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
 import {dateFormat} from '../../lib/dateFormat'
+import { useTranslation } from "react-i18next"
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -30,6 +31,8 @@ function Course({ course, currentDate }) {
   const [cohort, setCohort] = useState()
   const [lessonsSubmitted, setLessonsSubmitted] = useState()
   const [loading, setLoading] = useState(true)
+  const { t } = useTranslation();
+
   let counter = 0
   useEffect(async () => {
     setCohorts(await getAllCohorts())
@@ -222,7 +225,7 @@ function Course({ course, currentDate }) {
               <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
                 <div className="flex w-3/4 flex-col items-center justify-center">
                   <p className="text-center text-2xl">
-                    As inscrições estão encerradas, aguarde a próxima turma abrir para se inscrever!
+                    {t('registrationClosed')}
                   </p>
                 </div>
               </div>
@@ -237,7 +240,7 @@ function Course({ course, currentDate }) {
                     </a>
                   </Link>
                   <p className="mt-0 mb-0 text-center text-2xl text-white-100">
-                    Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
+                  {t('registrationDone')} <br />{t('launchDateAnnouncement')}{' '}
                     <Link href={'https://pt.discord.w3d.community/'}>
                       <a
                         id="discord-text-link"
@@ -256,7 +259,7 @@ function Course({ course, currentDate }) {
                       target="_blank"
                       className="text-decoration-none rounded-lg bg-violet-600 p-1 px-2 text-white-100 hover:no-underline"
                     >
-                      <p>Aproveita para já entrar lá!</p>
+                      {t('signUpNow')}
                     </a>
                   </Link>
                 </div>
@@ -280,10 +283,9 @@ function Course({ course, currentDate }) {
               <>
                 <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6 ">
                   <div className="flex w-3/4 flex-col items-center justify-center">
-                    <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
+                    <p className="mb-3 text-2xl">{t('liveEvent')}</p>
                     <p className="text-sm lg:text-base">
-                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
-                      calendário para não esquecer. Nos veremos lá!
+                      {t('liveEventDescription')}
                     </p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       {timeLeft && '⏰' + timeLeft}
@@ -302,7 +304,7 @@ function Course({ course, currentDate }) {
                           }}
                         >
                           <CalendarIcon className="mr-2 h-7 w-7" />
-                          Adicionar ao calendário
+                            {t('addToCalendar')}
                         </ICalendarLink>
                       </button>
 
@@ -316,7 +318,7 @@ function Course({ course, currentDate }) {
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
-                            Adicionar ao calendário Google{' '}
+                            {t('addToGoogleCalendar')}{' '}
                           </p>
                         </a>
                       </button>
@@ -358,10 +360,11 @@ function Course({ course, currentDate }) {
                       Object.keys(course?.sections)
                         .sort()
                         .map((section) => {
+                          const sectionNumber = section.replace('Section_', '');
                           return (
                             <div key={section}>
                               <span id={section} className="mb-4 font-bold">
-                                {section?.replace('Section_', 'Seção ')}
+                                {t('section') + ' ' + sectionNumber}
                               </span>
                               <ul className="mt-4 mb-4 flex list-none flex-col	">
                                 {course?.sections[section]

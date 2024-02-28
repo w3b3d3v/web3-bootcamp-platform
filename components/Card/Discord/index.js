@@ -4,12 +4,15 @@ import { Button } from '../../Button'
 import { auth } from '../../../firebase/initFirebase'
 import { getUserFromFirestore, updateUserDiscordIdinFirestore } from '../../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useTranslation } from "react-i18next"
 
 export default function DiscordCard() {
   const { data: session } = useSession()
   const [discordConnected, setDiscordConnected] = useState(false)
   const [user, setUser] = useState()
   const ref = React.createRef()
+  const { t } = useTranslation();
+  
   useEffect(async () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -39,10 +42,10 @@ export default function DiscordCard() {
       {!discordConnected && (
         <div className="flex flex-col rounded-lg  shadow-xl x-6 py-5 text-center gap-y-6 h-52 justify-center p-4">
               <p className="text-base  p-0 m-0">
-                ❌ Conecte seu Discord
+                {t('connectYourDiscord')}
               </p>
               <p className="text-xs lg:text-base p-0 m-0">
-                Tenha acesso aos canais supersecretos 🤫
+                {t('accessSuperSecretChannels')}
               </p>
 
                 <Button 
@@ -50,7 +53,7 @@ export default function DiscordCard() {
                 id="connect-discord" 
                 onClick={() => signIn('discord')}
                 >
-                  Conectar Discord
+                  {t('connectDiscordButton')}
                 </Button>
         </div>
       )}
@@ -61,13 +64,13 @@ export default function DiscordCard() {
                   ✅ {user?.discord?.username || session?.discord.username} Conectado
                 </p>
                 <p className="text-xs lg:text-base text-gray-500 dark:text-gray-400 p-0 m-0">
-                  Estamos ansiosos para te conhecer ! Não deixe de interagir, postar suas duvidas, e compartilhar o seu progresso.
+                  {t('eagerToMeet')}
                 </p>
                 
                   <Button 
                   onClick={() => signIn('discord')}
                   >
-                    Reconectar Discord
+                    {t('reconnectDiscordButton')}
                   </Button>
                 {/*<div className="pt-4">
                 <a className='cursor-pointer' onClick={() => disconnectDiscord()}>Desconectar</a>

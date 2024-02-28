@@ -5,12 +5,15 @@ import { getUserFromFirestore } from '../../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
+import { useTranslation } from "react-i18next"
 
 export default function ShareLinkCard() {
   const ref = React.createRef()
   const [user, setUser] = useState()
   const [referralLink, setReferralLink] = useState()
   const [shortenedUrl, setShortenedUrl] = useState()
+  const { t } = useTranslation();
+
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -40,7 +43,7 @@ export default function ShareLinkCard() {
 
   const shareReferralLink = () => {
     navigator.clipboard.writeText(shortenedUrl)
-    toast.success('Link copiado')
+    toast.success(t('linkCopiedToast'))
     return shortenedUrl
   }
 
@@ -51,11 +54,10 @@ export default function ShareLinkCard() {
           <div className="flex min-w-full flex-col items-center justify-between px-6 py-5 lg:flex-row lg:items-center">
             <div className="flex-col">
               <p className="text-base font-medium leading-none">
-                &#x1F493; Aprenda com seus amigos!
+               {t('learnWithFriends')}
               </p>
               <p className="pt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                Divulgue seu link personalizado para seus amigos, assim eles entrarão na mesma turma
-                que você.
+                {t('shareReferralMessage')}
               </p>
             </div>
 
@@ -68,7 +70,7 @@ export default function ShareLinkCard() {
                 target="_blank"
                 data-size="large"
               >
-                Compartilhar
+                {t('shareButton')}
               </a>
             </div>
             <div className="mt-4 flex flex-col items-center">
@@ -80,12 +82,12 @@ export default function ShareLinkCard() {
                 target="_blank"
                 rel="noopener"
               >
-                Compartilhar
+                {t('shareButton')}
               </a>
             </div>
             <div className="mt-4">
               <Button ref={ref} id={`copy-link`} onClick={shareReferralLink}>
-                Copiar Link
+                {t('copyLinkButton')}
               </Button>
             </div>
           </div>

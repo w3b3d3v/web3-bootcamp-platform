@@ -3,8 +3,11 @@ import React from 'react';
 import { links, camelize } from '../../lib/constants';
 import Image from 'next/image';
 import { Text } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <div
       data-testid="footer"
@@ -29,24 +32,24 @@ export default function Footer() {
           })}
         </ul>
         <ul className="footer-links list-none text-left">
-          {['forum', 'manual', 'glossario'].map((link) => {
+          {['forum', 'manual', 'glossary'].map((link) => {
             return (
               <li className="">
-                <Link href={links[link]}>{link.upperFirst()}</Link>
+                <Link href={links[link]}>{t(link)}</Link>
               </li>
             )
           })}
         </ul>
       </div>
 
-      <p className="flex-row  ">
-        Desenvolvido com 💚 pela{' '}
+      <p className="flex-row">
+        {t('developedBy')}{' '}
         <Link href="https://links.w3d.community/">
           <a data-testid="web3dev-link" target="_blank" className="font-bold">
-            web3dev
+            WEB3DEV
           </a>
         </Link>{' '}
-        e inspirado pela{' '}
+        {t('inspiredBy')}{' '}
         <Link href="https://buildspace.so/">
           <a data-testid="buildspace-link" target="_blank" className="font-bold">
             Buildspace
