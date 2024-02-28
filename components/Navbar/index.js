@@ -6,6 +6,7 @@ import { Button as NUButton } from '@nextui-org/react'
 import constants from '../../lib/constants'
 import { Navbar, Text, Dropdown, Button, useModal, Modal, Grid, Avatar, Image } from '@nextui-org/react'
 import { GiExitDoor } from 'react-icons/gi'
+import { useTranslation } from "react-i18next"
 
 import { 
   FaEthereum
@@ -29,6 +30,7 @@ export default function NavbarComponent() {
 
   const [show, setShow] = useState(null)
   const [profile, setProfile] = useState(false)
+  const { t } = useTranslation();
 
   const { user, logout } = useAuth()
 
@@ -83,7 +85,7 @@ export default function NavbarComponent() {
                 {user?.uid && (
                   <Navbar.Content hideIn={'md'} >
                     <NUButton auto css={{background: '#17c964'}} color={''} onPress={() => setVisible(true)}>
-                    <Text weight={'bold'} >Indique e ganhe</Text>
+                      <Text weight={'bold'}>{t('indicateAndWin')}</Text>
                     </NUButton>
                     <Modal
                       scroll
@@ -94,7 +96,7 @@ export default function NavbarComponent() {
                     >
                       <Modal.Header>
                         <Text id="modal-title" size={18}>
-                          Compartilhe esse link com seus amigos e concorra a prêmios da WEB3DEV
+                          {t('shareLinkDescription')}
                         </Text>
                       </Modal.Header>
                       <Modal.Body>
@@ -107,7 +109,7 @@ export default function NavbarComponent() {
                       </Modal.Body>
                       <Modal.Footer>
                         <NUButton auto flat onPress={() => setVisible(false)}>
-                          Fechar
+                          {t('close')}
                         </NUButton>
                       </Modal.Footer>
                     </Modal>
@@ -133,7 +135,7 @@ export default function NavbarComponent() {
                         <Dropdown.Menu css={{ display:'flex', alignItems:'center', flexDirection:'column', gap:'$5' }} >
                           <Dropdown.Item>
                               <Link href="/profile">
-                                <Text weight={'bold'} >Meu perfil</Text>
+                                <Text weight={'bold'}>{t('myProfile')}</Text>
                               </Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
@@ -145,7 +147,7 @@ export default function NavbarComponent() {
                                 logout()
                               }}
                             >
-                            <Text weight={'bold'} >Sair</Text>
+                              {t('logout')}
                             </Button>
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -156,7 +158,7 @@ export default function NavbarComponent() {
                   <Navbar.Content hideIn={'sm'} >
                     <Link href="/auth">
                       <Button color={'secondary'} id="login" bordered ref={ref}  >
-                        <Text weight={'bold'} >Acessar Plataforma</Text>
+                        <Text weight={'bold'} >{t('accessPlatform')}</Text>
                       </Button>
                     </Link>
                   </Navbar.Content>
@@ -172,7 +174,7 @@ export default function NavbarComponent() {
               >
                 <Link href='/auth' >
                   <Button color={'secondary'} bordered >
-                    <Text weight={'bold'} >Acessar Plataforma</Text>
+                    <Text weight={'bold'} >{t('accessPlatform')}</Text>
                   </Button>
                 </Link>
               </Navbar.CollapseItem>
@@ -198,7 +200,7 @@ export default function NavbarComponent() {
                             bordered
                             className="h-10 w-10 rounded-full object-cover"
                             src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
-                            alt="Foto de perfil"
+                            alt={t('profilePicture')}
                           />
                           <Button icon={<GiExitDoor/>} auto color={'error'}  onClick={logout} />
                         </Link>
@@ -210,7 +212,7 @@ export default function NavbarComponent() {
               css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
               >
                 <Button css={{background: '#17c964'}} color={''} onPress={() => setVisible(true)} >
-                  <Text weight={'bold'} >Indique e Ganhe</Text>
+                <Text weight={'bold'}>{t('indicateAndWin')}</Text>
                 </Button>
               </Navbar.CollapseItem>
                 </div>
