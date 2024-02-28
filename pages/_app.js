@@ -9,12 +9,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import "../i18n" 
 import React, { useEffect } from 'react'
 import { mixpanel } from '../lib/utils/mixpanel'
 import Footer from '../components/Footer/index'
 import '../lib/globals.js'
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
+import { useTranslation } from 'react-i18next';
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
@@ -25,6 +27,15 @@ function MyApp({ Component, pageProps }) {
   const supportedChainIds = [80001, 4, 137, 1, 250, 43114]
 
   const router = useRouter()
+
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const nextJsLocale = router.locale;
+    if (i18n.language !== nextJsLocale) {
+      i18n.changeLanguage(nextJsLocale);
+    }
+  }, [router.locale, i18n]);
 
   useEffect(() => {
     const handleRouteChange = (url) => {
