@@ -8,13 +8,7 @@ function template(params) {
   return `
   <!DOCTYPE html>
   <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirmação de Inscrição no Build "${ params.course.title }"</title>
-  </head>
   <body>
-  
   <p>Fala builder 👷👷‍♀️,</p>
   
   <p>É com grande satisfação que confirmamos sua inscrição no build "${ params.course.title }" da web3dev!</p>
