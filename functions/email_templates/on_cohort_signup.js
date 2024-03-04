@@ -6,38 +6,37 @@ function d(date) {
 
 function template(params) {
   return `
-      <!DOCTYPE html>Fala builder 👷👷‍♀️!! danicuki da web3dev aqui.<br>
-      <br>
-      Sua inscrição foi feita no bootcamp "${
-        params.course.title
-      }".&nbsp; O bootcamp começa com a live de kickoff em ${d(
-    params.cohort.kickoffStartTime
-  )}. Para acompanhar é só entrar no <a href="https://www.twitch.tv/web3dev">nosso Twitch</a>.<br>
-      <br>
-      <b>Esse projeto é praticamente todo assíncrono.</b>&nbsp;O único momento ao vivo será nossa live. Se não puder participar, não se preocupe. Ela também será gravada e disponibilizada para você assistir!<br>
-      <br>
-      <b>O material do bootcamp será aberto oficialmente às 19h, junto com a live <a href="https://build.w3d.community/courses/${
-        params.cohort.course_id
-      }">aqui</a>&nbsp;<br>
-      <br>
-      <h3>Algumas informações importantes</h3>
-      1. Se você terminar o projeto até ${d(
-        params.cohort.endDate
-      )}, você terá direito a receber um <b>NFT exclusivo</b>. Vamos dar para você o cargo de #graduad@ no nosso Discord e terá acesso a vagas de trabalho web3 em nossos parceiros.<br>
-      <br>
-      2. Não se esqueça de conectar seu Discord na <a href="https://build.w3d.community/courses/${
-        params.cohort.course_id
-      }">plataforma de bootcamps</a>, pois precisamos adicionar você no canal secreto "#⛺ | ${
-    params.cohort.discord_channel
-  }" da turma que fará parte deste bootcamp junto com você.<br>
-      <br>
-      3. Por favor, não chama isso de "curso"! É um projeto, bootcamp, hackday, chama do que quiser. Só quero que você faça um trabalho legal com um pouco de guia :-).<br>
-      <br>
-      Se tiver perguntas, mande no canal #chat-geral.<br>
-      <br>
-      Estou animado para ver o projeto de todo mundo 💜💜💜.<br>
-      <br>
-      danicuki
+  <!DOCTYPE html>
+  <html lang="en">
+  <body>
+  <p>Fala builder 👷👷‍♀️,</p>
+  
+  <p>É com grande satisfação que confirmamos sua inscrição no build "${ params.course.title }" da web3dev!</p>
+  
+  <p>Este projeto é uma oportunidade para você expandir suas habilidades de programação de forma prática na web3. 
+   <br> 
+   Todo o material do build está disponível em nossa <a href="https://build.w3d.community/courses/${ params.cohort.course_id }">plataforma</a>, além disso assista a gravação da sessão de kickoff disponível em nosso <a href="https://youtube.com/playlist?list=PLVX4xVoD65UMYeDxun9ejE8huvEsAAz89&si=x0M6jTkKcIcPNm0C">canal do YouTube</a>.</p>
+  
+  <p>Aqui estão algumas informações importantes que você precisa saber antes de começar:</p>
+  
+  <ol>
+  <li>Ao concluir o build, você terá direito a receber um <b>NFT exclusivo</b> como reconhecimento pelo seu trabalho árduo. Além disso, você ganhará o cargo de #graduad@ em nosso Discord, o que lhe dará acesso a oportunidades de trabalho exclusivas com nossas empresas parceiras na web3.</li>
+  
+  <li>Não se esqueça de <b>conectar sua conta do Discord</b> à <a href="https://build.w3d.community/courses/${ params.cohort.course_id }">plataforma do build</a>. Isso é essencial para adicioná-lo ao canal secreto "#⛺ | ${ params.cohort.discord_channel }" da turma. Lá, você poderá interagir com outras pessoas e receber suporte durante todo o processo.</li>
+  
+  <li>Por favor, lembre-se de que este <b>não é apenas mais um "curso"</b> - é um projeto colaborativo, um treinamento prático, um hackday. Queremos que você aproveite ao máximo essa experiência e crie algo incrível com o apoio da comunidade da WEB3DEV.</li>
+  </ol>
+  
+  <p>Se surgirem dúvidas ou questões ao longo do caminho, não hesite em compartilhá-las no canal <b>#chat-geral</b> do Discord. Estamos aqui para ajudar e apoiá-lo durante toda a jornada.</p>
+  
+  <p>Estamos animados para ver os projetos incríveis que serão criados! 💜💜💜</p>
+  
+  <p>Atenciosamente,<br>
+  [danicuki]<br>
+  Equipe web3dev</p>
+  
+  </body>
+  </html>
   `
 }
 module.exports = template
