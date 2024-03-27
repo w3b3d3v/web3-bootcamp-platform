@@ -15,7 +15,6 @@ export default async function handler(req, res) {
       channel.members.forEach((member) => userIds.push(member.user.id))
       client.destroy() // Log out the bot once we've collected the info
 
-      console.log(channel)
       userIds.forEach(async (userId) => {
         const docRef = doc(collection(db, 'study_group_presence'))
         let itemData = {
