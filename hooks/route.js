@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import useAuth from './useAuth'
 
-export function withPublic(Component) {
+export function withPublic(Component, redirectTo = '/courses') {
   const WithPublic = (props) => {
     const auth = useAuth()
     const router = useRouter()
@@ -11,7 +11,7 @@ export function withPublic(Component) {
     useEffect(() => {
       if (auth.user) {
         // Redirect to 'courses' or a specific page if the user is already authenticated
-        const redirectRoute = router.query.from || '/courses'
+        const redirectRoute = router.query.from || redirectTo
         router.push(redirectRoute)
       } else {
         setLoading(false)

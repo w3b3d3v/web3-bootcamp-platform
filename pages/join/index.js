@@ -1,32 +1,14 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import Head from 'next/head'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import useAuth from '../../hooks/useAuth'
 import { withPublic } from '../../hooks/route'
 import { Button } from '@nextui-org/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
+import { signIn, useSession } from 'next-auth/react'
 
 function signUpPage() {
-  const { signup, loginGoogle, loginGithub } = useAuth()
-  const [showpass, setShowPass] = useState(false)
-
-  const { register, handleSubmit } = useForm()
-  const onSignUpSubmit = (data) => signup(data)
-  const onSignUpError = (errors, e) => {
-    toast.error(errors, e, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
+  const { loginGoogle, loginGithub } = useAuth()
 
   return (
     <>
@@ -86,4 +68,4 @@ signUpPage.getInitialProps = () => {
   }
 }
 
-export default withPublic(signUpPage)
+export default withPublic(signUpPage, signIn('discord', { callbackUrl: '/join/discord' }))
