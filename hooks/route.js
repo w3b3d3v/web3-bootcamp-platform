@@ -3,20 +3,20 @@ import React, { useEffect, useState } from 'react'
 import useAuth from './useAuth'
 
 export function withPublic(Component) {
-  return function WithPublic(props) {
+  const WithPublic = (props) => {
     const auth = useAuth()
     const router = useRouter()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-      if (router) {
-        if (auth.user) {
-          router.query.from ? router.push(router.query.from) : router.push('/courses')
-        } else {
-          setLoading(false)
-        }
+      if (auth.user) {
+        // Redirect to 'courses' or a specific page if the user is already authenticated
+        const redirectRoute = router.query.from || '/courses'
+        router.push(redirectRoute)
+      } else {
+        setLoading(false)
       }
-    }, [auth, router])
+    }, [auth.user, router])
 
     if (loading) {
       return <h1>Loading...</h1>
@@ -24,6 +24,16 @@ export function withPublic(Component) {
 
     return <Component auth={auth} {...props} />
   }
+
+  // Ensure getInitialProps from the wrapped component is called
+  if (Component.getInitialProps) {
+    WithPublic.getInitialProps = async (ctx) => {
+      const componentProps = await Component.getInitialProps(ctx)
+      return { ...componentProps }
+    }
+  }
+
+  return WithPublic
 }
 
 export function withProtected(Component) {

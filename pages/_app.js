@@ -75,10 +75,10 @@ function MyApp({ Component, pageProps }) {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
               </Head>
-              <NavbarComponent />
+              {!pageProps.hideNavbar && <NavbarComponent />}
               <div className="relative z-10"></div>
               <Component {...pageProps} />
-              <Footer />
+              {!pageProps.hideFooter && <Footer />}
               <ToastContainer />
             </SessionProvider>
           </ThirdwebProvider>

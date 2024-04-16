@@ -22,7 +22,7 @@ export default function Footer() {
         <ul className="footer-links list-none flex-row text-left ">
           {['twitter', 'discord', 'github', 'linkedin', 'youtube'].map((link) => {
             return (
-              <li className="">
+              <li className="" key={'link-' + link}>
                 <Link href={links[link]}>{link.upperFirst()}</Link>
               </li>
             )
@@ -31,7 +31,7 @@ export default function Footer() {
         <ul className="footer-links list-none text-left">
           {['forum', 'manual', 'glossario'].map((link) => {
             return (
-              <li className="">
+              <li className="" key={'link2-' + link}>
                 <Link href={links[link]}>{link.upperFirst()}</Link>
               </li>
             )
