@@ -4,6 +4,37 @@ import { checkSections, colorTab } from './tabFunctions'
 import { useTranslation } from "react-i18next"
 
 export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort }) {
+  if (!isLessonPage) {
+    const sectionAnalytics = course.analytics?.[0];
+
+    return (
+      <div className="mt-6 mb-6 flex flex-col rounded-lg p-4 shadow-xl lg:mt-12">
+        <div className="flex flex-row justify-center items-center">
+          {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (
+            <img
+              key={source}
+              src={source}
+              alt="User avatar"
+              style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                marginLeft: index !== 0 ? '-15px' : '0', // Ajustado para menos sobreposição
+                position: 'relative', // Adicionado para corrigir o z-index
+                zIndex: sectionAnalytics?.photoUrls.length - index,
+              }}
+            />
+          ))}
+        </div>
+        {sectionAnalytics && (
+          <p style={{ textAlign: 'center', marginTop: '20px' }}>
+            {sectionAnalytics.students} entusiastas nesse grupo de estudos!
+          </p>
+        )}
+      </div>
+    );    
+  }
+
   const getCourse = course
   const { user } = useAuth()
   if (!getCourse?.sections) return null
