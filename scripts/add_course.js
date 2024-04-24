@@ -11,24 +11,26 @@ admin.initializeApp({
 const db = admin.firestore();
 
 async function addSpecificCourse(courseData, courseName) {
-  // Referência ao documento com um nome específico na coleção 'courses'
-  const courseRef = db.collection('courses').doc(courseName);
+  // Reference to the specific document in the 'groups' collection
+  const courseRef = db.collection('groups').doc(courseName);
 
-  // Configura os dados do curso no documento específico
+  // Set the course data in the specific document
   await courseRef.set(courseData);
 
-  console.log(`Curso '${courseName}' adicionado com sucesso.`);
+  console.log(`Group '${courseName}' added successfully.`);
 }
 
 async function loadCourseDataAndAdd() {
   try {
-    const courseData = JSON.parse(await fs.readFile('/Users/nomadbitcoin/Projects/web3-bootcamp-platform/scripts/New_Course_Data.json', 'utf8'));
-    const courseName = "Rust_State_Machine"; // Nome específico para o documento
+    const coursesData = await fs.readFile('/Users/nomadbitcoin/Projects/web3-bootcamp-platform/scripts/New_Course_Data.json', 'utf8');
+    const courses = JSON.parse(coursesData);
 
-    // Chama a função para adicionar o curso com um nome específico
-    await addSpecificCourse(courseData, courseName);
+    // Loop through each course in the array and add it
+    for (const course of courses) {
+      await addSpecificCourse(course, course.courseName);
+    }
   } catch (error) {
-    console.error("Erro ao carregar ou adicionar o curso:", error);
+    console.error("Error loading or adding courses:", error);
   }
 }
 
