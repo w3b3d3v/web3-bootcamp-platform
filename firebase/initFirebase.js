@@ -36,7 +36,7 @@ function startEmulators() {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  startEmulators()
+  // startEmulators()
 }
 // const analytics = getAnalytics(app);
 
