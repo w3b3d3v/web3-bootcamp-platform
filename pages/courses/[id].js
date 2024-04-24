@@ -353,7 +353,7 @@ function Course({ course, currentDate }) {
                   </div>
                 </div>
                 <div className="my-8">
-                  <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+                  <Tabs isLessonPage={true} course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
                   <div className="z-10 my-8 w-full rounded-lg p-7">
                     {course?.sections &&
