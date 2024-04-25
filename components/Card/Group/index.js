@@ -35,7 +35,7 @@ export function GroupCard ({group}) {
          >
              <Card.Image src={group.image_url} key={group.id}></Card.Image>
          </Card.Header>
-         <Tabs isLessonPage={false} course={group} lessonsSubmitted={[]} cohort={[]} />
+         <Tabs isLessonPage={false} group={group} lessonsSubmitted={[]} cohort={[]} />
          <Link href={`/study-groups/${group.id}`} >
              <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
                  <Text weight={'bold'} color={''}>
