@@ -39,16 +39,16 @@ export function GroupCard ({group}) {
          <Link href={`/groups/${group.id}`} >
              <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
                  <Text weight={'bold'} color={''}>
-                     Começar agora 🚀
+                     Entrar na turma
                  </Text>
              </Button>
          </Link>
-         {/* <Button color={'success'} rounded flat size={'xs'}>
+         <Card.Divider />
+         {/* <Button css={{ margin: 'auto', mt:'$5' }} color={'success'} rounded flat size={'xs'}>
              {group.difficulty}
          </Button> */}
-         <Card.Divider />
          <Collapse.Group >
-             <div className='mt-7' >
+             <div className='mt-1' >
                  {(!showMore &&
                      <div>
                          <Text>{group.description.substring(0, 100) + '...'}
