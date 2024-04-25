@@ -8,7 +8,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
     const sectionAnalytics = course.analytics?.[0];
 
     return (
-      <div className="mt-6 mb-6 flex flex-col rounded-lg p-4 shadow-xl lg:mt-12">
+      <div className="flex flex-col rounded-lg">
         <div className="flex flex-row justify-center items-center">
           {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (
             <img
