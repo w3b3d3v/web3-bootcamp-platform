@@ -266,7 +266,7 @@ function Lessons({ course, lesson, currentDate }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const course = await getCourse(params.id)
+  const course = await getCourse("course", params.id)
   const currentDate = new Date().toISOString()
   const lesson = params.lesson
   return {
