@@ -8,206 +8,73 @@ import Tabs from '../../components/Tabs'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
 import ShareLinkCard from '../../components/Card/ShareLink'
-import ComingSoonCard from '../../components/Card/ComingSoon'
 import NotFound from '../404'
 import Link from 'next/link'
-import ICalendarLink from 'react-icalendar-link'
-import countdown from '../../lib/utils/countdown'
 import Head from 'next/head'
-import { getAllCohorts, getCurrentCohort } from '../../lib/cohorts'
-import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
 import {dateFormat} from '../../lib/dateFormat'
 
-function Course({ course, currentDate }) {
-  if (!course.active) return <NotFound />
+function Group({ group }) {
+  if (!group.active) return <NotFound />
 
   const [user, setUser] = useState()
-  const [registerOnCohort, setRegisterOnCohort] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(0)
-  const [cohorts, setCohorts] = useState()
-  const [cohort, setCohort] = useState()
-  const [lessonsSubmitted, setLessonsSubmitted] = useState()
-  const [loading, setLoading] = useState(true)
-  let counter = 0
-  useEffect(async () => {
-    setCohorts(await getAllCohorts())
-  }, [])
-  useEffect(async () => {
-    setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
-  }, [user])
-  useEffect(async () => {
-    if (cohorts) {
-      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
-    }
-  }, [cohorts, user])
+  const [loading, setLoading] = useState(false)
+  const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false);
+
+  const addUserToStudyGroup = async () => {
+    // await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
+    setUserRegisteredInGroup(true)
+  }
+
+  const checkUserRegistration = () => {
+    return userRegisteredInGroup
+  }
 
   useEffect(async () => {
     if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser)
       setUser(userSession)
     }
-  }, [auth.currentUser, registerOnCohort])
+  }, [auth.currentUser])
 
-  const userCohortStartDate = new Date(cohort?.startDate).getTime()
-  useEffect(() => {
-    const serverdate = new Date(currentDate)
-
-    const interval = setInterval(function () {
-      const updateserver = serverdate.setSeconds(serverdate.getSeconds() + 1)
-      if (userCohortStartDate) {
-        const ct = countdown(userCohortStartDate, new Date(updateserver))
-        if (!ct) {
-          clearInterval(interval)
-        }
-        return setTimeLeft(ct)
-      }
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [userCohortStartDate])
-
-  useEffect(() => {
-    if (cohort) {
-      setLoading(false)
-    }
-  }, [cohort])
-
-  const registerUserInCohort = async () => {
-    await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
-    setRegisterOnCohort(true)
-  }
-  const userIsRegisteredInCurrentCohort = () => {
-    return !!user?.cohorts.find(
-      (userCohort) => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
-    )
-  }
-
-  const userSubmissions = (allLessons) => {
-    const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if (
-        lesson.lesson == allLessons.file &&
-        lesson.user == user.uid &&
-        lesson.cohort_id === cohort.id
-      )
-        return true
-      return false
-    })
-    if (userSubmitted.every((item) => item === false)) counter++
-    return userSubmitted.some((item) => item === true)
-  }
-  const daysLeftToStart = () => {
-    if (typeof timeLeft == 'string') return timeLeft?.split('d')[0]
-  }
-  const undefinedCohortStartDate = () => daysLeftToStart() > 180
-
-  const under30dCohortStartDate = () => !undefinedCohortStartDate()
-
-  const userIsRegisteredAndCohortIsFuture = () =>
-    userIsRegisteredInCurrentCohort() && undefinedCohortStartDate()
-
-  const userIsNotRegisteredAndCohortIsOpen = () => {
-    if (!cohort) return
-    return (
-      !user?.cohorts ||
-      user?.cohorts?.length == 0 ||
-      (!userIsRegisteredInCurrentCohort() && cohort?.endDate >= new Date(currentDate))
-    )
-  }
-  const userIsNotRegisteredAndCohortIsClosed = () => {
-    if (!cohort) return true
-    return (
-      (!user?.cohorts || user?.cohorts?.length == 0 || !userIsRegisteredInCurrentCohort()) &&
-      cohort?.endDate <= new Date(currentDate)
-    )
-  }
-  const userIsRegisteredAndCohortWillOpenSoon = () => {
-    return (
-      userIsRegisteredInCurrentCohort() &&
-      cohort?.startDate >= new Date(currentDate) &&
-      under30dCohortStartDate()
-    )
-  }
-  const userIsRegisteredAndCohortIsOpen = () => {
-    return (
-      !userHasAlreadyParticipatedInACohort() &&
-      userIsRegisteredInCurrentCohort() &&
-      cohort?.startDate <= new Date(currentDate) &&
-      timeLeft == null &&
-      user?.cohorts?.map((cohort) => cohort.course_id).includes(course.id)
-    )
-  }
-  const userHasAlreadyParticipatedInACohort = () => {
-    const endedCohorts = []
-    cohorts?.map((cohort) => {
-      if (cohort.courseId === course.id && cohort.endDate <= new Date(currentDate)) {
-        endedCohorts.push(cohort)
-      }
-    })
-    const userEndedCohorts = user?.cohorts
-      .map((cohort) => {
-        if (cohort.course_id == course.id) {
-          return endedCohorts.find((endedCohorts) => cohort.cohort_id == endedCohorts.id)
-        }
-      })
-      .filter(Boolean)
-    return userEndedCohorts?.length > 0
-  }
-
-  const styleImageCover = {
-    borderRadius:'10px'
-  }
-  
-  const [kickoffStartDate, setKickoffStartDate] = useState()
-  const [kickoffEndDate, setKickoffEndDate] = useState()
-
-
-  useEffect(() => {
-    if (!cohort?.kickoffStartTime && !cohort?.kickoffEndTime) return
-    const cohortKickoffDateGMTPattern = dateFormat(cohort?.kickoffStartTime)
-    const cohortKickoffEndDateGTMPattern = dateFormat(cohort?.kickoffEndTime)
-    setKickoffStartDate(cohortKickoffDateGMTPattern)
-    setKickoffEndDate(cohortKickoffEndDateGTMPattern)
-    
-  },[cohort])
-  
   return (
     <>
       <Head>
-        <meta property="og:title" content={course.title} />
+        <meta property="og:title" content={group.title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:description" content={course.description} />
-        <meta property="og:image" content={course?.resized_img_url || course.image_url} />
+        <meta property="og:description" content={group.description} />
+        <meta property="og:image" content={group?.resized_img_url || group.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${course.title} `} />
+        <meta property="og:image:alt" content={`${group.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
 
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={course.title} />
-        <meta property="twitter:description" content={course.description} />
-        <meta property="twitter:image" content={course.image_url} />
+        <meta property="twitter:title" content={group.title} />
+        <meta property="twitter:description" content={group.description} />
+        <meta property="twitter:image" content={group.image_url} />
         {/*Twitter End*/}
 
-        <title>Build {course.id} - WEB3DEV</title>
+        <title>Group {group.id} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-3xl self-center lg:max-w-lg">
-            <h1 className="text-2xl font-bold">{course?.title}</h1>
+            <h1 className="text-2xl font-bold">{group?.title}</h1>
 
-            <p className="mb-6  text-sm">{course?.description /*.substring(0, 100) + '...'*/}</p>
+            <p className="mb-6  text-sm">{group?.description /*.substring(0, 100) + '...'*/}</p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
             <Image
-              src={course?.image_url}
+              src={group?.image_url}
               width="300px"
               height="300px"
-              style={styleImageCover}
+              style={{borderRadius:'10px'}}
             ></Image>
           </div>
         </div>
@@ -218,101 +85,32 @@ function Course({ course, currentDate }) {
           </div>
         ) : (
           <>
-            {userIsNotRegisteredAndCohortIsClosed() && (
-              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
-                <div className="flex w-3/4 flex-col items-center justify-center">
-                  <p className="text-center text-2xl">
-                    As inscrições estão encerradas, aguarde a próxima turma abrir para se inscrever!
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {userIsRegisteredAndCohortIsFuture() && (
-              <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center ">
-                <div className="flex flex-col items-center justify-center">
-                  <Link href={'https://pt.discord.w3d.community/'}>
-                    <a id="discord-logo-link" target="_blank">
-                      <Image src={'/assets/img/discord_icon.svg'} width={128} height={128} />
-                    </a>
-                  </Link>
-                  <p className="mt-0 mb-0 text-center text-2xl text-white-100">
-                    Inscrição feita! <br />A data de lançamento será anunciada no nosso{' '}
-                    <Link href={'https://pt.discord.w3d.community/'}>
-                      <a
-                        id="discord-text-link"
-                        target="_blank"
-                        className="text-decoration-none text-white-100"
-                      >
-                        Discord
-                      </a>
-                    </Link>
-                    .
-                  </p>
-                  <br />
-                  <Link href={'https://pt.discord.w3d.community/'}>
-                    <a
-                      id="discord-button-link"
-                      target="_blank"
-                      className="text-decoration-none rounded-lg bg-violet-600 p-1 px-2 text-white-100 hover:no-underline"
-                    >
-                      <p>Aproveita para já entrar lá!</p>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            )}
-            {userIsNotRegisteredAndCohortIsOpen() && !userHasAlreadyParticipatedInACohort() && (
+            {!checkUserRegistration() ? (
               <>
                 <button
                   id={`signup-cohort`}
-                  onClick={() => registerUserInCohort()}
+                  onClick={() => addUserToStudyGroup()}
                   className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
                 >
                   Inscreva-se agora &#x1F31F;
                 </button>
-                <div className="flex pt-6">
-                  <ComingSoonCard />
-                </div>
               </>
-            )}
-            {userIsRegisteredAndCohortWillOpenSoon() && (
+            ) : (
               <>
                 <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6 ">
                   <div className="flex w-3/4 flex-col items-center justify-center">
                     <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
                     <p className="text-sm lg:text-base">
-                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
-                      calendário para não esquecer. Nos veremos lá!
+                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!
                     </p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
-                      {timeLeft && '⏰' + timeLeft}
-                      <button
-                        className="mt-3 mb-4 flex flex-row items-center rounded-lg border-none bg-transparent p-2 text-sm lg:flex-row lg:p-3 lg:text-base"
-                        onClick={() => calendarFunction()}
-                      >
-                        <ICalendarLink
-                          className="flex flex-row items-center text-white-100"
-                          event={{
-                            title: course?.title,
-                            description: course?.description,
-                            startTime: cohort?.kickoffStartTime,
-                            endTime: cohort?.kickoffEndTime,
-                            location: 'https://pt.discord.w3d.community',
-                          }}
-                        >
-                          <CalendarIcon className="mr-2 h-7 w-7" />
-                          Adicionar ao calendário
-                        </ICalendarLink>
-                      </button>
-
                       <button
                         className="flex max-w-xs items-center rounded-lg border-black-400 bg-black-300 p-2"
                         type="button"
                       >
                         <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${course?.title}`}
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${group?.scheduled_at}/}&text=Bootcamp Web3dev ${group?.title}`}
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
@@ -332,96 +130,9 @@ function Course({ course, currentDate }) {
                   </div>
                 </div>
                 <div className="flex pt-6">
-                  <ShareLinkCard course={course.id} />
-                </div>
-                <div className="flex pt-6">
-                  <ComingSoonCard />
+                  <ShareLinkCard group={group.id} />
                 </div>
                 <br />
-              </>
-            )}
-            {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
-              <>
-                <div className="flex flex-col content-end gap-11 lg:flex-row">
-                  <div className="flex-1">
-                    <DiscordCard />
-                  </div>
-                  <div className="flex-1">
-                    <WalletCard />
-                  </div>
-                </div>
-                <div className="my-8">
-                  <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
-
-                  <div className="z-10 my-8 w-full rounded-lg p-7">
-                    {course?.sections &&
-                      Object.keys(course?.sections)
-                        .sort()
-                        .map((section) => {
-                          return (
-                            <div key={section}>
-                              <span id={section} className="mb-4 font-bold">
-                                {section?.replace('Section_', 'Seção ')}
-                              </span>
-                              <ul className="mt-4 mb-4 flex list-none flex-col	">
-                                {course?.sections[section]
-                                  .map((lesson) => {
-                                    return (
-                                      <li
-                                        key={lesson.title}
-                                        className="mb-4 items-center rounded py-2 px-4"
-                                      >
-                                        <div className="flex items-center ">
-                                          <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
-                                            <input
-                                              disabled
-                                              type="radio"
-                                              name="radio"
-                                              className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border"
-                                            />
-                                            <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
-                                              {userSubmissions(lesson) ? (
-                                                <Image
-                                                  className="h-full w-full "
-                                                  width={48}
-                                                  height={48}
-                                                  src={'/assets/img/checked-radio-button.svg'}
-                                                  alt={lesson.title}
-                                                />
-                                              ) : (
-                                                <Image
-                                                  className="h-full w-full"
-                                                  width={48}
-                                                  height={48}
-                                                  src={'/assets/img/radio-button.svg'}
-                                                  alt={lesson.title}
-                                                />
-                                              )}
-                                            </div>
-                                          </div>
-                                          <div className={counter > 1 ? 'pointer-events-none' : ''}>
-                                            <Link
-                                              href={`/courses/${course.id}/lessons/${lesson.file}`}
-                                            >
-                                              <a id="access-lesson">
-                                                <p className="m-0 p-0">{lesson.title}</p>
-                                              </a>
-                                            </Link>
-                                          </div>
-                                        </div>
-                                      </li>
-                                    )
-                                  })
-                                  .sort((a, b) => a - b)}
-                              </ul>
-                            </div>
-                          )
-                        })}
-                  </div>
-                </div>
-                <div className="mb-3 flex pt-6">
-                  <ShareLinkCard course={course.id} />
-                </div>
               </>
             )}
           </>
@@ -432,14 +143,14 @@ function Course({ course, currentDate }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const course = await getCourse("group", params.id)
+  const group = await getCourse("group", params.id)
   const currentDate = new Date().toISOString()
   return {
     props: {
-      course,
+      group,
       currentDate,
     },
   }
 }
 
-export default withProtected(Course)
+export default withProtected(Group)
