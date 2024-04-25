@@ -432,7 +432,7 @@ function Course({ course, currentDate }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const course = await getCourse(params.id)
+  const course = await getCourse("group", params.id)
   const currentDate = new Date().toISOString()
   return {
     props: {

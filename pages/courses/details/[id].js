@@ -49,7 +49,7 @@ function Course({ course }) {
 }
 
 export async function getServerSideProps({ params }) {
-    const course = await getCourse(params.id)
+    const course = await getCourse("course", params.id)
     return {
         props: {
             course
