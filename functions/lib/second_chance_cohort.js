@@ -1,5 +1,7 @@
-async function changeUserCohort(user_id, course_id, db) {
-  const nextCohort = await getNextCohort(db, course_id)
+const { db } = require('./initDb')
+
+async function changeUserCohort(user_id, course_id) {
+  const nextCohort = await getNextCohort(course_id)
   const nextCohortID = (await db.collection('cohorts').where('name', '==', nextCohort.name).get())
     .docs[0].id
   const userRef = db.collection('users').doc(user_id)
@@ -19,7 +21,7 @@ async function changeUserCohort(user_id, course_id, db) {
   updateCohortIds(userRef)
 }
 
-async function getNextCohort(course_id, db) {
+async function getNextCohort(course_id) {
   const cohorts = await db
     .collection('cohorts')
     .where('course_id', '==', course_id)

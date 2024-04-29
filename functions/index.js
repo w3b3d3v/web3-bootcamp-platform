@@ -1,19 +1,17 @@
 const functions = require('firebase-functions')
 const { sendEmail, enqueueEmails } = require('./emails')
-const admin = require('firebase-admin')
 const { addDiscordRole } = require('./discord_integration')
 const { userCompletedCourse, usersToSend2ndChance } = require('./lib/checkUserLessons')
 const { mint } = require('./mintNFT.js')
-const { getNextCohort } = require('./second_chance_cohort')
+const { getNextCohort } = require('./lib/second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
 const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
+const { log_study_group } = require('./lib/log_study_group')
 
-admin.initializeApp()
-
-const db = admin.firestore()
+const { db, firebase } = require('./lib/initDb')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -124,11 +122,11 @@ exports.mintNFT = functions.firestore
 
     if (createdLesson.lesson !== course.lastLesson) return console.log('Esta não é a última lição')
 
-    if (!userCompletedCourse(createdLesson.user_id, cohort.course_id, db))
+    if (!userCompletedCourse(createdLesson.user_id, cohort.course_id))
       return console.log('Usuário não completou todas as lições')
 
     if (cohort.endDate.toDate() < createdLesson.createdAt.toDate()) {
-      cohort = await getNextCohort(cohort.course_id, db)
+      cohort = await getNextCohort(cohort.course_id)
     }
     if (!cohort) return
 
@@ -198,7 +196,7 @@ exports.addUserToDiscord = functions.https.onRequest(async (req, resp) => {
 
 exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
   const cohort_id = req.query.cohort_id
-  const users = await usersToSend2ndChance(db, cohort_id)
+  const users = await usersToSend2ndChance(cohort_id)
 
   users.map((u) => {
     sendEmail('cohort_new_chance', 'Nova chance para finalizar o Bootcamp', u.email)
@@ -279,7 +277,7 @@ exports.fetchStoreBuildAnalytics = functions.pubsub
   .onRun(async (context) => {
     try {
       const [rows] = await usersBySection()
-      await storeUsersPerCohort(db, rows)
+      await storeUsersPerCohort(rows)
       return true
     } catch (e) {
       console.log('error: ' + e)
@@ -332,22 +330,45 @@ exports.discordRoles = functions.pubsub
   })
 
 exports.grantDiscordRoleToNewcomer = functions.https.onRequest(async (req, resp) => {
-    const discordId = req.query.discordId;
-    let grantedRoles = 0;
-    try {
-      let user = await getUserByDiscordId(discordId);
-      let cohorts = user.cohorts;
-      cohorts.forEach(async (cohort) => {
-        let cohortData = await docData('cohorts', cohort.cohort_id);
-        if (cohortData.discord_role) {
-          await addDiscordRole(discordId, cohortData.discord_role);
-          grantedRoles += 1;
-        }
-      });
+  const discordId = req.query.discordId
+  let grantedRoles = 0
+  try {
+    let user = await getUserByDiscordId(discordId)
+    let cohorts = user.cohorts
+    cohorts.forEach(async (cohort) => {
+      let cohortData = await docData('cohorts', cohort.cohort_id)
+      if (cohortData.discord_role) {
+        await addDiscordRole(discordId, cohortData.discord_role)
+        grantedRoles += 1
+      }
+    })
 
-      resp.send({"status": 200, "grantedRoles": grantedRoles, "userCohortsLenght": cohorts.length});
+    resp.send({ status: 200, grantedRoles: grantedRoles, userCohortsLenght: cohorts.length })
+  } catch (e) {
+    resp.send({ error: e, status: 500 })
+  }
+})
+
+exports.logStudents = functions.https.onRequest(async (req, resp) => {
+  log_study_group(req.query.channel_id, resp)
+})
+
+const region = 'us-central1'
+const projectId = firebase.app().options.projectId
+const axios = require('axios')
+
+exports.invokeLogStudentsEveryFiveMinutes = functions.pubsub
+  .schedule('*/5 * * * *')
+  .onRun(async (context) => {
+    console.log('running every 5 minute')
+    const url = `https://${region}-${projectId}.cloudfunctions.net/logStudents?channel_id=971893080410185728`
+    try {
+      const response = await axios.get(url)
+      console.log('Success:', response.data) // `axios` wraps the response data in a `data` field
+    } catch (error) {
+      console.error('Error invoking logStudents:', error)
     }
-    catch(e) {
-      resp.send({"error": e, "status": 500})
-    }
-});
+  })
+
+
+

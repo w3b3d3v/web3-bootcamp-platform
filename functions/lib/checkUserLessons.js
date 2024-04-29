@@ -1,4 +1,6 @@
-async function userCompletedCourse(userId, courseId, db) {
+const { db } = require('./initDb')
+
+async function userCompletedCourse(userId, courseId) {
   return await db
     .collection('lessons_submissions')
     .where('user_id', '==', userId)
@@ -28,7 +30,7 @@ async function userCompletedCourse(userId, courseId, db) {
     })
 }
 
-async function usersIdsCompletedBootcamp(db) {
+async function usersIdsCompletedBootcamp() {
   const lessons = (
     await db
       .collection('lessons_submissions')
@@ -38,8 +40,8 @@ async function usersIdsCompletedBootcamp(db) {
   return lessons.map((l) => l.data().user_id)
 }
 
-async function usersToSend2ndChance(db, cohort_id) {
-  const usersIds = await usersIdsCompletedBootcamp(db)
+async function usersToSend2ndChance(cohort_id) {
+  const usersIds = await usersIdsCompletedBootcamp()
   return (await db.collection('users').where('cohort_ids', 'array-contains', cohort_id).get()).docs
     .map((d) => d.data())
     .filter((user) => !usersIds.includes(user.uid))

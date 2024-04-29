@@ -1,4 +1,5 @@
 const { getQueryResults } = require('./lib/bigQuery')
+const { db } = require('./lib/initDb')
 
 async function usersBySection() {
   return getQueryResults(`
@@ -37,7 +38,7 @@ WITH max_section AS (
 `)
 }
 
-async function storeUsersPerCohort(db, rows) {
+async function storeUsersPerCohort(rows) {
   const promises = rows.map(async (item) => {
     const { course_id, sections } = item
     const course = db.collection('courses').doc(course_id)
