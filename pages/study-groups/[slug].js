@@ -59,7 +59,7 @@ function Group({ group }) {
         <meta property="twitter:image" content={group.image_url} />
         {/*Twitter End*/}
 
-        <title>Group {group.id} - WEB3DEV</title>
+        <title>Group {group.title} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
@@ -143,7 +143,7 @@ function Group({ group }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const group = await getCourse("group", params.id)
+  const group = await getCourse("group", params.slug)
   const currentDate = new Date().toISOString()
   return {
     props: {
