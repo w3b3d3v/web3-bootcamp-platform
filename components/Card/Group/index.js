@@ -35,7 +35,7 @@ export function GroupCard ({group}) {
          >
              <Card.Image src={group.image_url} key={group.id}></Card.Image>
          </Card.Header>
-         <Tabs isLessonPage={false} group={group} lessonsSubmitted={[]} cohort={[]} />
+         <Tabs isLessonPage={false} course={group} lessonsSubmitted={[]} cohort={[]} />
          <Link href={`/study-groups/${group.id}`} >
              <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
                  <Text weight={'bold'} color={''}>
@@ -44,9 +44,9 @@ export function GroupCard ({group}) {
              </Button>
          </Link>
          <Card.Divider />
-         {/* <Button css={{ margin: 'auto', mt:'$5' }} color={'success'} rounded flat size={'xs'}>
+         <Button css={{ margin: 'auto', mt:'$5' }} color={'success'} rounded flat size={'xs'}>
              {group.difficulty}
-         </Button> */}
+         </Button>
          <Collapse.Group >
              <div className='mt-1' >
                  {(!showMore &&

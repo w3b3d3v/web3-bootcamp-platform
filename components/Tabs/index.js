@@ -19,8 +19,8 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                marginLeft: index !== 0 ? '-15px' : '0', // Ajustado para menos sobreposição
-                position: 'relative', // Adicionado para corrigir o z-index
+                marginLeft: index !== 0 ? '-15px' : '0',
+                position: 'relative',
                 zIndex: sectionAnalytics?.photoUrls.length - index,
               }}
             />
