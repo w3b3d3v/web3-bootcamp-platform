@@ -17,25 +17,28 @@ import '../lib/globals.js'
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
 import { useTranslation } from 'react-i18next';
+import { SSRProvider } from '@react-aria/ssr'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
 }
-
 
 function MyApp({ Component, pageProps }) {
   const supportedChainIds = [80001, 4, 137, 1, 250, 43114]
 
   const router = useRouter()
 
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation()
 
   useEffect(() => {
-    const nextJsLocale = router.locale;
-    if (i18n.language !== nextJsLocale) {
-      i18n.changeLanguage(nextJsLocale);
+    if (typeof window !== 'undefined') {
+      console.log(window.location)
+      const lang = new URLSearchParams(window.location.search).get('lang')
+      if (lang) {
+        i18n.changeLanguage(lang)
+      }
     }
-  }, [router.locale, i18n]);
+  }, [router.query.lang]) // Depend on router.query.lang to react to changes
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -47,55 +50,57 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events])
 
-
   const connectors = {
     injected: {},
   }
-  const cookieText = 'Ao clicar em aceitar, você consente com o uso dos cookies que você proveu em nosso website, para fornecer uma melhor experiência de usuário.'
+  const cookieText =
+    'Ao clicar em aceitar, você consente com o uso dos cookies que você proveu em nosso website, para fornecer uma melhor experiência de usuário.'
 
   const lightTheme = createTheme({
-  type: 'light',
-  theme: {
-    colors:{
-      background:'white'
-    }
-  }
+    type: 'light',
+    theme: {
+      colors: {
+        background: 'white',
+      },
+    },
   })
   const darkTheme = createTheme({
     type: 'dark',
   })
   return (
-    <NextThemesProvider
-      defaultTheme="dark"
-      attribute="class"
-      value={{
-        light: lightTheme.className,
-        dark: darkTheme.className,
-      }}
-    >
-      <NextUIProvider>
-        <AuthProvider>
-          <ThirdwebProvider
-            supportedChainIds={supportedChainIds}
-            desiredChainId={ChainId.Mainnet}
-            connectors={connectors}
-          >
-            <SessionProvider session={pageProps.session}>
-              <Head>
-                <title>Crie seu Primeiro Projeto WEB3</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
-              </Head>
-              <NavbarComponent />
-              <div className="relative z-10"></div>
-              <Component {...pageProps} />
-              <Footer />
-              <ToastContainer />
-            </SessionProvider>
-          </ThirdwebProvider>
-        </AuthProvider>
-      </NextUIProvider>
-    </NextThemesProvider>
+    <SSRProvider>
+      <NextThemesProvider
+        defaultTheme="dark"
+        attribute="class"
+        value={{
+          light: lightTheme.className,
+          dark: darkTheme.className,
+        }}
+      >
+        <NextUIProvider>
+          <AuthProvider>
+            <ThirdwebProvider
+              supportedChainIds={supportedChainIds}
+              desiredChainId={ChainId.Mainnet}
+              connectors={connectors}
+            >
+              <SessionProvider session={pageProps.session}>
+                <Head>
+                  <title>Crie seu Primeiro Projeto WEB3</title>
+                  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                  <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
+                </Head>
+                <NavbarComponent />
+                <div className="relative z-10"></div>
+                <Component {...pageProps} />
+                <Footer />
+                <ToastContainer />
+              </SessionProvider>
+            </ThirdwebProvider>
+          </AuthProvider>
+        </NextUIProvider>
+      </NextThemesProvider>
+    </SSRProvider>
   )
 }
 

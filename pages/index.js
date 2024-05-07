@@ -30,8 +30,6 @@ export default function Home({ course }) {
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
 
-        {/* Twitter */}
-
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
         <meta property="twitter:title" content="WEB3DEV" />
