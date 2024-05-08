@@ -1,9 +1,10 @@
-{  
+{
   "title": "Lista de Builds",
   "indicateAndWin": "Indique e Ganhe",
   "profilePicture": "Foto de perfil",
   "logout": "Sair",
   "myProfile": "Meu perfil",
+  "connected": "Conectado",
   "close": "Fechar",
   "shareLinkDescription": "Compartilhe esse link com seus amigos e concorra a prêmios da WEB3DEV",
   "accessPlatform": "Acessar Plataforma",
@@ -40,6 +41,29 @@
   "manual": "Manual",
   "glossary": "Glossário",
   "developedBy": "Desenvolvido com 💚 pela",
-  "inspiredBy": "e inspirado pela"
+  "inspiredBy": "e inspirado pela",
+  "send": "Enviar",
+  "cancel": "Cancelar",
+  "courses": {
+    "startNow": "Começar agora"
+  },
+  "sectionTabs": {
+    "peopleBuilding": "pessoas construindo nessa seção"
+  },
+  "lesson": {
+    "previousLesson": "Lição Anterior",
+    "backToCourse": "Voltar ao Curso",
+    "nextLesson": "Próxima Lição",
+    "lessonSent": "Lição enviada",
+    "clickToSendReport": "Clique no botão acima para enviar o seu relatório de #progresso"
+  },
+  "profile": {
+    "generalInfo": "Informações Gerais",
+    "name": "Nome",
+    "whereAreYou": "Onde você está?",
+    "socialNetworks": "Redes Sociais",
+    "personalWebsite": "Site Pessoal",
+    "yearXP": "Insira o ano de início da sua experiência profissional com desenvolvimento",
+    "yearBlockchainXP": "Insira o ano de início da sua experiência profissional com blockchain"
+  }
 }
-  

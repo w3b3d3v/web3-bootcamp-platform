@@ -8,6 +8,7 @@ import { getAllCohorts } from '../../lib/cohorts'
 import { uuid } from 'uuidv4'
 import Loading from '../Loading'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 export default function Modal({
   openExternal,
@@ -25,6 +26,7 @@ export default function Modal({
   const [file, setFile] = useState(null)
   const [cohorts, setCohorts] = useState()
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -138,7 +140,7 @@ export default function Modal({
                             className="text-white my-2 inline-flex cursor-pointer rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
                             onClick={() => saveUploadToStorage()}
                           >
-                            Enviar
+                            {t('send')}
                           </button>
                           {loading && (
                             <div className="mt-2.5 ml-2.5">
@@ -164,7 +166,7 @@ export default function Modal({
                         <br />
                         <textarea
                           name="lesson-submission"
-                          className="h-20 w-full p-1 z-10"
+                          className="z-10 h-20 w-full p-1"
                           onChange={(event) => setLessonSubmission(event.target.value)}
                         />
                       </div>
@@ -177,7 +179,7 @@ export default function Modal({
                     className="text-white inline-flex w-full cursor-pointer justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => saveLessonSubmission(lessonSubmission)}
                   >
-                    Enviar
+                    {t('send')}
                   </button>
                   <button
                     className="mt-3 inline-flex w-full cursor-pointer justify-center rounded-md border border-gray-300 bg-white-100 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:bg-red-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -185,7 +187,7 @@ export default function Modal({
                     id="modal-cancel-button"
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    {t('cancel')}
                   </button>
                 </div>
               </div>

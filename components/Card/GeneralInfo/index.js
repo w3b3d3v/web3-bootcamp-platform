@@ -20,6 +20,7 @@ import ProfileFooter from './ProfileFooter'
 import { Container } from '@nextui-org/react'
 import WalletCard from '../../Card/Wallet'
 import DiscordCard from '../../Card/Discord'
+import { useTranslation } from 'react-i18next'
 
 export default function GeneralInfoCard() {
   const [user, setUser] = useState()
@@ -32,8 +33,9 @@ export default function GeneralInfoCard() {
   const [filledPersonalData, setFilledPersonalData] = useState(false)
   const [filledSocialData, setFilledSocialData] = useState(false)
   const [filledProfessionalData, setFilledProfessionalData] = useState(false)
-  const [country, setCountry] = useState(new Set(["Brazil"]));
+  const [country, setCountry] = useState(new Set(['Brazil']))
   const [zip, setZip] = useState()
+  const { t } = useTranslation()
 
   const {
     register,
@@ -163,7 +165,7 @@ export default function GeneralInfoCard() {
             filledProfessionalData={filledProfessionalData}
           /> */}
       <div className=" mt-14 ">
-        <h1 className="text-center">👩‍🎤 Informações Gerais</h1>
+        <h1 className="text-center">👩‍🎤 {t('profile.generalInfo')}</h1>
         <form onSubmit={handleSubmit(async (data) => await updateUserProfileData(data))}>
           <div className="flex flex-col gap-10 ">
             <PersonalData

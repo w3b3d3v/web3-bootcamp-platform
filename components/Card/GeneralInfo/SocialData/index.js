@@ -4,17 +4,16 @@ import { findSocialLinks } from '../../../../lib/user'
 import { Input, Button, Container } from '@nextui-org/react'
 import { FiGithub } from 'react-icons/fi'
 import { Content } from '../../../../styles/components/Card/SocialData/index'
- 
+import { useTranslation } from 'react-i18next'
 
 export default function SocialData({ Controller, control, errors, user }) {
+  const { t } = useTranslation()
   const connectGithub = async (e) => {
-
     const provider = new GithubAuthProvider()
     const auth = getAuth()
 
     await linkWithPopup(auth.currentUser, provider)
       .then((result) => {
-
         const github_id = result.user.providerData.find(
           (item) => item.providerId == result.providerId
         ).uid
@@ -22,8 +21,8 @@ export default function SocialData({ Controller, control, errors, user }) {
           .then((res) => res.json())
           .then(async (data) => {
             await updateUserData(data.html_url)
-            })
           })
+      })
 
       .catch((err) => {
         console.log(err)
@@ -33,7 +32,7 @@ export default function SocialData({ Controller, control, errors, user }) {
     <Container>
       <Content>
         <h1 className="text-center" id="socialLinks">
-          Redes Sociais
+          {t('profile.socialNetworks')}
         </h1>
         <div className="mb-4 flex flex-col gap-4">
           <Controller
@@ -76,11 +75,11 @@ export default function SocialData({ Controller, control, errors, user }) {
             render={({ field }) => (
               <Input
                 {...field}
-                label="Site Pessoal"
+                label={t('profile.personalWebsite')}
                 bordered
                 defaultValue={findSocialLinks('personalWebsite', user)?.url}
                 id="personalWebsite"
-                placeholder="https://meuwebsite.com"
+                placeholder="https://mysite.com"
                 helperText={errors.personalWebsite?.message}
               />
             )}
@@ -89,15 +88,16 @@ export default function SocialData({ Controller, control, errors, user }) {
         <div className="">
           {user?.socialLinks?.find((item) => item.name == 'github').url ? (
             <div className="flex items-center justify-center">
-              <Button id="githubConnect" 
-              size={'md'} 
-              color={''} 
-              css={{ display: 'flex', gap: '$5' }}
-              icon={<FiGithub />} 
-              bordered 
-              disabled 
+              <Button
+                id="githubConnect"
+                size={'md'}
+                color={''}
+                css={{ display: 'flex', gap: '$5' }}
+                icon={<FiGithub />}
+                bordered
+                disabled
               >
-                <p>Conectado ✅</p>
+                <p>{t('connected')} ✅</p>
               </Button>
               <small className="text-red-500" data-testid="github-error-message">
                 {errors.github?.message}
@@ -114,7 +114,7 @@ export default function SocialData({ Controller, control, errors, user }) {
                 color={''}
                 onClick={connectGithub}
                 size={'md'}
-                css={{ display: 'flex', gap: '$5'}}
+                css={{ display: 'flex', gap: '$5' }}
                 icon={<FiGithub />}
                 bordered
               >

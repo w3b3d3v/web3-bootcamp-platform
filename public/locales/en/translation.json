@@ -4,6 +4,7 @@
   "profilePicture": "Profile picture",
   "logout": "Logout",
   "myProfile": "My profile",
+  "connected": "Connected",
   "close": "Close",
   "shareLinkDescription": "Share this link with your friends and compete for prizes from WEB3DEV",
   "accessPlatform": "Access Platform",
@@ -40,5 +41,29 @@
   "manual": "Manual",
   "glossary": "Glossary",
   "developedBy": "Developed with 💚 by",
-  "inspiredBy": "and inspired by"
+  "inspiredBy": "and inspired by",
+  "send": "Send",
+  "cancel": "Cancel",
+  "courses": {
+    "startNow": "Start Now"
+  },
+  "sectionTabs": {
+    "peopleBuilding": "people building in this section"
+  },
+  "lesson": {
+    "previousLesson": "Previous Lesson",
+    "backToCourse": "Back to Course",
+    "nextLesson": "Next Lesson",
+    "lessonSent": "Lesson sent",
+    "clickToSendReport": "Click the button above to send your #progress report"
+  },
+  "profile": {
+    "generalInfo": "General Info",
+    "name": "Name",
+    "whereAreYou": "Where are you?",
+    "socialNetworks": "Social Networks",
+    "personalWebsite": "Personal Website",
+    "yearXP": "Insert the year you started to work as a developer",
+    "yearBlockchainXP": "Insert the year you started to work with blockchain"
+  }
 }

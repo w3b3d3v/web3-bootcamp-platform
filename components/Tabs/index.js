@@ -55,7 +55,7 @@ export default function Tabs({ course, isLessonPage, lessonsSubmitted, cohort })
                 {sectionAnalytics && (
                   <div className="flex flex-col items-center">
                     <p className="m-0 mt-2 p-0" style={{ fontSize: '14px' }}>
-                      {sectionAnalytics?.students} pessoas construindo nessa seção!
+                      {sectionAnalytics?.students} {t('sectionTabs.peopleBuilding')}!
                     </p>
                     <div className="ml-2 flex flex-row items-center">
                       {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (

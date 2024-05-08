@@ -18,6 +18,7 @@ import { getUserFromFirestore } from '../../../../lib/user'
 import { auth } from '../../../../firebase/initFirebase'
 import { MdAdsClick } from 'react-icons/md'
 import { Container } from '@nextui-org/react'
+import { useTranslation } from 'react-i18next'
 
 function Lessons({ course, lesson, currentDate }) {
   const [open, setOpen] = useState(false)
@@ -36,6 +37,7 @@ function Lessons({ course, lesson, currentDate }) {
   const [user, setUser] = useState()
   const ref = React.createRef()
   const router = useRouter()
+  const { t } = useTranslation()
   let testUrl
 
   useEffect(async () => {
@@ -152,7 +154,7 @@ function Lessons({ course, lesson, currentDate }) {
               onClick={previousLesson}
               color={''}
             >
-              Lição anterior
+              {t('lesson.previousLesson')}
             </Button>
             <Button
               id="back-to-course"
@@ -160,7 +162,7 @@ function Lessons({ course, lesson, currentDate }) {
               onClick={() => router.push(`/courses/${course.id}`)}
               color=""
             >
-              Voltar ao curso
+              {t('lesson.backToCourse')}
             </Button>
             <Button
               id="next-lesson"
@@ -168,7 +170,7 @@ function Lessons({ course, lesson, currentDate }) {
               onClick={nextLesson}
               color={'success'}
             >
-              Próxima lição
+              {t('lesson.nextLesson')}
             </Button>
           </div>
           <div></div>
@@ -189,7 +191,7 @@ function Lessons({ course, lesson, currentDate }) {
                       {lessonSent ? (
                         <div className="flex flex-col text-center">
                           <Button ref={ref} customClass="my-8 opacity-60 dark:opacity-50" disabled>
-                            Lição enviada
+                            {t('lesson.lessonSent')}
                           </Button>
                           <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium">
                             {url?.length ? (
@@ -213,10 +215,7 @@ function Lessons({ course, lesson, currentDate }) {
                           </Button>
                           <div className="flex flex-col items-center gap-4">
                             <MdAdsClick size={'17px'} />
-                            <Text size={'$sm'}>
-                              {' '}
-                              Clique no botão acima para enviar o seu relatório de #progresso
-                            </Text>
+                            <Text size={'$sm'}> {t('lesson.clickToSendReport')}</Text>
                           </div>
                         </div>
                       )}
@@ -248,17 +247,17 @@ function Lessons({ course, lesson, currentDate }) {
         </div>
         <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
           <Button customClass="bg-slate-300" onClick={previousLesson} color="">
-            Lição anterior
+            {t('lesson.previousLesson')}
           </Button>
           <Button
             css={{ zIndex: '0', position: 'relative' }}
             color=""
             onClick={() => router.push(`/courses/${course.id}`)}
           >
-            Voltar ao curso
+            {t('lesson.backToCourse')}
           </Button>
           <Button onClick={nextLesson} color="secondary">
-            Próxima lição
+            {t('lesson.nextLesson')}{' '}
           </Button>
         </div>
       </Container>

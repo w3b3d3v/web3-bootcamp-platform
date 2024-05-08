@@ -2,7 +2,7 @@ import { Card, Input, Grid,Container } from '@nextui-org/react'
 import React from 'react'
 import Select from 'react-select'
 import { builderEmojis, builderOptions, langOptions } from '../../../../lib/utils/constants'
-
+import { useTranslation } from 'react-i18next'
 
 export default function ProfessionalData({
   Controller,
@@ -12,6 +12,7 @@ export default function ProfessionalData({
   getValues,
   setValue,
 }) {
+  const { t } = useTranslation()
   const colourStyles = {
     control: (styles) => ({
       ...styles,
@@ -72,7 +73,7 @@ export default function ProfessionalData({
             css={{ mb: '$13' }}
             width={'100%'}
             id={'devExp'}
-            label="Insira o ano de início da sua experiência profissional com desenvolvimento"
+            label={t('profile.yearXP')}
             helperText={errors.devExp?.message}
             bordered
           />
@@ -87,9 +88,7 @@ export default function ProfessionalData({
                 min={'1980'}
                 max={'2023'}
                 css={{ mb: '$13' }}
-                label={
-                  'Insira o ano de início da sua experiência profissional com blockchain'
-                }
+                label={t('profile.yearBlockchainXP')}
                 helperText={errors.blockchainExp?.message}
                 bordered
               />
@@ -123,7 +122,7 @@ export default function ProfessionalData({
           </div>
         </Container>
 
-        <div className="py-2 max-w-5xl m-auto ">
+        <div className="m-auto max-w-5xl py-2 ">
           Que tipo de <bold>builder</bold> {''}
           é você? Selecione até 3 opções
           <br />
