@@ -370,5 +370,9 @@ exports.invokeLogStudentsEveryFiveMinutes = functions.pubsub
     }
   })
 
+const { saveInvites } = require('./lib/discord_invites')
+exports.saveDiscordInvites = functions.pubsub.schedule('every 24 hours').onRun(async (context) => {
+  await saveInvites()
+})
 
 
