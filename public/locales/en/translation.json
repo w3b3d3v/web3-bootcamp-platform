@@ -43,6 +43,7 @@
   "developedBy": "Developed with 💚 by",
   "inspiredBy": "and inspired by",
   "send": "Send",
+  "subscribeNow": "Subscribe now",
   "cancel": "Cancel",
   "courses": {
     "startNow": "Start Now"
@@ -65,5 +66,14 @@
     "personalWebsite": "Personal Website",
     "yearXP": "Insert the year you started to work as a developer",
     "yearBlockchainXP": "Insert the year you started to work with blockchain"
+  },
+  "home": {
+    "cards": [
+      "100% FREE, always!",
+      "Learn Different Programming Languages",
+      "Project Based Learning",
+      "Earn an NFT for each finished project",
+      "Find a job in cool web3 projects"
+    ]
   }
 }

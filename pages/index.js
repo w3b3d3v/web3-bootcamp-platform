@@ -3,16 +3,18 @@ import React from 'react'
 import HomeCards from '../components/Home/Cards'
 import Main from '../components/Home'
 import { getHomeCourse, defaultCourse } from '../lib/course'
+import { useTranslation } from 'react-i18next'
 
 export default function Home({ course }) {
-  const cards = [
-    '100% gratuito, sempre!',
-    'Desenvolva em JavaScript',
-    'Aprendizado baseado em projetos',
-    'Ganhe um NFT para cada projeto finalizado',
-    'Trabalhe como dev em projetos web3',
-  ]
+  const { t } = useTranslation()
 
+  const cards = [
+    t('home.cards.0'),
+    t('home.cards.1'),
+    t('home.cards.2'),
+    t('home.cards.3'),
+    t('home.cards.4'),
+  ]
   return (
     <>
       <Head>

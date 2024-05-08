@@ -1,8 +1,10 @@
 import React from 'react'
 import { Text, Button } from '@nextui-org/react'
 import Cover from './Cover'
+import { useTranslation } from 'react-i18next'
 
 export default function Main({ course }) {
+  const { t } = useTranslation()
   const ref = React.createRef()
   const [link, setLink] = React.useState(null)
 
@@ -34,7 +36,7 @@ export default function Main({ course }) {
         <div className="z-0 m-auto mb-8 lg:self-start">
           <a href={link}>
             <Button id="wish-to-sign-in" color={'success'} ref={ref}>
-              <Text weight={'extrabold'}>Quero me inscrever!</Text>
+              <Text weight={'extrabold'}>{t('subscribeNow')}!</Text>
             </Button>
           </a>
         </div>

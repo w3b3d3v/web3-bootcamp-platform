@@ -43,6 +43,7 @@
   "developedBy": "Desenvolvido com 💚 pela",
   "inspiredBy": "e inspirado pela",
   "send": "Enviar",
+  "subscribeNow": "Quero me inscrever",
   "cancel": "Cancelar",
   "courses": {
     "startNow": "Começar agora"
@@ -65,5 +66,14 @@
     "personalWebsite": "Site Pessoal",
     "yearXP": "Insira o ano de início da sua experiência profissional com desenvolvimento",
     "yearBlockchainXP": "Insira o ano de início da sua experiência profissional com blockchain"
+  },
+  "home": {
+    "cards": [
+      "100% gratuito, sempre!",
+      "Desenvolva em diferentes linguages",
+      "Aprendizado baseado em projetos",
+      "Ganhe um NFT para cada projeto finalizado",
+      "Trabalhe como dev em projetos web3"
+    ]
   }
 }
