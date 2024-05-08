@@ -29,8 +29,7 @@ export default function NavbarComponent() {
   ]
 
   const [profile, setProfile] = useState(false)
-  const { t } = useTranslation()
-
+  const { t, i18n } = useTranslation()
   const { user, logout } = useAuth()
 
   const getUser = async () => {
@@ -51,13 +50,13 @@ export default function NavbarComponent() {
   return (
     <>
       <Navbar variant={'floating'} isBordered={true}>
-        <Link href="/">
-          <Navbar.Brand css={{ gap: '$5' }}>
+        <Navbar.Brand css={{ gap: '$5' }}>
+          <Link href="/">
             <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
             <Text weight={'bold'}>WEB3DEV</Text>
-            <ThemeSwitch />
-          </Navbar.Brand>
-        </Link>
+          </Link>
+          <ThemeSwitch />
+        </Navbar.Brand>
 
         <Navbar.Content hideIn={'sm'}>
           <Link href="/courses">
@@ -71,6 +70,28 @@ export default function NavbarComponent() {
             </Button>
           </Link>
         </Navbar.Content>
+        <Dropdown>
+          <Dropdown.Button size="xs" light rounded flat css={{ paddingBlock: '$10' }}>
+            {i18n.language}
+          </Dropdown.Button>
+          <Dropdown.Menu
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            {i18n.options.whitelist
+              .filter((l) => l !== i18n.language)
+              .map((l) => (
+                <Dropdown.Item>
+                  <Link href={'?lang=' + l}>
+                    <Text weight={'bold'}>{l}</Text>
+                  </Link>
+                </Dropdown.Item>
+              ))}
+          </Dropdown.Menu>
+        </Dropdown>
 
         <Navbar.Content>
           {user?.uid && (
@@ -170,7 +191,6 @@ export default function NavbarComponent() {
           )}
           <Navbar.Toggle showIn="md" />
         </Navbar.Content>
-
         <Navbar.Collapse>
           {!user && (
             <Navbar.CollapseItem
