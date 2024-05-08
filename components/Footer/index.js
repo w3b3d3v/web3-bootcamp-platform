@@ -21,11 +21,11 @@ export default function Footer() {
         </Text>
       </div>
       <hr className="w-full border-gray-200" />
-      <div className="m-auto flex  ">
+      <div className="m-auto flex">
         <ul className="footer-links list-none flex-row text-left ">
           {['twitter', 'discord', 'github', 'linkedin', 'youtube'].map((link) => {
             return (
-              <li className="">
+              <li key={link}>
                 <Link href={links[link]}>{link.upperFirst()}</Link>
               </li>
             )
@@ -34,7 +34,7 @@ export default function Footer() {
         <ul className="footer-links list-none text-left">
           {['forum', 'manual', 'glossary'].map((link) => {
             return (
-              <li className="">
+              <li key={link}>
                 <Link href={links[link]}>{t(link)}</Link>
               </li>
             )

@@ -176,6 +176,7 @@ export default function NavbarComponent() {
         <Navbar.Collapse>
           {!user && (
             <Navbar.CollapseItem
+              key="login"
               css={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <Link href="/auth">
@@ -187,6 +188,7 @@ export default function NavbarComponent() {
           )}
           {navbarLinks.map((item, index) => (
             <Navbar.CollapseItem
+              key={item.name}
               css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', h: 'auto' }}
             >
               <Link href={item.href}>
@@ -197,7 +199,7 @@ export default function NavbarComponent() {
 
           {user && (
             <div>
-              <Navbar.CollapseItem>
+              <Navbar.CollapseItem key="profile-item">
                 <div className="mr-auto ml-auto flex flex-col items-center justify-center gap-x-4 px-6">
                   <Link href="/profile" className="mb-3 flex gap-7">
                     <Text weight={'extrabold'}>Seu perfil</Text>
@@ -214,6 +216,7 @@ export default function NavbarComponent() {
               </Navbar.CollapseItem>
 
               <Navbar.CollapseItem
+                key="indicate-item"
                 css={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 <Button css={{ background: '#17c964' }} color={''} onPress={() => setVisible(true)}>

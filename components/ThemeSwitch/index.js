@@ -6,7 +6,8 @@ import { CgMoon } from 'react-icons/cg'
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
-  const { theme } = useTheme();
+  const { isDark } = useTheme() // Ensure useTheme is called on every render
+  const { setTheme } = useNextTheme() // Ensure useNextTheme is called on every render
 
   useEffect(() => {
     setMounted(true)
@@ -14,16 +15,13 @@ export default function ThemeSwitch() {
 
   if (!mounted) return null
 
-    const { setTheme } = useNextTheme();
-    const { isDark, type } = useTheme();
-
-  return <Switch 
-  shadow 
-  color={'secondary'} 
-  iconOn={<CgMoon/>}  
-  checked={isDark}
-  onChange={(e) => 
-  setTheme(e.target.checked ? 'dark' : 'light')}
-  >
-    </Switch>
+  return (
+    <Switch
+      shadow
+      color={'secondary'}
+      iconOn={<CgMoon />}
+      checked={isDark}
+      onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+    ></Switch>
+  )
 }
