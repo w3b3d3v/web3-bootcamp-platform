@@ -1,7 +1,7 @@
 module.exports = {
   i18n: {
-    locales: ['en-US', 'pt-BR'],
-    defaultLocale: 'en-US',
+    locales: ['en', 'pt'],
+    defaultLocale: 'en',
     localeDetection: true, // Turn off automatic locale detection
   },
   images: {

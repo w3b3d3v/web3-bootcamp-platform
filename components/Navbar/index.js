@@ -18,7 +18,6 @@ import { checkReferral, saveReferralCookie } from '../../lib/store_referral'
 
 export default function NavbarComponent() {
   const { setVisible, bindings } = useModal()
-  const { data: session, status } = useSession()
   const [firestoreUser, setFirestoreUser] = useState()
   const [link, setLink] = useState('')
   const ref = React.createRef()
@@ -29,7 +28,6 @@ export default function NavbarComponent() {
     },
   ]
 
-  const [show, setShow] = useState(null)
   const [profile, setProfile] = useState(false)
   const { t } = useTranslation()
 
@@ -64,7 +62,7 @@ export default function NavbarComponent() {
         <Navbar.Content hideIn={'sm'}>
           <Link href="/courses">
             <Button
-              auto
+              auto="true"
               rounded
               css={{ background: '$blue300' }}
               icon={<FaEthereum color="black" />}
@@ -78,7 +76,7 @@ export default function NavbarComponent() {
           {user?.uid && (
             <Navbar.Content hideIn={'md'}>
               <NUButton
-                auto
+                auto="true"
                 css={{ background: '#17c964' }}
                 color={''}
                 onPress={() => setVisible(true)}
@@ -103,7 +101,7 @@ export default function NavbarComponent() {
                   </Text>
                 </Modal.Body>
                 <Modal.Footer>
-                  <NUButton auto flat onPress={() => setVisible(false)}>
+                  <NUButton auto="true" flat onPress={() => setVisible(false)}>
                     {t('close')}
                   </NUButton>
                 </Modal.Footer>
@@ -209,10 +207,9 @@ export default function NavbarComponent() {
                       src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                       alt={t('profilePicture')}
                     />
-                    <Button icon={<GiExitDoor />} auto color={'error'} onClick={logout} />
+                    <Button icon={<GiExitDoor />} auto="true" color={'error'} onClick={logout} />
                   </Link>
                 </div>
-                {/* <Text>{user?.name || session?.user?.name}</Text> */}
               </Navbar.CollapseItem>
 
               <Navbar.CollapseItem

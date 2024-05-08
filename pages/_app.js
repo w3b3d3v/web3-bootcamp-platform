@@ -32,7 +32,6 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.log(window.location)
       const lang = new URLSearchParams(window.location.search).get('lang')
       if (lang) {
         i18n.changeLanguage(lang)

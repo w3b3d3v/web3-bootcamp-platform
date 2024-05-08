@@ -31,12 +31,25 @@ const queryParameterLangDetector = {
   },
 }
 
+import pt from './public/locales/pt/translation.json'
+import en from './public/locales/en/translation.json'
+
+const resource = {
+  en: {
+    translation: en,
+  },
+  pt: {
+    translation: pt,
+  },
+}
+
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en-US',
+    resources: resource,
+    fallbackLng: 'en',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
@@ -47,7 +60,7 @@ i18n
       caches: ['localStorage'],
       checkWhitelist: true, // Ensure the detected language is in the whitelist
     },
-    whitelist: ['en-US', 'pt-BR'],
+    whitelist: Object.keys(resource),
     interpolation: {
       escapeValue: false,
     },

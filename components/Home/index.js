@@ -19,7 +19,7 @@ export default function Main({ course }) {
       <div className="mx-auto flex flex-1 flex-col items-center">
         <div>
           <div className="m-auto max-w-lg">
-            <Text h1 auto className="mb-4 text-center font-bold">
+            <Text h1 auto="true" className="mb-4 text-center font-bold">
               {course.title}
             </Text>
           </div>
