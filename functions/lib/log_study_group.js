@@ -1,14 +1,16 @@
 const { Client, GatewayIntentBits } = require('discord.js')
 const { firebase, db } = require('./initDb')
+const NodeCache = require('node-cache')
+// Create a cache instance with a default TTL of 1 hour (3600 seconds)
+const myCache = new NodeCache({ stdTTL: 3600, checkperiod: 120 })
 
 // Function to extract weekday from Firestore Timestamp
 const getWeekdayFromTimestamp = (timestamp) => {
   return timestamp.toDate().getDay()
 }
 
-function filterGroupsByTime(groups) {
-  const now = new Date()
-  const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes()
+function filterGroupsByTime(groups, date) {
+  const currentTimeInMinutes = date.getHours() * 60 + date.getMinutes()
 
   return groups.filter((group) => {
     const scheduledTime = group.scheduled_at.toDate()
@@ -19,25 +21,39 @@ function filterGroupsByTime(groups) {
   })
 }
 
-async function study_groups_in_course() {
-  // Get the current date and time
-  const now = new Date()
-  const currentWeekday = now.getDay() // Day of the week (0 for Sunday, 1 for Monday, etc.)
+async function getStudyGroups() {
+  const cacheKey = 'studyGroups'
+  // Check if the data is already in the cache
+  const cachedData = myCache.get(cacheKey)
+  if (cachedData) {
+    return cachedData
+  }
 
-  // Query to find study groups happening on the same weekday
   const studyGroupsQuery = db.collection('study_groups')
+  const snapshot = await studyGroupsQuery.get()
+  const studyGroups = []
+  snapshot.forEach((doc) => {
+    studyGroups.push({ id: doc.id, ...doc.data() })
+  })
 
-  snapshot = await studyGroupsQuery.get()
+  // Store the data in the cache
+  myCache.set(cacheKey, studyGroups)
+  return studyGroups
+}
+
+async function study_groups_in_course(date) {
+  // Get the current date and time
+  const currentWeekday = date.getDay() // Day of the week (0 for Sunday, 1 for Monday, etc.)
+
   const relevantGroups = []
-  for (doc of snapshot.docs) {
-    const data = doc.data()
+  for (let data of await getStudyGroups()) {
     if (!data.scheduled_at) continue
     const scheduledWeekday = getWeekdayFromTimestamp(data.scheduled_at)
     if (scheduledWeekday === currentWeekday) {
-      relevantGroups.push({ id: doc.id, ...data })
+      relevantGroups.push(data)
     }
   }
-  return filterGroupsByTime(relevantGroups)
+  return filterGroupsByTime(relevantGroups, date)
 }
 
 async function log_study_group(channel_id, res) {
@@ -45,7 +61,7 @@ async function log_study_group(channel_id, res) {
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
   })
 
-  const group_now = await study_groups_in_course()
+  const group_now = await study_groups_in_course(new Date())
   if (group_now.length === 0) {
     console.log('No Study group happening now')
     return res.status(200).json({ msg: 'No study group happening now' })
@@ -65,6 +81,7 @@ async function log_study_group(channel_id, res) {
           guild_name: channel.guild.name,
           channel_id: channel_id,
           channel_name: channel.name,
+          study_group_id: group_now[0].id,
           discord_id: userId, // Replace with actual Discord ID
           timestamp: firebase.firestore.FieldValue.serverTimestamp(), // This will use the server's timestamp
         }
@@ -89,4 +106,4 @@ async function log_study_group(channel_id, res) {
   client.login(process.env.NEXT_PUBLIC_DISCORD_BOT_KEY)
 }
 
-exports.log_study_group = log_study_group
+module.exports = { log_study_group, study_groups_in_course }
