@@ -7,10 +7,9 @@ const { getNextCohort } = require('./lib/second_chance_cohort')
 const { usersBySection, storeUsersPerCohort } = require('./build_analytics')
 const { PubSub } = require('@google-cloud/pubsub')
 const pubsub = new PubSub()
-const { cohortSignup, newUser, addDiscordUserToRole } = require('./pubsub.functions')
+const { cohortSignup, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
-const { log_study_group, study_groups_in_course } = require('./lib/log_study_group')
-
+const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
@@ -353,34 +352,6 @@ exports.logStudents = functions.https.onRequest(async (req, resp) => {
   log_study_group(req.query.channel_id, resp)
 })
 
-exports.fixLogsWithoutGroup = functions.https.onRequest(async (req, resp) => {
-  const allPresence = await db.collection('study_group_presence').get()
-
-  console.log('updating ' + allPresence.size + ' logs')
-
-  const logs = []
-  allPresence.forEach((doc) => {
-    logs.push({ id: doc.id, ...doc.data() })
-  })
-
-  for (let log of logs) {
-    if (!log.study_group_id) {
-      const dt = log.timestamp.toDate()
-      const group_now = await study_groups_in_course(dt)
-      if (group_now.length === 0) {
-        console.log('No Study group happening for log:' + log.id + ' at ' + dt)
-        db.collection('study_group_presence').doc(log.id).delete()
-      } else {
-        console.log(
-          'Updating log ' + log.id + ' with group ' + group_now[0].id + ' ' + group_now[0].title
-        )
-        log.study_group_id = group_now[0].id
-        db.collection('study_group_presence').doc(log.id).set(log)
-      }
-    }
-  }
-  resp.send('ok')
-})
 
 const region = 'us-central1'
 const projectId = firebase.app().options.projectId
