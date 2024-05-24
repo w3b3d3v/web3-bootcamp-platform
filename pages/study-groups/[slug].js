@@ -1,8 +1,7 @@
 import { getStudyGroup } from '../../lib/course'
 import { withProtected } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
-import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user'
-import { CalendarIcon } from '@heroicons/react/solid'
+import { getUserFromFirestore, registerUserInStudyGroupInFirestore } from '../../lib/user'
 import React, { useState, useEffect } from 'react'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
@@ -12,30 +11,39 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
-import {dateFormat} from '../../lib/dateFormat'
+import { dateFormat } from '../../lib/dateFormat'
 
 function StudyGroup({ studyGroup }) {
   if (!studyGroup.active) return <NotFound />
 
-  const [user, setUser] = useState()
-  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false)
 
-  const addUserToStudyGroup = async () => {
-    // await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
-    setUserRegisteredInGroup(true)
-  }
-
-  const checkUserRegistration = () => {
-    return userRegisteredInGroup
-  }
-
-  useEffect(async () => {
-    if (auth.currentUser) {
-      const userSession = await getUserFromFirestore(auth.currentUser)
-      setUser(userSession)
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (auth.currentUser) {
+        setLoading(true)
+        const userSession = await getUserFromFirestore(auth.currentUser)
+        setUser(userSession)
+        const isRegistered = !!userSession?.study_groups?.find(
+          (userStudyGroup) => userStudyGroup.study_group_id == studyGroup.id
+        )
+        setUserRegisteredInGroup(isRegistered)
+        setLoading(false)
+      } else {
+        setLoading(false)
+      }
     }
+    fetchUser()
   }, [auth.currentUser])
+
+  const registerUserToStudyGroup = async () => {
+    setLoading(true)
+    await registerUserInStudyGroupInFirestore(studyGroup.id, auth.currentUser.uid)
+    setUserRegisteredInGroup(true)
+    setLoading(false)
+  }
 
   return (
     <>
@@ -65,15 +73,14 @@ function StudyGroup({ studyGroup }) {
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-3xl self-center lg:max-w-lg">
             <h1 className="text-2xl font-bold">{studyGroup?.title}</h1>
-
-            <p className="mb-6  text-sm">{studyGroup?.description /*.substring(0, 100) + '...'*/}</p>
+            <p className="mb-6 text-sm">{studyGroup?.description}</p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
             <Image
               src={studyGroup?.image_url}
               width="300px"
               height="300px"
-              style={{borderRadius:'10px'}}
+              style={{ borderRadius: '10px' }}
             ></Image>
           </div>
         </div>
@@ -84,23 +91,22 @@ function StudyGroup({ studyGroup }) {
           </div>
         ) : (
           <>
-            {!checkUserRegistration() ? (
-              <>
-                <button
-                  id={`signup-cohort`}
-                  onClick={() => addUserToStudyGroup()}
-                  className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
-                >
-                  Inscreva-se agora &#x1F31F
-                </button>
-              </>
+            {!userRegisteredInGroup ? (
+              <button
+                id={`signup-study-group`}
+                onClick={registerUserToStudyGroup}
+                className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
+              >
+                Inscreva-se agora &#x1F31F
+              </button>
             ) : (
               <>
-                <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6 ">
+                <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
                   <div className="flex w-3/4 flex-col items-center justify-center">
                     <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
                     <p className="text-sm lg:text-base">
-                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!
+                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
+                      calendário para não esquecer. Nos veremos lá!
                     </p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       <button
@@ -113,7 +119,7 @@ function StudyGroup({ studyGroup }) {
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
-                            Adicionar ao calendário Google{' '}
+                            Adicionar ao calendário Google
                           </p>
                         </a>
                       </button>
