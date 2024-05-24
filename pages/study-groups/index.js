@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import { getAllGroups } from '../../lib/study-groups'
+import { getAllStudyGroups } from '../../lib/study-groups'
 import { Container } from '@nextui-org/react'
-import { GroupCard } from '../../components/Card/Group'
+import { StudyGroupCard } from '../../components/Card/StudyGroup'
 import Image from 'next/image'
  
-function Groups({ AllGroups }) {
+function StudyGroups({ AllStudyGroups }) {
   const pageInfo = {
-    "title": "List of All Groups",
+    "title": "List of All Study Groups",
     "description": "Crie sua própria loja virtual na Web3 com Solana Pay Nesse desafio você irá construir uma loja para vender suas utilidades ou artes na blockchain, sem precisar usar Rust. A Solana é uma das redes blockchains mais completas do ecossistema e possui toda infraestrutura para você construir uma loja nesta rede e receber pagamentos em criptomoedas. Se você estava esperando uma oportunidade para empreender na web3, a hora é agora! Esse bootcamp vai conduzir você passo a passo na criação desta loja sem precisar conhecer Rust, usando apenas JavaScript, Next.js e conhecimentos básicos de programação.",
   }
 
@@ -49,10 +49,10 @@ function Groups({ AllGroups }) {
             justifyContent: 'center',
           }}
         >
-          {AllGroups.map((g) => {
+          {AllStudyGroups.map((g) => {
             return (
               <>
-                <GroupCard group={g} />
+                <StudyGroupCard studyGroup={g} />
               </>
             )
           })}
@@ -63,12 +63,12 @@ function Groups({ AllGroups }) {
 }
 
 export async function getStaticProps() {
-  const AllGroups = await getAllGroups()
+  const AllStudyGroups = await getAllStudyGroups()
   return {
     props: {
-      AllGroups,
+      AllStudyGroups,
     },
   }
 }
 
-export default Groups
+export default StudyGroups

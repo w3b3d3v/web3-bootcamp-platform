@@ -146,7 +146,7 @@ function Lessons({ course, lesson, currentDate }) {
       </Head>
       <Container>
         <div className="mx-auto px-6 py-2">
-          <Tabs course={course} isLessonPage lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+          <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
           <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
             <Button
               id="previous-lesson"
@@ -266,7 +266,7 @@ function Lessons({ course, lesson, currentDate }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const course = await getCourse("course", params.id)
+  const course = await getCourse(params.id)
   const currentDate = new Date().toISOString()
   const lesson = params.lesson
   return {
