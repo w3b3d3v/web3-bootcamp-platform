@@ -353,7 +353,7 @@ function Course({ course, currentDate }) {
                   </div>
                 </div>
                 <div className="my-8">
-                  <Tabs isLessonPage={true} course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
+                  <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
                   <div className="z-10 my-8 w-full rounded-lg p-7">
                     {course?.sections &&
@@ -435,7 +435,7 @@ function Course({ course, currentDate }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const course = await getCourse("course", params.id)
+  const course = await getCourse(params.id)
   const currentDate = new Date().toISOString()
   return {
     props: {

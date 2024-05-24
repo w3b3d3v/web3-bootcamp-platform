@@ -5,7 +5,7 @@ import { checkSectionsCompleted, lessonsCompletedBySection } from '../../lib/sec
 let user_id = 'tFOYKWIm6OMlKHtmxarRfVY77W63'
 
 export async function fetchDB() {
-  const course = await getCourse("course", 'Solidity_And_Smart_Contracts')
+  const course = await getCourse('Solidity_And_Smart_Contracts')
   const list = getLessonsByCourse(course).list
   const lessonsBySection = getLessonsByCourse(course).lessonsBySection
   const lessons = await getLessonsSubmittedBySection(user_id)

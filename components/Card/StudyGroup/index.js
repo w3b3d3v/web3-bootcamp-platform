@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { MdExpandMore } from 'react-icons/md'
 import Tabs from '../../Tabs'
 
-export function GroupCard ({group}) {
+export function StudyGroupCard ({studyGroup}) {
     const [showMore, setShowMore] = useState(false)
  
     return (
@@ -17,12 +17,15 @@ export function GroupCard ({group}) {
              justifyContent: 'space-between',
              gap: 5,
              height: 'auto',
+             '@media (min-width: 768px)': {
+                minHeight: '850px',
+             },
              paddingBlock: '$10'
 
          }}
          isHoverable
-         key={group.id}
-         id={group.id}
+         key={studyGroup.id}
+         id={studyGroup.id}
      >
          <Card.Header
              css={{
@@ -33,10 +36,10 @@ export function GroupCard ({group}) {
                  justifyContent: 'center',
              }}
          >
-             <Card.Image src={group.image_url} key={group.id}></Card.Image>
+             <Card.Image src={studyGroup.image_url} key={studyGroup.id}></Card.Image>
          </Card.Header>
-         <Tabs isLessonPage={false} course={group} lessonsSubmitted={[]} cohort={[]} />
-         <Link href={`/study-groups/${group.slug}`} >
+         <Tabs course={studyGroup} />
+         <Link href={`/study-groups/${studyGroup.slug}`} >
              <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
                  <Text weight={'bold'} color={''}>
                      Entrar na turma
@@ -45,13 +48,13 @@ export function GroupCard ({group}) {
          </Link>
          <Card.Divider />
          <Button css={{ margin: 'auto', mt:'$5' }} color={'success'} rounded flat size={'xs'}>
-             {group.difficulty}
+             {studyGroup.difficulty}
          </Button>
          <Collapse.Group >
              <div className='mt-1' >
                  {(!showMore &&
                      <div>
-                         <Text>{group.description.substring(0, 100) + '...'}
+                         <Text>{studyGroup.description.substring(0, 100) + '...'}
                          </Text>
                          <Button
                          onPress={() => setShowMore(true)}
@@ -65,7 +68,7 @@ export function GroupCard ({group}) {
                  )}
                  {showMore && (
                      <div>
-                         <Text>{group.description}</Text>
+                         <Text>{studyGroup.description}</Text>
                          <Button 
                          css={{ margin: 'auto', mt:'$10' }} 
                          onPress={() => setShowMore(false)} 

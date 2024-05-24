@@ -1,10 +1,9 @@
-import { getCourse } from '../../lib/course'
+import { getStudyGroup } from '../../lib/course'
 import { withProtected } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user'
 import { CalendarIcon } from '@heroicons/react/solid'
 import React, { useState, useEffect } from 'react'
-import Tabs from '../../components/Tabs'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
 import ShareLinkCard from '../../components/Card/ShareLink'
@@ -15,12 +14,12 @@ import Image from 'next/image'
 import Loading from '../../components/Loading'
 import {dateFormat} from '../../lib/dateFormat'
 
-function Group({ group }) {
-  if (!group.active) return <NotFound />
+function StudyGroup({ studyGroup }) {
+  if (!studyGroup.active) return <NotFound />
 
   const [user, setUser] = useState()
   const [loading, setLoading] = useState(false)
-  const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false);
+  const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false)
 
   const addUserToStudyGroup = async () => {
     // await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
@@ -41,37 +40,37 @@ function Group({ group }) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={group.title} />
+        <meta property="og:title" content={studyGroup.title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:description" content={group.description} />
-        <meta property="og:image" content={group?.resized_img_url || group.image_url} />
+        <meta property="og:description" content={studyGroup.description} />
+        <meta property="og:image" content={studyGroup?.resized_img_url || studyGroup.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${group.title} `} />
+        <meta property="og:image:alt" content={`${studyGroup.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
 
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={group.title} />
-        <meta property="twitter:description" content={group.description} />
-        <meta property="twitter:image" content={group.image_url} />
+        <meta property="twitter:title" content={studyGroup.title} />
+        <meta property="twitter:description" content={studyGroup.description} />
+        <meta property="twitter:image" content={studyGroup.image_url} />
         {/*Twitter End*/}
 
-        <title>Group {group.title} - WEB3DEV</title>
+        <title>Study Group {studyGroup.title} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-3xl self-center lg:max-w-lg">
-            <h1 className="text-2xl font-bold">{group?.title}</h1>
+            <h1 className="text-2xl font-bold">{studyGroup?.title}</h1>
 
-            <p className="mb-6  text-sm">{group?.description /*.substring(0, 100) + '...'*/}</p>
+            <p className="mb-6  text-sm">{studyGroup?.description /*.substring(0, 100) + '...'*/}</p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
             <Image
-              src={group?.image_url}
+              src={studyGroup?.image_url}
               width="300px"
               height="300px"
               style={{borderRadius:'10px'}}
@@ -92,7 +91,7 @@ function Group({ group }) {
                   onClick={() => addUserToStudyGroup()}
                   className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
                 >
-                  Inscreva-se agora &#x1F31F;
+                  Inscreva-se agora &#x1F31F
                 </button>
               </>
             ) : (
@@ -110,7 +109,7 @@ function Group({ group }) {
                       >
                         <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${group?.scheduled_at}/}&text=Bootcamp Web3dev ${group?.title}`}
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${studyGroup?.scheduled_at}/}&text=Bootcamp Web3dev ${studyGroup?.title}`}
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
@@ -130,7 +129,7 @@ function Group({ group }) {
                   </div>
                 </div>
                 <div className="flex pt-6">
-                  <ShareLinkCard group={group.id} />
+                  <ShareLinkCard studyGroup={studyGroup.id} />
                 </div>
                 <br />
               </>
@@ -143,14 +142,14 @@ function Group({ group }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const group = await getCourse("group", params.slug)
+  const studyGroup = await getStudyGroup(params.slug)
   const currentDate = new Date().toISOString()
   return {
     props: {
-      group,
+      studyGroup,
       currentDate,
     },
   }
 }
 
-export default withProtected(Group)
+export default withProtected(StudyGroup)
