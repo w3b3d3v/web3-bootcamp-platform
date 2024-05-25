@@ -11,6 +11,7 @@ const { cohortSignup, addDiscordUserToRole } = require('./pubsub.functions')
 const { createUser } = require('./lib/mailchimp')
 const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
+const { usersByStudyGroup, storeUsersPerStudyGroup } = require('./study_group_analytics')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -381,4 +382,16 @@ exports.saveDiscordInvites = functions.pubsub.schedule('every 24 hours').onRun(a
   await saveInvites()
 })
 
-
+exports.fetchStoreStudyGroupAnalytics = functions.pubsub
+  .schedule('0 0 * * *')
+  .timeZone('America/Sao_Paulo')
+  .onRun(async (context) => {
+    try {
+      const [rows] = await usersByStudyGroup()
+      await storeUsersPerStudyGroup(rows)
+      return true
+    } catch (e) {
+      console.log('error: ' + e)
+      return false
+    }
+  })
