@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 import { 
   FaEthereum
  } from 'react-icons/fa'
+import { MdGroup } from "react-icons/md";
 
 import { useSession, signOut } from 'next-auth/react'
 import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
@@ -25,6 +26,10 @@ export default function NavbarComponent() {
     {
       name: 'Builds',
       href: '/courses',
+    },
+    {
+      name: 'Study Groups',
+      href: '/study-groups',
     },
   ]
 
@@ -64,10 +69,20 @@ export default function NavbarComponent() {
             <Button
               auto="true"
               rounded
-              css={{ background: '$blue300' }}
+              css={{ background: '$white' }}
               icon={<FaEthereum color="black" />}
             >
-              <Text weight={'extrabold'}>Builds</Text>
+              <Text weight={'extrabold'} css={{ color: 'black' }}>Builds</Text>
+            </Button>
+          </Link>
+          <Link href="/study-groups">
+            <Button
+              auto="true"
+              rounded
+              css={{ background: '$white' }}
+              icon={<MdGroup color="black" />}
+            >
+              <Text weight={'extrabold'} css={{ color: 'black' }}>Study Groups</Text>
             </Button>
           </Link>
         </Navbar.Content>
