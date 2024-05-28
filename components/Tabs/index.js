@@ -8,27 +8,27 @@ export default function Tabs({ course, lessonsSubmitted, cohort }) {
   const isCourse = lessonsSubmitted && cohort
 
   if (!isCourse) {
-    const sectionAnalytics = course.analytics?.[0]
+    const sectionAnalytics = course?.analytics
     return (
       <div className="flex flex-col rounded-lg">
         <div className="flex flex-row justify-center items-center">
-          {sectionAnalytics?.photoUrls.slice(0, 3).map((source, index) => (
-            <img
-              key={source}
-              src={source}
-              alt="User avatar"
-              style={{
-                width: '50px',
-                height: '50px',
-                borderRadius: '50%',
-                marginLeft: index !== 0 ? '-15px' : '0',
-                position: 'relative',
-                zIndex: sectionAnalytics?.photoUrls.length - index,
-              }}
-            />
-          ))}
+        {sectionAnalytics?.photoUrls?.slice(0, 3).map((source, index) => (
+          <img
+            key={source}
+            src={source}
+            alt="User avatar"
+            style={{
+              width: '50px',
+              height: '50px',
+              borderRadius: '50%',
+              marginLeft: index !== 0 ? '-15px' : '0',
+              position: 'relative',
+              zIndex: sectionAnalytics?.photoUrls.length - index,
+            }}
+          />
+        ))}
         </div>
-        {sectionAnalytics && (
+        {sectionAnalytics?.students && (
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             {sectionAnalytics.students} entusiastas nesse grupo de estudos!
           </p>
