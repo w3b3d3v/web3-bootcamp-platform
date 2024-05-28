@@ -47,6 +47,12 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@google-cloud/pubsub": "^4.4.0",
+    "nodemailer": "^6.9.13",
+    "nodemailer-mandrill-transport": "^1.2.0",
+    "node-cache": "^5.1.2",
+    "firebase-functions": "^5.0.1",
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@babel/core": "^7.18.2",
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
