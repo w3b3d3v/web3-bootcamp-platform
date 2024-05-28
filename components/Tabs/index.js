@@ -4,7 +4,7 @@ import { checkSections, colorTab } from './tabFunctions'
 import { useTranslation } from "react-i18next"
 
 export default function Tabs({ course, lessonsSubmitted, cohort }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const isCourse = lessonsSubmitted && cohort
 
   if (!isCourse) {

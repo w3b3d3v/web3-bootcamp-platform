@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next"
 import { 
   FaEthereum
  } from 'react-icons/fa'
-import { MdGroup } from "react-icons/md";
+import { MdGroup } from "react-icons/md"
 
 import { useSession, signOut } from 'next-auth/react'
 import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
