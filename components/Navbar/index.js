@@ -220,7 +220,7 @@ export default function NavbarComponent() {
               <Navbar.CollapseItem key="profile-item">
                 <div className="mr-auto ml-auto flex flex-col items-center justify-center gap-x-4 px-6">
                   <Link href="/profile" className="mb-3 flex gap-7">
-                    <Text weight={'extrabold'}>Seu perfil</Text>
+                    <Text weight={'extrabold'}>{t('myProfile')}</Text>
                     <Avatar
                       bordered
                       className="h-10 w-10 rounded-full object-cover"

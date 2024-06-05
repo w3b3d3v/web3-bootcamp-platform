@@ -65,7 +65,8 @@
     "socialNetworks": "Social Networks",
     "personalWebsite": "Personal Website",
     "yearXP": "Insert the year you started to work as a developer",
-    "yearBlockchainXP": "Insert the year you started to work with blockchain"
+    "yearBlockchainXP": "Insert the year you started to work with blockchain",
+    "changeProfilePicture": "Change profile picture"
   },
   "home": {
     "cards": [
@@ -75,5 +76,26 @@
       "Earn an NFT for each finished project",
       "Find a job in cool web3 projects"
     ]
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": {
+      "typeError": "Email needs to be filled out",
+      "invalid": "Invalid email",
+      "required": "Email is required"
+    },
+    "url": {
+      "invalid": "Invalid URL"
+    },
+    "number": {
+      "integer": "Only integers are allowed",
+      "max": "We haven't invented the time machine yet, haha"
+    },
+    "devExp": {
+      "min": "Were you programming on punch cards? The minimum is 1982 :)"
+    },
+    "blockchainExp": {
+      "min": "Satoshi, is that you? The minimum is 2008 :)"
+    }
   }
 }

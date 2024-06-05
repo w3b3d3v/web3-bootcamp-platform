@@ -65,7 +65,8 @@
     "socialNetworks": "Redes Sociais",
     "personalWebsite": "Site Pessoal",
     "yearXP": "Insira o ano de início da sua experiência profissional com desenvolvimento",
-    "yearBlockchainXP": "Insira o ano de início da sua experiência profissional com blockchain"
+    "yearBlockchainXP": "Insira o ano de início da sua experiência profissional com blockchain",
+    "changeProfilePicture": "Alterar foto de perfil"
   },
   "home": {
     "cards": [
@@ -75,5 +76,27 @@
       "Ganhe um NFT para cada projeto finalizado",
       "Trabalhe como dev em projetos web3"
     ]
+  },
+
+  "validation": {
+    "required": "Este campo é obrigatório",
+    "email": {
+      "typeError": "Email precisa ser preenchido",
+      "invalid": "Email inválido",
+      "required": "Email é obrigatório"
+    },
+    "url": {
+      "invalid": "URL inválida"
+    },
+    "number": {
+      "integer": "Somente números inteiros",
+      "max": "Ainda não inventamos a máquina do tempo, haha"
+    },
+    "devExp": {
+      "min": "Programava em cartão? O mínimo é 1982 :)"
+    },
+    "blockchainExp": {
+      "min": "Satoshi, é você? O mínimo é 2008 :)"
+    }
   }
 }

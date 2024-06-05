@@ -14,20 +14,20 @@ export default function LoginButton(props) {
           <button
             id={id}
             className={`dark:hover:bg-grey-400 fw-bold mb-5 flex
-            w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-white-100 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-black-200 font-bold py-1 hover:scale-[1.02] border-none`}
-            onClick={() => loginGithub()}
+            w-full cursor-pointer items-center justify-center gap-3 rounded-lg border-none bg-white-100 py-1 font-bold text-gray-700 hover:scale-[1.02] hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-black-200`}
+            onPress={() => loginGithub()}
           >
             {buttonImage()}
             {textContent}
           </button>
         </div>
       ) : (
-        <section className="flex w-full items-center justify-center bg-white-100 rounded-lg hover:bg-gray-300 hover:scale-[1.02]">
+        <section className="flex w-full items-center justify-center rounded-lg bg-white-100 hover:scale-[1.02] hover:bg-gray-300">
           {buttonImage()}
           <button
             id={id}
-            className="cursor-pointer border-none bg-transparent dark:text-black-200 font-bold text-gray-700"
-            onClick={() => loginGoogle()}
+            className="cursor-pointer border-none bg-transparent font-bold text-gray-700 dark:text-black-200"
+            onPress={() => loginGoogle()}
           >
             {textContent}
           </button>

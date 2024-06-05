@@ -5,7 +5,7 @@ import { countries } from 'countries-list';
 import { Dropdown } from "@nextui-org/react";
 import Image from 'next/image';
 import Loading from '../../../Loading';
-
+import { useTranslation } from 'react-i18next'
 
 export default function PersonalData({
   Controller,
@@ -19,6 +19,7 @@ export default function PersonalData({
   setZip,
   loading,
 }) {
+  const { t, i18n } = useTranslation()
   const countryOptions = Object.keys(countries).map((countryCode) => ({
     value: countryCode,
     label: countries[countryCode].name,
@@ -38,7 +39,7 @@ export default function PersonalData({
       <Content>
         <Button color={''} css={{ maxWidth: '100px', margin: 'auto' }}>
           <label className="">
-            Alterar foto de perfil 📷
+            {t('profile.changeProfilePicture')} 📷
             <input
               type="file"
               onChange={(event) => setFile(event.target.files[0])}
