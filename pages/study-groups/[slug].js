@@ -66,14 +66,16 @@ function StudyGroup({ studyGroup }) {
           <div className="max-w-3xl self-center lg:max-w-lg">
             <h1 className="text-2xl font-bold">{studyGroup?.title}</h1>
 
-            <p className="mb-6  text-sm">{studyGroup?.description /*.substring(0, 100) + '...'*/}</p>
+            <p className="mb-6  text-sm">
+              {studyGroup?.description /*.substring(0, 100) + '...'*/}
+            </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
             <Image
               src={studyGroup?.image_url}
               width="300px"
               height="300px"
-              style={{borderRadius:'10px'}}
+              style={{ borderRadius: '10px' }}
             ></Image>
           </div>
         </div>
@@ -91,7 +93,7 @@ function StudyGroup({ studyGroup }) {
                   onClick={() => addUserToStudyGroup()}
                   className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
                 >
-                  Inscreva-se agora &#x1F31F
+                  Inscreva-se agora &#x1F31F;
                 </button>
               </>
             ) : (
@@ -100,7 +102,8 @@ function StudyGroup({ studyGroup }) {
                   <div className="flex w-3/4 flex-col items-center justify-center">
                     <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
                     <p className="text-sm lg:text-base">
-                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu calendário para não esquecer. Nos veremos lá!
+                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
+                      calendário para não esquecer. Nos veremos lá!
                     </p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       <button
