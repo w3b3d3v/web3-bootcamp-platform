@@ -2,7 +2,7 @@ function template(params) {
   return `
         <!DOCTYPE html>Fala builder! danicuki da web3dev aqui.<br>
         <br>
-        Eu tô muito feliz que você está na turma ${params.cohort.name} do bootcamp <b>"${params.course.title}"</b>!<br>
+        Eu tô muito feliz que você está na turma ${params.cohort.name} do build <b>"${params.course.title}"</b>!<br>
         <br>
         Se você ainda não terminou as lições, ainda dá tempo! Eu quero te lembrar que essa oportunidade pode ser <b>única</b> e pode <b>alavancar sua carreira</b> de verdade!<br>
         <br>

@@ -13,7 +13,7 @@ Estamos lançando mais um build incrível na WEB3DEV!<br>
 <br>
 <b><a href="https://build.w3d.community/?utm_medium=email&utm_source=non-subscribed">Construa sua própria DAO apenas com JavaScript em uma semana</a></b><br>
 <br>
-O bootcamp começa dia ${d(
+O build começa dia ${d(
     params.cohort.startDate
   )} e as inscrições já estão abertas! Só clicar no link acima! <br>
 <br>

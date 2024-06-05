@@ -112,7 +112,7 @@ function StudyGroup({ studyGroup }) {
                       >
                         <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${studyGroup?.scheduled_at}/}&text=Bootcamp Web3dev ${studyGroup?.title}`}
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${studyGroup?.scheduled_at}/}&text=Build Web3dev ${studyGroup?.title}`}
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">

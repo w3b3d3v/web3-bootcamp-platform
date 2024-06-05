@@ -198,9 +198,8 @@ exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
   const users = await usersToSend2ndChance(cohort_id)
 
   users.map((u) => {
-    sendEmail('cohort_new_chance', 'Nova chance para finalizar o Bootcamp', u.email)
+    sendEmail('cohort_new_chance', 'Nova chance para finalizar o Build', u.email)
   })
-  // sendEmail('cohort_new_chance', 'Nova chance para finalizar o Bootcamp', 'danicuki@gmail.com')
   resp.send({ size: users.length, users: users })
 })
 
