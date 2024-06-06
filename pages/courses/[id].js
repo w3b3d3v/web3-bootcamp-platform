@@ -200,10 +200,12 @@ function Course({ course, currentDate }) {
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
-          <div className="max-w-3xl self-center lg:max-w-lg">
+          <div className="max-w-4xl self-center">
             <h1 className="text-2xl font-bold">{course?.title}</h1>
 
-            <p className="mb-6  text-sm">{course?.description /*.substring(0, 100) + '...'*/}</p>
+            <p className="mb-6  text-sm">
+              <div dangerouslySetInnerHTML={{ __html: course?.description }} /> <br />
+            </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
             <Image
@@ -224,9 +226,7 @@ function Course({ course, currentDate }) {
             {userIsNotRegisteredAndCohortIsClosed() && (
               <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
                 <div className="flex w-3/4 flex-col items-center justify-center">
-                  <p className="text-center text-2xl">
-                    {t('registrationClosed')}
-                  </p>
+                  <p className="text-center text-2xl">{t('registrationClosed')}</p>
                 </div>
               </div>
             )}
@@ -240,7 +240,8 @@ function Course({ course, currentDate }) {
                     </a>
                   </Link>
                   <p className="mt-0 mb-0 text-center text-2xl text-white-100">
-                  {t('registrationDone')} <br />{t('launchDateAnnouncement')}{' '}
+                    {t('registrationDone')} <br />
+                    {t('launchDateAnnouncement')}{' '}
                     <Link href={'https://pt.discord.w3d.community/'}>
                       <a
                         id="discord-text-link"
@@ -284,9 +285,7 @@ function Course({ course, currentDate }) {
                 <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6 ">
                   <div className="flex w-3/4 flex-col items-center justify-center">
                     <p className="mb-3 text-2xl">{t('liveEvent')}</p>
-                    <p className="text-sm lg:text-base">
-                      {t('liveEventDescription')}
-                    </p>
+                    <p className="text-sm lg:text-base">{t('liveEventDescription')}</p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       {timeLeft && '⏰' + timeLeft}
                       <button
@@ -304,7 +303,7 @@ function Course({ course, currentDate }) {
                           }}
                         >
                           <CalendarIcon className="mr-2 h-7 w-7" />
-                            {t('addToCalendar')}
+                          {t('addToCalendar')}
                         </ICalendarLink>
                       </button>
 
@@ -360,7 +359,7 @@ function Course({ course, currentDate }) {
                       Object.keys(course?.sections)
                         .sort()
                         .map((section) => {
-                          const sectionNumber = section.replace('Section_', '');
+                          const sectionNumber = section.replace('Section_', '')
                           return (
                             <div key={section}>
                               <span id={section} className="mb-4 font-bold">

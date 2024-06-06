@@ -21,7 +21,7 @@ export default function Main({ course }) {
       <div className="mx-auto flex flex-1 flex-col items-center">
         <div>
           <div className="m-auto max-w-lg">
-            <Text h1 auto="true" className="mb-4 text-center font-bold">
+            <Text h2 auto="true" className="mb-4 text-center font-bold">
               {course.title}
             </Text>
           </div>
@@ -29,8 +29,7 @@ export default function Main({ course }) {
             <Cover imageUrl={course.image_url} />
           </div>
           <div className="max-w-2xl">
-            <Text>{course?.description}</Text>
-            <br />
+            <div dangerouslySetInnerHTML={{ __html: course?.description }} /> <br />
           </div>
         </div>
         <div className="z-0 m-auto mb-8 lg:self-start">
