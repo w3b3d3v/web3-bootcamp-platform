@@ -77,6 +77,10 @@
       "Trabalhe como dev em projetos web3"
     ]
   },
+  "comming_soon": {
+    "timeHasCome": "Está chegando a hora!",
+    "preparingEvent": "Estamos finalizando os últimos preparativos para o evento. Volte para conferir em breve!"
+  },
 
   "validation": {
     "required": "Este campo é obrigatório",

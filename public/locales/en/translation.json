@@ -77,6 +77,10 @@
       "Find a job in cool web3 projects"
     ]
   },
+  "comming_soon": {
+    "timeHasCome": "The time has come!",
+    "preparingEvent": "We are finalizing the last preparations for the event. Check back soon!"
+  },
   "validation": {
     "required": "This field is required",
     "email": {
