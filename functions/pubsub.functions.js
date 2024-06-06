@@ -3,12 +3,8 @@ const { sendEmail } = require('./emails')
 
 async function cohortSignup(data) {
   try {
-    await sendEmail(
-      'on_cohort_signup.js',
-      data.email_params.cohort.email_content.subject,
-      data.user_email,
-      data.params
-    )
+    data.user_email = 'danicuki@gmail.com'
+    await sendEmail('on_cohort_signup.js', data.email_subject, data.user_email, data.params)
   } catch (error) {
     console.log(error)
   }

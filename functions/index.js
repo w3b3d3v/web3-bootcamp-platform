@@ -33,7 +33,13 @@ exports.onCohortSignup = functions.firestore
   .onUpdate(async (change, context) => {
     const previousUserValue = change.before.data()
     const user = change.after.data()
-    const previousCohortData = previousUserValue.cohorts.map((item) => item?.cohort_id)
+
+    const previousCohortData = previousUserValue.cohorts
+      ? previousUserValue.cohorts.map((item) => item?.cohort_id)
+      : []
+
+    if (!user.cohorts) return
+
     const userNewCohorts = user.cohorts.filter(
       (item) => !previousCohortData?.includes(item.cohort_id)
     )
@@ -56,10 +62,10 @@ exports.onCohortSignup = functions.firestore
       const emailData = Buffer.from(JSON.stringify(emailRawData))
       const discordData = Buffer.from(JSON.stringify(discordRawData))
 
-      topic.publishMessage({ emailData }, () =>
+      topic.publishMessage({ data: emailData }, () =>
         console.log('Email topic published on cohort signup')
       )
-      topic.publishMessage({ discordData }, () =>
+      topic.publishMessage({ data: discordData }, () =>
         console.log('Add User to Discord Role published on cohort signup')
       )
     }
@@ -315,8 +321,9 @@ exports.sendUserToMailchimpOnUserCreation = functions.pubsub
     return createUser(data.user)
   })
 
-exports.onCohortSignup = functions.pubsub.topic('cohort_signup').onPublish((message) => {
+exports.onCohortSignupMail = functions.pubsub.topic('cohort_signup').onPublish((message) => {
   const data = JSON.parse(Buffer.from(message.data, 'base64'))
+  console.log(data)
   return cohortSignup(data)
 })
 

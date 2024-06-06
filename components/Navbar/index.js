@@ -35,6 +35,7 @@ export default function NavbarComponent() {
   const getUser = async () => {
     if (user?.uid)
       return await getUserFromFirestore(user).then((u) => {
+        if (!u) return
         checkReferral(u, updateUserInFirestore)
         setFirestoreUser(u)
       })
