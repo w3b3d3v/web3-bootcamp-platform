@@ -4,7 +4,7 @@ import Cover from './Cover'
 import { useTranslation } from 'react-i18next'
 
 export default function Main({ course }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const ref = React.createRef()
   const [link, setLink] = React.useState(null)
 
@@ -22,14 +22,20 @@ export default function Main({ course }) {
         <div>
           <div className="m-auto max-w-lg">
             <Text h2 auto="true" className="mb-4 text-center font-bold">
-              {course.title}
+              {!course?.metadata ? course.title : course.metadata[i18n.language].title}
             </Text>
           </div>
           <div className="mb-7 flex justify-center text-justify">
             <Cover imageUrl={course.image_url} />
           </div>
           <div className="max-w-2xl">
-            <div dangerouslySetInnerHTML={{ __html: course?.description }} /> <br />
+            {course?.metadata && (
+              <div
+                dangerouslySetInnerHTML={{ __html: course?.metadata[i18n.language].description }}
+              />
+            )}
+            {!course?.metadata && <div dangerouslySetInnerHTML={{ __html: course?.description }} />}
+            <br />
           </div>
         </div>
         <div className="z-0 m-auto mb-8 lg:self-start">
