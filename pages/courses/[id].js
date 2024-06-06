@@ -19,7 +19,7 @@ import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
 import {dateFormat} from '../../lib/dateFormat'
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -31,7 +31,7 @@ function Course({ course, currentDate }) {
   const [cohort, setCohort] = useState()
   const [lessonsSubmitted, setLessonsSubmitted] = useState()
   const [loading, setLoading] = useState(true)
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   let counter = 0
   useEffect(async () => {
@@ -158,12 +158,11 @@ function Course({ course, currentDate }) {
   }
 
   const styleImageCover = {
-    borderRadius:'10px'
+    borderRadius: '10px',
   }
-  
+
   const [kickoffStartDate, setKickoffStartDate] = useState()
   const [kickoffEndDate, setKickoffEndDate] = useState()
-
 
   useEffect(() => {
     if (!cohort?.kickoffStartTime && !cohort?.kickoffEndTime) return
@@ -171,9 +170,8 @@ function Course({ course, currentDate }) {
     const cohortKickoffEndDateGTMPattern = dateFormat(cohort?.kickoffEndTime)
     setKickoffStartDate(cohortKickoffDateGMTPattern)
     setKickoffEndDate(cohortKickoffEndDateGTMPattern)
-    
-  },[cohort])
-  
+  }, [cohort])
+
   return (
     <>
       <Head>
@@ -201,10 +199,20 @@ function Course({ course, currentDate }) {
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-4xl self-center">
-            <h1 className="text-2xl font-bold">{course?.title}</h1>
+            <h1 className="text-2xl font-bold">
+              {!course?.metadata ? course.title : course.metadata[i18n.language].title}
+            </h1>
 
             <p className="mb-6  text-sm">
-              <div dangerouslySetInnerHTML={{ __html: course?.description }} /> <br />
+              {course?.metadata && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: course?.metadata[i18n.language].description }}
+                />
+              )}
+              {!course?.metadata && (
+                <div dangerouslySetInnerHTML={{ __html: course?.description }} />
+              )}
+              <br />
             </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
