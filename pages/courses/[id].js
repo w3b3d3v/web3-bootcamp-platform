@@ -200,13 +200,17 @@ function Course({ course, currentDate }) {
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-4xl self-center">
             <h1 className="text-2xl font-bold">
-              {!course?.metadata ? course.title : course.metadata[i18n.language].title}
+              {!course?.metadata
+                ? course.title
+                : course.metadata[i18n.resolvedLanguage || 'en'].title}
             </h1>
 
             <p className="mb-6  text-sm">
               {course?.metadata && (
                 <div
-                  dangerouslySetInnerHTML={{ __html: course?.metadata[i18n.language].description }}
+                  dangerouslySetInnerHTML={{
+                    __html: course?.metadata[i18n.resolvedLanguage || 'en'].description,
+                  }}
                 />
               )}
               {!course?.metadata && (

@@ -22,7 +22,9 @@ export default function Main({ course }) {
         <div>
           <div className="m-auto max-w-lg">
             <Text h2 auto="true" className="mb-4 text-center font-bold">
-              {!course?.metadata ? course.title : course.metadata[i18n.language].title}
+              {!course?.metadata
+                ? course.title
+                : course.metadata[i18n.resolvedLanguage || 'en'].title}
             </Text>
           </div>
           <div className="mb-7 flex justify-center text-justify">
@@ -31,7 +33,9 @@ export default function Main({ course }) {
           <div className="max-w-2xl">
             {course?.metadata && (
               <div
-                dangerouslySetInnerHTML={{ __html: course?.metadata[i18n.language].description }}
+                dangerouslySetInnerHTML={{
+                  __html: course?.metadata[i18n.resolvedLanguage || 'en'].description,
+                }}
               />
             )}
             {!course?.metadata && <div dangerouslySetInnerHTML={{ __html: course?.description }} />}

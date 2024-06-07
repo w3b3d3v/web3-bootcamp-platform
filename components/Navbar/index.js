@@ -73,7 +73,7 @@ export default function NavbarComponent() {
         </Navbar.Content>
         <Dropdown>
           <Dropdown.Button size="xs" light rounded flat css={{ paddingBlock: '$10' }}>
-            {i18n.language}
+            {i18n.resolvedLanguage || 'en'}
           </Dropdown.Button>
           <Dropdown.Menu
             css={{
@@ -83,7 +83,7 @@ export default function NavbarComponent() {
             }}
           >
             {i18n.options.whitelist
-              .filter((l) => l !== i18n.language)
+              .filter((l) => l !== i18n.resolvedLanguage)
               .map((l) => (
                 <Dropdown.Item>
                   <Link href={'?lang=' + l}>
