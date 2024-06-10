@@ -1,5 +1,6 @@
 {
   "pageTitle": "Builds List",
+  "createFirstProject": "Create Your First WEB3 Project",
   "indicateAndWin": "Refer and Earn",
   "profilePicture": "Profile picture",
   "logout": "Logout",
@@ -75,7 +76,8 @@
       "Project Based Learning",
       "Earn an NFT for each finished project",
       "Find a job in cool web3 projects"
-    ]
+    ],
+    "description": "WEB3DEV is a platform for learning web3 technologies through project-based learning. We believe that the best way to learn is by doing, so we created a platform where you can learn by building real projects. We are a community of developers, designers, and blockchain enthusiasts who are passionate about learning and sharing knowledge. Join us and start building today!"
   },
   "comming_soon": {
     "timeHasCome": "The time has come!",

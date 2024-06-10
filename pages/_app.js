@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
 
   const router = useRouter()
 
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }) {
             >
               <SessionProvider session={pageProps.session}>
                 <Head>
-                  <title>Crie seu Primeiro Projeto WEB3</title>
+                  <title>{t('createFirstProject')}</title>
                   <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                   <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
                 </Head>
