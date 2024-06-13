@@ -51,23 +51,29 @@ function StudyGroup({ studyGroup }) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={getFieldContent(studyGroup, 'title')} />
-        <meta property="og:description" content={getFieldContent(studyGroup, 'description')} />{' '}
+        <meta property="og:title" content={getFieldContent(studyGroup, 'title', i18n)} />
+        <meta
+          property="og:description"
+          content={getFieldContent(studyGroup, 'description', i18n)}
+        />{' '}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://build.w3d.community/" />
         <meta property="og:image" content={studyGroup?.resized_img_url || studyGroup.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={getFieldContent(studyGroup, 'title')} />
+        <meta property="og:image:alt" content={getFieldContent(studyGroup, 'title', i18n)} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={getFieldContent(studyGroup, 'title')} />
-        <meta property="twitter:description" content={getFieldContent(studyGroup, 'description')} />
+        <meta property="twitter:title" content={getFieldContent(studyGroup, 'title', i18n)} />
+        <meta
+          property="twitter:description"
+          content={getFieldContent(studyGroup, 'description', i18n)}
+        />
         <meta property="twitter:image" content={studyGroup.image_url} />
         {/*Twitter End*/}
-        <title>Study Group {getFieldContent(studyGroup, 'title')} - WEB3DEV</title>
+        <title>Study Group {getFieldContent(studyGroup, 'title', i18n)} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
