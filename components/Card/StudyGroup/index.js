@@ -70,7 +70,9 @@ export function StudyGroupCard({ studyGroup }) {
           )}
           {showMore && (
             <div>
-              <Text>{studyGroup.description}</Text>
+              <Text>
+                <RenderField object={studyGroup} field="description" />
+              </Text>
               <Button
                 css={{ margin: 'auto', mt: '$10' }}
                 onPress={() => setShowMore(false)}
