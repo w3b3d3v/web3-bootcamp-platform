@@ -3,6 +3,7 @@ import { BiTimeFive } from 'react-icons/bi'
 import { useState } from 'react'
 import { MdExpandMore } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
+import RenderField from '../../RenderField'
 
 export function CourseCard({ course }) {
   const [showMore, setShowMore] = useState(false)
@@ -56,7 +57,9 @@ export function CourseCard({ course }) {
         <div className="mt-7">
           {!showMore && (
             <div>
-              <Text>{course.description.substring(0, 100) + '...'}</Text>
+              <Text>
+                <RenderField object={course} field="description" isHtml={true} maxSize={200} />
+              </Text>
               <Button
                 onPress={() => setShowMore(true)}
                 css={{ margin: 'auto', mt: '$10' }}
@@ -68,7 +71,9 @@ export function CourseCard({ course }) {
           )}
           {showMore && (
             <div>
-              <Text>{course.description}</Text>
+              <Text>
+                <RenderField object={course} field="description" isHtml={true} />
+              </Text>
               <Button
                 css={{ margin: 'auto', mt: '$10' }}
                 onPress={() => setShowMore(false)}

@@ -1,4 +1,4 @@
-import { getCourse } from '../../lib/course'
+import { getCourse, getFieldContent } from '../../lib/course'
 import { withProtected } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../lib/user'
@@ -18,8 +18,9 @@ import { getAllCohorts, getCurrentCohort } from '../../lib/cohorts'
 import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
-import {dateFormat} from '../../lib/dateFormat'
+import { dateFormat } from '../../lib/dateFormat'
 import { useTranslation } from 'react-i18next'
+import RenderField from '../../components/RenderField'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -175,48 +176,40 @@ function Course({ course, currentDate }) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={course.title} />
+        <meta property="og:title" content={getFieldContent(course, 'title', i18n)} />
+        <meta
+          property="og:description"
+          content={getFieldContent(course, 'description', i18n)}
+        />{' '}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:description" content={course.description} />
         <meta property="og:image" content={course?.resized_img_url || course.image_url} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:alt" content={`${course.title} `} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={course.title} />
-        <meta property="twitter:description" content={course.description} />
+        <meta property="twitter:title" content={getFieldContent(course, 'title', i18n)} />
+        <meta
+          property="twitter:description"
+          content={getFieldContent(course, 'description', i18n)}
+        />
         <meta property="twitter:image" content={course.image_url} />
         {/*Twitter End*/}
-
-        <title>Build {course.id} - WEB3DEV</title>
+        <title>Build {getFieldContent(course, 'title', i18n)} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-4xl self-center">
             <h1 className="text-2xl font-bold">
-              {!course?.metadata
-                ? course.title
-                : course.metadata[i18n.resolvedLanguage || 'en'].title}
+              <RenderField object={course} field="title" />
             </h1>
 
             <p className="mb-6  text-sm">
-              {course?.metadata && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: course?.metadata[i18n.resolvedLanguage || 'en'].description,
-                  }}
-                />
-              )}
-              {!course?.metadata && (
-                <div dangerouslySetInnerHTML={{ __html: course?.description }} />
-              )}
-              <br />
+              <RenderField object={course} field="description" isHtml={true} /> <br />
             </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
@@ -272,7 +265,7 @@ function Course({ course, currentDate }) {
                       target="_blank"
                       className="text-decoration-none rounded-lg bg-violet-600 p-1 px-2 text-white-100 hover:no-underline"
                     >
-                      {t('signUpNow')}
+                      {t('signUpNow')} &#x1F31F;
                     </a>
                   </Link>
                 </div>
@@ -285,7 +278,7 @@ function Course({ course, currentDate }) {
                   onClick={() => registerUserInCohort()}
                   className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
                 >
-                  Inscreva-se agora &#x1F31F;
+                  ${t('subscribeNow')}
                 </button>
                 <div className="flex pt-6">
                   <ComingSoonCard />

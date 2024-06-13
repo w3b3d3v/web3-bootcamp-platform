@@ -1,4 +1,4 @@
-import { getStudyGroup } from '../../lib/course'
+import { getStudyGroup, getFieldContent } from '../../lib/course'
 import { withProtected } from '../../hooks/route'
 import { auth } from '../../firebase/initFirebase'
 import { getUserFromFirestore, registerUserInStudyGroupInFirestore } from '../../lib/user'
@@ -12,6 +12,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
 import { dateFormat } from '../../lib/dateFormat'
+import { useTranslation } from 'react-i18next'
+import RenderField from '../../components/RenderField'
 
 function StudyGroup({ studyGroup }) {
   if (!studyGroup.active) return <NotFound />
@@ -19,6 +21,7 @@ function StudyGroup({ studyGroup }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false)
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -48,34 +51,34 @@ function StudyGroup({ studyGroup }) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={studyGroup.title} />
+        <meta property="og:title" content={getFieldContent(studyGroup, 'title')} />
+        <meta property="og:description" content={getFieldContent(studyGroup, 'description')} />{' '}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:description" content={studyGroup.description} />
         <meta property="og:image" content={studyGroup?.resized_img_url || studyGroup.image_url} />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${studyGroup.title} `} />
+        <meta property="og:image:alt" content={getFieldContent(studyGroup, 'title')} />
         <meta property="og:image:width" content="256" />
         <meta property="og:image:height" content="256" />
-
         {/*Twitter Start*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={studyGroup.title} />
-        <meta property="twitter:description" content={studyGroup.description} />
+        <meta property="twitter:title" content={getFieldContent(studyGroup, 'title')} />
+        <meta property="twitter:description" content={getFieldContent(studyGroup, 'description')} />
         <meta property="twitter:image" content={studyGroup.image_url} />
         {/*Twitter End*/}
-
-        <title>Study Group {studyGroup.title} - WEB3DEV</title>
+        <title>Study Group {getFieldContent(studyGroup, 'title')} - WEB3DEV</title>
       </Head>
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">
           <div className="max-w-3xl self-center lg:max-w-lg">
-            <h1 className="text-2xl font-bold">{studyGroup?.title}</h1>
+            <h1 className="text-2xl font-bold">
+              <RenderField object={studyGroup} field="title" /> <br />
+            </h1>
 
             <p className="mb-6  text-sm">
-              {studyGroup?.description /*.substring(0, 100) + '...'*/}
+              <RenderField object={studyGroup} field="description" isHtml={true} /> <br />
             </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
@@ -100,17 +103,13 @@ function StudyGroup({ studyGroup }) {
                 onClick={registerUserToStudyGroup}
                 className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
               >
-                Inscreva-se agora &#x1F31F;
+                {t('signUpNow')} &#x1F31F;
               </button>
             ) : (
               <>
                 <div className="mb-4 flex flex-col items-center justify-center rounded-lg bg-gradient-to-r from-cyan-900 to-teal-500 p-2 lg:items-center lg:p-6">
                   <div className="flex w-3/4 flex-col items-center justify-center">
-                    <p className="mb-3 text-2xl">Evento ao vivo &#x1F31F;</p>
-                    <p className="text-sm lg:text-base">
-                      No lançamento de cada projeto, ocorrerá uma LIVE MASSA! Adicione no seu
-                      calendário para não esquecer. Nos veremos lá!
-                    </p>
+                    <p className="text-sm lg:text-base">{t('studyGroup.addToCalendar')} </p>
                     <div className="mt-3 flex w-full flex-row flex-wrap items-center justify-center text-lg font-bold text-white-100 md:flex-col lg:justify-between lg:text-3xl">
                       <button
                         className="flex max-w-xs items-center rounded-lg border-black-400 bg-black-300 p-2"
@@ -118,11 +117,23 @@ function StudyGroup({ studyGroup }) {
                       >
                         <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${studyGroup?.scheduled_at}/}&text=Build Web3dev ${studyGroup?.title}`}
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${
+                            studyGroup?.scheduled_at
+                          }&text=Build Web3dev ${getFieldContent(
+                            studyGroup,
+                            'title',
+                            i18n
+                          )}&details=${getFieldContent(
+                            studyGroup,
+                            'description',
+                            i18n
+                          )}&sf=true&output=xml&recur=RRULE:FREQ%3DWEEKLY&location=${encodeURIComponent(
+                            'https://discord.gg/web3dev'
+                          )}`}
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
-                            Adicionar ao calendário Google
+                            {t('addToGoogleCalendar')}
                           </p>
                         </a>
                       </button>
@@ -138,7 +149,7 @@ function StudyGroup({ studyGroup }) {
                   </div>
                 </div>
                 <div className="flex pt-6">
-                  <ShareLinkCard studyGroup={studyGroup.id} />
+                  {/* <ShareLinkCard studyGroup={studyGroup.id} /> */}
                 </div>
                 <br />
               </>

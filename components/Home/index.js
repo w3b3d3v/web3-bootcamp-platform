@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Button } from '@nextui-org/react'
 import Cover from './Cover'
 import { useTranslation } from 'react-i18next'
-
+import RenderField from '../RenderField'
 export default function Main({ course }) {
   const { t, i18n } = useTranslation()
   const ref = React.createRef()
@@ -22,23 +22,14 @@ export default function Main({ course }) {
         <div>
           <div className="m-auto max-w-lg">
             <Text h2 auto="true" className="mb-4 text-center font-bold">
-              {!course?.metadata
-                ? course.title
-                : course.metadata[i18n.resolvedLanguage || 'en'].title}
+              <RenderField field={course} fieldName="title" />
             </Text>
           </div>
           <div className="mb-7 flex justify-center text-justify">
             <Cover imageUrl={course.image_url} />
           </div>
           <div className="max-w-2xl">
-            {course?.metadata && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: course?.metadata[i18n.resolvedLanguage || 'en'].description,
-                }}
-              />
-            )}
-            {!course?.metadata && <div dangerouslySetInnerHTML={{ __html: course?.description }} />}
+            <RenderField object={course} field="description" isHtml={true} />
             <br />
           </div>
         </div>
