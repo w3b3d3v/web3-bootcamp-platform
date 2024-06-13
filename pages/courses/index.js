@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { getAllCourses } from '../../lib/courses'
 import { Container } from '@nextui-org/react'
 import { CourseCard } from '../../components/Card/Course'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
  
 function Courses({ allCourses }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [showMore, setShowMore] = useState(false)
 
   return (

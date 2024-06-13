@@ -18,15 +18,15 @@ module.exports = (path, options) => {
         '@firebase/messaging',
         '@firebase/util',
         'firebase',
-      ]);
+      ])
 
       if (pkgNamesToTarget.has(pkg.name)) {
         // console.log('>>>', pkg.name)
-        delete pkg['exports'];
-        delete pkg['module'];
+        delete pkg['exports']
+        delete pkg['module']
       }
 
-      return pkg;
+      return pkg
     },
-  });
-};
+  })
+}

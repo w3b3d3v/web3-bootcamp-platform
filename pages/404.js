@@ -4,7 +4,7 @@ import { Button } from '../components/Button'
 import React from 'react'
 
 export default function NotFound() {
-  const ref = React.createRef();
+  const ref = React.createRef()
   return (
     <>
       <div className="mx-auto max-w-7xl flex flex-col justify-center px-6 ">

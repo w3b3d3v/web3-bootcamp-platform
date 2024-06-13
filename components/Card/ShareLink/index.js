@@ -12,7 +12,7 @@ export default function ShareLinkCard() {
   const [user, setUser] = useState()
   const [referralLink, setReferralLink] = useState()
   const [shortenedUrl, setShortenedUrl] = useState()
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {

@@ -134,7 +134,7 @@ export function AuthProvider({ children }) {
       await getRedirectResult(auth)
         .then(async (result) => {
           const user = result?.user
-          if (!user) return;
+          if (!user) return
           const cred = JSON.parse(sessionStorage.getItem('credential'))
 
           if (cred?.providerId == 'github.com') {

@@ -25,7 +25,7 @@ function Stats() {
             {lessonsStats.map((l) => {
               return (
                 <li key={l.session}>
-                  {l.session} => {l.submitted}
+                  {l.session} &gt; {l.submitted}
                 </li>
               )
             })}

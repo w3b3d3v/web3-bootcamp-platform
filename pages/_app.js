@@ -1,11 +1,11 @@
-import '../styles/globals.css';
-import Head from 'next/head';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { AuthProvider } from '../context/AuthContext';
-import { SessionProvider } from 'next-auth/react';
-import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react';
-import 'regenerator-runtime/runtime';
-import { ToastContainer } from 'react-toastify';
+import '../styles/globals.css'
+import Head from 'next/head'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { AuthProvider } from '../context/AuthContext'
+import { SessionProvider } from 'next-auth/react'
+import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
+import 'regenerator-runtime/runtime'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ import Footer from '../components/Footer/index'
 import '../lib/globals.js'
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import { SSRProvider } from '@react-aria/ssr'
 
 export const event = (event_name, props) => {

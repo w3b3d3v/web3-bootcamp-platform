@@ -11,7 +11,7 @@ export default function DiscordCard() {
   const [discordConnected, setDiscordConnected] = useState(false)
   const [user, setUser] = useState()
   const ref = React.createRef()
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   
   useEffect(async () => {
     onAuthStateChanged(auth, async (user) => {

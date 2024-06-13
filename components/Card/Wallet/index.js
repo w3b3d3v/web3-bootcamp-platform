@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '../../Button'
 
 import { toast } from 'react-toastify'
-import { getUserFromFirestore, updateUserWalletInFirestore } from '../../../lib/user';
-import { auth } from '../../../firebase/initFirebase';
-import { useSession } from 'next-auth/react';
+import { getUserFromFirestore, updateUserWalletInFirestore } from '../../../lib/user'
+import { auth } from '../../../firebase/initFirebase'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from "react-i18next"
 
 export default function WalletCard() {
-  const [userAddress, setUserAddress] = useState();
-  const [user, setUser] = useState();
-  const { data: session } = useSession();
-  const ref = React.createRef();
-  const { t } = useTranslation();
+  const [userAddress, setUserAddress] = useState()
+  const [user, setUser] = useState()
+  const { data: session } = useSession()
+  const ref = React.createRef()
+  const { t } = useTranslation()
 
   const toastParameters = {
     position: 'top-right',
@@ -28,34 +28,34 @@ export default function WalletCard() {
     if(window.ethereum) {
       let accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
-      });
+      })
       await window.ethereum.request({
         method: 'personal_sign',
         params: ['Sign In Message - Logging in WEB3DEV', accounts[0]],
       })
-      const address = accounts.pop();
-      if(address && auth.currentUser) await updateUserWalletInFirestore(address, auth.currentUser?.uid);
-      setUserAddress(address);
-      toast.success(t('walletConnectedSuccess'), toastParameters);
+      const address = accounts.pop()
+      if(address && auth.currentUser) await updateUserWalletInFirestore(address, auth.currentUser?.uid)
+      setUserAddress(address)
+      toast.success(t('walletConnectedSuccess'), toastParameters)
     } else {
-      toast.error(t('installMetamask'), toastParameters);
+      toast.error(t('installMetamask'), toastParameters)
     }
-  };
+  }
   const handleDisconnect = async() => {
-    if(auth.currentUser) await updateUserWalletInFirestore(null, auth.currentUser?.uid);
-    setUserAddress('');
+    if(auth.currentUser) await updateUserWalletInFirestore(null, auth.currentUser?.uid)
+    setUserAddress('')
     toast.success(t('walletDisconnectedSuccess'), toastParameters)
   }
   useEffect(async () => {
     if(auth.currentUser) {
-      const userSession = await getUserFromFirestore(auth.currentUser);
-      setUser(userSession);
+      const userSession = await getUserFromFirestore(auth.currentUser)
+      setUser(userSession)
     }
   }, [auth.currentUser, userAddress])
 
   const walletAddress = user?.wallet
   ? `${user.wallet.substring(0, 4)}...${user.wallet.substring(user.wallet.length - 10)}`
-  : '';
+  : ''
 
   return (
     <>

@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import { Container, Input, Textarea, Button } from '@nextui-org/react';
-import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData';
-import { countries } from 'countries-list';
-import { Dropdown } from "@nextui-org/react";
-import Image from 'next/image';
-import Loading from '../../../Loading';
+import React, { useState, useMemo } from 'react'
+import { Container, Input, Textarea, Button } from '@nextui-org/react'
+import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
+import { countries } from 'countries-list'
+import { Dropdown } from "@nextui-org/react"
+import Image from 'next/image'
+import Loading from '../../../Loading'
 import { useTranslation } from 'react-i18next'
 
 export default function PersonalData({

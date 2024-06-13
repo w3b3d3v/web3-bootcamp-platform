@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import React from 'react';
-import { links, camelize } from '../../lib/constants';
-import Image from 'next/image';
-import { Text } from '@nextui-org/react';
-import { useTranslation } from 'react-i18next';
+import Link from 'next/link'
+import React from 'react'
+import { links, camelize } from '../../lib/constants'
+import Image from 'next/image'
+import { Text } from '@nextui-org/react'
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div

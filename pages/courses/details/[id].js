@@ -3,14 +3,14 @@ import React from 'react'
 import NotFound from '../../404'
 import { Text,Button } from '@nextui-org/react'
 import Image from 'next/image'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 function Course({ course }) {
-    const router = useRouter();
+    const router = useRouter()
 
     const handleButtonClick = () => {
-        router.push(`/courses/${course.id}`);
-    };
+        router.push(`/courses/${course.id}`)
+    }
 
     if (!course.active) return <NotFound />
     const ref = React.createRef()

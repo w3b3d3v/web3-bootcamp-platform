@@ -26,19 +26,19 @@ export default NextAuth({
         verified: profile.verified,
         email: profile.email,
         locale: profile.locale,
-      };
-      if(user) {
-        account.discord = discord;
       }
-      return true;
+      if(user) {
+        account.discord = discord
+      }
+      return true
     },
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
       if(account) {
         token.discord = account.discord
-        token.accessToken = account.access_token;
+        token.accessToken = account.access_token
       }
-      return token;
+      return token
     }
   }
 })
