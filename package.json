@@ -4,7 +4,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "emulators:start": "firebase emulators:start",
+    "seed": "node scripts/seedFirestore.js"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.18.2",
