@@ -6,6 +6,7 @@
     "start": "next start",
     "test": "jest --watchAll",
     "emulators:start": "firebase emulators:start",
+    "seed-data":"node scripts/seedFirestore.js",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

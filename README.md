@@ -78,71 +78,51 @@ Our platform is inclusive, supporting multi-language content to cater to a globa
 
 # How To Contribute
 
-### Requirements
+## Requirements
 
-- Node.js 14 and yarn
-- Firebase [Authentication](https://firebase.google.com/docs/auth) and [Firestore](https://firebase.google.com/docs/firestore)
+### Node.js
+- Ensure that you have Node.js version 20 installed on your system. You can download it from [Node.js official website](https://nodejs.org/).
 
-### Environment 
-- Copy the contents in `.env.example` to `.env` 
-- Set the Firebase and the Discord variables. You can find discord variables [here](https://discord.com/developers/applications). Create an application if you don't have one. 
-- Set all the other necessary variables. 
+### Firebase CLI
+- To manage Firebase services and deploy to Firebase Hosting, you need to install the Firebase CLI. Run the following command to install the latest version of `firebase-tools`:
+  ```bash
+  npm install -g firebase-tools
+  ```
 
-### Loading Firebase contents on your project
+## Environment Setup
+- Copy the contents of `.env.example` to `.env`.
+- Environment variables such as Discord and GitHub tokens will be granted only for frequent contributors. The application can work without these variables set, but capabilities will be limited.
 
-You must have an active google cloud account. Maybe you will have to activate the billing to make it work.
-- Install [gsutil](https://cloud.google.com/storage/docs/gsutil)
-- Install [gcloud](https://cloud.google.com/sdk/gcloud)
-- run `gcloud config set project <YOUR_FIREBASE_PROJECT>`
-FIREBASE_PROJECT is the name of the project you created on firebase. For example, for me, it is `web3dev-development`.
+## Getting Started
 
-The script bellow will restore a sample database for Firestore, so you can have some data to work with. 
-Run it passing your Google Cloud Bucket as an argument. [Reference](https://cloud.google.com/storage/docs/creating-buckets)
-- run `./load_db.sh YOUR_GCLOUD_BUCKET`
+1. Fork the repository by clicking the "Fork" button on the GitHub page.
+2. Clone your forked repository:
+    ```bash
+    git clone https://github.com/<your-github-username>/web3-bootcamp-platform.git
+    cd web3-bootcamp-platform
+    ```
 
-If you want only a local database (it will not interact with many things in the platform), you can simply unzip `bkp` folder in local and start firebase emulators importing bkp:
-`firebase emulators:start --import bkp --export-on-exit bkp`
+3. Install dependencies:
+    ```bash
+    yarn install
+    ```
 
-### Getting started
+4. Start the Firebase emulator:
+    ```bash
+    yarn emulators:start
+    ```
 
-Run the following command on your local environment:
+5. Seed data to the local database, open a new terminal and run:
+    ```bash
+    yarn seed-data
+    ```
 
-```
-git clone https://github.com/w3b3d3v/web3-bootcamp-platform.git web3-bootcamp-plataform
-cd web3-bootcamp-plataform
-yarn install
-```
-
-Then, you can run locally in development mode with live reload:
-
-```
-yarn run dev
-```
+6. Run the development server:
+    ```bash
+    yarn dev
+    ```
 
 Open http://localhost:3000 with your favorite browser to see your project.
-
-```
-.
-├── README.md                # README file
-├── next.config.js           # Next JS configuration
-├── public                   # Public folder
-│   └── assets
-│       └── img              # Image used by default template
-├── components               # Atomic layout components
-├── context                  # Context 
-├── firebase                 # Firebase configuration
-├── functions                # Cloud functions
-├── hooks                    # Hooks
-├── lib                      # Content library
-├── pages                    # Next JS pages
-├── styles                   # PostCSS style folder with Tailwind
-├── scripts                  # Task-specific scripts
-├── .env.example             #  ENV example file
-├── tailwind.config.js       # Tailwind CSS configuration
-└── tsconfig.json            # TypeScript configuration
-└── tsconfig.json            # TypeScript configuration
-```
-
 
 ### Deploy to production
 
@@ -163,10 +143,16 @@ Deploy this project on Vercel in one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/w3b3d3v/web3-bootcamp-platform)
 
-### Contributions
+## Contributions
 
-Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
-For more information on how to contribute join our Discord https://pt.discord.w3d.community/
+Everyone is welcome to contribute to this project. Feel free to open an issue if you have a question or find a bug.
+
+- **Find Tasks and Issues**: You can view all tasks and issues on our [Kanban board](https://github.com/orgs/w3b3d3v/projects/28/views/5). This is where we track ongoing work and plan future developments.
+
+- **Weekly Meetings**: We host a weekly meeting of contributors every Tuesday at 7:30 PM (Brazil Time, GMT-3) in our Discord server. Join us in the "Team Room" voice channel to discuss ongoing projects and brainstorm new ideas. [Join the meeting on Discord](https://discord.gg/qmbKqcd3).
+
+For more information on how to contribute, join our Discord community: [Join Discord](https://pt.discord.w3d.community/).
+
 
 ### License
 
