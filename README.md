@@ -89,6 +89,51 @@ Our platform is inclusive, supporting multi-language content to cater to a globa
   npm install -g firebase-tools
   ```
 
+### Java (OpenJDK)
+- Java is required for certain build processes. Follow the instructions below to install OpenJDK on your system.
+
+#### Mac
+1. Install OpenJDK using Homebrew:
+   ```bash
+   brew install --cask temurin
+   ```
+2. Add the following lines to your shell configuration file (`~/.zshrc`, `~/.bashrc`, etc.) to set the `JAVA_HOME` and update the `PATH`:
+   ```bash
+   export JAVA_HOME=$(/usr/libexec/java_home)
+   export PATH=$JAVA_HOME/bin:$PATH
+   ```
+3. Reload your shell configuration:
+   ```bash
+   source ~/.zshrc  # or source ~/.bashrc
+   ```
+
+#### Windows
+1. Download and install Java from the official [Oracle website](https://www.java.com/en/download/ie_manual.jsp). Make sure to choose the version suitable for your system.
+2. Open Command Prompt and set the `JAVA_HOME` environment variable:
+   ```cmd
+   set JAVA_HOME=C:\Program Files\Java\jdk-22
+   ```
+3. Add Java to your `PATH`:
+   ```cmd
+   set PATH=%JAVA_HOME%\bin;%PATH%
+   ```
+4. Restart Visual Studio Code or your development environment.
+
+#### Linux
+1. Install OpenJDK using your package manager:
+   ```bash
+   sudo apt install openjdk-22-jdk
+   ```
+2. Add the following lines to your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.) to set the `JAVA_HOME` and update the `PATH`:
+   ```bash
+   export JAVA_HOME=/usr/lib/jvm/java-19-openjdk-amd64
+   export PATH=$JAVA_HOME/bin:$PATH
+   ```
+3. Reload your shell configuration:
+   ```bash
+   source ~/.bashrc  # or source ~/.zshrc
+   ```
+
 ## Environment Setup
 - Copy the contents of `.env.example` to `.env`.
 - Environment variables such as Discord and GitHub tokens will be granted only for frequent contributors. The application can work without these variables set, but capabilities will be limited.

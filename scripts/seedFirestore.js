@@ -51,4 +51,8 @@ async function seedFirestore() {
   console.log('Dados de seed inseridos com sucesso!')
 }
 
-seedFirestore().catch(console.error)
+seedFirestore()
+.catch(console.error)
+.finally(() => {
+  process.exit()
+})

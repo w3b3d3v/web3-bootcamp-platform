@@ -5,13 +5,14 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watchAll",
-    "emulators:start": "firebase emulators:start",
+    "emulators:start": "firebase emulators:start --project=web3dev-development",
     "seed-data":"node scripts/seedFirestore.js",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "firebase-tools": "8.16.0",
     "@babel/plugin-transform-runtime": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@headlessui/react": "^1.5.0",
