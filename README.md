@@ -31,7 +31,7 @@ Everyone is welcome to contribute to this project. In fact, some people learn a 
    - *English* Sessions: TBD
 
 
-> Join us in the *Team Room* voice channel to discuss ongoing stuff or brainstorm new ideas. [WEB3DEV Discord Server](https://discord.gg/qmbKqcd3).
+> Join us in the *Team Room* voice channel to discuss ongoing stuff or brainstorm new ideas. [WEB3DEV Discord Server](https://discord.w3d.community/).
 
 
 ### License
