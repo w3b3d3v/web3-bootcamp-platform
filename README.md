@@ -1,202 +1,37 @@
-# Table of Contents
-
-- [Course Platform Overview](#course-platform-overview)
-  - [Access and Navigation](#access-and-navigation)
-  - [Enrollment and Experience](#enrollment-and-experience)
-  - [Course Structure](#course-structure)
-  - [Discord Support](#discord-support)
-  - [Features and Offerings](#features-and-offerings)
-  - [Cohorts and Certification](#cohorts-and-certification)
-    - [NFT Certificates](#nft-certificates)
-    - [Key Features of the NFT Certificates](#key-features-of-the-nft-certificates)
-  - [Multi-Language Support and Open-Source Content](#multi-language-support-and-open-source-content)
-- [How To Contribute](#how-to-contribute)
-  - [Requirements](#requirements)
-  - [Environment](#environment)
-  - [Loading Firebase Contents on Your Project](#loading-firebase-contents-on-your-project)
-  - [Getting Started](#getting-started)
-
-# Course Platform Overview
+# Learning Platform
 
 Our practical learning platform, located at [build.w3d.community](http://build.w3d.community/), offers courses focused on blockchain and web3 technologies. Here’s a quick guide to get you started:
 
-## Access and Navigation
-
-- **Homepage**: The starting point showcasing our latest or current course.
-  
-  ![Course Homepage](public/homepage.png)
-
-- **All Courses**: For a detailed list of all available courses, visit our course catalog at [build.w3d.community/courses](https://build.w3d.community/courses).
-
-## Enrollment and Experience
-
-- To participate in courses, users must sign in using a Google account or GitHub.
-- For a comprehensive experience, connect your MetaMask/Ethereum wallet and Discord account. This allows for receiving NFT Certificates and accessing support channels.
-
-  ![Connect Wallet and Discord](public/connections.png)
-
-## Course Structure
-
-Courses are organized into five key sections. Each section contains lessons with a specific area where students can enter their code. This setup is aimed at helping students fully understand the topics covered.
-
-![Connect Wallet and Discord](public/course_structure.png)
-
-## Discord Support
-
-Our Discord community mirrors the course structure, offering dedicated channels for each of the 5 sections, along with channels for sharing progress and obtaining general support.
-
-![Discord Channels](public/discord_channels.png)
-
-## Features and Offerings
-
-- **NFT Certificates**: On course completion, participants receive an non-transferable NFT, viewable in our [OpenSea Collection](https://opensea.io/collection/web3dev-bootcamp).
-- **Mentorship**: Graduates can become mentors, helping new students through their learning journey.
-
-## Cohorts and Certification
-
-- We offer both "Eternal" cohorts for asynchronous learning and event-based cohorts with live coding sessions.
-- Courses typically last 10 days. Timely completion awards a cohort-specific NFT, while later completion grants an "Eternal" NFT for the course.
-
-### NFT Certificates
-Upon completing our courses, students are awarded unique NFT certificates. These digital certificates serve as a modern testament to your achievement and can be prominently displayed on professional networks like LinkedIn.
-
-![Linkedin Certificates](public/linkedin_certificates.png)
-
-### Key Features of the NFT Certificates:
-
-* Limited Traits: Each NFT certificate contains only three specific traits: the course name, the cohort, and the student's completion number. This tailored approach highlights the personalized journey of each learner.
-
-* Dynamic SVG on Blockchain: The certificate is a dynamic SVG file stored directly on the blockchain. This innovative format allows for the certificate to evolve; new courses can be added simply by updating the aforementioned fields.
-
-![NFT Example](public/nft_image.svg)
-
-In the sample above, "ETERNOS" denotes the cohort, and the course title, in this instance, "SoliditySmartContract", is dynamically generated. This ensures that each certificate is not only a symbol of personal accomplishment but also a piece of art tailored to the individual's learning path.
-
-## Multi-Language Support and Open-Source Content
-
-Our platform is inclusive, supporting multi-language content to cater to a global audience. All course materials are open-source, accessible through markdown files in the `web3dev-version` branch of our [GitHub repository](https://github.com/w3b3d3v/buildspace-projects/tree/web3dev-version).
-
-# How To Contribute
-
-## Requirements
-
-### Node.js
-- Ensure that you have Node.js version 20 installed on your system. You can download it from [Node.js official website](https://nodejs.org/).
-
-### Firebase CLI
-- To manage Firebase services and deploy to Firebase Hosting, you need to install the Firebase CLI. Run the following command to install the latest version of `firebase-tools`:
-  ```bash
-  npm install -g firebase-tools
-  ```
-
-### Java (OpenJDK)
-- Java is required for certain build processes. Follow the instructions below to install OpenJDK on your system.
-
-#### Mac
-1. Install OpenJDK using Homebrew:
-   ```bash
-   brew install --cask temurin
-   ```
-2. Add the following lines to your shell configuration file (`~/.zshrc`, `~/.bashrc`, etc.) to set the `JAVA_HOME` and update the `PATH`:
-   ```bash
-   export JAVA_HOME=$(/usr/libexec/java_home)
-   export PATH=$JAVA_HOME/bin:$PATH
-   ```
-3. Reload your shell configuration:
-   ```bash
-   source ~/.zshrc  # or source ~/.bashrc
-   ```
-
-#### Windows
-1. Download and install Java from the official [Oracle website](https://www.java.com/en/download/ie_manual.jsp). Make sure to choose the version suitable for your system.
-2. Open Command Prompt and set the `JAVA_HOME` environment variable:
-   ```cmd
-   set JAVA_HOME=C:\Program Files\Java\jdk-22
-   ```
-3. Add Java to your `PATH`:
-   ```cmd
-   set PATH=%JAVA_HOME%\bin;%PATH%
-   ```
-4. Restart Visual Studio Code or your development environment.
-
-#### Linux
-1. Install OpenJDK using your package manager:
-   ```bash
-   sudo apt install openjdk-22-jdk
-   ```
-2. Add the following lines to your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.) to set the `JAVA_HOME` and update the `PATH`:
-   ```bash
-   export JAVA_HOME=/usr/lib/jvm/java-19-openjdk-amd64
-   export PATH=$JAVA_HOME/bin:$PATH
-   ```
-3. Reload your shell configuration:
-   ```bash
-   source ~/.bashrc  # or source ~/.zshrc
-   ```
-
-## Environment Setup
-- Copy the contents of `.env.example` to `.env`.
-- Environment variables such as Discord and GitHub tokens will be granted only for frequent contributors. The application can work without these variables set, but capabilities will be limited.
-
-## Getting Started
-
-1. Fork the repository by clicking the "Fork" button on the GitHub page.
-2. Clone your forked repository:
-    ```bash
-    git clone https://github.com/<your-github-username>/web3-bootcamp-platform.git
-    cd web3-bootcamp-platform
-    ```
-
-3. Install dependencies:
-    ```bash
-    yarn install
-    ```
-
-4. Start the Firebase emulator:
-    ```bash
-    yarn emulators:start
-    ```
-
-5. Seed data to the local database, open a new terminal and run:
-    ```bash
-    yarn seed-data
-    ```
-
-6. Run the development server:
-    ```bash
-    yarn dev
-    ```
-
-Open http://localhost:3000 with your favorite browser to see your project.
-
-### Deploy to production
-
-You can see the results locally in production mode with:
-
-```
-$ yarn build
-$ yarn start
-```
-
-The generated HTML and CSS files are minified (built-in feature from Next js). It will also removed unused CSS from [Tailwind CSS](https://tailwindcss.com).
-
-Now, the plataform is ready to be deployed. All generated files are located at `build` folder, which you can deploy with any hosting service.
-
-### Deploy to Vercel
-
-Deploy this project on Vercel in one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/w3b3d3v/web3-bootcamp-platform)
+- [Platform Features](docs/platform-features.md#course-platform-overview)
+  - [Access and Navigation](docs/platform-features.md#access-and-navigation)
+  - [Enrollment and Experience](docs/platform-features.md#enrollment-and-experience)
+  - [Course Structure](docs/platform-features.md#course-structure)
+  - [Discord Support](docs/platform-features.md#discord-support)
+  - [Features and Offerings](docs/platform-features.md#features-and-offerings)
+  - [Cohorts and Certification](docs/platform-features.md#cohorts-and-certification)
+    - [NFT Certificates](docs/platform-features.md#nft-certificates)
+    - [Key Features of the NFT Certificates](docs/platform-features.md#key-features-of-the-nft-certificates)
+  - [Multi-Language Support and Open-Source Content](docs/platform-features.md#multi-language-support-and-open-source-content)
+- [How To Contribute](docs/how-to-contribute.md#how-to-contribute)
+  - [Requirements](docs/how-to-contribute.md#requirements)
+  - [Environment](docs/how-to-contribute.md#environment)
+  - [Loading Firebase Contents on Your Project](docs/how-to-contribute.md#loading-firebase-contents-on-your-project)
+  - [Getting Started](docs/how-to-contribute.md#getting-started)
+- [Dev Setup Tips](docs/setup-tips.md#setup-tips)
 
 ## Contributions
 
-Everyone is welcome to contribute to this project. Feel free to open an issue if you have a question or find a bug.
+Everyone is welcome to contribute to this project. In fact, some people learn a lot doing it because we have a very engaging way of help you learn the things you want to learn while producing useful work in the progress.
 
-- **Find Tasks and Issues**: You can view all tasks and issues on our [Kanban board](https://github.com/orgs/w3b3d3v/projects/28/views/5). This is where we track ongoing work and plan future developments.
+- **Find Tasks and Issues**: You can view all tasks and issues related to our learning platform on our [Learning Platform Kanban](https://github.com/orgs/w3b3d3v/projects/28/views/5). This is where we track ongoing work and plan future developments.
+  - For other community tasks and codebase issues, visit our [Public Kanbans](https://github.com/orgs/w3b3d3v/projects).
 
-- **Weekly Meetings**: We host a weekly meeting of contributors every Tuesday at 7:30 PM (Brazil Time, GMT-3) in our Discord server. Join us in the "Team Room" voice channel to discuss ongoing projects and brainstorm new ideas. [Join the meeting on Discord](https://discord.gg/qmbKqcd3).
+- **Weekly Meetings**: We host two weekly meetings with contributors in our discord server:
+   - *Portuguese* Sessions: Every Tuesday at 7:30 PM (Brazil Time, GMT-3)
+   - *English* Sessions: TBD
 
-For more information on how to contribute, join our Discord community: [Join Discord](https://pt.discord.w3d.community/).
+
+> Join us in the *Team Room* voice channel to discuss ongoing stuff or brainstorm new ideas. [WEB3DEV Discord Server](https://discord.gg/qmbKqcd3).
 
 
 ### License
@@ -208,3 +43,6 @@ See [LICENSE](LICENSE) for more information.
 ---
 
 Made with ♥ by [web3dev](https://links.w3d.community) 
+
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
