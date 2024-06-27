@@ -1,265 +1,76 @@
 {
-  "builds_analytics": {
-    "RbYVFegTYvwDtXLyITMe": {}
-  },
   "cohorts": {
-    "059yHPINjYRPu5cJGdLs": {
-      "discord_channel": "js-dao-builders",
-      "course_id": "JS_DAO",
-      "endDate": {
-        "_seconds": 1699239600,
-        "_nanoseconds": 0
+    "LNYQZCn5p9amT9VUJVhs": {
+      "course_id": "Solidity_And_Smart_Contracts",
+      "discord_channel": "Solidity-Smart-Contract-Exploradores",
+      "discord_role": "971852940174319686",
+      "email_content": {
+        "subject": "🏕️ Seu primeiro Smart Contract na Ethereum"
+      },
+      "name": "Aventureiros",
+      "kickoffStartTime": {
+        "_seconds": 1655607600,
+        "_nanoseconds": 564000000
       },
       "kickoffEndTime": {
-        "_seconds": 1698361200,
-        "_nanoseconds": 0
+        "_seconds": 1655611200,
+        "_nanoseconds": 475000000
       },
-      "email_content": {
-        "subject": "🌐 Construa sua própria DAO com JavaScript em uma semana"
-      },
-      "nft_title": "",
-      "name": "BUILDERS",
-      "kickoffStartTime": {
-        "_seconds": 1698357600,
-        "_nanoseconds": 0
-      },
-      "discord_role": "1162372703735525467",
       "startDate": {
-        "_seconds": 1698357600,
-        "_nanoseconds": 0
+        "_seconds": 1655607600,
+        "_nanoseconds": 56000000
+      },
+      "endDate": {
+        "_seconds": 7335889200,
+        "_nanoseconds": 463000000
       }
     }
   },
   "courses": {
-    "GPT3_Writer": {
-      "tags": [
-        "Ai",
-        "Web3"
-      ],
-      "duration": "10 dias",
-      "difficulty": "Iniciante",
-      "nft_title": "GPT3 Writer",
-      "lastLesson": "Lesson_2_Celebrate.md",
-      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FGPT3_Writer.png?alt=media&token=ebc653dd-64b1-4647-80e9-cc9cc4c85463",
-      "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FGPT3_Writer_resized.png?alt=media&token=3fb331e4-1802-4a5f-8db9-67b4c76b8fe0",
+    "JS_DAO": {
+      "difficulty": "A definir",
+      "duration": "",
+      "image_url": "https://cdn.buildspace.so/courses/javascript-dao/poster.png",
+      "description": "DAOs are taking over. Build one yourself for fun. Maybe it's a meme DAO for your friends. Maybe it's a DAO that aims to fix climate change. Up to you. We'll be going over things like minting a membership NFT, creating/airdropping a token, public treasuries, and governance using a token!",
+      "title": "Construa sua própria DAO apenas com JavaScript em uma semana",
+      "index": 1,
+      "home": false,
       "active": true,
-      "description": "A WEB3DEV oferece um build para desenvolvedores criarem sua própria ferramenta de escrita assistida por IA usando GPT-3 e Open AI. Aprenda a usar a tecnologia para transformar seus aplicativos em obras-primas e ficar atualizado nas tendências de ML/IA. Inscreva-se agora no curso de ChatGPT.",
-      "repository_language": "pt-br",
-      "title": "Desbloqueie o poder do GPT-3  e transforme seus aplicativos em obras-primas!",
-      "sections": {
-        "Section_0": [
-          {
-            "file": "Lesson_1_Wtf_is_this.md",
-            "submission_type": "text",
-            "submission_text": "Conte para nós o porquê você se interessou por esse build.",
-            "title": " WTF é isso?",
-            "submission_title": "Enviar texto"
-          }
-        ],
-        "Section_1": [
-          {
-            "file": "Lesson_1_Write_your_first_prompt.md",
-            "submission_type": "upload",
-            "submission_text": "Envie o Print da sua história no Playground",
-            "title": "Escreva seu primeiro prompt",
-            "submission_title": "Enviar print"
-          },
-          {
-            "file": "Lesson_2_Meta_learning_Bow_to_AI.md",
-            "submission_type": "upload",
-            "submission_text": "Envie a captura de tela do Playground",
-            "title": "Meta-aprendizado — usando o que o GPT-3 gerou como um prompt",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_3_ML101_how_this_all_works.md",
-            "submission_type": "text",
-            "submission_text": "Como está sendo seu aprendizado até aqui?",
-            "title": "Os fundamentos por trás do GPT-3",
-            "submission_title": "Enviar texto"
-          },
-          {
-            "file": "Lesson_4_Revive_someone.md",
-            "submission_type": "upload",
-            "submission_text": "Captura de tela do Playground com seu prompt de bate papo",
-            "title": "Uma conversa com Steve Jobs",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_5_Secret_advanced_gpt3_stuff.md",
-            "submission_type": "text",
-            "submission_text": "Qual a sua ideia maluca?",
-            "title": "Encadeamento de prompts",
-            "submission_title": "Envie sua ideia"
-          }
-        ],
-        "Section_2": [
-          {
-            "file": "Lesson_1_Clone_repo_and_settle_on_idea.md",
-            "submission_type": "upload",
-            "submission_text": "Envie uma captura de tela do seu GPT-3",
-            "title": "Clonando o Repositório",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_2_Add_in_OpenAI_API.md",
-            "submission_type": "upload",
-            "submission_text": "Envie uma captura de tela do seu aplicativo da web",
-            "title": "Adicionando a API da OpenAI",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_3_Add_in_your_prompt.md",
-            "submission_type": "text",
-            "submission_text": "Se você apresentou para as pessoas próximas de você, o quê elas acharam?",
-            "title": "Adicione na sua prompt",
-            "submission_title": "Enviar texto"
-          }
-        ],
-        "Section_3": [
-          {
-            "file": "Lesson_1_Setup_chrome_extension.md",
-            "submission_type": "upload",
-            "submission_text": "Envie uma captura de tela da sua extensão do Chrome",
-            "title": "Configurando extensão do Chrome",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_2_Call_OpenAI_from_extension.md",
-            "submission_type": "upload",
-            "submission_text": "Envie sua saída da OpenAI no console do service worker",
-            "title": "Construindo seu primeiro service worker",
-            "submission_title": "Enviar imagem"
-          },
-          {
-            "file": "Lesson_3_Inject_into_webpage.md",
-            "submission_type": "upload",
-            "submission_text": "Envie uma captura de tela mostrando o texto gerado no Calmly pelo script de injeção.",
-            "title": "Comunicando com a guia do aplicativo da web",
-            "submission_title": "Enviar imagem"
-          }
-        ],
-        "Section_4": [
-          {
-            "file": "Lesson_1_Finishing_touches.md",
-            "submission_type": "upload",
-            "submission_text": "Envie uma captura de tela da sua aplicação web finalizada",
-            "title": "Toques finais",
-            "submission_title": "Mostre que você deixou o localhost"
-          },
-          {
-            "file": "Lesson_2_Celebrate.md",
-            "submission_type": "text",
-            "submission_text": "Como foi a sua experiência nesse build? Envie o link do seu projeto",
-            "title": "Finalizar e celebrar!",
-            "submission_title": "Enviar texto"
-          }
-        ]
-      },
-      "index": 10,
       "analytics": [
         {
           "photoUrls": [
-            "https://avatars.githubusercontent.com/u/116856713?v=4",
-            "https://avatars.githubusercontent.com/u/4982863?v=4",
-            "https://avatars.githubusercontent.com/u/45835631?v=4"
+            "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/users%2FtFOYKWIm6OMlKHtmxarRfVY77W63%2FprofilePic?alt=media&token=e5d2df3d-259b-456f-99b5-c03b908924ad"
           ],
-          "students": 19,
-          "section": "Section_1"
-        },
-        {
-          "photoUrls": [],
-          "students": 3,
-          "section": "Section_2"
-        },
-        {
-          "photoUrls": [
-            "https://avatars.githubusercontent.com/u/22472925?v=4",
-            "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/users%2Fj8oDwQuPmVV8tTWFCRHDkZlHlK13%2FprofilePic?alt=media&token=e85570a9-dc20-4426-88f8-dd69f439b2c0",
-            "https://lh3.googleusercontent.com/a-/AOh14Ggow04e8zoh_d80y_TnOMMHuw4WwqHypo1vZyu3=s96-c"
-          ],
-          "students": 39,
-          "section": "Section_0"
-        },
-        {
-          "photoUrls": [
-            "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/users%2FGNqzqIe2jvW1bmGCLxCwz3SjbwV2%2FprofilePic?alt=media&token=64658860-31e7-497e-a6c1-88bbda181018",
-            "https://lh3.googleusercontent.com/a-/AOh14GijzxlfSQRGB7ihWwtdGdzXvsFA70ALNq3a02krPw=s96-c",
-            "https://avatars.githubusercontent.com/u/37958057?v=4"
-          ],
-          "students": 6,
+          "students": 2,
           "section": "Section_4"
         },
         {
           "photoUrls": [
-            "https://avatars.githubusercontent.com/u/87203157?v=4"
+            "https://avatars.githubusercontent.com/u/77552?v=4"
           ],
-          "students": 2,
+          "students": 1,
+          "section": "Section_1"
+        },
+        {
+          "photoUrls": [],
+          "students": 1,
           "section": "Section_3"
         }
       ]
     }
   },
-  "discord_invites": {
-    "2Det5u8u": {
-      "code": "2Det5u8u",
-      "discord": "piadascripto#0",
-      "createdTimestamp": {
-        "_seconds": 1715342530,
-        "_nanoseconds": 608000000
-      },
-      "uses": 0,
-      "discord_id": "675434384408707088"
-    }
-  },
-  "github_users": {
-    "0xb0b1": {
-      "repos_url": "https://api.github.com/users/0xb0b1/repos",
-      "gists_url": "https://api.github.com/users/0xb0b1/gists{/gist_id}",
-      "following_url": "https://api.github.com/users/0xb0b1/following{/other_user}",
-      "twitter_username": "p_vcent",
-      "bio": "Software Developer",
-      "created_at": "2018-01-23T13:45:54Z",
-      "blog": "https://paulo-vicente.netlify.app/",
-      "type": "User",
-      "login": "0xb0b1",
-      "subscriptions_url": "https://api.github.com/users/0xb0b1/subscriptions",
-      "updated_at": "2022-09-08T17:54:20Z",
-      "site_admin": false,
-      "company": "Codeby",
-      "id": 35732793,
-      "public_repos": 91,
-      "gravatar_id": "",
-      "email": "vcente82@gmail.com",
-      "organizations_url": "https://api.github.com/users/0xb0b1/orgs",
-      "hireable": true,
-      "starred_url": "https://api.github.com/users/0xb0b1/starred{/owner}{/repo}",
-      "followers_url": "https://api.github.com/users/0xb0b1/followers",
-      "public_gists": 5,
-      "url": "https://api.github.com/users/0xb0b1",
-      "received_events_url": "https://api.github.com/users/0xb0b1/received_events",
-      "followers": 379,
-      "avatar_url": "https://avatars.githubusercontent.com/u/35732793?v=4",
-      "events_url": "https://api.github.com/users/0xb0b1/events{/privacy}",
-      "html_url": "https://github.com/0xb0b1",
-      "following": 4370,
-      "name": "Paulo Vicente",
-      "location": "PA - Brazil",
-      "node_id": "MDQ6VXNlcjM1NzMyNzkz"
-    }
-  },
   "lessons_submissions": {
-    "00039913-5af6-49a1-b250-0c43913f2983": {
-      "user_id": "hX5ELaRUTCd4ApsRQ2YJ0bJai1w2",
-      "lesson": "Lesson_4_Create_A_Contract_That_Mints_NFTs.md",
+    "01278cf8-dedf-45b6-abbe-4acb702b5344": {
+      "user_id": "qpluj9zA4Idmvoxj1XEG8MmPpN72",
+      "lesson": "Lesson_2_Write_Your_First_Smart_Contract.md",
       "cohort": {
         "_firestore": {
-          "projectId": "web3dev-bootcamp"
+          "projectId": "web3dev-development"
         },
         "_path": {
           "segments": [
             "cohorts",
-            "u3SkEj1dSqDfZfvsJ8si"
+            "lloRUGwzJAG4Lj2B3bmJ"
           ]
         },
         "_converter": {}
@@ -267,72 +78,79 @@
       "section": "Section_1",
       "user": {
         "_firestore": {
-          "projectId": "web3dev-bootcamp"
+          "projectId": "web3dev-development"
         },
         "_path": {
           "segments": [
             "users",
-            "hX5ELaRUTCd4ApsRQ2YJ0bJai1w2"
+            "qpluj9zA4Idmvoxj1XEG8MmPpN72"
           ]
         },
         "_converter": {}
       },
-      "cohort_id": "u3SkEj1dSqDfZfvsJ8si",
+      "cohort_id": "lloRUGwzJAG4Lj2B3bmJ",
       "content": {
-        "type": "url",
-        "value": "https://testnets.opensea.io/assets/rinkeby/0x5c74b4b728c46f413bd81390a5f43a6763271bcb/1"
-      },
-      "createdAt": {
-        "_seconds": 1659551305,
-        "_nanoseconds": 224000000
+        "type": "upload",
+        "value": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/lessons_submissions%2Fd65f4457-5764-484d-b25f-b055430e5e65?alt=media&token=0b96e3d4-1ccf-45c8-85bb-40f3a01bd07c"
       }
     }
   },
   "nft_mints": {
-    "09kF5JUOSo2Wfhtv6CJ8": {
-      "wallet_address": "0x152a80f617006a4d8513e8a47d85afb317eec479",
-      "nft_contract": "0xa68580d4E41925C20aF20dBA9B4Db17A79842F19",
-      "user_id": "7KMI5beoVdNlHwQnXw3eC3YS9WS2",
-      "nft_id": 176,
-      "course_title": "JS DAO",
+    "JZ8R1avhVnjeK0U9Z2F4": {
+      "nft_contract": "",
+      "wallet_address": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
+      "user_id": "tFOYKWIm6OMlKHtmxarRfVY77W63",
+      "nft_id": 1,
+      "course_title": "Smart Contract Solidity",
+      "created_at": {
+        "_seconds": 1655725052,
+        "_nanoseconds": 306000000
+      },
       "cohort": {
-        "discord_channel": "js-dao-pioneiros",
-        "course_id": "JS_DAO",
-        "endDate": {
-          "_seconds": 1659927600,
-          "_nanoseconds": 393000000
-        },
+        "discord_channel": "nft-collection-pioneiros",
+        "course_id": "NFT_Collection",
         "kickoffEndTime": {
-          "_seconds": 1659135600,
-          "_nanoseconds": 56000000
+          "_seconds": 1655506800,
+          "_nanoseconds": 0
+        },
+        "endDate": {
+          "_seconds": 1655348400,
+          "_nanoseconds": 90000000
         },
         "email_content": {
-          "subject": "🌐 Construa sua própria DAO com JavaScript em uma semana"
+          "subject": "Construa sua própria coleção NFT"
         },
-        "name": "PIONEIROS",
+        "name": "pioneiros",
         "kickoffStartTime": {
-          "_seconds": 1659132000,
-          "_nanoseconds": 274000000
+          "_seconds": 1655153940,
+          "_nanoseconds": 3000000
         },
-        "id": "PLekDTBPkbbupNbcaci1",
-        "discord_role": "995818734356811856",
+        "course": {
+          "_firestore": {
+            "projectId": "web3dev-development"
+          },
+          "_path": {
+            "segments": [
+              "courses",
+              "NFT_Collection"
+            ]
+          },
+          "_converter": {}
+        },
+        "discord_role": "981217157046226995",
         "startDate": {
-          "_seconds": 1659132000,
-          "_nanoseconds": 676000000
+          "_seconds": 1654898400,
+          "_nanoseconds": 0
         }
       },
-      "created_at": {
-        "_seconds": 1659518798,
-        "_nanoseconds": 12000000
-      },
-      "cohort_name": "PIONEIROS",
+      "cohort_name": "pioneiros",
       "user": {
         "photoUrl": null,
-        "uid": "7KMI5beoVdNlHwQnXw3eC3YS9WS2",
+        "uid": "tFOYKWIm6OMlKHtmxarRfVY77W63",
         "socialLinks": [
           {
             "name": "github",
-            "url": "https://github.com/webeleven"
+            "url": "https://github.com/romulorod"
           },
           {
             "name": "twitter",
@@ -344,94 +162,64 @@
           },
           {
             "name": "linkedin",
-            "url": "https://www.linkedin.com/in/andre-teves-5a84688/"
+            "url": ""
           }
         ],
-        "wallet": "0x152a80f617006a4d8513e8a47d85afb317eec479",
-        "discord": {
-          "verified": true,
-          "id": "689199884196249647",
-          "locale": "en-US",
-          "email": "teves@webeleven.com.br",
-          "username": "Teves#2400"
-        },
+        "discord": null,
+        "wallet": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
         "cohort_ids": [
-          "DIdCT7JYteDCs2LXFOVI",
-          "O86fRsiUkeRP3Qk4EAtS",
-          "PLekDTBPkbbupNbcaci1"
+          "LNYQZCn5p9amT9VUJVhs",
+          "y6AUPXpfj1L6jfhAlTzl"
         ],
-        "name": "André",
+        "name": "Rômulo",
         "bio": "",
-        "id": "7KMI5beoVdNlHwQnXw3eC3YS9WS2",
         "cohorts": [
           {
             "subscriptionDate": {
-              "_seconds": 1651804175,
-              "_nanoseconds": 29000000
+              "_seconds": 1655233116,
+              "_nanoseconds": 21000000
             },
             "course_id": "Solidity_And_Smart_Contracts",
-            "cohort": {
-              "_firestore": {
-                "projectId": "web3dev-bootcamp"
-              },
-              "_path": {
-                "segments": [
-                  "cohorts",
-                  "DIdCT7JYteDCs2LXFOVI"
-                ]
-              },
-              "_converter": {}
-            },
-            "id": "Solidity_And_Smart_Contracts",
-            "cohort_id": "DIdCT7JYteDCs2LXFOVI"
+            "cohort_id": "LNYQZCn5p9amT9VUJVhs"
           },
           {
             "subscriptionDate": {
-              "_seconds": 1655955776,
-              "_nanoseconds": 514000000
+              "_seconds": 1655233122,
+              "_nanoseconds": 90000000
             },
             "course_id": "NFT_Collection",
             "cohort": {
               "_firestore": {
-                "projectId": "web3dev-bootcamp"
+                "projectId": "web3dev-development"
               },
               "_path": {
                 "segments": [
                   "cohorts",
-                  "O86fRsiUkeRP3Qk4EAtS"
+                  "y6AUPXpfj1L6jfhAlTzl"
                 ]
               },
               "_converter": {}
             },
             "id": "NFT_Collection",
-            "cohort_id": "O86fRsiUkeRP3Qk4EAtS"
-          },
-          {
-            "subscriptionDate": {
-              "_seconds": 1658527346,
-              "_nanoseconds": 941000000
-            },
-            "course_id": "JS_DAO",
-            "cohort_id": "PLekDTBPkbbupNbcaci1"
+            "cohort_id": "y6AUPXpfj1L6jfhAlTzl"
           }
         ],
-        "email": "andreteves@gmail.com"
+        "email": "biorrodrigues@gmail.com"
       },
-      "cohort_id": "PLekDTBPkbbupNbcaci1"
+      "cohort_id": "y6AUPXpfj1L6jfhAlTzl"
     }
   },
   "study_group_presence": {
-    "01mOiUPUPKB0deNdcOdc": {
+    "04Gsc3Qyvcgz65Ew0ptj": {
       "channel_name": "📚・Study groups",
-      "study_group_id": "ow6tusAKue3qWF5aUSxm",
+      "study_group_id": "UI0UxzS0zfWKsHVwu1pc",
       "guild_name": "WEB3DEV",
       "guild_id": "898706705779687435",
-      "id": "01mOiUPUPKB0deNdcOdc",
       "channel_id": "971893080410185728",
-      "discord_id": "702653749780283415",
+      "discord_id": "734586381598457976",
       "timestamp": {
-        "_seconds": 1714067533,
-        "_nanoseconds": 106000000
+        "_seconds": 1717712705,
+        "_nanoseconds": 261000000
       }
     }
   },
@@ -441,31 +229,55 @@
         "_seconds": 1712160000,
         "_nanoseconds": 741000000
       },
+      "language": "pt",
       "leader_discord_id": "548618495383044129",
       "title": "Rust",
-      "language": "pt",
+      "analytics": {
+        "photoUrls": [
+          "https://avatars.githubusercontent.com/u/77552?v=4"
+        ],
+        "students": 1
+      },
       "active": true,
-      "description": "Dive into Rust, a systems programming language known for its safety and performance. Learn the basics of Rust syntax, memory management, and concurrency. Develop confidence in writing efficient and reliable code. This group is perfect for those new to Rust or looking to strengthen their understanding.",
-      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/study_groups%2Frust_pt_small.webp?alt=media&token=3e02ab9a-5b0b-4c50-89b9-c4924eb07e6d",
-      "slug": "rust-pt",
-      "difficulty": "beginner",
-      "index": 8,
-      "metadata": {
-        "pt": {
-          "description": "Mergulhe no Rust, uma linguagem de programação de sistemas conhecida por sua segurança e desempenho. Aprenda os conceitos básicos da sintaxe do Rust, gerenciamento de memória e concorrência. Desenvolva confiança em escrever código eficiente e confiável. Este grupo é perfeito para iniciantes no Rust ou para aqueles que desejam fortalecer seu entendimento.",
-          "title": "Rust"
+      "slug": "Rust_PT",
+      "tags": [],
+      "difficulty": "Intermediate",
+      "description": "Write here your description",
+      "index": 4,
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/groups_cover%2F1.png?alt=media&token=376e3547-4c4d-4afa-8ef9-e925355da771"
+    }
+  },
+  "tasks": {
+    "0EvX0FUJSsK8kl4fb8YZ": {
+      "project_type": "Core",
+      "createdAt": "2024-06-25T17:29:09Z",
+      "project_id": 23,
+      "assignees": [
+        "helenafreitas5"
+      ],
+      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
+      "state": "OPEN",
+      "project_name": "Stellar Study Group [Core]",
+      "title": "Start here",
+      "body": "",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Title",
+          "value": "Start here"
         },
-        "en": {
-          "description": "Dive into Rust, a systems programming language known for its safety and performance. Learn the basics of Rust syntax, memory management, and concurrency. Develop confidence in writing efficient and reliable code. This group is perfect for those new to Rust or looking to strengthen their understanding.",
-          "title": "Rust"
+        {
+          "field": "Status",
+          "value": "Backlog"
         }
-      }
+      ],
+      "updatedAt": "2024-06-25T18:04:34Z"
     }
   },
   "users": {
-    "00CO4GJOlkan9NIraZvoWvr2moH3": {
-      "uid": "00CO4GJOlkan9NIraZvoWvr2moH3",
+    "23WEoArqzRf4ORh4cdvadaVsYtj1": {
       "photoUrl": null,
+      "uid": "23WEoArqzRf4ORh4cdvadaVsYtj1",
       "socialLinks": [
         {
           "name": "github",
@@ -485,12 +297,12 @@
         }
       ],
       "wallet": null,
-      "discord": null,
       "name": null,
       "bio": "",
       "cohorts": [],
-      "email": "andersontravassos1978@gmail.com",
-      "token": "ba9751596a975a1ca1c61be5a29495ac"
+      "email": "alan.franzin2011@gmail.com",
+      "cohort_ids": [],
+      "discord": "1234"
     }
   }
 }

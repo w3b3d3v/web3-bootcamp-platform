@@ -5,8 +5,8 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watchAll",
-    "emulators:start": "firebase emulators:start --project=web3dev-development",
-    "seed-data":"node scripts/seedFirestore.js",
+    "emulator": "firebase emulators:start --project=web3dev-development",
+    "seed": "node scripts/seedFirestore.js",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

@@ -4,8 +4,8 @@ const fs = require('fs')
 // Inicializa o Firebase Admin SDK com as credenciais específicas
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  databaseURL: "https://web3dev-bootcamp.firebaseio.com",
-  projectId: "web3dev-bootcamp" 
+  databaseURL: 'https://web3dev-development.firebaseio.com',
+  projectId: 'web3dev-development',
 })
 
 const db = admin.firestore()
@@ -18,13 +18,13 @@ async function exportFirestore() {
     const snapshot = await collection.limit(1).get()
     data[collection.id] = {}
 
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc) => {
       data[collection.id][doc.id] = doc.data()
     })
   }
 
-  fs.writeFileSync('seed-data.json', JSON.stringify(data, null, 2))
-  console.log('Dados exportados com sucesso para backup.json')
+  fs.writeFileSync('../seed-data.json', JSON.stringify(data, null, 2))
+  console.log('Dados exportados com sucesso para seed-data.json')
 }
 
 exportFirestore().catch(console.error)
