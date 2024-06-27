@@ -12,6 +12,7 @@ const { createUser } = require('./lib/mailchimp')
 const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
 const { usersByStudyGroup, storeUsersPerStudyGroup } = require('./study_group_analytics')
+const { fetchAndStoreIssues } = require('./fetchKanban')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -359,7 +360,6 @@ exports.logStudents = functions.https.onRequest(async (req, resp) => {
   log_study_group(req.query.channel_id, resp)
 })
 
-
 const region = 'us-central1'
 const projectId = firebase.app().options.projectId
 const axios = require('axios')
@@ -389,6 +389,21 @@ exports.fetchStoreStudyGroupAnalytics = functions.pubsub
     try {
       const [rows] = await usersByStudyGroup()
       await storeUsersPerStudyGroup(rows)
+      return true
+    } catch (e) {
+      console.log('error: ' + e)
+      return false
+    }
+  })
+
+exports.fetchAndStoreIssues = fetchAndStoreIssues
+
+exports.scheduledFetchAndStoreIssues = functions.pubsub
+  .schedule('0 * * * *')
+  .timeZone('America/Sao_Paulo')
+  .onRun(async (context) => {
+    try {
+      await fetchAndStoreIssues()
       return true
     } catch (e) {
       console.log('error: ' + e)
