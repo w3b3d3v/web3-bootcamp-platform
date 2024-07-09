@@ -46,6 +46,7 @@
   "send": "Send",
   "subscribeNow": "Subscribe now",
   "cancel": "Cancel",
+  "share": "Share",
   "courses": {
     "startNow": "Start Now"
   },
@@ -110,5 +111,47 @@
     "blockchainExp": {
       "min": "Satoshi, is that you? The minimum is 2008 :)"
     }
-  }
+  },
+  "messages": {
+    "registration_success": "Registered successfully!",
+    "email_in_use": "This email is already in use!",
+    "something_wrong_try_again": "Something went wrong, try again!",
+    "login_success": "You logged in successfully!",
+    "invalid_credentials_try_again": "Invalid credentials, try again.",
+    "something_wrong_happened": "Something went wrong.",
+    "logout_success": "You logged out!",
+    "lesson_no_response": "You cannot submit the lesson without a response :)",
+    "file_needed": "You need to select a file to upload",
+    "email_sent_success": "Email sent successfully",
+    "email_not_found": "Email not found",
+    "lesson_completed_congrats": "You finished, congratulations!",
+    "exercise_not_submitted": "You have not submitted the exercise for this lesson yet",
+    "already_on_first_lesson": "You are already on the first lesson.",
+    "data_updated_success": "Data updated successfully!",
+    "error_updating_data": "Error updating data"
+  },
+  "twitter-share": "Networking is everything, how about sharing your progress with your friends on Twitter?",
+  "buttons": {
+    "study_groups": "Study Groups",
+    "no": "No",
+    "yes": "Yes",
+    "reset_password": "Reset your password",
+    "sign_in": "Sign in to your account",
+    "register_now": "Register now!",
+    "forgot_password": "Forgot my password",
+    "log_in": "Log in",
+    "recover_password": "Recover password",
+    "login_with_github": "Login with GitHub",
+    "login_with_google": "Login with Google"
+  },
+  "form": {
+    "no_account": "Don't have an account?",
+    "enter_email": "Please enter your email",
+    "invalid_email": "Invalid email",
+    "password": "Password",
+    "enter_password": "Please enter your password",
+    "verify_password": "Verify your password",
+    "or": "OR"
+  },
+  "link_github_account": "Do you want to link GitHub to your already registered account?"
 }

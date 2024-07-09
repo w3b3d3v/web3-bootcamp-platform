@@ -15,6 +15,7 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/initFirebase.js'
 import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'
+import { useTranslation } from "react-i18next"
 
 const AuthContext = createContext()
 
@@ -38,6 +39,7 @@ const toastParameters = {
 }
 
 export function AuthProvider({ children }) {
+  const { t } = useTranslation()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [userAuthenticated, setUserAuthenticated] = useState(false)
@@ -73,17 +75,17 @@ export function AuthProvider({ children }) {
         setUser(userCredential.user)
         createUserinFirestore(userCredential.user)
         Router.push('/courses')
-        toast.success('Registrado com sucesso!', {
+        toast.success(t('messages.registration_success'), {
           toastParameters,
         })
       })
       .catch((error) => {
         if (error.code.includes('already-in-use')) {
-          toast.error('Este email já está em uso!', {
+          toast.error(t('messages.email_in_use'), {
             toastParameters,
           })
         } else {
-          toast.error('Algo deu errado, tente novamente!', {
+          toast.error(t('messages.something_wrong_try_again'), {
             toastParameters,
           })
         }
@@ -97,17 +99,17 @@ export function AuthProvider({ children }) {
       .then((userCredential) => {
         setUser(userCredential.user)
         getUserFromFirestore(userCredential.user)
-        toast.success('Você entrou com sucesso!', {
+        toast.success(t('messages.login_success'), {
           toastParameters,
         })
       })
       .catch((error) => {
         if (error.code.includes('not-found') || error.code.includes('wrong-password')) {
-          toast.error('Credenciais inválidas, tente novamente.', {
+          toast.error(t('messages.invalid_credentials_try_again'), {
             toastParameters,
           })
         } else {
-          toast.error('Algo deu errado, tente novamente!', {
+          toast.error(t('messages.something_wrong_try_again'), {
             toastParameters,
           })
         }
@@ -147,7 +149,7 @@ export function AuthProvider({ children }) {
           await updateUserGithub(githubUrl, user.uid)
           sessionStorage.clear()
 
-          toast.success('Você entrou com sucesso!', {
+          toast.success(t('messages.login_success'), {
             toastParameters,
           })
         })
@@ -183,12 +185,12 @@ export function AuthProvider({ children }) {
       await auth.signOut()
       handleUser(false)
     } catch (error) {
-      toast.error('Algo de errado aconteceu.', {
+      toast.error(t('messages.something_wrong_happened'), {
         toastParameters,
       })
     } finally {
       setLoading(false)
-      toast.success('Você saiu!', {
+      toast.success(t('messages.logout_success'), {
         icon: '👋',
         toastParameters,
       })

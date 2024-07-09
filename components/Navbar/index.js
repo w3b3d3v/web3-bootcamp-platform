@@ -19,6 +19,7 @@ import { checkReferral, saveReferralCookie } from '../../lib/store_referral'
 
 export default function NavbarComponent() {
   const { setVisible, bindings } = useModal()
+  const { t, i18n } = useTranslation()
   const [firestoreUser, setFirestoreUser] = useState()
   const [link, setLink] = useState('')
   const ref = React.createRef()
@@ -34,7 +35,7 @@ export default function NavbarComponent() {
   ]
 
   const [profile, setProfile] = useState(false)
-  const { t, i18n } = useTranslation()
+  
   const { user, logout } = useAuth()
 
   const getUser = async () => {
@@ -82,7 +83,7 @@ export default function NavbarComponent() {
               css={{ background: '$white' }}
               icon={<MdGroup color="black" />}
             >
-              <Text weight={'extrabold'} css={{ color: 'black' }}>Study Groups</Text>
+              <Text weight={'extrabold'} css={{ color: 'black' }}>{t('buttons.study_groups')}</Text>
             </Button>
           </Link>
         </Navbar.Content>

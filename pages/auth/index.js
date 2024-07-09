@@ -11,10 +11,12 @@ import Head from 'next/head'
 import { Button } from '@nextui-org/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
+import { useTranslation } from 'react-i18next'
 
 function authPage() {
   const { login, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
+  const { t } = useTranslation()
 
   const [isDisable, setIsDisable] = useState(false)
   const { register, handleSubmit } = useForm()
@@ -35,14 +37,14 @@ function authPage() {
   function handleResetPassword(auth, email) {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        toast.success('Email enviado com sucesso')
+        toast.success(t('messages.email_sent_success'))
         setIsDisable(false)
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         errorCode.includes('not-found')
-          ? toast.error('Email não encontrado')
+          ? toast.error(t('messages.email_not_found'))
           : toast.error(errorMessage)
       })
   }
@@ -61,31 +63,31 @@ function authPage() {
           {sessionStorage.getItem('credential') ? (
             <>
               <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
-                <h3>Deseja vincular o github à sua conta já cadastrada?</h3>
+                <h3>{t('link_github_account')}</h3>
                 <div className="flex w-full justify-around">
                   <Button customClass={'bg-slate-300'} onClick={() => denyLogin()}>
-                    Não
+                  {t('buttons.no')}
                   </Button>
-                  <Button onClick={() => loginGoogle()}>Sim</Button>
+                  <Button onClick={() => loginGoogle()}>{t('buttons.yes')}</Button>
                 </div>
               </div>
             </>
           ) : (
             <div className="m:px-6 w-full  rounded px-6 py-6 shadow-lg sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
               <p tabIndex={0} className="text-2xl font-extrabold leading-6 focus:outline-none">
-                {isDisable ? 'Resete sua senha' : 'Entre na sua conta'}
+                {isDisable ? t('buttons.reset_password') : t('buttons.sign_in')}
               </p>
               <p
                 tabIndex={0}
                 className="mt-3 text-sm font-medium leading-none text-black-100 focus:outline-none dark:text-gray-300"
               >
-                Não tem uma conta?{' '}
+                {t('form.no_account')}{' '}
                 <Link
                   href="/auth/signup"
                   className="cursor-pointer text-sm font-medium leading-none text-primary-300 hover:text-gray-500 hover:no-underline focus:text-gray-500 focus:no-underline focus:outline-none dark:text-primary-300"
                 >
                   <span className="cursor-pointer text-primary-300 transition duration-150 ease-in-out hover:text-primary-400 dark:text-primary-300">
-                    Registre-se agora!
+                  {t('buttons.register_now')}
                   </span>
                 </Link>
               </p>
@@ -106,8 +108,8 @@ function authPage() {
                       placeholder="ex: silva@gmail.com"
                       onInputCapture={(e) => setEmail(e.target.value)}
                       {...register('email', {
-                        required: 'Por favor, insira seu e-mail',
-                        message: 'E-mail invalido',
+                        required: t('form.enter_email'),
+                        message: t('form.invalid_email'),
                         pattern:
                           /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i,
                       })}
@@ -119,7 +121,7 @@ function authPage() {
                       className="text-sm font-medium leading-none text-black-300 dark:text-white-100"
                     >
                       {' '}
-                      Senha{' '}
+                      {t('form.password')}{' '}
                     </label>
                     <div className="relative flex items-center justify-center">
                       <input
@@ -128,8 +130,8 @@ function authPage() {
                         className="mt-2 w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800"
                         placeholder=""
                         {...register('password', {
-                          required: 'Por favor, insira sua senha',
-                          message: 'Verifique sua senha',
+                          required: t('form.enter_password'),
+                          message: t('form.verify_password'),
                           min: 8,
                         })}
                       />
@@ -178,7 +180,7 @@ function authPage() {
                         className="w-fit cursor-pointer text-xs text-indigo-300 hover:underline"
                         onClick={() => setIsDisable(true)}
                       >
-                        Esqueci minha senha
+                        {t('buttons.forgot_password')}
                       </p>
                     </div>
                   </div>
@@ -188,7 +190,7 @@ function authPage() {
                       className="w-full rounded bg-primary-300 py-4 text-sm font-semibold leading-none text-white-100 transition duration-150 ease-in-out hover:bg-primary-400 focus:outline-none focus:ring-0 focus:ring-primary-300 focus:ring-offset-2 dark:text-black-300"
                       type="submit"
                     >
-                      Entrar
+                      {t('buttons.log_in')}
                     </button>
                   </div>
                 </form>
@@ -209,8 +211,8 @@ function authPage() {
                       placeholder="ex: silva@gmail.com"
                       onInputCapture={(e) => setEmail(e.target.value)}
                       {...register('email', {
-                        required: 'Por favor, insira seu e-mail',
-                        message: 'E-mail invalido',
+                        required: t('form.enter_email'),
+                        message: t('form.invalid_email'),
                         pattern:
                           /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i,
                       })}
@@ -222,7 +224,7 @@ function authPage() {
                       className="w-full rounded bg-primary-300 py-4 text-sm font-semibold leading-none text-white-100 transition duration-150 ease-in-out hover:bg-primary-400 focus:outline-none focus:ring-0 focus:ring-primary-300 focus:ring-offset-2 dark:text-black-300"
                       onClick={() => handleResetPassword(auth, email)}
                     >
-                      Recuperar senha
+                      {t('buttons.recover_password')}
                     </button>
                   </div>
                 </>
@@ -230,7 +232,7 @@ function authPage() {
 
               <div className="flex w-full items-center justify-between py-5">
                 <hr className="w-full bg-gray-400" />
-                <p className="px-2.5 text-base font-medium leading-4 text-gray-500">OU</p>
+                <p className="px-2.5 text-base font-medium leading-4 text-gray-500">{t('form.or')}</p>
                 <hr className="w-full bg-gray-400" />
               </div>
               <div className="flex flex-col gap-3">
@@ -242,7 +244,7 @@ function authPage() {
                   color={''}
                   bordered
                 >
-                  Login com o Github
+                  {t('buttons.login_with_github')}
                 </Button>
 
                 <Button
@@ -254,7 +256,7 @@ function authPage() {
                   color={''}
                   bordered
                 >
-                  Login com o Google
+                  {t('buttons.login_with_google')}
                 </Button>
               </div>
             </div>

@@ -2,9 +2,11 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
+import { useTranslation } from "react-i18next"
 
 export default function TwitterModal({ openExternal, onClose, twitterShare }) {
   const cancelButtonRef = useRef(null)
+  const { t } = useTranslation()
 
   return (
     <Transition.Root show={openExternal} as={Fragment}>
@@ -43,7 +45,7 @@ export default function TwitterModal({ openExternal, onClose, twitterShare }) {
                 <div className="sm:flex sm:items-start">
                   <div className=" mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                      Networking é tudo, que tal mostrar esse print para os seus amigos no <br /> Twitter? <br />
+                      {t('twitter-share')}
                     </Dialog.Title>
                     <span className="flex items-center justify-center">
                       <Image src="/assets/img/twitter-logo.svg" width="50" height="50" />
@@ -56,12 +58,12 @@ export default function TwitterModal({ openExternal, onClose, twitterShare }) {
                           onClick={() => {
                             onClose()
                             window.open(
-                              `https://twitter.com/intent/tweet?text=${twitterShare} <envie o seu print ou link aqui>`,
+                              `https://twitter.com/intent/tweet?text=${twitterShare}`,
                               '_blank'
                             )
                           }}
                         >
-                          Compartilhar
+                          {t('share')}
                         </button>
                         <button
                           className="mt-3 inline-flex w-full cursor-pointer justify-center rounded-md border border-gray-300 bg-white-100 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:bg-red-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -69,7 +71,7 @@ export default function TwitterModal({ openExternal, onClose, twitterShare }) {
                           id="modal-cancel-button"
                           ref={cancelButtonRef}
                         >
-                          Cancelar
+                        {t('cancel')}
                         </button>
                       </div>
                     </div>
