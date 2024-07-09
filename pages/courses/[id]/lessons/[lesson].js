@@ -204,6 +204,7 @@ function Lessons({ course, lesson, currentDate }) {
                       ) : (
                         <div className="flex flex-col items-center gap-5">
                           <Button
+                            css={{ zIndex: '0'}}
                             rounded
                             ref={ref}
                             id="submit-lesson"
@@ -220,24 +221,24 @@ function Lessons({ course, lesson, currentDate }) {
                         </div>
                       )}
                       {open && (
-                        <Modal
-                          openExternal={open}
-                          onClose={() => closeModal()}
-                          lesson={lesson}
-                          course={course}
-                          submissionType={submissionType}
-                          submissionText={submissionText}
-                          submissionTitle={submissionTitle}
-                          twitterShare={twitterShare}
-                        />
+                          <Modal
+                            openExternal={open}
+                            onClose={() => closeModal()}
+                            lesson={lesson}
+                            course={course}
+                            submissionType={submissionType}
+                            submissionText={submissionText}
+                            submissionTitle={submissionTitle}
+                            twitterShare={twitterShare}
+                          />
                       )}
                       {twitterModal && (
-                        <TwitterModal
-                          openExternal={twitterModal}
-                          onClose={() => setTwitterModal(false)}
-                          twitterShare={twitterShare}
-                          url={url}
-                        />
+                          <TwitterModal
+                            openExternal={twitterModal}
+                            onClose={() => setTwitterModal(false)}
+                            twitterShare={twitterShare}
+                            url={url}
+                          />
                       )}
                     </div>
                   </div>
@@ -246,7 +247,11 @@ function Lessons({ course, lesson, currentDate }) {
             })}
         </div>
         <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
-          <Button customClass="bg-slate-300" onClick={previousLesson} color="">
+          <Button 
+            css={{ zIndex: '0'}}
+            customClass="bg-slate-300" 
+            onClick={previousLesson} color=""
+            >
             {t('lesson.previousLesson')}
           </Button>
           <Button
@@ -256,7 +261,10 @@ function Lessons({ course, lesson, currentDate }) {
           >
             {t('lesson.backToCourse')}
           </Button>
-          <Button onClick={nextLesson} color="secondary">
+          <Button 
+            css={{ zIndex: '0'}}
+            onClick={nextLesson} color="secondary"
+          >
             {t('lesson.nextLesson')}{' '}
           </Button>
         </div>
