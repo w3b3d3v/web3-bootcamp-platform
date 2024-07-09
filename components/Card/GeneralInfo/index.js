@@ -110,12 +110,12 @@ export default function GeneralInfoCard() {
     await updateUserInFirestore(userData, user?.uid)
       .then(async () => {
         if (file) await updateUserProfilePic()
-        toast.success('Dados atualizados com sucesso!')
+        toast.success(t('messages.data_updated_success'))
         //window.location.reload()
       })
       .catch((error) => {
         console.log(error)
-        toast.error('Erro ao atualizar dados')
+        toast.error(t('messages.error_updating_data'))
       })
   }
 

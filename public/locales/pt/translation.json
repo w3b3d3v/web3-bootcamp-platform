@@ -46,6 +46,7 @@
   "send": "Enviar",
   "subscribeNow": "Quero me inscrever",
   "cancel": "Cancelar",
+  "share": "Compartilhar",
   "courses": {
     "startNow": "Começar agora"
   },
@@ -110,5 +111,47 @@
     "blockchainExp": {
       "min": "Satoshi, é você? O mínimo é 2008 :)"
     }
+  },
+  "messages": {
+    "registration_success": "Registrado com sucesso!",
+    "email_in_use": "Este email já está em uso!",
+    "something_wrong_try_again": "Algo deu errado, tente novamente!",
+    "login_success": "Você entrou com sucesso!",
+    "invalid_credentials_try_again": "Credenciais inválidas, tente novamente.",
+    "something_wrong_happened": "Algo de errado aconteceu.",
+    "logout_success": "Você saiu!",
+    "lesson_no_response": "Você não pode enviar a lição sem resposta :)",
+    "file_needed": "Você precisa selecionar um arquivo para enviar",
+    "email_sent_success": "Email enviado com sucesso",
+    "email_not_found": "Email não encontrado",
+    "lesson_completed_congrats": "Você terminou, parabéns!",
+    "exercise_not_submitted": "Você ainda não enviou o exercício desta lição",
+    "already_on_first_lesson": "Você já está na primeira lição.",
+    "data_updated_success": "Dados atualizados com sucesso!",
+    "error_updating_data": "Erro ao atualizar dados"
+  },
+  "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
+  "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",
+  "buttons": {
+    "study_groups": "Grupos de Estudo",
+    "no": "Não",
+    "yes": "Sim",
+    "reset_password": "Resete sua senha",
+    "sign_in": "Entre na sua conta",
+    "register_now": "Registre-se agora!",
+    "forgot_password": "Esqueci minha senha",
+    "log_in": "Entrar",
+    "recover_password": "Recuperar senha",
+    "login_with_github": "Login com o Github",
+    "login_with_google": "Login com o Google"
+  },
+  "form": {
+    "no_account": "Não tem uma conta?",
+    "enter_email": "Por favor, insira seu e-mail",
+    "invalid_email": "E-mail inválido",
+    "password": "Senha",
+    "enter_password": "Por favor, insira sua senha",
+    "verify_password": "Verifique sua senha",
+    "or": "OU"
   }
 }

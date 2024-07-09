@@ -78,17 +78,17 @@ function Lessons({ course, lesson, currentDate }) {
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const nextLesson = sortedLessons[currentLessonIndex + 1]
-    if (lessonSent && !nextLesson) return toast.success('Você terminou, parabéns!')
+    if (lessonSent && !nextLesson) return toast.success(t('messages.lesson_completed_congrats'))
     if (lessonSent)
       return (window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`)
-    return toast.error('Você ainda não enviou o exercício desta lição')
+    return toast.error(t('messages.exercise_not_submitted'))
   }
   const previousLesson = () => {
     const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
     const previousLesson = sortedLessons[currentLessonIndex - 1]
     if (previousLesson)
       return (window.location.href = `/courses/${course.id}/lessons/${previousLesson?.lesson}`)
-    return toast.error('Você já está na primeira lição.')
+    return toast.error(t('messages.already_on_first_lesson'))
   }
   const validateUserSubmission = (submission) => {
     try {
