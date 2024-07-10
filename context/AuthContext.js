@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithRedirect,
+  signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
   getRedirectResult,
@@ -125,7 +125,7 @@ export function AuthProvider({ children }) {
 
   const loginWithProvider = async (Provider) => {
     setLoading(true)
-    await signInWithRedirect(auth, new Provider())
+    await signInWithPopup(auth, new Provider())
   }
   let githubUrl = ''
 
