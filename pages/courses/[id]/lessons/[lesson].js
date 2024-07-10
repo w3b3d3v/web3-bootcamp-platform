@@ -273,8 +273,8 @@ function Lessons({ course, lesson, currentDate }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  const course = await getCourse(params.id)
+export async function getServerSideProps({ params, locale }) {
+  const course = await getCourse(params.id, locale)
   const currentDate = new Date().toISOString()
   const lesson = params.lesson
   return {

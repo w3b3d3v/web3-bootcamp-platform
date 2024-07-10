@@ -48,8 +48,8 @@ function Course({ course }) {
     )
 }
 
-export async function getServerSideProps({ params }) {
-    const course = await getCourse(params.id)
+export async function getServerSideProps({ params, locale }) {
+    const course = await getCourse(params.id, locale)
     return {
         props: {
             course
