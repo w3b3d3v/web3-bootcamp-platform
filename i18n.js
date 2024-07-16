@@ -31,15 +31,15 @@ const queryParameterLangDetector = {
   },
 }
 
-import pt from './public/locales/pt/translation.json'
+import pt_BR from './public/locales/pt_BR/translation.json'
 import en from './public/locales/en/translation.json'
 
 const resource = {
   en: {
     translation: en,
   },
-  pt: {
-    translation: pt,
+  pt_BR: {
+    translation: pt_BR,
   },
 }
 
