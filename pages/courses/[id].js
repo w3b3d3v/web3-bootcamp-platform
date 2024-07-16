@@ -33,6 +33,7 @@ function Course({ course, currentDate }) {
   const [lessonsSubmitted, setLessonsSubmitted] = useState()
   const [loading, setLoading] = useState(true)
   const { t, i18n } = useTranslation()
+  const language = i18n.resolvedLanguage
 
   let counter = 0
   useEffect(async () => {
@@ -408,7 +409,7 @@ function Course({ course, currentDate }) {
                                           </div>
                                           <div className={counter > 1 ? 'pointer-events-none' : ''}>
                                             <Link
-                                              href={`/courses/${course.id}/lessons/${lesson.file}`}
+                                              href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
                                             >
                                               <a id="access-lesson">
                                                 <p className="m-0 p-0">{lesson.title}</p>
