@@ -86,6 +86,16 @@ export default function NavbarComponent() {
               <Text weight={'extrabold'} css={{ color: 'black' }}>{t('buttons.study_groups')}</Text>
             </Button>
           </Link>
+          <Link href="/tasks">
+            <Button
+              auto="true"
+              rounded
+              css={{ background: '$white' }}
+              icon={<MdGroup color="black" />}
+            >
+              <Text weight={'extrabold'} css={{ color: 'black' }}>Tasks</Text>
+            </Button>
+          </Link>
         </Navbar.Content>
         <Dropdown>
           <Dropdown.Button size="xs" light rounded flat css={{ paddingBlock: '$10' }}>
