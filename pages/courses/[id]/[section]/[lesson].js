@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { Button, Text } from '@nextui-org/react'
 import Modal from '../../../../components/Modal'
 import { withProtected } from '../../../../hooks/route'
-import { getCourse } from '../../../../lib/course'
+import { getCourse, getPage } from '../../../../lib/course'
 import React, { useState, useEffect } from 'react'
 import { getLessonsSubmissions } from '../../../../lib/lessons'
 import Tabs from '../../../../components/Tabs'
@@ -20,7 +20,7 @@ import { MdAdsClick } from 'react-icons/md'
 import { Container } from '@nextui-org/react'
 import { useTranslation } from 'react-i18next'
 
-function Lessons({ course, lesson, currentDate }) {
+function Lessons({ course, section, lesson, content, currentDate }) {
   const [open, setOpen] = useState(false)
   const [lessonSent, setLessonSent] = useState(false)
   const [userSubmission, setUserSubmission] = useState()
@@ -37,8 +37,9 @@ function Lessons({ course, lesson, currentDate }) {
   const [user, setUser] = useState()
   const ref = React.createRef()
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   let testUrl
+  const language = i18n.resolvedLanguage
 
   useEffect(async () => {
     if (auth.currentUser) {
@@ -75,21 +76,49 @@ function Lessons({ course, lesson, currentDate }) {
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
   }, [sortedLessons])
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      const newLanguage = i18n.resolvedLanguage
+      const { pathname, query } = router
+      if (query.lang !== newLanguage) {
+        query.lang = newLanguage
+        router.replace({ pathname, query }, undefined, { lang: newLanguage })
+      }
+    }
+
+    i18n.on('languageChanged', handleLanguageChange)
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange)
+    }
+  }, [i18n, router])
+
   const nextLesson = () => {
-    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
+    const currentLessonIndex = sortedLessons.findIndex((item) => item.lesson === lesson)
     const nextLesson = sortedLessons[currentLessonIndex + 1]
-    if (lessonSent && !nextLesson) return toast.success(t('messages.lesson_completed_congrats'))
-    if (lessonSent)
-      return (window.location.href = `/courses/${course.id}/lessons/${nextLesson?.lesson}`)
+
+    if (lessonSent && !nextLesson) {
+      return toast.success(t('messages.lesson_completed_congrats'))
+    }
+    if (lessonSent) {
+      const nextLessonUrl = `/courses/${course.id}/${nextLesson.section}/${nextLesson.lesson}?lang=${language}`
+      return router.push(nextLessonUrl)
+    }
     return toast.error(t('messages.exercise_not_submitted'))
   }
+
   const previousLesson = () => {
-    const currentLessonIndex = sortedLessons.map((item) => item.lesson === lesson).indexOf(true)
+    const currentLessonIndex = sortedLessons.findIndex((item) => item.lesson === lesson)
     const previousLesson = sortedLessons[currentLessonIndex - 1]
-    if (previousLesson)
-      return (window.location.href = `/courses/${course.id}/lessons/${previousLesson?.lesson}`)
+
+    if (previousLesson) {
+      const previousLessonUrl = `/courses/${course.id}/${previousLesson.section}/${previousLesson.lesson}?lang=${language}`
+      return router.push(previousLessonUrl)
+    }
     return toast.error(t('messages.already_on_first_lesson'))
   }
+
   const validateUserSubmission = (submission) => {
     try {
       testUrl = new URL(submission)
@@ -185,7 +214,7 @@ function Lessons({ course, lesson, currentDate }) {
                     <ReactMarkdown
                       className="react-markdown pt-4"
                       rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
-                      children={fixMarkdown(l?.markdown)}
+                      children={fixMarkdown(content)}
                     />
                     <div className="mt-8 flex justify-center">
                       {lessonSent ? (
@@ -204,6 +233,7 @@ function Lessons({ course, lesson, currentDate }) {
                       ) : (
                         <div className="flex flex-col items-center gap-5">
                           <Button
+                            css={{ zIndex: '0' }}
                             rounded
                             ref={ref}
                             id="submit-lesson"
@@ -246,7 +276,12 @@ function Lessons({ course, lesson, currentDate }) {
             })}
         </div>
         <div className="m-auto flex w-60 flex-col items-center justify-center gap-4 md:flex-row">
-          <Button customClass="bg-slate-300" onClick={previousLesson} color="">
+          <Button
+            css={{ zIndex: '0' }}
+            customClass="bg-slate-300"
+            onClick={previousLesson}
+            color=""
+          >
             {t('lesson.previousLesson')}
           </Button>
           <Button
@@ -256,7 +291,7 @@ function Lessons({ course, lesson, currentDate }) {
           >
             {t('lesson.backToCourse')}
           </Button>
-          <Button onClick={nextLesson} color="secondary">
+          <Button css={{ zIndex: '0' }} onClick={nextLesson} color="secondary">
             {t('lesson.nextLesson')}{' '}
           </Button>
         </div>
@@ -265,14 +300,19 @@ function Lessons({ course, lesson, currentDate }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  const course = await getCourse(params.id)
+export async function getServerSideProps({ params, query }) {
+  const { lang } = query
+  const course = await getCourse(params.id, lang)
+  const content = await getPage(params.id, params.section, params.lesson, lang)
   const currentDate = new Date().toISOString()
   const lesson = params.lesson
+  const section = params.section
   return {
     props: {
       course,
+      section,
       lesson,
+      content,
       currentDate,
     },
   }
