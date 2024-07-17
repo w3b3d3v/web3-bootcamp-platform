@@ -40,7 +40,8 @@ function Course({ course, currentDate }) {
     setCohorts(await getAllCohorts())
   }, [])
   useEffect(async () => {
-    setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
+    let lessonsSubmitted_ = await getLessonsSubmissions(user?.uid, cohort?.id)
+    setLessonsSubmitted(lessonsSubmitted_)
   }, [user])
   useEffect(async () => {
     if (cohorts) {
@@ -88,19 +89,10 @@ function Course({ course, currentDate }) {
     )
   }
 
-  const userSubmissions = (allLessons) => {
-    const userSubmitted = lessonsSubmitted.map((lesson) => {
-      if (
-        lesson.lesson == allLessons.file &&
-        lesson.user == user.uid &&
-        lesson.cohort_id === cohort.id
-      )
-        return true
-      return false
-    })
-    if (userSubmitted.every((item) => item === false)) counter++
-    return userSubmitted.some((item) => item === true)
+  const userSubmissions = (lesson) => {
+    return lessonsSubmitted.some((submittedLesson) => submittedLesson.lesson === lesson.file)
   }
+
   const daysLeftToStart = () => {
     if (typeof timeLeft == 'string') return timeLeft?.split('d')[0]
   }
@@ -397,13 +389,16 @@ function Course({ course, currentDate }) {
                                                   alt={lesson.title}
                                                 />
                                               ) : (
-                                                <Image
-                                                  className="h-full w-full"
-                                                  width={48}
-                                                  height={48}
-                                                  src={'/assets/img/radio-button.svg'}
-                                                  alt={lesson.title}
-                                                />
+                                                (console.log('lesson.file', lesson.file),
+                                                (
+                                                  <Image
+                                                    className="h-full w-full"
+                                                    width={48}
+                                                    height={48}
+                                                    src={'/assets/img/radio-button.svg'}
+                                                    alt={lesson.title}
+                                                  />
+                                                ))
                                               )}
                                             </div>
                                           </div>

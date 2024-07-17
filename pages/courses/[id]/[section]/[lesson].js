@@ -38,7 +38,6 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   const ref = React.createRef()
   const router = useRouter()
   const { t, i18n } = useTranslation()
-  let testUrl
   const language = i18n.resolvedLanguage
 
   useEffect(async () => {
@@ -59,19 +58,23 @@ function Lessons({ course, section, lesson, content, currentDate }) {
     }
   }, [cohorts, user])
 
-  useEffect(async () => {
-    setLessonsSubmitted(await getLessonsSubmissions(user?.uid))
-  }, [user, open])
+  useEffect(() => {
+    const fetchLessonsSubmitted = async () => {
+      let lessonsSubmitted_ = await getLessonsSubmissions(user?.uid, cohort?.id)
+      setLessonsSubmitted(lessonsSubmitted_)
+    }
+    fetchLessonsSubmitted()
+  }, [user, cohort, open])
 
   useEffect(() => {
-    lessonsSubmitted.map((item) => {
-      if (item?.lesson === lesson && item?.user == user?.uid && item?.cohort_id == cohort?.id) {
+    lessonsSubmitted.forEach((item) => {
+      console.log('lesson', lesson)
+      if (item?.lesson === lesson) {
         setUserSubmission(item.content.value)
-        validateUserSubmission(item.content.value)
         setLessonSent(true)
       }
     })
-  }, [lessonsSubmitted])
+  }, [lessonsSubmitted, lesson])
 
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
@@ -119,15 +122,6 @@ function Lessons({ course, section, lesson, content, currentDate }) {
     return toast.error(t('messages.already_on_first_lesson'))
   }
 
-  const validateUserSubmission = (submission) => {
-    try {
-      testUrl = new URL(submission)
-    } catch (_) {
-      return submission
-    }
-    if (testUrl?.hostname.includes('firebasestorage')) return setUrl(testUrl.href)
-    if (testUrl) return submission
-  }
   const getSection = () => {
     return Object.entries(course.sections)
       .map((section) =>
@@ -160,6 +154,29 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   const closeModal = () => {
     setOpen(false)
     if (twitterShare) setTwitterModal(true)
+  }
+
+  const isValidURL = (string) => {
+    try {
+      new URL(string)
+      return true
+    } catch (_) {
+      return false
+    }
+  }
+
+  const renderSubmissionContent = (submission) => {
+    if (isValidURL(submission)) {
+      return <img className="max-w-md" src={submission} alt="submission" height={250} />
+    } else {
+      return (
+        <ReactMarkdown
+          className="react-markdown pt-4"
+          rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
+          children={submission}
+        />
+      )
+    }
   }
 
   return (
@@ -223,11 +240,7 @@ function Lessons({ course, section, lesson, content, currentDate }) {
                             {t('lesson.lessonSent')}
                           </Button>
                           <div className="mb-3 min-w-min rounded-lg border-2 border-solid border-gray-600 px-4 py-3 text-sm font-medium">
-                            {url?.length ? (
-                              <img className="max-w-md" src={url} alt="submission" height={250} />
-                            ) : (
-                              validateUserSubmission(userSubmission)
-                            )}
+                            {renderSubmissionContent(userSubmission)}
                           </div>
                         </div>
                       ) : (
