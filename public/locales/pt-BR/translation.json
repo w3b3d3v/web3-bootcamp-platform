@@ -171,5 +171,10 @@
   "leaderDiscordId": "ID do Discord do Líder",
   "imageUrl": "URL da Imagem",
   "index": "Índice",
-  "searchBuild": "Pesquisar por título"
+  "searchBuild": "Pesquisar por título",
+  "no-issues-found": "Nenhuma Issue encontrado",
+  "all": "Todos",
+  "open": "Aberto",
+  "closed": "Fechado",
+  "filters": "Filtros"
 }
