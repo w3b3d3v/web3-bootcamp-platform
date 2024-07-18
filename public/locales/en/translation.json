@@ -155,5 +155,10 @@
     "or": "OR"
   },
   "link_github_account": "Do you want to link GitHub to your already registered account?",
-  "peopleBuilding": "people building in this section"
+  "peopleBuilding": "people building in this section",
+  "no-issues-found": "No issues found",
+  "all": "All",
+  "open": "Open",
+  "closed": "Closed",
+  "filters": "Filters"
 }
