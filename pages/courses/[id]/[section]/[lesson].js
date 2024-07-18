@@ -68,7 +68,6 @@ function Lessons({ course, section, lesson, content, currentDate }) {
 
   useEffect(() => {
     lessonsSubmitted.forEach((item) => {
-      console.log('lesson', lesson)
       if (item?.lesson === lesson) {
         setUserSubmission(item.content.value)
         setLessonSent(true)
@@ -79,23 +78,6 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   useEffect(() => {
     setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
   }, [sortedLessons])
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      const newLanguage = i18n.resolvedLanguage
-      const { pathname, query } = router
-      if (query.lang !== newLanguage) {
-        query.lang = newLanguage
-        router.replace({ pathname, query }, undefined, { lang: newLanguage })
-      }
-    }
-
-    i18n.on('languageChanged', handleLanguageChange)
-
-    return () => {
-      i18n.off('languageChanged', handleLanguageChange)
-    }
-  }, [i18n, router])
 
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.findIndex((item) => item.lesson === lesson)
