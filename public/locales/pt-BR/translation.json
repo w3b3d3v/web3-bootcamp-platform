@@ -155,5 +155,10 @@
     "verify_password": "Verifique sua senha",
     "or": "OU"
   },
-  "peopleBuilding": "pessoas construindo nessa seção"
+  "peopleBuilding": "pessoas construindo nessa seção",
+  "no-issues-found": "Nenhuma Issue encontrado",
+  "all": "Todos",
+  "open": "Aberto",
+  "closed": "Fechado",
+  "filters": "Filtros"
 }
