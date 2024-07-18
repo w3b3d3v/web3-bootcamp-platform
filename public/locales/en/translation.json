@@ -170,5 +170,10 @@
   "leaderDiscordId": "Leader Discord ID",
   "imageUrl": "Image URL",
   "index": "Index",
-  "searchBuild": "Search by title"
+  "searchBuild": "Search by title",
+  "no-issues-found": "No issues found",
+  "all": "All",
+  "open": "Open",
+  "closed": "Closed",
+  "filters": "Filters"
 }
