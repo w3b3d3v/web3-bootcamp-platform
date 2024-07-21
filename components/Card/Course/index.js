@@ -7,7 +7,8 @@ import RenderField from '../../RenderField'
 
 export function CourseCard({ course }) {
   const [showMore, setShowMore] = useState(false)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const language = i18n.resolvedLanguage
 
   return (
     <Card
@@ -42,7 +43,7 @@ export function CourseCard({ course }) {
           {course.duration}{' '}
         </Text>
       </Button>
-      <Link href={`/courses/${course.id}`}>
+      <Link href={`/courses/${course.id}?lang=${language}`}>
         <Button color={'primary'} rounded css={{ margin: 10 }} animated shadow>
           <Text weight={'bold'} color={''}>
             {t('courses.startNow')} 🚀
@@ -89,6 +90,3 @@ export function CourseCard({ course }) {
     </Card>
   )
 }
-
-
-              
