@@ -28,7 +28,7 @@ const developmentDb = developmentApp.firestore()
 async function readSpecificCourse(courseName) {
   try {
     // Referência ao documento específico na coleção 'courses' no Firestore do bootcamp
-    const courseRef = bootcampDb.collection('tasks').doc(courseName)
+    const courseRef = developmentDb.collection('courses').doc(courseName)
     const doc = await courseRef.get()
 
     if (!doc.exists) {
@@ -46,7 +46,7 @@ async function readSpecificCourse(courseName) {
 async function writeCourseToDevelopment(courseData, courseName) {
   try {
     // Referência ao documento específico na coleção 'courses' no Firestore do development
-    const courseRef = developmentDb.collection('tasks').doc(courseName)
+    const courseRef = bootcampDb.collection('courses').doc(courseName)
 
     // Define os dados do curso no documento específico
     await courseRef.set(courseData)
