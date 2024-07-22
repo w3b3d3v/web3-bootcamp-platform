@@ -122,7 +122,7 @@ function Lessons({ course, section, lesson, content, currentDate }) {
     )
     result = result.replace(
       /\[Youtube]\(https:\/\/www\.youtube\.com\/watch\?v=([^)]*)\)/,
-      '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" title="Lição" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen>'
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" title="Lição" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen /></iframe>'
     )
     return result
   }
