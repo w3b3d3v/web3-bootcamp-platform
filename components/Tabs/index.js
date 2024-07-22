@@ -57,10 +57,11 @@ export default function Tabs({ course, lessonsSubmitted, cohort }) {
                 <a
                   href={`#${section}`}
                   onClick={() => toggle(section)}
-                  className={`item b-3 flex-grow rounded px-4 py-2 font-bold shadow-lg hover:no-underline ${sectionAnalytics ? 'active' : ''}`}
+                  className={`item b-3 flex-grow rounded px-4 py-2 font-bold shadow-lg hover:no-underline ${
+                    sectionAnalytics ? 'active' : ''
+                  }`}
                 >
-                  <p className="m-0 p-0">{section?.replace('Section_', 'Seção ')}
-                  </p>
+                  <p className="m-0 p-0">{section?.replace('Section_', t('section') + ' ')}</p>
                 </a>
                 {sectionAnalytics && (
                   <div className="flex flex-col items-center">
