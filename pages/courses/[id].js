@@ -389,16 +389,13 @@ function Course({ course, currentDate }) {
                                                   alt={lesson.title}
                                                 />
                                               ) : (
-                                                (console.log('lesson.file', lesson.file),
-                                                (
-                                                  <Image
-                                                    className="h-full w-full"
-                                                    width={48}
-                                                    height={48}
-                                                    src={'/assets/img/radio-button.svg'}
-                                                    alt={lesson.title}
-                                                  />
-                                                ))
+                                                <Image
+                                                  className="h-full w-full"
+                                                  width={48}
+                                                  height={48}
+                                                  src={'/assets/img/radio-button.svg'}
+                                                  alt={lesson.title}
+                                                />
                                               )}
                                             </div>
                                           </div>
