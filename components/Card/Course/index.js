@@ -39,7 +39,7 @@ export function CourseCard({ course }) {
       <Button auto color={''} bordered rounded icon={<BiTimeFive />}>
         <Text weight={'bold'} size={'$xs'}>
           {' '}
-          {course.duration}{' '}
+          <RenderField object={course} field="duration" isHtml={true} maxSize={200} />
         </Text>
       </Button>
       <Link href={`/courses/${course.id}`}>
@@ -50,7 +50,7 @@ export function CourseCard({ course }) {
         </Button>
       </Link>
       <Button color={'success'} rounded flat size={'xs'}>
-        {course.difficulty}
+        <RenderField object={course} field="difficulty" isHtml={true} maxSize={200} />
       </Button>
       <Card.Divider />
       <Collapse.Group>
@@ -89,6 +89,3 @@ export function CourseCard({ course }) {
     </Card>
   )
 }
-
-
-              
