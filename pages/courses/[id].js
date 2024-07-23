@@ -166,6 +166,71 @@ function Course({ course, currentDate }) {
     setKickoffEndDate(cohortKickoffEndDateGTMPattern)
   }, [cohort])
 
+  function renderSections(course, language) {
+    const sections = course?.metadata?.[language]?.sections || course?.sections
+
+    if (!sections) return null
+
+    return Object.keys(sections)
+      .sort()
+      .map((section) => {
+        const sectionNumber = section.replace('Section_', '')
+        return (
+          <div key={section}>
+            <span id={section} className="mb-4 font-bold">
+              {t('section') + ' ' + sectionNumber}
+            </span>
+            <ul className="mt-4 mb-4 flex list-none flex-col">
+              {sections[section]
+                .map((lesson) => (
+                  <li key={lesson.title} className="mb-4 items-center rounded py-2 px-4">
+                    <div className="flex items-center">
+                      <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                        <input
+                          disabled
+                          type="radio"
+                          name="radio"
+                          className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border"
+                        />
+                        <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
+                          {userSubmissions(lesson) ? (
+                            <Image
+                              className="h-full w-full"
+                              width={48}
+                              height={48}
+                              src={'/assets/img/checked-radio-button.svg'}
+                              alt={lesson.title}
+                            />
+                          ) : (
+                            <Image
+                              className="h-full w-full"
+                              width={48}
+                              height={48}
+                              src={'/assets/img/radio-button.svg'}
+                              alt={lesson.title}
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <div className={counter > 1 ? 'pointer-events-none' : ''}>
+                        <Link
+                          href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
+                        >
+                          <a id="access-lesson">
+                            <p className="m-0 p-0">{lesson.title}</p>
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                ))
+                .sort((a, b) => a - b)}
+            </ul>
+          </div>
+        )
+      })
+  }
+
   return (
     <>
       <Head>
@@ -353,70 +418,7 @@ function Course({ course, currentDate }) {
                   <Tabs course={course} lessonsSubmitted={lessonsSubmitted} cohort={cohort} />
 
                   <div className="z-10 my-8 w-full rounded-lg p-7">
-                    {course?.sections &&
-                      Object.keys(course?.sections)
-                        .sort()
-                        .map((section) => {
-                          const sectionNumber = section.replace('Section_', '')
-                          return (
-                            <div key={section}>
-                              <span id={section} className="mb-4 font-bold">
-                                {t('section') + ' ' + sectionNumber}
-                              </span>
-                              <ul className="mt-4 mb-4 flex list-none flex-col	">
-                                {course?.sections[section]
-                                  .map((lesson) => {
-                                    return (
-                                      <li
-                                        key={lesson.title}
-                                        className="mb-4 items-center rounded py-2 px-4"
-                                      >
-                                        <div className="flex items-center ">
-                                          <div className="relative mr-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
-                                            <input
-                                              disabled
-                                              type="radio"
-                                              name="radio"
-                                              className="checkbox absolute mt-1 h-full w-full appearance-none rounded-full border"
-                                            />
-                                            <div className="check-icon z-1 mb-1 h-full w-full rounded-full">
-                                              {userSubmissions(lesson) ? (
-                                                <Image
-                                                  className="h-full w-full "
-                                                  width={48}
-                                                  height={48}
-                                                  src={'/assets/img/checked-radio-button.svg'}
-                                                  alt={lesson.title}
-                                                />
-                                              ) : (
-                                                <Image
-                                                  className="h-full w-full"
-                                                  width={48}
-                                                  height={48}
-                                                  src={'/assets/img/radio-button.svg'}
-                                                  alt={lesson.title}
-                                                />
-                                              )}
-                                            </div>
-                                          </div>
-                                          <div className={counter > 1 ? 'pointer-events-none' : ''}>
-                                            <Link
-                                              href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
-                                            >
-                                              <a id="access-lesson">
-                                                <p className="m-0 p-0">{lesson.title}</p>
-                                              </a>
-                                            </Link>
-                                          </div>
-                                        </div>
-                                      </li>
-                                    )
-                                  })
-                                  .sort((a, b) => a - b)}
-                              </ul>
-                            </div>
-                          )
-                        })}
+                    {renderSections(course, language)}
                   </div>
                 </div>
                 <div className="mb-3 flex pt-6">
