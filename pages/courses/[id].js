@@ -21,6 +21,7 @@ import Loading from '../../components/Loading'
 import { dateFormat } from '../../lib/dateFormat'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
+import { toast } from 'react-toastify'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -34,6 +35,12 @@ function Course({ course, currentDate }) {
   const [loading, setLoading] = useState(true)
   const { t, i18n } = useTranslation()
   const language = i18n.resolvedLanguage
+
+  useEffect(() => {
+    if (course?.metadata && !course.metadata.hasOwnProperty(language)) {
+      toast.error(t('messages.language_not_available'))
+    }
+  }, [language])
 
   let counter = 0
   useEffect(async () => {

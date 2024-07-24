@@ -128,7 +128,8 @@
     "exercise_not_submitted": "Você ainda não enviou o exercício desta lição",
     "already_on_first_lesson": "Você já está na primeira lição.",
     "data_updated_success": "Dados atualizados com sucesso!",
-    "error_updating_data": "Erro ao atualizar dados"
+    "error_updating_data": "Erro ao atualizar dados",
+    "language_not_available": "Conteúdo não disponível para o idioma selecionado. Usando o idioma padrão."
   },
   "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
   "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",
