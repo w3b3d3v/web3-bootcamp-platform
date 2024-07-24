@@ -123,16 +123,15 @@ pre {
   filter: brightness(0) saturate(100%) invert(100%);
 }
 .search-bar {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
+  border: 1px solid #99e24d;
   border-radius: 9999px;
   padding: 10px 20px;
-  color: #fff;
   outline: none;
   width: 100%;
+  opacity: 75%;
 }
 
 .search-bar:focus {
-  border-color: #7f00ff;
-  box-shadow: 0 0 10px #7f00ff;
+  border-color: #99e24d;
+  box-shadow: 0 0 10px #99e24d;
 }
