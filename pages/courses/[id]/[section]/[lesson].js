@@ -40,6 +40,12 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   const { t, i18n } = useTranslation()
   const language = i18n.resolvedLanguage
 
+  useEffect(() => {
+    if (course?.metadata && !course.metadata.hasOwnProperty(language)) {
+      toast.error(t('messages.language_not_available'))
+    }
+  }, [language])
+
   useEffect(async () => {
     if (auth.currentUser) {
       const userSession = await getUserFromFirestore(auth.currentUser)

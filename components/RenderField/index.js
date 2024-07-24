@@ -2,13 +2,10 @@ import { useTranslation } from 'react-i18next'
 
 export default function RenderField({ object, field, isHtml, maxSize }) {
   const { i18n } = useTranslation()
-  let content
+  const defaultLanguage = 'en'
+  const language = i18n.resolvedLanguage || defaultLanguage
 
-  if (object?.metadata) {
-    content = object.metadata[i18n.resolvedLanguage || 'en']?.[field]
-  } else {
-    content = object?.[field]
-  }
+  let content = object?.metadata?.[language]?.[field] ?? object?.[field]
 
   if (maxSize && content?.length > maxSize) {
     content = `${content.substring(0, maxSize)}...`
