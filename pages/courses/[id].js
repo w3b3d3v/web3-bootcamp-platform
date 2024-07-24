@@ -42,7 +42,7 @@ function Course({ course, currentDate }) {
   useEffect(async () => {
     let lessonsSubmitted_ = await getLessonsSubmissions(user?.uid, cohort?.id)
     setLessonsSubmitted(lessonsSubmitted_)
-  }, [user])
+  }, [user, cohort])
   useEffect(async () => {
     if (cohorts) {
       setCohort(getCurrentCohort(user, cohorts, course, currentDate))
@@ -88,7 +88,6 @@ function Course({ course, currentDate }) {
       (userCohort) => userCohort.course_id == course.id && userCohort.cohort_id == cohort?.id
     )
   }
-
   const userSubmissions = (lesson) => {
     return lessonsSubmitted.some((submittedLesson) => submittedLesson.lesson === lesson.file)
   }
@@ -168,7 +167,6 @@ function Course({ course, currentDate }) {
 
   function renderSections(course, language) {
     const sections = course?.metadata?.[language]?.sections || course?.sections
-
     if (!sections) return null
 
     return Object.keys(sections)
@@ -182,6 +180,7 @@ function Course({ course, currentDate }) {
             </span>
             <ul className="mt-4 mb-4 flex list-none flex-col">
               {sections[section]
+                .sort((a, b) => a.title.localeCompare(b.title))
                 .map((lesson) => (
                   <li key={lesson.title} className="mb-4 items-center rounded py-2 px-4">
                     <div className="flex items-center">
@@ -212,19 +211,16 @@ function Course({ course, currentDate }) {
                           )}
                         </div>
                       </div>
-                      <div className={counter > 1 ? 'pointer-events-none' : ''}>
-                        <Link
-                          href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
-                        >
-                          <a id="access-lesson">
-                            <p className="m-0 p-0">{lesson.title}</p>
-                          </a>
-                        </Link>
-                      </div>
+                      <Link
+                        href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
+                      >
+                        <a id="access-lesson">
+                          <p className="m-0 p-0">{lesson.title}</p>
+                        </a>
+                      </Link>
                     </div>
                   </li>
-                ))
-                .sort((a, b) => a - b)}
+                ))}
             </ul>
           </div>
         )

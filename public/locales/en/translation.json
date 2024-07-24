@@ -153,5 +153,6 @@
     "verify_password": "Verify your password",
     "or": "OR"
   },
-  "link_github_account": "Do you want to link GitHub to your already registered account?"
+  "link_github_account": "Do you want to link GitHub to your already registered account?",
+  "peopleBuilding": "people building in this section"
 }
