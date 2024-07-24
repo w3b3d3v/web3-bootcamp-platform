@@ -60,7 +60,7 @@ export default function NavbarComponent() {
         <Navbar.Brand css={{ gap: '$5' }}>
           <Link href="/">
             <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
-            <Text weight={'bold'}>WEB3DEV</Text>
+            <Text weight={'bold'} size={'35px'}>WEB<span style={{ color: '#99e24d' }}>3</span>DEV</Text>
           </Link>
           <ThemeSwitch />
         </Navbar.Brand>
