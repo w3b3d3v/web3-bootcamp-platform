@@ -1,0 +1,6 @@
+.subdivisao {
+    
+    margin: 0; /* Remove margens */
+    padding: 0; /* Remove preenchimentos */
+    box-sizing: border-box; /* Inclui bordas e preenchimentos no tamanho total do elemento */
+}
