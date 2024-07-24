@@ -17,7 +17,7 @@ export default function Footer() {
         <Image width={30} height={30} src="/assets/img/w3d-logo-symbol-ac.svg" />
         <Text transform="uppercase" weight={'bold'}>
           {' '}
-          WEB3DEV{' '}
+          WEB<span style={{ color: '#99e24d' }}>3</span>DEV{' '}
         </Text>
       </div>
       <hr className="w-full border-gray-200" />
@@ -46,7 +46,7 @@ export default function Footer() {
         {t('developedBy')}{' '}
         <Link href="https://links.w3d.community/">
           <a data-testid="web3dev-link" target="_blank" className="font-bold">
-            WEB3DEV
+            WEB<span style={{ color: '#99e24d' }}>3</span>DEV
           </a>
         </Link>{' '}
         {t('inspiredBy')}{' '}
