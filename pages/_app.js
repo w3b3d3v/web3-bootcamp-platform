@@ -18,6 +18,7 @@ import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
 import { useTranslation } from 'react-i18next'
 import { SSRProvider } from '@react-aria/ssr'
+import Tabuleiro from '../components/Background/Tabuleiro.jsx'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
@@ -89,11 +90,27 @@ function MyApp({ Component, pageProps }) {
                   <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                   <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
                 </Head>
+                <div 
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  zIndex: 1,
+              }}>
+                <Tabuleiro variant={'floating'} />
+                </div>
+                <div
+                style={{
+                  zIndex: 100,
+                  position: 'relative',
+                }}>
                 <NavbarComponent />
-                <div className="relative z-10"></div>
                 <Component {...pageProps} />
                 <Footer />
                 <ToastContainer />
+                </div>
               </SessionProvider>
             </ThirdwebProvider>
           </AuthProvider>

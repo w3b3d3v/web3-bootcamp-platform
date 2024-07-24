@@ -1,0 +1,18 @@
+.tabuleiro {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Preenche a altura total da tela */
+    width: 100vw;  /* Preenche a largura total da tela */
+    margin: 0; /* Remove margens */
+    padding: 0; /* Remove preenchimentos */
+    box-sizing: border-box; /* Inclui bordas e preenchimentos no tamanho total do elemento */
+}
+
+.tabuleiro > .linha {
+    display: flex;
+    flex: 1;
+}
+
+.linha > * {
+    flex: 1; /* Cada subdivisão ocupa espaço igual */
+}
