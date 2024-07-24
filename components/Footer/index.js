@@ -30,7 +30,7 @@ export default function Footer() {
         <Image width={30} height={30} src="/assets/img/w3d-logo-symbol-ac.svg" />
         <Text transform="uppercase" weight={'bold'}>
           {' '}
-          WEB3DEV{' '}
+          WEB<span style={{ color: '#99e24d' }}>3</span>DEV{' '}
         </Text>
       </div>
       <hr className={`w-full ${isLight ? 'border-gray-300' : 'border-gray-700'} border-t-2`} />

@@ -111,17 +111,6 @@ pre {
   z-index: 10;
 }
 
-.icon {
-  transition: filter 0.3s ease;
-}
-
-.light-icon {
-  filter: brightness(0) saturate(100%);
-}
-
-.dark-icon {
-  filter: brightness(0) saturate(100%) invert(100%);
-}
 .search-bar {
   border: 1px solid #99e24d;
   border-radius: 9999px;
