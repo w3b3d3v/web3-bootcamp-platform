@@ -50,7 +50,7 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   useEffect(async () => {
     setCohorts(await getAllCohorts())
     getSubmissionData()
-  }, [])
+  }, [lesson, language])
 
   useEffect(async () => {
     if (cohorts) {
@@ -59,7 +59,18 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   }, [cohorts, user])
 
   useEffect(() => {
-    const fetchLessonsSubmitted = async () => {
+    const submission = lessonsSubmitted.find((item) => item?.lesson === lesson)
+    if (submission) {
+      setUserSubmission(submission.content.value)
+      setLessonSent(true)
+    } else {
+      setUserSubmission(null)
+      setLessonSent(false)
+    }
+  }, [lessonsSubmitted, lesson, open])
+
+  useEffect(() => {
+    async function fetchLessonsSubmitted() {
       let lessonsSubmitted_ = await getLessonsSubmissions(user?.uid, cohort?.id)
       setLessonsSubmitted(lessonsSubmitted_)
     }
@@ -67,17 +78,34 @@ function Lessons({ course, section, lesson, content, currentDate }) {
   }, [user, cohort, open])
 
   useEffect(() => {
-    lessonsSubmitted.forEach((item) => {
-      if (item?.lesson === lesson) {
-        setUserSubmission(item.content.value)
-        setLessonSent(true)
-      }
-    })
-  }, [lessonsSubmitted, lesson])
+    async function fetchLessons() {
+      const lessons = await getCourseLessons(course, language)
+      setSortedLessons(lessons)
+    }
 
-  useEffect(() => {
-    setSortedLessons(course.lessons.sort((a, b) => (a.section > b.section ? 1 : -1)))
-  }, [sortedLessons])
+    fetchLessons()
+  }, [course, language])
+
+  async function getCourseLessons(course, language) {
+    if (!course) return []
+
+    const sections = course?.metadata?.[language]?.sections || course?.sections
+    if (!sections) return []
+
+    const sortedSectionKeys = Object.keys(sections).sort()
+
+    let lessons = sortedSectionKeys
+      .map((section) => {
+        const sortedLessons = sections[section].sort((a, b) => a.file.localeCompare(b.file))
+        return sortedLessons.map((lesson) => ({
+          section,
+          lesson: lesson.file,
+        }))
+      })
+      .flat()
+
+    return lessons
+  }
 
   const nextLesson = () => {
     const currentLessonIndex = sortedLessons.findIndex((item) => item.lesson === lesson)
@@ -104,17 +132,6 @@ function Lessons({ course, section, lesson, content, currentDate }) {
     return toast.error(t('messages.already_on_first_lesson'))
   }
 
-  const getSection = () => {
-    return Object.entries(course.sections)
-      .map((section) =>
-        section[1].map((item) => {
-          if (item.file.includes(lesson)) return section[0]
-        })
-      )
-      .flat()
-      .find(Boolean)
-  }
-
   const fixMarkdown = (markdown) => {
     let result = markdown.replace(
       /\[Loom]\(+[a-z]+:\/\/[a-z]+[.][a-z]+[.][a-z]+\/[a-z]+\/(\w+)\)/,
@@ -127,12 +144,20 @@ function Lessons({ course, section, lesson, content, currentDate }) {
     return result
   }
   const getSubmissionData = () => {
-    const submissionData = course.sections[getSection()].filter((item) => item.file === lesson)[0]
+    const sections = course?.metadata?.[language]?.sections || course?.sections
+
+    if (!sections || !sections[section]) return
+
+    const submissionData = sections[section].filter((item) => item.file === lesson)[0]
+
+    if (!submissionData) return
+
     setSubmissionType(submissionData.submission_type)
     setSubmissionTitle(submissionData.submission_title)
     setSubmissionText(submissionData.submission_text)
     setTwitterShare(submissionData.twitter)
   }
+
   const closeModal = () => {
     setOpen(false)
     if (twitterShare) setTwitterModal(true)
@@ -205,7 +230,7 @@ function Lessons({ course, section, lesson, content, currentDate }) {
         </div>
         <div className="mx-auto mb-6 rounded-lg px-6 py-2 shadow-xl">
           {course &&
-            course?.lessons.map((l) => {
+            sortedLessons.map((l) => {
               return (
                 l.lesson.includes(lesson) && (
                   <div key={l?.section + l?.lesson}>
@@ -250,6 +275,7 @@ function Lessons({ course, section, lesson, content, currentDate }) {
                           onClose={() => closeModal()}
                           lesson={lesson}
                           course={course}
+                          section={section}
                           submissionType={submissionType}
                           submissionText={submissionText}
                           submissionTitle={submissionTitle}

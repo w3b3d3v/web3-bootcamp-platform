@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { checkSections, colorTab } from './tabFunctions'
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 
 export default function Tabs({ course, lessonsSubmitted, cohort }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const language = i18n.resolvedLanguage
 
   const isCourse = lessonsSubmitted || cohort
 
@@ -12,34 +13,35 @@ export default function Tabs({ course, lessonsSubmitted, cohort }) {
     const sectionAnalytics = course?.analytics
     return (
       <div className="flex flex-col rounded-lg">
-        <div className="flex flex-row justify-center items-center">
-        {sectionAnalytics?.photoUrls?.slice(0, 3).map((source, index) => (
-          <img
-            key={source}
-            src={source}
-            alt="User avatar"
-            style={{
-              width: '50px',
-              height: '50px',
-              borderRadius: '50%',
-              marginLeft: index !== 0 ? '-15px' : '0',
-              position: 'relative',
-              zIndex: sectionAnalytics?.photoUrls.length - index,
-            }}
-          />
-        ))}
+        <div className="flex flex-row items-center justify-center">
+          {sectionAnalytics?.photoUrls?.slice(0, 3).map((source, index) => (
+            <img
+              key={source}
+              src={source}
+              alt="User avatar"
+              style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                marginLeft: index !== 0 ? '-15px' : '0',
+                position: 'relative',
+                zIndex: sectionAnalytics?.photoUrls.length - index,
+              }}
+            />
+          ))}
         </div>
         {sectionAnalytics?.students && (
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
-            {sectionAnalytics.students} entusiastas nesse grupo de estudos!
+            {sectionAnalytics.students} {t('peopleBuilding')}!
           </p>
         )}
       </div>
-    )    
+    )
   }
 
-  if (!course?.sections) return null
-  const [activeTab, setActiveTab] = useState(Object.keys(course?.sections).sort())
+  const sections = course?.metadata?.[language]?.sections || course?.sections
+  if (!sections) return null
+  const [activeTab, setActiveTab] = useState(Object.keys(sections).sort())
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab)
@@ -48,7 +50,7 @@ export default function Tabs({ course, lessonsSubmitted, cohort }) {
   return (
     <div className="mt-6 mb-6 flex flex-col rounded-lg p-4 shadow-xl lg:mt-12">
       <div className="flex flex-row justify-between maxsm:flex-col maxsm:text-center">
-        {Object.keys(course?.sections)
+        {Object.keys(sections)
           .sort()
           .map((section) => {
             const sectionAnalytics = course.analytics?.find((item) => item.section === section)

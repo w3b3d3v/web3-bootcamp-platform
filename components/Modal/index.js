@@ -15,6 +15,7 @@ export default function Modal({
   onClose,
   course,
   lesson,
+  section,
   submissionType,
   submissionText,
   submissionTitle,
@@ -50,21 +51,9 @@ export default function Modal({
       }
     }, [cohorts]);*/
 
-  const getSection = () => {
-    const section = Object.entries(course.sections)
-      .map((section) =>
-        section[1].map((item) => {
-          if (item.file.includes(lesson)) return section[0]
-        })
-      )
-      .flat()
-      .find(Boolean)
-    return section
-  }
   const saveLessonSubmission = async (userSubmission, submissionId) => {
     if (!userSubmission) return toast.error(t('messages.lesson_no_response'))
     if (!submissionId) submissionId = uuid()
-    const section = getSection()
     const content = {
       type: submissionType,
       value: userSubmission,
