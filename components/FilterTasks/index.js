@@ -21,10 +21,8 @@ const Filter = () => {
 
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  
-  const toggleOpen = (filterName) => {
-    
 
+  const toggleOpen = (filterName) => {
     if (subItems[filterName].length > 0) {
       setIsOpen((prevState) => ({
         ...prevState,
@@ -32,21 +30,26 @@ const Filter = () => {
       }))
     }
   }
-
   return (
-    <div className={`p-2 text-white rounded-lg w-60 ${
-      isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-    }`}>
+    <div
+      className={`text-white w-60 rounded-lg p-2 ${
+        isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+      }`}
+    >
       <h3 className="mb-2 text-lg font-bold">Filter</h3>
       <ul>
         {Object.keys(isOpen).map((filterName) => (
           <li key={filterName} className="mb-2">
             <button
               onClick={() => toggleOpen(filterName)}
-              className="flex items-center w-full px-2 py-1 bg-black-300 bg-opacity-30 rounded"
+              className="flex w-full items-center rounded bg-black-300 bg-opacity-30 px-2 py-1"
             >
               {subItems[filterName].length > 0 ? (
-                isOpen[filterName] ? <FaRegCaretSquareUp className="mr-2" /> : <FaRegCaretSquareDown className="mr-2" />
+                isOpen[filterName] ? (
+                  <FaRegCaretSquareUp className="mr-2" />
+                ) : (
+                  <FaRegCaretSquareDown className="mr-2" />
+                )
               ) : (
                 <FaMoneyBillAlt className="mr-2" />
               )}
@@ -55,8 +58,10 @@ const Filter = () => {
             {isOpen[filterName] && subItems[filterName].length > 0 && (
               <ul className="mt-2 ml-6 space-y-1">
                 {subItems[filterName].map((subItem, index) => (
-                  <div className='border-2 border-white' >
-                  <li key={index} className="px-2 py-1 bg-black-300 bg-opacity-30 rounded ">{subItem}</li>
+                  <div className="border-white border-2">
+                    <li key={index} className="rounded bg-black-300 bg-opacity-30 px-2 py-1 ">
+                      {subItem}
+                    </li>
                   </div>
                 ))}
               </ul>
