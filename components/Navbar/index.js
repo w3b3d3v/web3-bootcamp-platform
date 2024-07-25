@@ -3,16 +3,21 @@ import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import ThemeSwitch from '../ThemeSwitch'
 import { Button as NUButton } from '@nextui-org/react'
-import constants from '../../lib/constants'
-import { Navbar, Text, Dropdown, Button, useModal, Modal, Grid, Avatar, Image } from '@nextui-org/react'
+import {
+  Navbar,
+  Text,
+  Dropdown,
+  Button,
+  useModal,
+  Modal,
+  Grid,
+  Avatar,
+  Image,
+} from '@nextui-org/react'
 import { GiExitDoor } from 'react-icons/gi'
-import { useTranslation } from "react-i18next"
-
-import { 
-  FaEthereum
- } from 'react-icons/fa'
-import { MdGroup } from "react-icons/md"
-
+import { useTranslation } from 'react-i18next'
+import { FaEthereum } from 'react-icons/fa'
+import { MdGroup } from 'react-icons/md'
 import { useSession, signOut } from 'next-auth/react'
 import { getUserFromFirestore, updateUserInFirestore } from '../../lib/user'
 import { checkReferral, saveReferralCookie } from '../../lib/store_referral'
@@ -35,7 +40,7 @@ export default function NavbarComponent() {
   ]
 
   const [profile, setProfile] = useState(false)
-  
+
   const { user, logout } = useAuth()
 
   const getUser = async () => {
@@ -60,40 +65,50 @@ export default function NavbarComponent() {
         <Navbar.Brand css={{ gap: '$5' }}>
           <Link href="/">
             <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
-            <Text weight={'bold'} size={'35px'}>WEB<span style={{ color: '#99e24d' }}>3</span>DEV</Text>
+            <Text weight={'bold'} size={'35px'}>
+              WEB<span style={{ color: '#99e24d' }}>3</span>DEV
+            </Text>
           </Link>
           <ThemeSwitch />
         </Navbar.Brand>
-
         <Navbar.Content hideIn={'sm'}>
           <Link href="/courses">
             <Button
               auto="true"
+              bordered="true"
               rounded
-              css={{ background: '$white' }}
+              css={{ background: '$white', borderColor: 'black', borderWidth: '2px' }}
               icon={<FaEthereum color="black" />}
             >
-              <Text weight={'extrabold'} css={{ color: 'black' }}>Builds</Text>
+              <Text weight={'extrabold'} css={{ color: 'black' }}>
+                Builds
+              </Text>
             </Button>
           </Link>
           <Link href="/study-groups">
             <Button
               auto="true"
+              bordered="true"
               rounded
-              css={{ background: '$white' }}
+              css={{ background: '$white', borderColor: 'black', borderWidth: '2px' }}
               icon={<MdGroup color="black" />}
             >
-              <Text weight={'extrabold'} css={{ color: 'black' }}>{t('buttons.study_groups')}</Text>
+              <Text weight={'extrabold'} css={{ color: 'black' }}>
+                {t('buttons.study_groups')}
+              </Text>
             </Button>
           </Link>
           <Link href="/tasks">
             <Button
               auto="true"
+              bordered="true"
               rounded
-              css={{ background: '$white' }}
+              css={{ background: '$white', borderColor: 'black', borderWidth: '2px' }}
               icon={<MdGroup color="black" />}
             >
-              <Text weight={'extrabold'} css={{ color: 'black' }}>Tasks</Text>
+              <Text weight={'extrabold'} css={{ color: 'black' }}>
+                Tasks
+              </Text>
             </Button>
           </Link>
         </Navbar.Content>
@@ -119,7 +134,6 @@ export default function NavbarComponent() {
               ))}
           </Dropdown.Menu>
         </Dropdown>
-
         <Navbar.Content>
           {user?.uid && (
             <Navbar.Content hideIn={'md'}>
@@ -171,13 +185,6 @@ export default function NavbarComponent() {
                     src={firestoreUser?.photoUrl || '/assets/img/default_avatar.svg'}
                     bordered
                   />
-                  {/* <Navbar.CollapseItem 
-                        css={{ display:'flex', alignItems:'center', justifyContent:'center' }}
-                        >
-                          <Button color={''} onPress={() => setVisible(true)} >
-                            <Text weight={'bold'} >Indique e Ganhe</Text>
-                          </Button>
-                        </Navbar.CollapseItem> */}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   css={{
@@ -241,7 +248,6 @@ export default function NavbarComponent() {
               </Link>
             </Navbar.CollapseItem>
           ))}
-
           {user && (
             <div>
               <Navbar.CollapseItem key="profile-item">
@@ -258,7 +264,6 @@ export default function NavbarComponent() {
                   </Link>
                 </div>
               </Navbar.CollapseItem>
-
               <Navbar.CollapseItem
                 key="indicate-item"
                 css={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
