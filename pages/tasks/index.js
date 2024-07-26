@@ -16,27 +16,27 @@ const IssueCard = ({ issue }) => {
   const isLight = theme === 'light'
   return (
     <div
-      className={`flex flex-row gap-2 rounded-lg p-4 shadow-lg ${
+      className={`flex md:flex-row flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg ${
         isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
       }`}
     >
-      <div className="flex h-full w-[100px] items-center justify-center rounded-[20px] bg-[#99e24d]">
-        <MdGroup size={80} color="white" />
+      <div className="flex h-[40px] md:h-full w-[40px] md:w-[80px] items-center justify-center md:rounded-[20px] rounded-[10px] bg-[#99e24d]">
+        <MdGroup size={70} color="white" />
       </div>
       <div className="mb-4 flex w-full flex-col gap-3">
         <div className="flex w-full items-center justify-between">
-          <span className="text-[24px] text-[#99e24d]">{issue.title}</span>
-          <button className="text-white mr-4 rounded bg-[#99e24d] bg-opacity-30 px-2 py-1 text-sm hover:bg-[#649e26] focus:outline-none focus:ring-2 focus:ring-[#99e24d]">
+          <span className="md:text-[24px] text-[18px] text-[#99e24d]">{issue.title}</span>
+          <button className="text-white mr-2 md:mr-4 rounded bg-[#99e24d] bg-opacity-30 px-2 py-1 md:text-sm text-[10px] hover:bg-[#649e26] focus:outline-none focus:ring-2 focus:ring-[#99e24d]">
             Apply
           </button>
         </div>
         <div className="flex w-full">
-          <p className="text-[16px]">
+          <p className="text-[12px] md:text-[16px]">
             Our practical learning platform, located at build.w3d.community, offers courses focused
             on blockchain and web3 technologies.
           </p>
         </div>
-        <div className="flex flex-row gap-3 text-gray-400">
+        <div className="flex md:flex-row flex-col gap-3 text-gray-400">
           <p className="text-[14px]">
             <strong>Board:</strong> {issue.project_name}
           </p>
@@ -114,7 +114,8 @@ const Sortbar = ({ filters, setFilters }) => {
           <select
             name="status"
             onChange={handleFilterChange}
-            className="text-white w-full border-none bg-none text-[14px] text-[#99e24d]"
+            className={`text-white w-full border-none bg-none text-[14px] ${
+                        isLight ? 'text-black-400' : 'text-[#99e24d]'}`}
           >
             <option value="">{t('context depth')}</option>
             <option value="">{t('reward')}</option>
@@ -141,22 +142,23 @@ const TaskPage = ({ issues }) => {
         <title> Tasks - WEB3DEV</title>
       </Head>
       <div className="flex w-full items-center justify-center">
-        <div className="flex w-[80%] flex-col">
+        <div className="flex xl:w-[80%] w-full flex-col">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
-            <div className="flex w-[100%] flex-col items-start sm:flex-row ">
+            <div className="flex w-full flex-col items-start lg:flex-row md:mx-4">
               <Filter />
-              <div className="flex-1 p-4 ">
+              <div className="flex-1 p-2 ">
                 {filteredIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
                       <Sortbar filters={filters} setFilters={setFilters} t={t} />
-                      <label className="h-10 text-[16px] text-[#99e24d]">247 PROJECT</label>
+                      <label className={`h-10 w-[80px] md:w-[100px] md:text-[16px] text-[10px] ${
+                        isLight ? 'text-black-400' : 'text-[#99e24d]'}`}>247 PROJECT</label>
                     </div>
                     <div
-                      className={`flex flex-row gap-2 rounded-lg p-4 shadow-lg ${
+                      className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${
                         isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
                       }`}
                     >
@@ -165,13 +167,13 @@ const TaskPage = ({ issues }) => {
                       </div>
                       <div className="flex w-full flex-col gap-0">
                         <div className="flex w-full items-center justify-between">
-                          <span className="text-white text-[24px]">Good first issues</span>
-                          <div className="flex w-[30px] items-center justify-center rounded-[20px] bg-[#99e24d] bg-opacity-30">
-                            <p className="text-[#99e24d]">1</p>
+                          <span className="text-white md:text-[24px] text-[18px]">Good first issues</span>
+                          <div className="flex md:w-[30px] w-[20px] items-center justify-center md:rounded-[20px] rounded-[10px] bg-[#99e24d] bg-opacity-30">
+                            <p className="text-[#99e24d] text-[12px] md:text-[16px]">1</p>
                           </div>
                         </div>
                         <div className="flex w-full">
-                          <p className="text-[16px]">
+                          <p className="md:text-[16px] text-[12px]">
                             Apply to a list of curated issues well suited for those new to the
                             project to kickstart your journey.
                           </p>
