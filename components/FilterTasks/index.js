@@ -32,17 +32,17 @@ const Filter = () => {
   }
   return (
     <div
-      className={`text-white w-60 rounded-lg p-2 ${
+      className={`text-white lg:w-[20%] w-[100%] rounded-lg p-2 ${
         isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
       }`}
     >
       <h3 className="mb-2 text-lg font-bold">Filter</h3>
-      <ul>
+      <ul className="flex lg:flex-col flex-wrap mx-2 items-center lg:items-start  justify-center">
         {Object.keys(isOpen).map((filterName) => (
-          <li key={filterName} className="mb-2">
+          <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1">
             <button
               onClick={() => toggleOpen(filterName)}
-              className="flex w-full items-center rounded bg-black-300 bg-opacity-30 px-2 py-1"
+              className="flex w-full items-center rounded bg-black-300 bg-opacity-0 px-1 py-1"
             >
               {subItems[filterName].length > 0 ? (
                 isOpen[filterName] ? (
@@ -56,10 +56,10 @@ const Filter = () => {
               <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
             </button>
             {isOpen[filterName] && subItems[filterName].length > 0 && (
-              <ul className="mt-2 ml-6 space-y-1">
+              <ul className="mt-1 ml-2 space-y-1">
                 {subItems[filterName].map((subItem, index) => (
                   <div className="border-white border-2">
-                    <li key={index} className="rounded bg-black-300 bg-opacity-30 px-2 py-1 ">
+                    <li key={index} className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px]">
                       {subItem}
                     </li>
                   </div>
