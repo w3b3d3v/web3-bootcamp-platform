@@ -37,6 +37,10 @@ export default function NavbarComponent() {
       name: 'Study Groups',
       href: '/study-groups',
     },
+    {
+      name: 'Tasks',
+      href: '/tasks',
+    },
   ]
 
   const [profile, setProfile] = useState(false)
@@ -64,8 +68,8 @@ export default function NavbarComponent() {
       <Navbar variant={'floating'} isBordered={true}>
         <Navbar.Brand css={{ gap: '$5' }}>
           <Link href="/">
-            <Image width={42} height={42} src="/assets/img/w3d-logo-symbol-ac.svg" />
-            <Text weight={'bold'} size={'35px'}>
+            <Image width={40} height={40} src="/assets/img/w3d-logo-symbol-ac.svg" />
+            <Text weight={'bold'} size={'25px'}>
               WEB<span style={{ color: '#99e24d' }}>3</span>DEV
             </Text>
           </Link>
