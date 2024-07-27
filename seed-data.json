@@ -1,60 +1,618 @@
 {
   "cohorts": {
-    "LNYQZCn5p9amT9VUJVhs": {
-      "course_id": "Solidity_And_Smart_Contracts",
-      "discord_channel": "Solidity-Smart-Contract-Exploradores",
-      "discord_role": "971852940174319686",
-      "email_content": {
-        "subject": "🏕️ Seu primeiro Smart Contract na Ethereum"
-      },
-      "name": "Aventureiros",
-      "kickoffStartTime": {
-        "_seconds": 1655607600,
-        "_nanoseconds": 564000000
+    "gN8lNI52TPpLNUuy4oSM": {
+      "discord_channel": "builds",
+      "endDate": {
+        "_seconds": 1724104800,
+        "_nanoseconds": 0
       },
       "kickoffEndTime": {
-        "_seconds": 1655611200,
-        "_nanoseconds": 475000000
+        "_seconds": 1722898800,
+        "_nanoseconds": 0
+      },
+      "nft_title": "Rust State Machine",
+      "name": "PIONEERS",
+      "kickoffStartTime": {
+        "_seconds": 1622895200,
+        "_nanoseconds": 0
       },
       "startDate": {
-        "_seconds": 1655607600,
-        "_nanoseconds": 56000000
+        "_seconds": 1622895200,
+        "_nanoseconds": 0
       },
-      "endDate": {
-        "_seconds": 7335889200,
-        "_nanoseconds": 463000000
-      }
+      "course_id": "Rust_State_Machine",
+      "email_content": {
+        "subject": "Your journey to learn Rust and Build your First Blockchain"
+      },
+      "discord_role": "1264936029769564211"
     }
   },
   "courses": {
-    "JS_DAO": {
-      "difficulty": "A definir",
-      "duration": "",
-      "image_url": "https://cdn.buildspace.so/courses/javascript-dao/poster.png",
-      "description": "DAOs are taking over. Build one yourself for fun. Maybe it's a meme DAO for your friends. Maybe it's a DAO that aims to fix climate change. Up to you. We'll be going over things like minting a membership NFT, creating/airdropping a token, public treasuries, and governance using a token!",
-      "title": "Construa sua própria DAO apenas com JavaScript em uma semana",
-      "index": 1,
-      "home": false,
+    "Rust_State_Machine": {
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FRust_State_Machine.png?alt=media&token=502f8693-237b-47fd-a8e1-73d3375b0f3f",
       "active": true,
+      "index": 1,
+      "home": true,
+      "tags": ["rust", "blockchain", "polkadot", "substrate"],
+      "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
+      "nft_title": "Rust State Machine",
+      "metadata": {
+        "pt-BR": {
+          "difficulty": "Intermediário",
+          "duration": "2 semanas",
+          "description": "<p>Olá, futuro mago do blockchain! 🌟</p>   <p>Pronto para mergulhar no mundo do Rust e blockchain, e dominar o SDK do Polkadot como um profissional? Este tutorial guiado é o seu ingresso de ouro. Sabemos que o maior obstáculo para construir seu primeiro blockchain com o SDK do Polkadot é lidar com os recursos avançados do Rust e decifrar a mágica por trás daqueles macros bacanas do Substrate. Mas não se preocupe, estamos aqui para ajudar!</p>   <p>Neste tutorial, você vai arregaçar as mangas e construir um projeto puro em Rust do zero. Você vai replicar todos os truques legais que o SDK do Polkadot usa, dando a você uma visão clara do mago por trás da cortina. Ao final, você terá uma compreensão sólida do que está acontecendo nos bastidores.</p>   <p><strong>Para quem é isso?</strong></p>  <ul>    <li>Novatos totais em Rust 🌱</li>    <li>Iniciantes em blockchain 💡</li>    <li>Mentes curiosas querendo desmistificar o SDK do Polkadot 🔍</li>  </ul>   <p>Não se preocupe se você ainda não é um guru de Rust ou blockchain. No entanto, um pouco de preparação ajuda bastante. Recomendamos fortemente que você dê uma olhada nos primeiros 11 capítulos do Livro do Rust (<a href='https://doc.rust-lang.org/book/' target='_blank'>https://doc.rust-lang.org/book/</a>). Não se preocupe em dominar todos os detalhes; apenas familiarize-se com conceitos como propriedade, tipos de dados básicos, structs, enums, crates, tratamento de erros, traits, genéricos e testes.</p>   <p>E então, você está dentro? Vamos embarcar juntos nesta aventura de codificação e desvendar os segredos da mágica do Rust e do SDK do Polkadot. Inscreva-se agora e comece sua jornada!</p>",
+          "title": "Domine Rust e Blockchain",
+          "sections": {
+            "Section_6": [
+              {
+                "file": "Lesson_1_Rust_Macros.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de macros Rust e faça o upload abaixo.",
+                "title": "Lição 1: Rust Macros",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Adding_Call_Macro_to_Balances.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de macros de chamada aos balances e faça o upload abaixo.",
+                "title": "Lição 2: Adicionando Macro de Chamada aos Balances",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Adding_Call_Macro_to_PoE.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de macros de chamada ao PoE e faça o upload abaixo.",
+                "title": "Lição 3: Adicionando Macro de Chamada ao PoE",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Use_the_Runtime_Macro.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o uso do macro runtime e faça o upload abaixo.",
+                "title": "Lição 4: Usando a Macro Runtime",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "twitter": "Acabei de concluir o curso completo sobre a construção de uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora domino macros Rust, adicionei macros de chamada aos balances e PoE, e utilizei o macro runtime. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Course_Completed.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando seu projeto final e faça o upload abaixo.",
+                "title": "Lição 5: Curso completo",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_3": [
+              {
+                "file": "Lesson_1_Generic_Types.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de tipos Genéricos e faça o upload abaixo.",
+                "title": "Lição 1: Tipos Genéricos",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Num_Crate.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Num Crate e faça o upload abaixo.",
+                "title": "Lição 2: Num Crate",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Make_Balances_Pallet_Generic.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o Balances Pallet genérico e faça o upload abaixo.",
+                "title": "Lição 3: Tornar o Balances Pallet Genérico",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Make_System_Pallet_Generic.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o System Pallet genérico e faça o upload abaixo.",
+                "title": "Lição 4: Tornar o System Pallet Genérico",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_5_Make_System_Configurable.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o System configurável e faça o upload abaixo.",
+                "title": "Lição 5: Tornar o System Configurável",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_6_Make_Balances_Configurable.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o Balances configurável e faça o upload abaixo.",
+                "title": "Lição 6: Tornar o Balances Configurável",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "twitter": "Acabei de concluir a terceira seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como implementar Generic Types, usar o Num Crate, tornar os pallets Balances e System genéricos e configuráveis, e entender o Tight Coupling. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_7_Tight_Coupling.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando seu entendimento sobre Tight Coupling e faça o upload abaixo.",
+                "title": "Lição 7: Tight Coupling",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_2": [
+              {
+                "file": "Lesson_1_System_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do System Pallet e faça o upload abaixo.",
+                "title": "Lição 1: System Pallet",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Block_Number_and_Nonce.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de Block Number e Nonce e faça o upload abaixo.",
+                "title": "Lição 2: Block Number e Nonce",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Runtime e faça o upload abaixo.",
+                "title": "Lição 3: Runtime",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Executing_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução do Runtime e faça o upload abaixo.",
+                "title": "Lição 4: Executing Runtime",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "twitter": "Acabei de concluir a segunda seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como implementar o System Pallet, lidar com Block Number e Nonce, criar e gerenciar Runtime, executar o Runtime e depurar o Runtime. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Runtime_Debug.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o processo de depuração do Runtime e faça o upload abaixo.",
+                "title": "Lição 5: Runtime Debug",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_5": [
+              {
+                "file": "Lesson_1_The_Proof_of_Existence_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Proof of Existence Pallet e faça o upload abaixo.",
+                "title": "Lição 1: O Pallet de Prova de Existência",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Proof_Of_Existence_Functions.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação das funções Proof of Existence e faça o upload abaixo.",
+                "title": "Lição 2: Funções de Prova de Existência",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Proof_of_Existence_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do despacho Proof of Existence e faça o upload abaixo.",
+                "title": "Lição 3: Despacho de Prova de Existência",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Integrate_Into_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a integração no runtime e faça o upload abaixo.",
+                "title": "Lição 4: Integrando ao Runtime",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_5_Add_Extrinsic_To_Block.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você adicionou um extrínseco ao bloco e faça o upload abaixo.",
+                "title": "Lição 5: Adicionando Extrínseco ao Bloco",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_4": [
+              {
+                "file": "Lesson_1_Executing_Blocks_and_Dispatching_Calls.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de blocos e o despacho de chamadas e faça o upload abaixo.",
+                "title": "Lição 1: Executando Blocos e Despachando Chamadas",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Block_Type.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de tipos de bloco e faça o upload abaixo.",
+                "title": "Lição 2: Block Type",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Executing_Blocks.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de blocos e faça o upload abaixo.",
+                "title": "Lição 3: Executando Blocos",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Dispatching_Calls.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho de chamadas e faça o upload abaixo.",
+                "title": "Lição 4: Despachando Chamadas",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_5_Execute_Block_With_Extrinsics.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de um bloco com extrínsecos e faça o upload abaixo.",
+                "title": "Lição 5: Executando Bloco com Extrínsecos",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_6_Pallet_Level_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho no nível de pallet e faça o upload abaixo.",
+                "title": "Lição 6: Despacho no Nível de Pallet",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "twitter": "Acabei de concluir a quarta seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como executar blocos, despachar chamadas, trabalhar com tipos de blocos, executar blocos com extrínsecos, e lidar com despacho no nível de pallet e despacho aninhado. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_7_Nested_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho aninhado e faça o upload abaixo.",
+                "title": "Lição 7: Nested Dispatch",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_1": [
+              {
+                "file": "Lesson_1_Balances_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução bem-sucedida do Balances Pallet e faça o upload abaixo.",
+                "title": "Lição 1: Balances Pallet",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_2_Add_State.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de estado e faça o upload abaixo.",
+                "title": "Lição 2: Adicionar Estado",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_3_Store_And_Read.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando o armazenamento e leitura de estado e faça o upload abaixo.",
+                "title": "Lição 3: Armazenar e Ler",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "file": "Lesson_4_Basic_Tests.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução bem-sucedida de testes básicos e faça o upload abaixo.",
+                "title": "Lição 4: Testes Básicos",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              },
+              {
+                "twitter": "Acabei de concluir a primeira seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como criar e gerenciar um pallet de saldos, adicionar e gerenciar estado, armazenar e ler dados, escrever testes básicos e implementar transferências de saldo. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Transfer_Balance.md",
+                "submission_type": "upload",
+                "submission_text": "Tire uma captura de tela do seu terminal mostrando a transferência bem-sucedida de saldo e faça o upload abaixo.",
+                "title": "Lição 5: Transferência de Saldo",
+                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
+              }
+            ],
+            "Section_0": [
+              {
+                "file": "Lesson_1_What_Are_We_Building.md",
+                "submission_type": "text",
+                "submission_text": "Você está pronto para começar? Por favor, digite como você está se sentindo antes de iniciar o curso.",
+                "title": "Lição 1: O que estamos construindo",
+                "submission_title": "Comece Agora!"
+              },
+              {
+                "twitter": "Acabei de começar a aprender Rust com @web3dev_ - junte-se a mim em https://build.w3d.community/",
+                "file": "Lesson_2_Requirements.md",
+                "submission_type": "text",
+                "submission_text": "Você instalou o software necessário?",
+                "title": "Lição 2: Requisitos",
+                "submission_title": "Requisitos Instalados!"
+              }
+            ]
+          }
+        },
+        "en": {
+          "description": "<p>Hey there, future blockchain wizard! 🌟</p>  <p>Ready to dive into the world of Rust and blockchain, and tackle the Polkadot SDK like a pro? This guided tutorial is your golden ticket. We know the biggest hurdle in building your first blockchain with the Polkadot SDK is wrestling with advanced Rust features and deciphering the magic behind those nifty Substrate macros. But don’t worry, we’ve got your back!</p>  <p>In this tutorial, you’ll roll up your sleeves and build a pure Rust project from scratch. You'll replicate all the cool tricks the Polkadot SDK uses, giving you a clear view of the wizard behind the curtain. By the end of it, you'll have a solid grasp of what's happening under the hood.</p>  <p><strong>Who’s this for?</strong></p> <ul>   <li>Total Rust rookies 🌱</li>   <li>Blockchain beginners 💡</li>   <li>Curious minds wanting to demystify the Polkadot SDK 🔍</li> </ul>  <p>No worries if you're not a Rust or blockchain guru yet. However, a little prep work goes a long way. We highly recommend skimming through the first 11 chapters of the Rust Book (<a href=\"https://doc.rust-lang.org/book/\" target=\"_blank\">https://doc.rust-lang.org/book/</a>). Don't stress about mastering every detail; just get a feel for concepts like ownership, basic data types, structs, enums, crates, error handling, traits, generics, and tests.</p>  <p>So, are you in? Let's embark on this coding adventure together and unlock the secrets of Rust and Polkadot SDK magic. Subscribe now and start your journey!</p>",
+          "difficulty": "Intermediate",
+          "duration": "2 weeks",
+          "title": "Master Rust and Blockchain",
+          "sections": {
+            "Section_6": [
+              {
+                "file": "Lesson_1_Rust_Macros.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of Rust macros and upload it below.",
+                "title": "Lesson 1: Rust Macros",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Adding_Call_Macro_to_Balances.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the addition of call macros to balances and upload it below.",
+                "title": "Lesson 2: Adding Call Macro to Balances",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Adding_Call_Macro_to_PoE.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the addition of call macros to PoE and upload it below.",
+                "title": "Lesson 3: Adding Call Macro to PoE",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Use_the_Runtime_Macro.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the use of the runtime macro and upload it below.",
+                "title": "Lesson 4: Use the Runtime Macro",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "twitter": "I just completed the entire course on building a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I have mastered Rust macros, added call macros to balances and PoE, and used the runtime macro. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Course_Completed.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing your final project and upload it below.",
+                "title": "Lesson 5: Course Completed",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_3": [
+              {
+                "file": "Lesson_1_Generic_Types.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of generic types and upload it below.",
+                "title": "Lesson 1: Generic Types",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Num_Crate.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of the Num crate and upload it below.",
+                "title": "Lesson 2: Num Crate",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Make_Balances_Pallet_Generic.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing how you made the balances pallet generic and upload it below.",
+                "title": "Lesson 3: Make Balances Pallet Generic",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Make_System_Pallet_Generic.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing how you made the system pallet generic and upload it below.",
+                "title": "Lesson 4: Make System Pallet Generic",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_5_Make_System_Configurable.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing how you made the system configurable and upload it below.",
+                "title": "Lesson 5: Make System Configurable",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_6_Make_Balances_Configurable.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing how you made the balances configurable and upload it below.",
+                "title": "Lesson 6: Make Balances Configurable",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "twitter": "I just finished the third section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to implement generic types, use the Num crate, make the balances and system pallets generic and configurable, and understand tight coupling. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_7_Tight_Coupling.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing your understanding of tight coupling and upload it below.",
+                "title": "Lesson 7: Tight Coupling",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_2": [
+              {
+                "file": "Lesson_1_System_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of the system pallet and upload it below.",
+                "title": "Lesson 1: System Pallet",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Block_Number_and_Nonce.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the block number and nonce implementation and upload it below.",
+                "title": "Lesson 2: Block Number and Nonce",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the runtime implementation and upload it below.",
+                "title": "Lesson 3: Runtime",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Executing_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the execution of the runtime and upload it below.",
+                "title": "Lesson 4: Executing Runtime",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "twitter": "I just finished the second section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to implement the system pallet, handle block numbers and nonce, create and manage runtime, execute the runtime, and debug runtime. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Runtime_Debug.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the runtime debug process and upload it below.",
+                "title": "Lesson 5: Runtime Debug",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_5": [
+              {
+                "file": "Lesson_1_The_Proof_of_Existence_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of the Proof of Existence pallet and upload it below.",
+                "title": "Lesson 1: The Proof of Existence Pallet",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Proof_Of_Existence_Functions.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of Proof of Existence functions and upload it below.",
+                "title": "Lesson 2: Proof Of Existence Functions",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Proof_of_Existence_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the Proof of Existence dispatch implementation and upload it below.",
+                "title": "Lesson 3: Proof of Existence Dispatch",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Integrate_Into_Runtime.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the integration into the runtime and upload it below.",
+                "title": "Lesson 4: Integrate Into Runtime",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_5_Add_Extrinsic_To_Block.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing how you added an extrinsic to the block and upload it below.",
+                "title": "Lesson 5: Add Extrinsic To Block",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_4": [
+              {
+                "file": "Lesson_1_Executing_Blocks_and_Dispatching_Calls.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the execution of blocks and dispatching of calls and upload it below.",
+                "title": "Lesson 1: Executing Blocks and Dispatching Calls",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Block_Type.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the implementation of block types and upload it below.",
+                "title": "Lesson 2: Block Type",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Executing_Blocks.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the execution of blocks and upload it below.",
+                "title": "Lesson 3: Executing Blocks",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Dispatching_Calls.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the dispatching of calls and upload it below.",
+                "title": "Lesson 4: Dispatching Calls",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_5_Execute_Block_With_Extrinsics.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the execution of a block with extrinsics and upload it below.",
+                "title": "Lesson 5: Execute Block With Extrinsics",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_6_Pallet_Level_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing pallet level dispatch and upload it below.",
+                "title": "Lesson 6: Pallet Level Dispatch",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "twitter": "I just finished the fourth section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to execute blocks, dispatch calls, work with block types, execute blocks with extrinsics, and handle pallet level and nested dispatch. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_7_Nested_Dispatch.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing nested dispatch and upload it below.",
+                "title": "Lesson 7: Nested Dispatch",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_1": [
+              {
+                "file": "Lesson_1_Balances_Pallet.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the successful execution of the Balances Pallet and upload it below.",
+                "title": "Lesson 1: Balances Pallet",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_2_Add_State.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the addition of state and upload it below.",
+                "title": "Lesson 2: Add State",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_3_Store_And_Read.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the storing and reading of state and upload it below.",
+                "title": "Lesson 3: Store And Read",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "file": "Lesson_4_Basic_Tests.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the successful execution of basic tests and upload it below.",
+                "title": "Lesson 4: Basic Tests",
+                "submission_title": "Upload a screenshot of your terminal"
+              },
+              {
+                "twitter": "I just finished the first section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to create and manage a balances pallet, add and manage state, store and read data, write basic tests, and implement balance transfers. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
+                "file": "Lesson_5_Transfer_Balance.md",
+                "submission_type": "upload",
+                "submission_text": "Take a screenshot of your terminal showing the successful transfer of balance and upload it below.",
+                "title": "Lesson 5: Transfer Balance",
+                "submission_title": "Upload a screenshot of your terminal"
+              }
+            ],
+            "Section_0": [
+              {
+                "file": "Lesson_1_What_Are_We_Building.md",
+                "submission_type": "text",
+                "submission_text": "Are you ready to start? Please type how are you feelind before you start the course.",
+                "title": "Lesson 1: What are we building",
+                "submission_title": "Star Now!"
+              },
+              {
+                "twitter": "I just started to learn Rust with @web3dev_ - join me at https://build.w3d.community/",
+                "file": "Lesson_2_Requirements.md",
+                "submission_type": "text",
+                "submission_text": "Have you installed the required software?",
+                "title": "Lesson 2: Requirements",
+                "submission_title": "Requirements Installed!"
+              }
+            ]
+          }
+        }
+      },
       "analytics": [
         {
-          "photoUrls": [
-            "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/users%2FtFOYKWIm6OMlKHtmxarRfVY77W63%2FprofilePic?alt=media&token=e5d2df3d-259b-456f-99b5-c03b908924ad"
-          ],
-          "students": 2,
-          "section": "Section_4"
-        },
-        {
-          "photoUrls": [
-            "https://avatars.githubusercontent.com/u/77552?v=4"
-          ],
-          "students": 1,
+          "photoUrls": [],
+          "students": 4,
           "section": "Section_1"
         },
         {
           "photoUrls": [],
           "students": 1,
           "section": "Section_3"
+        },
+        {
+          "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
+          "students": 1,
+          "section": "Section_5"
         }
       ]
     }
@@ -68,10 +626,7 @@
           "projectId": "web3dev-development"
         },
         "_path": {
-          "segments": [
-            "cohorts",
-            "lloRUGwzJAG4Lj2B3bmJ"
-          ]
+          "segments": ["cohorts", "lloRUGwzJAG4Lj2B3bmJ"]
         },
         "_converter": {}
       },
@@ -81,10 +636,7 @@
           "projectId": "web3dev-development"
         },
         "_path": {
-          "segments": [
-            "users",
-            "qpluj9zA4Idmvoxj1XEG8MmPpN72"
-          ]
+          "segments": ["users", "qpluj9zA4Idmvoxj1XEG8MmPpN72"]
         },
         "_converter": {}
       },
@@ -130,10 +682,7 @@
             "projectId": "web3dev-development"
           },
           "_path": {
-            "segments": [
-              "courses",
-              "NFT_Collection"
-            ]
+            "segments": ["courses", "NFT_Collection"]
           },
           "_converter": {}
         },
@@ -167,10 +716,7 @@
         ],
         "discord": null,
         "wallet": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
-        "cohort_ids": [
-          "LNYQZCn5p9amT9VUJVhs",
-          "y6AUPXpfj1L6jfhAlTzl"
-        ],
+        "cohort_ids": ["LNYQZCn5p9amT9VUJVhs", "y6AUPXpfj1L6jfhAlTzl"],
         "name": "Rômulo",
         "bio": "",
         "cohorts": [
@@ -193,10 +739,7 @@
                 "projectId": "web3dev-development"
               },
               "_path": {
-                "segments": [
-                  "cohorts",
-                  "y6AUPXpfj1L6jfhAlTzl"
-                ]
+                "segments": ["cohorts", "y6AUPXpfj1L6jfhAlTzl"]
               },
               "_converter": {}
             },
@@ -233,9 +776,7 @@
       "leader_discord_id": "548618495383044129",
       "title": "Rust",
       "analytics": {
-        "photoUrls": [
-          "https://avatars.githubusercontent.com/u/77552?v=4"
-        ],
+        "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
         "students": 1
       },
       "active": true,
@@ -252,9 +793,7 @@
       "project_type": "Core",
       "createdAt": "2024-06-25T17:29:09Z",
       "project_id": 23,
-      "assignees": [
-        "helenafreitas5"
-      ],
+      "assignees": ["helenafreitas5"],
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
       "state": "OPEN",
       "project_name": "Stellar Study Group [Core]",

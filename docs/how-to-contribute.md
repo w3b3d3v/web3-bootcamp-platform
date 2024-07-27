@@ -43,7 +43,7 @@
 4. Start the Firebase emulator:
 
    ```bash
-   yarn emulators:start
+   yarn emulator
    ```
 
 5. Seed data to the local database, open a new terminal and run:
