@@ -140,6 +140,11 @@ function Course({ course, currentDate }) {
       user?.cohorts?.map((cohort) => cohort.course_id).includes(course.id)
     )
   }
+
+  const userIsAdmin = () => {
+    return user?.admin
+  }
+
   const userHasAlreadyParticipatedInACohort = () => {
     const endedCohorts = []
     cohorts?.map((cohort) => {
@@ -407,7 +412,9 @@ function Course({ course, currentDate }) {
                 <br />
               </>
             )}
-            {(userIsRegisteredAndCohortIsOpen() || userHasAlreadyParticipatedInACohort()) && (
+            {(userIsRegisteredAndCohortIsOpen() ||
+              userHasAlreadyParticipatedInACohort() ||
+              userIsAdmin()) && (
               <>
                 <div className="flex flex-col content-end gap-11 lg:flex-row">
                   <div className="flex-1">

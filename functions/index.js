@@ -213,7 +213,7 @@ exports.sendNewChanceEmail = functions.https.onRequest(async (req, resp) => {
 
 exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, resp) => {
   const cohort_id = req.query.cohort_id
-  const cohort = docData('cohorts', cohort_id)
+  const cohort = await docData('cohorts', cohort_id)
 
   if (!cohort) {
     console.log('invalid cohort')
@@ -233,7 +233,7 @@ exports.addAllUsersFromCohortToDiscord = functions.https.onRequest(async (req, r
       data.cohorts &&
       data.cohorts[0] &&
       data?.discord?.id &&
-      data.cohorts[0].cohort_id === cohort_id
+      data.cohorts.some((cohort) => cohort.cohort_id === cohort_id)
     ) {
       console.log(
         `Adicionando role ${cohort.discord_role} do curso no discord: ${data.discord.username}`
