@@ -4983,84 +4983,6 @@
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
     },
-    "0EvX0FUJSsK8kl4Xb8YZ": {
-      "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here 1",
-      "body": "II Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Skill",
-          "value": "react"
-        },
-        {
-          "field": "Business Unity",
-          "value": "WEB3TASK"
-        },
-        {
-          "field": "Context Depth",
-          "value": "Intermediate"
-        },
-        {
-          "field": "Importance",
-          "value": "low"
-        },
-        {
-          "field": "Reward",
-          "value": "XP"
-        },
-        {
-          "field": "Amount",
-          "value": 500
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX123UJSsK8kl4Xb8YZ": {
-      "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here 1",
-      "body": "NN Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Skill",
-          "value": "react"
-        },
-        {
-          "field": "Business Unity",
-          "value": "WEB3TASK"
-        },
-        {
-          "field": "Context Depth",
-          "value": "Professional"
-        },
-        {
-          "field": "Importance",
-          "value": "medium"
-        },
-        {
-          "field": "Reward",
-          "value": "XP"
-        },
-        {
-          "field": "Amount",
-          "value": 2500
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
     "0EvX0FUJSsK8kl4fb123": {
       "project_type": "Codebase",
       "createdAt": "2024-06-25T17:29:09Z",
@@ -5100,52 +5022,6 @@
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
     },
-    "0EvX0FUJSsK8kl4fb8YU": {
-      "project_type": "Core",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["helenafreitas5"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "state": "OPEN",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Title",
-          "value": "Start here"
-        },
-        {
-          "field": "Status",
-          "value": "Backlog"
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX0FUJSsK8kl4fb123": {
-      "project_type": "Core",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["helenafreitas5"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "state": "CLOSED",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Title",
-          "value": "Start here"
-        },
-        {
-          "field": "Status",
-          "value": "Backlog"
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
     "0EvX0FUJSsK8kl4Xb8YZ": {
       "project_type": "Core",
       "createdAt": "2024-06-25T17:29:09Z",
@@ -5155,7 +5031,8 @@
       "state": "CLOSED",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "body": "",
+      "language": "Português",
+      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
         {
@@ -5178,7 +5055,8 @@
       "state": "CLOSED",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "body": "",
+      "language": "English",
+      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
         {
