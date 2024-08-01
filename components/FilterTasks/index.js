@@ -2,22 +2,13 @@ import { useState } from 'react'
 import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaMoneyBillAlt } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
 
-const Filter = () => {
-  const [isOpen, setIsOpen] = useState({
-    skill: false,
-    effort: false,
-    demandingTeam: false,
-    contextDepth: false,
-    reward: false,
-  })
-
-  const subItems = {
-    skill: ['Sub Item 1', 'Sub Item 2', 'Sub Item 3'],
-    effort: ['Sub Item 1', 'Sub Item 2'],
-    demandingTeam: ['Sub Item 1', 'Sub Item 2', 'Sub Item 3'],
-    contextDepth: ['Sub Item 1'],
-    reward: [],
-  }
+const Filter = ({ filters, subItems }) => {
+  const [isOpen, setIsOpen] = useState(
+    Object.keys(filters).reduce((acc, filterName) => {
+      acc[filterName] = false
+      return acc
+    }, {})
+  )
 
   const { theme } = useTheme()
   const isLight = theme === 'light'
@@ -30,6 +21,7 @@ const Filter = () => {
       }))
     }
   }
+
   return (
     <div
       className={`text-white lg:w-[20%] w-[100%] rounded-lg p-2 ${
@@ -38,7 +30,7 @@ const Filter = () => {
     >
       <h3 className="mb-2 text-lg font-bold">Filter</h3>
       <ul className="flex lg:flex-col flex-wrap mx-2 items-center lg:items-start  justify-center">
-        {Object.keys(isOpen).map((filterName) => (
+        {Object.keys(filters).map((filterName) => (
           <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1">
             <button
               onClick={() => toggleOpen(filterName)}
@@ -58,8 +50,8 @@ const Filter = () => {
             {isOpen[filterName] && subItems[filterName].length > 0 && (
               <ul className="mt-1 ml-2 space-y-1">
                 {subItems[filterName].map((subItem, index) => (
-                  <div className="border-white border-2">
-                    <li key={index} className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px]">
+                  <div key={index} className="border-white border-2">
+                    <li className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px]">
                       {subItem}
                     </li>
                   </div>
