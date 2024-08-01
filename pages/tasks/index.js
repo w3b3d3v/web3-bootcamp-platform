@@ -10,6 +10,7 @@ import { Button, Image, Text } from '@nextui-org/react'
 import Filter from '../../components/FilterTasks/index'
 import Sortbar from '../../components/SortBar/index'
 import { useTheme } from 'next-themes'
+import Dropdown from '../../components/Dropdown'
 
 const IssueCard = ({ issue }) => {
   const { t } = useTranslation()
@@ -37,20 +38,20 @@ const IssueCard = ({ issue }) => {
           </p>
         </div>
         <div className="flex md:flex-row flex-col gap-3 text-gray-400">
-          <p className="text-[14px]">
+          <p className="text-[16px]">
             <strong>Board:</strong> {issue.project_name}
           </p>
-          <p className="text-[14px]">
+          <p className="text-[16px]">
             <strong>Created At:</strong> {new Date(issue.createdAt).toLocaleDateString()}
           </p>
-          <p className="text-[14px]">
-            <strong>Language:</strong> {issue.language}
+          <p className="text-[16px]">
+          <Dropdown title="Language" items={issue.language} />
           </p>
-          <p className="text-[14px]">
-            <strong>Skill:</strong> {new Date(issue.updatedAt).toLocaleDateString()}
+          <p className="text-[16px]">
+            <Dropdown title="Skill" items={issue.skill} />
           </p>
-          <p className="text-[14px]">
-            <strong>Reward:</strong> {new Date(issue.updatedAt).toLocaleDateString()}
+          <p className="text-[16px]">
+            <strong>Reward:</strong> {issue.reward}
           </p>
         </div>
       </div>
@@ -65,12 +66,10 @@ const filtersTasks = {
 }
 
 const subItems = {
-  skill: ['Sub Item 1', 'Sub Item 2', 'Sub Item 3'],
+  skill: ['Skill-1', 'Skill-2', 'Skill-3'],
   effort: ['demanding Team', 'Context Depth'],
   reward: []
 }
-
-
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
