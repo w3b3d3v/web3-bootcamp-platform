@@ -8,6 +8,7 @@ import { MdGroup } from 'react-icons/md'
 import { AiOutlineLike } from 'react-icons/ai'
 import { Button, Image, Text } from '@nextui-org/react'
 import Filter from '../../components/FilterTasks/index'
+import Sortbar from '../../components/SortBar/index'
 import { useTheme } from 'next-themes'
 
 const IssueCard = ({ issue }) => {
@@ -32,8 +33,7 @@ const IssueCard = ({ issue }) => {
         </div>
         <div className="flex w-full">
           <p className="text-[12px] md:text-[16px]">
-            Our practical learning platform, located at build.w3d.community, offers courses focused
-            on blockchain and web3 technologies.
+            {issue.body}
           </p>
         </div>
         <div className="flex md:flex-row flex-col gap-3 text-gray-400">
@@ -44,7 +44,7 @@ const IssueCard = ({ issue }) => {
             <strong>Created At:</strong> {new Date(issue.createdAt).toLocaleDateString()}
           </p>
           <p className="text-[14px]">
-            <strong>Updated At:</strong> {new Date(issue.updatedAt).toLocaleDateString()}
+            <strong>Language:</strong> {issue.language}
           </p>
           <p className="text-[14px]">
             <strong>Skill:</strong> {new Date(issue.updatedAt).toLocaleDateString()}
@@ -58,73 +58,19 @@ const IssueCard = ({ issue }) => {
   )
 }
 
-const Sidebar = ({ filters, setFilters }) => {
-  const { t } = useTranslation()
-
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    })
-  }
-  return (
-    <div className="text-white w-full p-4 sm:w-64">
-      <h3 className="mb-4 text-xl">{t('filters')}</h3>
-      <div className="mb-4">
-        <label>
-          <span className="mb-2 block">Status:</span>
-          <select
-            name="status"
-            onChange={handleFilterChange}
-            className="text-white w-full rounded-lg bg-gray-800 p-2"
-          >
-            <option value="">{t('all')}</option>
-            <option value="">{t('Context Depth')}</option>
-            <option value="">{t('Demandin Team')}</option>
-            <option value="">{t('Effort')}</option>
-            <option value="">{t('Reward')}</option>
-            <option value="">{t('Skill')}</option>
-          </select>
-        </label>
-      </div>
-    </div>
-  )
+const filtersTasks = {
+  skill: 'Skill',
+  effort: 'Effort',
+  reward: 'Reward'
 }
 
-const Sortbar = ({ filters, setFilters }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
-
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    })
-  }
-  return (
-    <div className="text-white h-10 w-full sm:w-64">
-      <div
-        className={`flex w-[200px] flex-row items-center justify-center gap-1 rounded-lg ${
-          isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-        } `}
-      >
-        <span className=" text-[14px]">{t('Sort by')}</span>
-        <label>
-          <select
-            name="status"
-            onChange={handleFilterChange}
-            className={`text-white w-full border-none bg-none text-[14px] ${
-                        isLight ? 'text-black-400' : 'text-[#99e24d]'}`}
-          >
-            <option value="">{t('context depth')}</option>
-            <option value="">{t('reward')}</option>
-          </select>
-        </label>
-      </div>
-    </div>
-  )
+const subItems = {
+  skill: ['Sub Item 1', 'Sub Item 2', 'Sub Item 3'],
+  effort: ['demanding Team', 'Context Depth'],
+  reward: []
 }
+
+
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
@@ -136,6 +82,13 @@ const TaskPage = ({ issues }) => {
   const filteredIssues = issues.filter((issue) => {
     return !filters.status || issue.state === filters.status
   })
+
+   const [issueCount, setIssueCount] = useState(filteredIssues.length)
+
+   useEffect(() => {
+     setIssueCount(filteredIssues.length)
+   }, [filteredIssues])
+
   return (
     <>
       <Head>
@@ -146,16 +99,16 @@ const TaskPage = ({ issues }) => {
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
             <div className="flex w-full flex-col items-start lg:flex-row md:mx-4">
-              <Filter />
+              <Filter filters={filtersTasks} subItems={subItems} />  
               <div className="flex-1 p-2 ">
                 {filteredIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                      <Sortbar filters={filters} setFilters={setFilters} t={t} />
+                      <Sortbar filters={filters} setFilters={setFilters} t={t}/>
                       <label className={`h-10 w-[80px] md:w-[100px] md:text-[16px] text-[10px] ${
-                        isLight ? 'text-black-400' : 'text-[#99e24d]'}`}>247 PROJECT</label>
+                        isLight ? 'text-black-400' : 'text-[#99e24d]'}`}>{filteredIssues.length} PROJECTS</label>
                     </div>
                     <div
                       className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${
