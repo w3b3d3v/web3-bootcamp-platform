@@ -35,6 +35,9 @@ function Course({ course, currentDate }) {
   const [loading, setLoading] = useState(true)
   const { t, i18n } = useTranslation()
   const language = i18n.resolvedLanguage
+  const courseTitle = course?.metadata?.[language]?.title || course?.title
+  const courseDescription = course?.metadata?.[language]?.description || course?.description
+  const courseSections = course?.metadata?.[language]?.sections || course?.sections
 
   useEffect(() => {
     if (course?.metadata && !course.metadata.hasOwnProperty(language)) {
@@ -178,10 +181,9 @@ function Course({ course, currentDate }) {
   }, [cohort])
 
   function renderSections(course, language) {
-    const sections = course?.metadata?.[language]?.sections || course?.sections
-    if (!sections) return null
+    if (!courseSections) return null
 
-    return Object.keys(sections)
+    return Object.keys(courseSections)
       .sort()
       .map((section) => {
         const sectionNumber = section.replace('Section_', '')
@@ -191,7 +193,7 @@ function Course({ course, currentDate }) {
               {t('section') + ' ' + sectionNumber}
             </span>
             <ul className="mt-4 mb-4 flex list-none flex-col">
-              {sections[section]
+              {courseSections[section]
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map((lesson) => (
                   <li key={lesson.title} className="mb-4 items-center rounded py-2 px-4">
@@ -366,8 +368,8 @@ function Course({ course, currentDate }) {
                         <ICalendarLink
                           className="flex flex-row items-center text-white-100"
                           event={{
-                            title: course?.title,
-                            description: course?.description,
+                            title: courseTitle,
+                            description: courseDescription,
                             startTime: cohort?.kickoffStartTime,
                             endTime: cohort?.kickoffEndTime,
                             location: 'https://pt.discord.w3d.community',
@@ -384,7 +386,7 @@ function Course({ course, currentDate }) {
                       >
                         <img src="/assets/img/google-logo.svg" className="h-9 w-9" />
                         <a
-                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${course?.title}`}
+                          href={`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${kickoffStartDate}/${kickoffEndDate}&text=Bootcamp Web3dev ${courseTitle}`}
                           target="_blank"
                         >
                           <p className="text-sm font-bold text-white-100">
