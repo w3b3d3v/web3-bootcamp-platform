@@ -147,6 +147,12 @@ function Lessons({ course, section, lesson, content, currentDate }) {
       /\[Youtube]\(https:\/\/www\.youtube\.com\/watch\?v=([^)]*)\)/,
       '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" title="Lição" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen /></iframe>'
     )
+
+    result = result.replace(
+      /\[Youtube]\(https:\/\/youtu\.be\/([^\s?]+)(\?[^\s)]*)?\)/g,
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" title="Lição" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>'
+    )
+
     return result
   }
   const getSubmissionData = () => {
