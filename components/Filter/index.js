@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaCheckCircle } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
+import { useRouter } from 'next/router'
 
 const Filter = ({ filters, selectedFilters, setFilters }) => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(
     Object.keys(filters).reduce((acc, filterName) => {
       acc[filterName] = false
@@ -22,23 +24,52 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
     }
   }
 
+  const updateURL = (updatedFilters) => {
+    const query = {};
+    for (const key in updatedFilters) {
+      if (updatedFilters[key]) {
+        query[key] = JSON.stringify(updatedFilters[key])
+      }
+    }
+    router.push({
+      pathname: router.pathname,
+      query: query,
+    })
+  }
+
   const handleFilterChange = (filterName, value) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterName]: prevFilters[filterName] === value ? null : value
-    }))
+    const updatedFilters = {
+      ...selectedFilters,
+      [filterName]: selectedFilters[filterName] === value ? null : value,
+    }
+    setFilters(updatedFilters)
+    updateURL(updatedFilters)
   }
 
   const clearFilters = () => {
-    setFilters(Object.keys(filters).reduce((acc, filterName) => {
+    const clearedFilters = Object.keys(filters).reduce((acc, filterName) => {
       acc[filterName] = null
       return acc
-    }, {}))
-    setIsOpen(Object.keys(filters).reduce((acc, filterName) => {
-      acc[filterName] = false
-      return acc
-    }, {}))
+    }, {});
+    setFilters(clearedFilters)
+    setIsOpen(
+      Object.keys(filters).reduce((acc, filterName) => {
+        acc[filterName] = false
+        return acc
+      }, {})
+    )
+    updateURL(clearedFilters)
   }
+
+  useEffect(() => {
+    if (router.query) {
+      const loadedFilters = Object.keys(router.query).reduce((acc, filterName) => {
+        acc[filterName] = JSON.parse(router.query[filterName])
+        return acc
+      }, {});
+      setFilters(loadedFilters)
+    }
+  }, [router.query])
 
   return (
     <div
@@ -68,8 +99,14 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
             {isOpen[filterName] && filters[filterName].length > 0 && (
               <ul className="mt-1 space-y-1 max-h-40 overflow-y-auto">
                 {filters[filterName].map((subItem, index) => (
-                  <li key={index} className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer" onClick={() => handleFilterChange(filterName, subItem)}>
-                    <span className={selectedFilters[filterName] === subItem ? 'text-[#99e24d] font-bold' : ''}>{subItem}</span>
+                  <li
+                    key={index}
+                    className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer"
+                    onClick={() => handleFilterChange(filterName, subItem)}
+                  >
+                    <span className={selectedFilters[filterName] === subItem ? 'text-[#99e24d] font-bold' : ''}>
+                      {subItem}
+                    </span>
                     {selectedFilters[filterName] === subItem && <FaCheckCircle className="text-[#99e24d] ml-2" />}
                   </li>
                 ))}
