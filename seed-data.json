@@ -798,8 +798,8 @@
       "state": "OPEN",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "language": ["Python","Javascript", "Typescript"],
-      "skill": ["Skill-1","Skill-2","Skill-3"],
+      "language": ["Python", "Javascript", "Typescript"],
+      "skill": ["Skill-1", "Skill-2", "Skill-3"],
       "reward": "$50",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
@@ -825,7 +825,7 @@
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
       "language": ["Javascript"],
-      "skill": ["Skill-1","Skill-2","Skill-3"],
+      "skill": ["Skill-1", "Skill-2", "Skill-3"],
       "reward": "$50",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
@@ -842,79 +842,40 @@
       "updatedAt": "2024-06-25T18:04:34Z"
     },
     "0EvX0FUJSsK8kl4fb123": {
-      "project_type": "Core",
+      "project_type": "Codebase",
       "createdAt": "2024-06-25T17:29:09Z",
       "project_id": 23,
-      "assignees": ["helenafreitas5"],
+      "assignees": ["nomadbitcoin"],
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
       "state": "CLOSED",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "language": ["Typescript"],
-      "skill": ["Skill-1","Skill-2","Skill-3"],
-      "reward": "$70",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
         {
-          "field": "Title",
-          "value": "Start here"
+          "field": "Skill",
+          "value": "react"
         },
         {
-          "field": "Status",
-          "value": "Backlog"
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX0FUJSsK8kl4Xb8YZ": {
-      "project_type": "Core",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["helenafreitas5"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "state": "CLOSED",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "language": ["Python","Javascript", "Typescript"],
-      "skill": ["Skill-1","Skill-2","Skill-3"],
-      "reward": "$30",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Title",
-          "value": "Start here"
+          "field": "Business Unity",
+          "value": "WEB3TASK"
         },
         {
-          "field": "Status",
-          "value": "Backlog"
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX123UJSsK8kl4Xb8YZ": {
-      "project_type": "Core",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["helenafreitas5"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
-      "state": "CLOSED",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "language": ["Java", "Python"],
-      "skill": ["Skill-1","Skill-2","Skill-3"],
-      "reward": "$20",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Title",
-          "value": "Start here"
+          "field": "Context Depth",
+          "value": "Novice"
         },
         {
-          "field": "Status",
-          "value": "Backlog"
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Amount",
+          "value": 100
+        },
+        {
+          "field": "Reward",
+          "value": "USD"
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
