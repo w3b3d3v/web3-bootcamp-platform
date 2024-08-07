@@ -4914,7 +4914,9 @@
       "status": "Todo",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "language": "Português",
+      "language": ["Python", "Javascript", "Typescript"],
+      "skill": ["Skill-1", "Skill-2", "Skill-3"],
+      "reward": "$50",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
@@ -4954,7 +4956,9 @@
       "status": "Todo",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "language": "Português",
+      "language": ["Javascript"],
+      "skill": ["Skill-1", "Skill-2", "Skill-3"],
+      "reward": "$50",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
@@ -4994,33 +4998,19 @@
       "status": "Todo",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
-      "language": "English",
+      "language": ["Typescript"],
+      "skill": ["Skill-1", "Skill-2", "Skill-3"],
+      "reward": "$70",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
       "closedAt": null,
       "fields": [
         {
-          "field": "Skill",
-          "value": "node"
+          "field": "Title",
+          "value": "Start here"
         },
         {
-          "field": "Business Unity",
-          "value": "WEB3TASK"
-        },
-        {
-          "field": "Context Depth",
-          "value": "Expert"
-        },
-        {
-          "field": "Importance",
-          "value": "high"
-        },
-        {
-          "field": "Reward",
-          "value": "USD"
-        },
-        {
-          "field": "Amount",
-          "value": 100
+          "field": "Status",
+          "value": "Backlog"
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
@@ -5067,12 +5057,12 @@
       "closedAt": null,
       "fields": [
         {
-          "field": "Title",
-          "value": "Start here"
+          "field": "Amount",
+          "value": 100
         },
         {
-          "field": "Status",
-          "value": "Backlog"
+          "field": "Reward",
+          "value": "USD"
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
