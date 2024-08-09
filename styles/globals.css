@@ -135,3 +135,15 @@ pre {
   border-color: #99e24d;
   box-shadow: 0 0 10px #99e24d;
 }
+
+.icon {
+  transition: fill 0.3s ease;
+}
+
+.light-mode .icon {
+  filter: invert(0%);
+}
+
+.dark-mode .icon {
+  filter: invert(100%);
+}
