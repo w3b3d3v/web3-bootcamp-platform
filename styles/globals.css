@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 a:visited {
-  color:'inherit';
+  color: 'inherit';
 }
 
 blockquote {
@@ -14,7 +14,6 @@ code {
   background: #808080;
   color: white;
   font-family: monospace;
-  
 }
 
 pre {
@@ -28,7 +27,7 @@ pre {
 }
 
 .code-highlight {
-  background-color:transparent;
+  background-color: transparent;
 }
 
 .container-lessons a {
@@ -46,7 +45,7 @@ body {
 
 * {
   box-sizing: border-box;
-  color:inherit;
+  color: inherit;
 }
 
 a:hover {
@@ -58,50 +57,50 @@ button {
   cursor: pointer;
 }
 
-.lp-gradient-text{
+.lp-gradient-text {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.react-markdown img{
+.react-markdown img {
   width: 70%;
   margin: auto;
   display: flex;
 }
-.builtin{
+.builtin {
   color: tomato;
 }
-.keyword{
+.keyword {
   color: #4694e2;
 }
-.punctuation{
+.punctuation {
   color: #99e24d;
 }
-.tag{
+.tag {
   color: #a0e546;
 }
-.property-access{
+.property-access {
   color: #4fff98;
 }
-.class-name{
+.class-name {
   color: #98ca3b;
 }
-.operator{
+.operator {
   color: #a0e546;
 }
-.code-line{
+.code-line {
   white-space: break-spaces;
   word-break: break-all;
 }
-.comment{
+.comment {
   color: #8c8c8c;
 }
-.function{
+.function {
   color: #4ce476;
 }
-pre{
+pre {
   border-radius: 10px;
   padding: 0.5rem;
-  color: #FFF;
+  color: #fff;
   word-break: break-all;
 }
 
@@ -121,4 +120,16 @@ pre{
 .search-bar:focus {
   border-color: #99e24d;
   box-shadow: 0 0 10px #99e24d;
+}
+
+.icon {
+  transition: fill 0.3s ease;
+}
+
+.light-mode .icon {
+  filter: invert(0%);
+}
+
+.dark-mode .icon {
+  filter: invert(100%);
 }

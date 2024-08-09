@@ -4,9 +4,12 @@ import { links, camelize } from '../../lib/constants'
 import Image from 'next/image'
 import { Text } from '@nextui-org/react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from 'next-themes'
 
 export default function Footer() {
   const { t } = useTranslation()
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
 
   return (
     <div
@@ -21,42 +24,27 @@ export default function Footer() {
         </Text>
       </div>
       <hr className="w-full border-gray-200" />
-      <div className="m-auto flex">
-        <ul className="footer-links list-none flex-row text-left ">
-          {['twitter', 'discord', 'github', 'linkedin', 'youtube'].map((link) => {
-            return (
-              <li key={link}>
-                <Link href={links[link]}>{link.upperFirst()}</Link>
-              </li>
-            )
-          })}
-        </ul>
-        <ul className="footer-links list-none text-left">
-          {['forum', 'manual', 'glossary'].map((link) => {
-            return (
-              <li key={link}>
-                <Link href={links[link]}>{t(link)}</Link>
-              </li>
-            )
-          })}
-        </ul>
+      <div
+        className={`${
+          isLight ? 'light-mode' : 'dark-mode'
+        } m-auto flex flex-wrap justify-center gap-4 pt-4`}
+      >
+        {['twitter', 'discord', 'github', 'linkedin', 'youtube', 'forum', 'manual', 'glossary'].map(
+          (link) => (
+            <Link key={link} href={links[link]}>
+              <a className="footer-link flex items-center gap-2">
+                <Image
+                  width={30}
+                  height={30}
+                  src={`/assets/img/${link}.svg`}
+                  alt={`${link} icon`}
+                  className="icon"
+                />
+              </a>
+            </Link>
+          )
+        )}
       </div>
-
-      <p className="flex-row">
-        {t('developedBy')}{' '}
-        <Link href="https://links.w3d.community/">
-          <a data-testid="web3dev-link" target="_blank" className="font-bold">
-            WEB<span style={{ color: '#99e24d' }}>3</span>DEV
-          </a>
-        </Link>{' '}
-        {t('inspiredBy')}{' '}
-        <Link href="https://buildspace.so/">
-          <a data-testid="buildspace-link" target="_blank" className="font-bold">
-            Buildspace
-          </a>
-        </Link>{' '}
-        ✨
-      </p>
     </div>
   )
 }
