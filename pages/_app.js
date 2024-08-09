@@ -9,8 +9,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import "../i18n" 
-import React, { useEffect } from 'react'
+import '../i18n'
+import React, { useEffect, useState } from 'react'
 import { mixpanel } from '../lib/utils/mixpanel'
 import Footer from '../components/Footer/index'
 import '../lib/globals.js'
@@ -29,6 +29,11 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   const { i18n, t } = useTranslation()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -75,29 +80,32 @@ function MyApp({ Component, pageProps }) {
           light: lightTheme.className,
           dark: darkTheme.className,
         }}
+        enableSystem={true}
+        disableTransitionOnChange
       >
-        <NextUIProvider>
-          <AuthProvider>
-            <ThirdwebProvider
-              supportedChainIds={supportedChainIds}
-              desiredChainId={ChainId.Mainnet}
-              connectors={connectors}
-            >
-              <SessionProvider session={pageProps.session}>
-                <Head>
-                  <title>{t('createFirstProject')}</title>
-                  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                  <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
-                </Head>
-                <NavbarComponent />
-                <div className="relative z-10"></div>
-                <Component {...pageProps} />
-                <Footer />
-                <ToastContainer />
-              </SessionProvider>
-            </ThirdwebProvider>
-          </AuthProvider>
-        </NextUIProvider>
+        {mounted && (
+          <NextUIProvider>
+            <AuthProvider>
+              <ThirdwebProvider
+                supportedChainIds={supportedChainIds}
+                desiredChainId={ChainId.Mainnet}
+                connectors={connectors}
+              >
+                <SessionProvider session={pageProps.session}>
+                  <Head>
+                    <title>{t('createFirstProject')}</title>
+                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                    <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
+                  </Head>
+                  <NavbarComponent />
+                  <Component {...pageProps} />
+                  <Footer />
+                  <ToastContainer />
+                </SessionProvider>
+              </ThirdwebProvider>
+            </AuthProvider>
+          </NextUIProvider>
+        )}
       </NextThemesProvider>
     </SSRProvider>
   )

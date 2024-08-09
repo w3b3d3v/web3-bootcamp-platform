@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 a:visited {
-  color:'inherit';
+  color: 'inherit';
 }
 
 blockquote {
@@ -14,7 +14,6 @@ code {
   background: #808080;
   color: white;
   font-family: monospace;
-  
 }
 
 pre {
@@ -28,7 +27,7 @@ pre {
 }
 
 .code-highlight {
-  background-color:transparent;
+  background-color: transparent;
 }
 
 .container-lessons a {
@@ -42,11 +41,25 @@ body {
   line-height: 1.6;
   font-size: 18px;
   scroll-behavior: smooth;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-* {
+<<<<<<< HEAD ======= body {
+  background-image: var(--background-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  transition: background-image 0.3s ease;
+  flex: 1;
+}
+
+>>>>>>>c9187cb (chore: footer links style and theme management) * {
   box-sizing: border-box;
-  color:inherit;
+  color: inherit;
 }
 
 a:hover {
@@ -58,53 +71,65 @@ button {
   cursor: pointer;
 }
 
-.lp-gradient-text{
+.lp-gradient-text {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.react-markdown img{
+.react-markdown img {
   width: 70%;
   margin: auto;
   display: flex;
 }
-.builtin{
+.builtin {
   color: tomato;
 }
-.keyword{
+.keyword {
   color: #4694e2;
 }
-.punctuation{
+.punctuation {
   color: #99e24d;
 }
-.tag{
+.tag {
   color: #a0e546;
 }
-.property-access{
+.property-access {
   color: #4fff98;
 }
-.class-name{
+.class-name {
   color: #98ca3b;
 }
-.operator{
+.operator {
   color: #a0e546;
 }
-.code-line{
+.code-line {
   white-space: break-spaces;
   word-break: break-all;
 }
-.comment{
+.comment {
   color: #8c8c8c;
 }
-.function{
+.function {
   color: #4ce476;
 }
-pre{
+pre {
   border-radius: 10px;
   padding: 0.5rem;
-  color: #FFF;
+  color: #fff;
   word-break: break-all;
 }
 
 ._1udoG {
   z-index: 10;
+}
+
+.icon {
+  transition: filter 0.3s ease;
+}
+
+.light-icon {
+  filter: brightness(0) saturate(100%);
+}
+
+.dark-icon {
+  filter: brightness(0) saturate(100%) invert(100%);
 }
