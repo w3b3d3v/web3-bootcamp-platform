@@ -29,12 +29,16 @@ export default function Board() {
   const boardStyle = {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    height: '100vh',
     width: '100%',
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
     background: isLight ? '#ffffff' : 'radial-gradient(circle, #223828, #080708)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: -1,
   }
 
   const lineStyle = {
