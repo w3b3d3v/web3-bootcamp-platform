@@ -6,19 +6,9 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
-const mode = 'updated' // 'updated' or 'history'
+const projects = [{ id: 24, name: 'Community Board', type: 'Codebase' }]
 
-const projects = [
-  { id: 4, name: 'Social Media [Core]', type: 'Core' },
-  { id: 13, name: 'Youtube [Community]', type: 'Community' },
-  { id: 15, name: 'Growth Projects [Core]', type: 'Core' },
-  { id: 17, name: 'Content [Core]', type: 'Core' },
-  { id: 23, name: 'Stellar Study Group [Core]', type: 'Core' },
-  { id: 24, name: 'Web3task V2 [Codebase]', type: 'Codebase' },
-  { id: 28, name: 'Learning Platform [Codebase]', type: 'Codebase' },
-]
-
-async function fetchKanbanProjectsGraphQL(organization, projectNumber, token) {
+async function fetchKanbanProjectsGraphQL(organization, projectNumber, token, mode) {
   const query = `
       query {
         organization(login: "${organization}") {
@@ -111,7 +101,6 @@ async function fetchKanbanProjectsGraphQL(organization, projectNumber, token) {
         }
         return false
       })
-
       return updatedItems
     }
 
@@ -122,7 +111,7 @@ async function fetchKanbanProjectsGraphQL(organization, projectNumber, token) {
   }
 }
 
-async function fetchAllProjectsData(organization, projects, token) {
+async function fetchAllProjectsData(organization, projects, token, mode) {
   const allIssues = []
 
   function transformIssueData(issue, projectName, projectId, projectType) {
@@ -157,7 +146,7 @@ async function fetchAllProjectsData(organization, projects, token) {
 
   for (const project of projects) {
     try {
-      const nodes = await fetchKanbanProjectsGraphQL(organization, project.id, token)
+      const nodes = await fetchKanbanProjectsGraphQL(organization, project.id, token, mode)
       const transformedNodes = nodes.map((issue) =>
         transformIssueData(issue, project.name, project.id, project.type)
       )
@@ -197,12 +186,13 @@ async function storeIssuesInFirestore(issues) {
 
 exports.fetchAndStoreIssues = functions.https.onRequest(async (req, res) => {
   const organization = 'w3b3d3v' // Replace with your organization name
+  const mode = req.query.mode === 'history' ? 'history' : 'updated' // Default to 'updated' if not specified
 
   try {
-    const allIssues = await fetchAllProjectsData(organization, projects, GITHUB_TOKEN)
+    const allIssues = await fetchAllProjectsData(organization, projects, GITHUB_TOKEN, mode)
     if (!allIssues) return res.status(500).send('Error fetching issues')
     await storeIssuesInFirestore(allIssues)
-    res.status(200).send('Fetched and stored all projects issues successfully.')
+    res.status(200).send(`Fetched and stored all projects issues successfully in ${mode} mode.`)
   } catch (error) {
     console.error('Error:', error)
     res.status(500).send('An error occurred while fetching and storing issues.')
