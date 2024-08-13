@@ -6,26 +6,25 @@ async function userCompletedCourse(userId, courseId) {
     .where('user_id', '==', userId)
     .get()
     .then(async (snapshot) => {
-      const docs = snapshot.docs.map((doc) => {
-        return doc.data().lesson
-      })
+      const docs = snapshot.docs.map((doc) => doc.data().lesson)
       const courseLessons = await db
         .collection('courses')
         .doc(courseId)
         .get()
         .then(async (courses) => {
           const course = courses.data()
-          return Object.keys(course.sections)
-            .map((section) => {
-              return course.sections[section].map((lesson) => {
-                return lesson.file
-              })
-            })
-            .flat()
+          // Find the first language that has sections
+          const language = Object.keys(course.metadata).find(
+            (lang) => course.metadata[lang].sections
+          )
+          if (!language) {
+            throw new Error('No sections found in any language')
+          }
+          return Object.values(course.metadata[language].sections).flatMap((section) =>
+            section.map((lesson) => lesson.file)
+          )
         })
-      function checkLessons(lesson) {
-        return new Set(docs).has(lesson)
-      }
+      const checkLessons = (lesson) => new Set(docs).has(lesson)
       return courseLessons.every(checkLessons)
     })
 }
