@@ -818,12 +818,12 @@
           "value": "high"
         },
         {
-          "field": "Amount",
-          "value": 10
-        },
-        {
           "field": "Reward",
           "value": "USD"
+        },
+        {
+          "field": "Amount",
+          "value": 10
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
@@ -857,12 +857,12 @@
           "value": "high"
         },
         {
-          "field": "Amount",
-          "value": 30
-        },
-        {
           "field": "Reward",
           "value": "USD"
+        },
+        {
+          "field": "Amount",
+          "value": 30
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
@@ -896,12 +896,12 @@
           "value": "low"
         },
         {
-          "field": "Amount",
-          "value": 500
-        },
-        {
           "field": "Reward",
           "value": "XP"
+        },
+        {
+          "field": "Amount",
+          "value": 500
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
@@ -935,12 +935,12 @@
           "value": "medium"
         },
         {
-          "field": "Amount",
-          "value": 2500
-        },
-        {
           "field": "Reward",
           "value": "XP"
+        },
+        {
+          "field": "Amount",
+          "value": 2500
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
@@ -974,12 +974,12 @@
           "value": "high"
         },
         {
-          "field": "Amount",
-          "value": 100
-        },
-        {
           "field": "Reward",
           "value": "USD"
+        },
+        {
+          "field": "Amount",
+          "value": 100
         }
       ],
       "updatedAt": "2024-06-25T18:04:34Z"
