@@ -25,15 +25,16 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
   }
 
   const updateURL = (updatedFilters) => {
-    const query = {};
-    for (const key in updatedFilters) {
-      if (updatedFilters[key]) {
-        query[key] = JSON.stringify(updatedFilters[key])
-      }
-    }
+    const query = Object.entries(updatedFilters)
+      .filter(([_, value]) => value !== null)
+      .reduce((acc, [key, value]) => {
+        acc[key] = JSON.stringify(value)
+        return acc
+      }, {})
+
     router.push({
       pathname: router.pathname,
-      query: query,
+      query,
     })
   }
 
@@ -53,7 +54,7 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
     const clearedFilters = Object.keys(filters).reduce((acc, filterName) => {
       acc[filterName] = null
       return acc
-    }, {});
+    }, {})
     setFilters(clearedFilters)
     setIsOpen(
       Object.keys(filters).reduce((acc, filterName) => {
@@ -66,28 +67,24 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
 
   useEffect(() => {
     if (router.query) {
-      const loadedFilters = Object.keys(router.query).reduce((acc, filterName) => {
-        acc[filterName] = JSON.parse(router.query[filterName])
+      const loadedFilters = Object.entries(router.query).reduce((acc, [filterName, value]) => {
+        acc[filterName] = JSON.parse(value)
         return acc
-      }, {});
+      }, {})
       setFilters(loadedFilters)
     }
-  }, [router.query])
+  }, [router.query, setFilters])
 
   const getFilteredAmounts = () => {
-    if (!selectedFilters['Reward']) return [];
-    const filteredAmounts = filters['Amount'].filter(amount => {
-      const matchingIssue = issues.find(issue =>
-        issue.fields.some(field =>
-          field.field === 'Amount' && field.value === amount &&
-          issue.fields.some(rewardField =>
-            rewardField.field === 'Reward' && rewardField.value === selectedFilters['Reward']
-          )
+    if (!selectedFilters['Reward']) return []
+    return filters['Amount']
+      .filter(amount =>
+        issues.some(issue =>
+          issue.fields.some(field => field.field === 'Amount' && field.value === amount) &&
+          issue.fields.some(field => field.field === 'Reward' && field.value === selectedFilters['Reward'])
         )
-      );
-      return !!matchingIssue;
-    });
-    return filteredAmounts.sort((a, b) => a - b);
+      )
+      .sort((a, b) => a - b)
   }
 
   return (
@@ -102,7 +99,7 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
         </button>
       </div>
       <ul className="flex lg:flex-col flex-wrap mx-2 items-center lg:items-start justify-center">
-        {Object.keys(filters).map((filterName) => (
+        {Object.entries(filters).map(([filterName, filterValues]) => (
           <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1 w-full">
             <button
               onClick={() => toggleOpen(filterName)}
@@ -118,21 +115,21 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
                 <FaRegCaretSquareDown className="ml-2" />
               )}
             </button>
-            {isOpen[filterName] && (filterName === 'Amount' ? getFilteredAmounts() : filters[filterName]).length > 0 && (
-              <ul className="mt-1 space-y-1 max-h-40 overflow-y-auto">
-                {(filterName === 'Amount' ? getFilteredAmounts() : filters[filterName]).map((subItem, index) => (
-                  <li
-                    key={index}
-                    className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer"
-                    onClick={() => handleFilterChange(filterName, subItem)}
-                  >
-                    <span className={selectedFilters[filterName] === subItem ? 'text-[#99e24d] font-bold' : ''}>
-                      {subItem}
-                    </span>
-                    {selectedFilters[filterName] === subItem && <FaCheckCircle className="text-[#99e24d] ml-2" />}
-                  </li>
-                ))}
-              </ul>
+            {isOpen[filterName] && (
+              filterName === 'Amount' ? (
+                <AmountFilter
+                  filteredAmounts={getFilteredAmounts()}
+                  selectedAmount={selectedFilters[filterName]}
+                  handleFilterChange={handleFilterChange}
+                />
+              ) : (
+                <FilterList
+                  filterName={filterName}
+                  filterValues={filterValues}
+                  selectedValue={selectedFilters[filterName]}
+                  handleFilterChange={handleFilterChange}
+                />
+              )
             )}
           </li>
         ))}
@@ -140,5 +137,46 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
     </div>
   )
 }
+
+const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) => (
+  <div className="mt-1">
+    <input
+      type="range"
+      min={0}
+      max={filteredAmounts.length - 1}
+      value={filteredAmounts.indexOf(selectedAmount || filteredAmounts[0])}
+      onChange={(e) => handleFilterChange('Amount', filteredAmounts[parseInt(e.target.value)])}
+      className="w-full"
+      list="amount-options"
+    />
+    <datalist id="amount-options">
+      {filteredAmounts.map((amount, index) => (
+        <option key={amount} value={index} />
+      ))}
+    </datalist>
+    <div className="flex justify-between text-xs mt-1">
+      <span>{Math.min(...filteredAmounts)}</span>
+      <span>{selectedAmount || Math.min(...filteredAmounts)}</span>
+      <span>{Math.max(...filteredAmounts)}</span>
+    </div>
+  </div>
+)
+
+const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChange }) => (
+  <ul className="mt-1 space-y-1 max-h-40 overflow-y-auto">
+    {filterValues.map((subItem, index) => (
+      <li
+        key={index}
+        className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer"
+        onClick={() => handleFilterChange(filterName, subItem)}
+      >
+        <span className={selectedValue === subItem ? 'text-[#99e24d] font-bold' : ''}>
+          {subItem}
+        </span>
+        {selectedValue === subItem && <FaCheckCircle className="text-[#99e24d] ml-2" />}
+      </li>
+    ))}
+  </ul>
+)
 
 export default Filter
