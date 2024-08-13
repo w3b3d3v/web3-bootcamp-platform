@@ -1,19 +1,23 @@
 function template(params) {
   // course_title, wallet_address, nft_contract, nft_id) {
   return `
-Fala builder 👷👷‍♀️!<br>
+Hello builder 👷👷‍♀️!<br>
 <br>
-Você acaba de receber seu NFT por completar o bootcamp "<b>${params.course_title}</b>"! Já está na sua carteira <a href='https://polygonscan.com/address/${params.wallet_address}#tokentxnsErc721'>${params.wallet_address}</a>.<br>
+You have just received your NFT for completing the bootcamp <b>${params.course_title}</b>! It's already in your wallet <a href='https://polygonscan.com/address/${params.wallet_address}#tokentxnsErc721'>${params.wallet_address}</a>.<br>
 <br>
-Você já pode ver seu NFT no <a href='https://opensea.io/assets/matic/${params.nft_contract}/${params.nft_id}?force_update=true'>OpenSea.</a><br>
+You can already see your NFT on <a href='https://opensea.io/assets/matic/${params.nft_contract}/${params.nft_id}?force_update=true'>OpenSea.</a><br>
 <br>
-Vai no Twitter e mostra pro mundo sua conquista!!! Não esquece de marcar a @web3dev_ ! Isso ajuda demais a divulgar nossos bootcamps para outras pessoas :).<br>
+Take advantage of this moment to show the world what you've achieved!!! Go on Twitter and tag <a href='https://twitter.com/web3dev_'>@web3dev_ </a>with your NFT screenshot, I'm sure it will look great!<br>
 <br>
-Se você twitar um print do seu NFT, vai ficar mais lindo ainda.<br>
+See <a href='https://pt.w3d.community/nomadbitcoin/using-nft-certificates-on-linkedin-4hld'>how to add your certificate to linkedin.</a><br>
 <br>
-Nos vemos no próximo bootcamp!<br>
+This helps us spread the word about our bootcamps to other people like you who want to learn more about Web3 :)<br>
 <br>
-danicuki`
+I'm happy with your certification, congratulations! See you at the next bootcamp!<br>
+<br>
+Cheers,<br>
+Yan Luiz<br>
+<br>`
 }
 
 module.exports = template

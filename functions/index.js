@@ -110,7 +110,7 @@ async function issueCertificate(user_id, cohort) {
     addDiscordRole(params.user?.discord?.id, GRADUATED_ROLE_ID)
     sendEmail(
       'nft_delivery.js',
-      '👷👷‍♀️ WEB3DEV - NFT Recebido: ' + params.course_title,
+      '👷👷‍♀️ WEB3DEV - NFT Certificate Sent: ' + params.course_title,
       params.user.email,
       params
     )
