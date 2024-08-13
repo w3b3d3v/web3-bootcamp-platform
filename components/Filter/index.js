@@ -1,91 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaCheckCircle } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
-import { useRouter } from 'next/router'
 
-const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(
-    Object.keys(filters).reduce((acc, filterName) => {
-      acc[filterName] = false
-      return acc
-    }, {})
-  )
-
+const Filter = ({ filters, selectedFilters, isOpen, toggleOpen, handleFilterChange, clearFilters, filteredAmounts, getFilterProps }) => {
   const { theme } = useTheme()
   const isLight = theme === 'light'
-
-  const toggleOpen = (filterName) => {
-    if (filters[filterName].length > 0 && (filterName !== 'Amount' || selectedFilters['Reward'])) {
-      setIsOpen((prevState) => ({
-        ...prevState,
-        [filterName]: !prevState[filterName],
-      }))
-    }
-  }
-
-  const updateURL = (updatedFilters) => {
-    const query = Object.entries(updatedFilters)
-      .filter(([_, value]) => value !== null)
-      .reduce((acc, [key, value]) => {
-        acc[key] = JSON.stringify(value)
-        return acc
-      }, {})
-
-    router.push({
-      pathname: router.pathname,
-      query,
-    })
-  }
-
-  const handleFilterChange = (filterName, value) => {
-    const updatedFilters = {
-      ...selectedFilters,
-      [filterName]: selectedFilters[filterName] === value ? null : value,
-    }
-    if (filterName === 'Reward') {
-      updatedFilters['Amount'] = null
-    }
-    setFilters(updatedFilters)
-    updateURL(updatedFilters)
-  }
-
-  const clearFilters = () => {
-    const clearedFilters = Object.keys(filters).reduce((acc, filterName) => {
-      acc[filterName] = null
-      return acc
-    }, {})
-    setFilters(clearedFilters)
-    setIsOpen(
-      Object.keys(filters).reduce((acc, filterName) => {
-        acc[filterName] = false
-        return acc
-      }, {})
-    )
-    updateURL(clearedFilters)
-  }
-
-  useEffect(() => {
-    if (router.query) {
-      const loadedFilters = Object.entries(router.query).reduce((acc, [filterName, value]) => {
-        acc[filterName] = JSON.parse(value)
-        return acc
-      }, {})
-      setFilters(loadedFilters)
-    }
-  }, [router.query, setFilters])
-
-  const getFilteredAmounts = () => {
-    if (!selectedFilters['Reward']) return []
-    return filters['Amount']
-      .filter(amount =>
-        issues.some(issue =>
-          issue.fields.some(field => field.field === 'Amount' && field.value === amount) &&
-          issue.fields.some(field => field.field === 'Reward' && field.value === selectedFilters['Reward'])
-        )
-      )
-      .sort((a, b) => a - b)
-  }
 
   return (
     <div
@@ -99,40 +18,43 @@ const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
         </button>
       </div>
       <ul className="flex lg:flex-col flex-wrap mx-2 items-center lg:items-start justify-center">
-        {Object.entries(filters).map(([filterName, filterValues]) => (
-          <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1 w-full">
-            <button
-              onClick={() => toggleOpen(filterName)}
-              className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${filterName === 'Amount' && !selectedFilters['Reward'] ? 'opacity-50 cursor-not-allowed' : ''
+        {Object.entries(filters).map(([filterName, filterValues]) => {
+          const { isDisabled, title, shouldRenderAmountFilter } = getFilterProps(filterName)
+          return (
+            <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1 w-full">
+              <button
+                onClick={() => toggleOpen(filterName)}
+                className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
-              disabled={filterName === 'Amount' && !selectedFilters['Reward']}
-              title={filterName === 'Amount' && !selectedFilters['Reward'] ? 'Select a reward first' : ''}
-            >
-              <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
-              {isOpen[filterName] ? (
-                <FaRegCaretSquareUp className="ml-2" />
-              ) : (
-                <FaRegCaretSquareDown className="ml-2" />
+                disabled={isDisabled}
+                title={title}
+              >
+                <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
+                {isOpen[filterName] ? (
+                  <FaRegCaretSquareUp className="ml-2" />
+                ) : (
+                  <FaRegCaretSquareDown className="ml-2" />
+                )}
+              </button>
+              {isOpen[filterName] && (
+                shouldRenderAmountFilter ? (
+                  <AmountFilter
+                    filteredAmounts={filteredAmounts}
+                    selectedAmount={selectedFilters[filterName]}
+                    handleFilterChange={handleFilterChange}
+                  />
+                ) : (
+                  <FilterList
+                    filterName={filterName}
+                    filterValues={filterValues}
+                    selectedValue={selectedFilters[filterName]}
+                    handleFilterChange={handleFilterChange}
+                  />
+                )
               )}
-            </button>
-            {isOpen[filterName] && (
-              filterName === 'Amount' ? (
-                <AmountFilter
-                  filteredAmounts={getFilteredAmounts()}
-                  selectedAmount={selectedFilters[filterName]}
-                  handleFilterChange={handleFilterChange}
-                />
-              ) : (
-                <FilterList
-                  filterName={filterName}
-                  filterValues={filterValues}
-                  selectedValue={selectedFilters[filterName]}
-                  handleFilterChange={handleFilterChange}
-                />
-              )
-            )}
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ul>
     </div>
   )
