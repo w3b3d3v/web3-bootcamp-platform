@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -9,41 +9,25 @@ import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/IssueCard'
+import { useFilterState } from '../../lib/useFilterState'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  const [filters, setFilters] = useState({})
   const [searchQuery, setSearchQuery] = useState('')
 
-  const uniqueFields = {};
-
-  issues.forEach(issue => {
-    issue.fields.forEach(({ field, value }) => {
-      if (!uniqueFields[field]) {
-        uniqueFields[field] = new Set();
-      }
-      uniqueFields[field].add(value);
-    });
-  });
-
-  const filterOptions = Object.fromEntries(
-    Object.entries(uniqueFields).map(([field, values]) => [field, Array.from(values)])
-  );
-
-  const filteredIssues = issues.filter((issue) => {
-    return Object.keys(filters).every(filterKey => {
-      if (!filters[filterKey]) return true;
-      return issue.fields.some(field => field.field === filterKey && field.value === filters[filterKey]);
-    });
-  });
-
-  const [issueCount, setIssueCount] = useState(filteredIssues.length)
-
-  useEffect(() => {
-    setIssueCount(filteredIssues.length)
-  }, [filteredIssues])
+  const {
+    filters,
+    selectedFilters,
+    isOpen,
+    toggleOpen,
+    handleFilterChange,
+    clearFilters,
+    filteredIssues,
+    filteredAmounts,
+    getFilterProps,
+  } = useFilterState(issues)
 
   return (
     <>
@@ -55,14 +39,23 @@ const TaskPage = ({ issues }) => {
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
             <div className="flex w-full flex-col items-start lg:flex-row md:mx-4">
-              <Filter filters={filterOptions} selectedFilters={filters} setFilters={setFilters} issues={issues} />
+              <Filter
+                filters={filters}
+                selectedFilters={selectedFilters}
+                isOpen={isOpen}
+                toggleOpen={toggleOpen}
+                handleFilterChange={handleFilterChange}
+                clearFilters={clearFilters}
+                filteredAmounts={filteredAmounts}
+                getFilterProps={getFilterProps}
+              />
               <div className="flex-1 p-2 ">
                 {filteredIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                        <Sortbar filters={filters} setFilters={setFilters} t={t} />
+                        <Sortbar filters={selectedFilters} setFilters={handleFilterChange} t={t} />
                         <label className={`h-10 w-[80px] md:w-[100px] md:text-[16px] text-[10px] ${isLight ? 'text-black-400' : 'text-[#99e24d]'}`}>{filteredIssues.length} PROJECTS</label>
                     </div>
                     <div
