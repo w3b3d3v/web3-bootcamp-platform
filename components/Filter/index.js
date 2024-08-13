@@ -3,7 +3,7 @@ import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaCheckCircle } from 'react-i
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 
-const Filter = ({ filters, selectedFilters, setFilters }) => {
+const Filter = ({ filters, selectedFilters, setFilters, issues }) => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(
     Object.keys(filters).reduce((acc, filterName) => {
@@ -16,7 +16,7 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
   const isLight = theme === 'light'
 
   const toggleOpen = (filterName) => {
-    if (filters[filterName].length > 0) {
+    if (filters[filterName].length > 0 && (filterName !== 'Amount' || selectedFilters['Reward'])) {
       setIsOpen((prevState) => ({
         ...prevState,
         [filterName]: !prevState[filterName],
@@ -41,6 +41,9 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
     const updatedFilters = {
       ...selectedFilters,
       [filterName]: selectedFilters[filterName] === value ? null : value,
+    }
+    if (filterName === 'Reward') {
+      updatedFilters['Amount'] = null
     }
     setFilters(updatedFilters)
     updateURL(updatedFilters)
@@ -71,6 +74,22 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
     }
   }, [router.query])
 
+  const getFilteredAmounts = () => {
+    if (!selectedFilters['Reward']) return [];
+    const filteredAmounts = filters['Amount'].filter(amount => {
+      const matchingIssue = issues.find(issue =>
+        issue.fields.some(field =>
+          field.field === 'Amount' && field.value === amount &&
+          issue.fields.some(rewardField =>
+            rewardField.field === 'Reward' && rewardField.value === selectedFilters['Reward']
+          )
+        )
+      );
+      return !!matchingIssue;
+    });
+    return filteredAmounts.sort((a, b) => a - b);
+  }
+
   return (
     <div
       className={`text-black lg:w-[20%] w-[100%] rounded-lg p-2 ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
@@ -87,7 +106,10 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
           <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1 w-full">
             <button
               onClick={() => toggleOpen(filterName)}
-              className="flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1"
+              className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${filterName === 'Amount' && !selectedFilters['Reward'] ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              disabled={filterName === 'Amount' && !selectedFilters['Reward']}
+              title={filterName === 'Amount' && !selectedFilters['Reward'] ? 'Select a reward first' : ''}
             >
               <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
               {isOpen[filterName] ? (
@@ -96,9 +118,9 @@ const Filter = ({ filters, selectedFilters, setFilters }) => {
                 <FaRegCaretSquareDown className="ml-2" />
               )}
             </button>
-            {isOpen[filterName] && filters[filterName].length > 0 && (
+            {isOpen[filterName] && (filterName === 'Amount' ? getFilteredAmounts() : filters[filterName]).length > 0 && (
               <ul className="mt-1 space-y-1 max-h-40 overflow-y-auto">
-                {filters[filterName].map((subItem, index) => (
+                {(filterName === 'Amount' ? getFilteredAmounts() : filters[filterName]).map((subItem, index) => (
                   <li
                     key={index}
                     className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer"
