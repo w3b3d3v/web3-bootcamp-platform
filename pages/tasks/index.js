@@ -55,7 +55,7 @@ const TaskPage = ({ issues }) => {
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
             <div className="flex w-full flex-col items-start lg:flex-row md:mx-4">
-              <Filter filters={filterOptions} selectedFilters={filters} setFilters={setFilters} />
+              <Filter filters={filterOptions} selectedFilters={filters} setFilters={setFilters} issues={issues} />
               <div className="flex-1 p-2 ">
                 {filteredIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
