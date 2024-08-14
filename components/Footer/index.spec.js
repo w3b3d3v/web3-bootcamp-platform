@@ -10,12 +10,13 @@ describe('<Footer />', () => {
     render(<Footer />)
     expect(screen.getByTestId('footer')).toBeInTheDocument()
   })
-  it('should render web3dev link', () => {
-    render(<Footer />)
-    expect(screen.getByTestId('web3dev-link')).toBeInTheDocument()
-  })
-  it('should render buildpsace link', () => {
-    render(<Footer />)
-    expect(screen.getByTestId('buildspace-link')).toBeInTheDocument()
-  })
+  // footer updated, these links no longer exist:
+  // it('should render web3dev link', () => {
+  //   render(<Footer />)
+  //   expect(screen.getByTestId('web3dev-link')).toBeInTheDocument()
+  // })
+  // it('should render buildpsace link', () => {
+  //   render(<Footer />)
+  //   expect(screen.getByTestId('buildspace-link')).toBeInTheDocument()
+  // })
 })
