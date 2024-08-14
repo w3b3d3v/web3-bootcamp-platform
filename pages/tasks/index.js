@@ -61,7 +61,7 @@ const TaskPage = ({ issues }) => {
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
-                        {filteredIssues.length} PROJECTS
+                        {filteredIssues.length} {t('projects')}
                       </label>
                     </div>
                     <div
