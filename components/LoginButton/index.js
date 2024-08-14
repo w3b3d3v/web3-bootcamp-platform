@@ -15,7 +15,7 @@ export default function LoginButton(props) {
             id={id}
             className={`dark:hover:bg-grey-400 fw-bold mb-5 flex
             w-full cursor-pointer items-center justify-center gap-3 rounded-lg border-none bg-white-100 py-1 font-bold text-gray-700 hover:scale-[1.02] hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1 dark:text-black-200`}
-            onPress={() => loginGithub()}
+            onClick={() => loginGithub()}
           >
             {buttonImage()}
             {textContent}
@@ -27,7 +27,7 @@ export default function LoginButton(props) {
           <button
             id={id}
             className="cursor-pointer border-none bg-transparent font-bold text-gray-700 dark:text-black-200"
-            onPress={() => loginGoogle()}
+            onClick={() => loginGoogle()}
           >
             {textContent}
           </button>
