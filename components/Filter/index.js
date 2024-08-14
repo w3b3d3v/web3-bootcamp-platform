@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaCheckCircle } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
+import { useTranslation } from 'react-i18next'
 
 // Main Filter component
 const Filter = ({
@@ -14,6 +15,7 @@ const Filter = ({
   getFilterProps,
 }) => {
   const { theme } = useTheme()
+  const { t } = useTranslation()
   const isLight = theme === 'light'
 
   return (
@@ -24,9 +26,9 @@ const Filter = ({
     >
       {/* Filter header with clear button */}
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-lg font-bold">Filter</h3>
+        <h3 className="text-lg font-bold">{t('filters')}</h3>
         <button onClick={clearFilters} className="text-sm font-bold">
-          Clear
+          {t('clear')}
         </button>
       </div>
       {/* List of filter options */}
@@ -68,19 +70,22 @@ const Filter = ({
 }
 
 // Component for filter headers
-const FilterHeader = ({ filterName, isOpen, toggleOpen, isDisabled, title }) => (
-  <button
-    onClick={() => toggleOpen(filterName)}
-    className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${
-      isDisabled ? 'cursor-not-allowed opacity-50' : ''
-    }`}
-    disabled={isDisabled}
-    title={title}
-  >
-    <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
-    {isOpen ? <FaRegCaretSquareUp className="ml-2" /> : <FaRegCaretSquareDown className="ml-2" />}
-  </button>
-)
+const FilterHeader = ({ filterName, isOpen, toggleOpen, isDisabled, title }) => {
+  const { t } = useTranslation()
+  return (
+    <button
+      onClick={() => toggleOpen(filterName)}
+      className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${
+        isDisabled ? 'cursor-not-allowed opacity-50' : ''
+      }`}
+      disabled={isDisabled}
+      title={title}
+    >
+      <span className="capitalize">{t(filterName.replace(/([A-Z])/g, ' $1').toLowerCase())}</span>
+      {isOpen ? <FaRegCaretSquareUp className="ml-2" /> : <FaRegCaretSquareDown className="ml-2" />}
+    </button>
+  )
+}
 
 // Component for Amount filter (range input)
 const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) => (
