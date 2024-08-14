@@ -2,42 +2,50 @@ import React from 'react'
 import { FaRegCaretSquareDown, FaRegCaretSquareUp, FaCheckCircle } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
 
-const Filter = ({ filters, selectedFilters, isOpen, toggleOpen, handleFilterChange, clearFilters, filteredAmounts, getFilterProps }) => {
+// Main Filter component
+const Filter = ({
+  filters,
+  selectedFilters,
+  isOpen,
+  toggleOpen,
+  handleFilterChange,
+  clearFilters,
+  filteredAmounts,
+  getFilterProps,
+}) => {
   const { theme } = useTheme()
   const isLight = theme === 'light'
 
   return (
     <div
-      className={`text-black lg:w-[20%] w-[100%] rounded-lg p-2 ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-        }`}
+      className={`text-black w-[100%] rounded-lg p-2 lg:w-[20%] ${
+        isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+      }`}
     >
-      <div className="flex justify-between items-center mb-2">
+      {/* Filter header with clear button */}
+      <div className="mb-2 flex items-center justify-between">
         <h3 className="text-lg font-bold">Filter</h3>
         <button onClick={clearFilters} className="text-sm font-bold">
           Clear
         </button>
       </div>
-      <ul className="flex lg:flex-col flex-wrap mx-2 items-center lg:items-start justify-center">
+      {/* List of filter options */}
+      <ul className="mx-2 flex flex-wrap items-center justify-center lg:flex-col lg:items-start">
         {Object.entries(filters).map(([filterName, filterValues]) => {
           const { isDisabled, title, shouldRenderAmountFilter } = getFilterProps(filterName)
           return (
-            <li key={filterName} className="mb-2 lg:text-[14px] text-[12px] ml-1 w-full">
-              <button
-                onClick={() => toggleOpen(filterName)}
-                className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                disabled={isDisabled}
+            <li key={filterName} className="mb-2 ml-1 w-full text-[12px] lg:text-[14px]">
+              {/* Filter header for each filter type */}
+              <FilterHeader
+                filterName={filterName}
+                isOpen={isOpen[filterName]}
+                toggleOpen={toggleOpen}
+                isDisabled={isDisabled}
                 title={title}
-              >
-                <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
-                {isOpen[filterName] ? (
-                  <FaRegCaretSquareUp className="ml-2" />
-                ) : (
-                  <FaRegCaretSquareDown className="ml-2" />
-                )}
-              </button>
-              {isOpen[filterName] && (
-                shouldRenderAmountFilter ? (
+              />
+              {/* Render filter content when open */}
+              {isOpen[filterName] &&
+                (shouldRenderAmountFilter ? (
                   <AmountFilter
                     filteredAmounts={filteredAmounts}
                     selectedAmount={selectedFilters[filterName]}
@@ -50,8 +58,7 @@ const Filter = ({ filters, selectedFilters, isOpen, toggleOpen, handleFilterChan
                     selectedValue={selectedFilters[filterName]}
                     handleFilterChange={handleFilterChange}
                   />
-                )
-              )}
+                ))}
             </li>
           )
         })}
@@ -60,6 +67,22 @@ const Filter = ({ filters, selectedFilters, isOpen, toggleOpen, handleFilterChan
   )
 }
 
+// Component for filter headers
+const FilterHeader = ({ filterName, isOpen, toggleOpen, isDisabled, title }) => (
+  <button
+    onClick={() => toggleOpen(filterName)}
+    className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${
+      isDisabled ? 'cursor-not-allowed opacity-50' : ''
+    }`}
+    disabled={isDisabled}
+    title={title}
+  >
+    <span className="capitalize">{filterName.replace(/([A-Z])/g, ' $1')}</span>
+    {isOpen ? <FaRegCaretSquareUp className="ml-2" /> : <FaRegCaretSquareDown className="ml-2" />}
+  </button>
+)
+
+// Component for Amount filter (range input)
 const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) => (
   <div className="mt-1">
     <input
@@ -76,7 +99,8 @@ const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) =
         <option key={amount} value={index} />
       ))}
     </datalist>
-    <div className="flex justify-between text-xs mt-1">
+    {/* Display min, current, and max values */}
+    <div className="mt-1 flex justify-between text-xs">
       <span>{Math.min(...filteredAmounts)}</span>
       <span>{selectedAmount || Math.min(...filteredAmounts)}</span>
       <span>{Math.max(...filteredAmounts)}</span>
@@ -84,18 +108,19 @@ const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) =
   </div>
 )
 
+// Component for filter list (for non-Amount filters)
 const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChange }) => (
-  <ul className="mt-1 space-y-1 max-h-40 overflow-y-auto">
+  <ul className="mt-1 max-h-40 space-y-1 overflow-y-auto">
     {filterValues.map((subItem, index) => (
       <li
         key={index}
-        className="rounded bg-black-300 bg-opacity-15 px-1 py-1 text-[12px] flex justify-between items-center cursor-pointer"
+        className="bg-opacity-15 flex cursor-pointer items-center justify-between rounded bg-black-300 px-1 py-1 text-[12px]"
         onClick={() => handleFilterChange(filterName, subItem)}
       >
-        <span className={selectedValue === subItem ? 'text-[#99e24d] font-bold' : ''}>
+        <span className={selectedValue === subItem ? 'font-bold text-[#99e24d]' : ''}>
           {subItem}
         </span>
-        {selectedValue === subItem && <FaCheckCircle className="text-[#99e24d] ml-2" />}
+        {selectedValue === subItem && <FaCheckCircle className="ml-2 text-[#99e24d]" />}
       </li>
     ))}
   </ul>
