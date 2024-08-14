@@ -9,24 +9,24 @@ import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/IssueCard'
-import { useFilterState } from '../../lib/useFilterState'
+import { useFilterState } from '../../components/Filter/utils'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
-  const isLight = theme === 'light'
+  const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
 
   const {
     filters,
     selectedFilters,
     isOpen,
-    toggleOpen,
-    handleFilterChange,
-    clearFilters,
+    toggleFilterDropdown,
+    handleFilterSelection,
+    clearAllFilters,
     filteredIssues,
-    filteredAmounts,
-    getFilterProps,
+    availableAmounts,
+    getFilterComponentProps,
   } = useFilterState(issues)
 
   return (
@@ -35,19 +35,19 @@ const TaskPage = ({ issues }) => {
         <title>Tasks - WEB3DEV</title>
       </Head>
       <div className="flex w-full items-center justify-center">
-        <div className="flex xl:w-[80%] w-full flex-col">
+        <div className="flex w-full flex-col xl:w-[80%]">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
-            <div className="flex w-full flex-col items-start lg:flex-row md:mx-4">
+            <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
               <Filter
                 filters={filters}
                 selectedFilters={selectedFilters}
                 isOpen={isOpen}
-                toggleOpen={toggleOpen}
-                handleFilterChange={handleFilterChange}
-                clearFilters={clearFilters}
-                filteredAmounts={filteredAmounts}
-                getFilterProps={getFilterProps}
+                toggleOpen={toggleFilterDropdown}
+                handleFilterChange={handleFilterSelection}
+                clearFilters={clearAllFilters}
+                filteredAmounts={availableAmounts}
+                getFilterProps={getFilterComponentProps}
               />
               <div className="flex-1 p-2 ">
                 {filteredIssues.length === 0 ? (
@@ -55,25 +55,34 @@ const TaskPage = ({ issues }) => {
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                        <Sortbar filters={selectedFilters} setFilters={handleFilterChange} t={t} />
-                        <label className={`h-10 w-[80px] md:w-[100px] md:text-[16px] text-[10px] ${isLight ? 'text-black-400' : 'text-[#99e24d]'}`}>{filteredIssues.length} PROJECTS</label>
+                      <Sortbar filters={selectedFilters} setFilters={handleFilterSelection} t={t} />
+                      <label
+                        className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
+                          isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
+                        }`}
+                      >
+                        {filteredIssues.length} PROJECTS
+                      </label>
                     </div>
                     <div
-                        className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-                          }`}
+                      className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${
+                        isLightTheme ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+                      }`}
                     >
                       <div className="flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-white-100 bg-opacity-25">
                         <AiOutlineLike size={30} color="#99e24d" />
                       </div>
                       <div className="flex w-full flex-col gap-0">
                         <div className="flex w-full items-center justify-between">
-                          <span className="text-white md:text-[24px] text-[18px]">Good first issues</span>
-                          <div className="flex md:w-[30px] w-[20px] items-center justify-center md:rounded-[20px] rounded-[10px] bg-[#99e24d] bg-opacity-30">
-                            <p className="text-[#99e24d] text-[12px] md:text-[16px]">1</p>
+                          <span className="text-white text-[18px] md:text-[24px]">
+                            Good first issues
+                          </span>
+                          <div className="flex w-[20px] items-center justify-center rounded-[10px] bg-[#99e24d] bg-opacity-30 md:w-[30px] md:rounded-[20px]">
+                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">1</p>
                           </div>
                         </div>
                         <div className="flex w-full">
-                          <p className="md:text-[16px] text-[12px]">
+                          <p className="text-[12px] md:text-[16px]">
                             Apply to a list of curated issues well suited for those new to the
                             project to kickstart your journey.
                           </p>
