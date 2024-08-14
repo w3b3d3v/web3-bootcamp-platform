@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 
 // Extract unique field values from issues
 export const getUniqueFieldValues = (issues) => {
@@ -31,8 +32,9 @@ export const filterIssuesBySelectedFilters = (issues, selectedFilters) => {
 
 // Get options for the Amount filter based on selected Reward
 export const getAmountFilterOptions = (issues, filters, selectedReward) => {
+  const { t } = useTranslation()
   const isAmountFilterDisabled = !selectedReward
-  const amountFilterTitle = isAmountFilterDisabled ? 'Select a reward first' : ''
+  const amountFilterTitle = isAmountFilterDisabled ? t('selectRewardFirst') : ''
   const availableAmounts = isAmountFilterDisabled
     ? []
     : filters['Amount']
@@ -74,10 +76,13 @@ export const useFilterState = (issues) => {
     if (router.query) {
       const filtersFromUrl = Object.entries(router.query).reduce(
         (urlFilters, [filterName, value]) => {
-          try {
-            urlFilters[filterName] = JSON.parse(value)
-          } catch {
-            urlFilters[filterName] = value
+          if (filterName !== 'lang') {
+            // Ignore the 'lang' parameter
+            try {
+              urlFilters[filterName] = JSON.parse(value)
+            } catch {
+              urlFilters[filterName] = value
+            }
           }
           return urlFilters
         },
@@ -112,6 +117,11 @@ export const useFilterState = (issues) => {
           params[key] = typeof value === 'object' ? JSON.stringify(value) : value
           return params
         }, {})
+
+      // Preserve the 'lang' parameter if it exists
+      if (router.query.lang) {
+        queryParams.lang = router.query.lang
+      }
 
       router.push(
         {
