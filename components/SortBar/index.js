@@ -20,7 +20,7 @@ const Sortbar = ({ filters, setFilters }) => {
           isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
         } `}
       >
-        <span className=" text-[14px]">{t('Sort by')}</span>
+        <span className=" text-[14px]">{t('sortBy')}</span>
         <label>
           <select
             name="status"

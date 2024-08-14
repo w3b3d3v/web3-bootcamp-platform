@@ -176,5 +176,11 @@
   "all": "Todos",
   "open": "Aberto",
   "closed": "Fechado",
-  "filters": "Filtros"
+  "filters": "Filtros",
+  "clear": "Limpar",
+  "amount": "Valor",
+  "reward": "Recompensa",
+  "selectRewardFirst": "Selecione uma recompensa primeiro",
+  "sortBy": "Ordenar por",
+  "projects": "PROJETOS"
 }

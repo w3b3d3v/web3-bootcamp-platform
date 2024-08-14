@@ -177,5 +177,11 @@
   "all": "All",
   "open": "Open",
   "closed": "Closed",
-  "filters": "Filters"
+  "filters": "Filters",
+  "clear": "Clear",
+  "amount": "Amount",
+  "reward": "Reward",
+  "selectRewardFirst": "Select a reward first",
+  "sortBy": "Sort by",
+  "projects": "PROJECTS"
 }
