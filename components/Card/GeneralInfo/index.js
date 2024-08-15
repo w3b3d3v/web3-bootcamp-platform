@@ -158,7 +158,7 @@ export default function GeneralInfoCard() {
   useEffect(() => renderFormSteps, [watch()])
 
   return (
-    <Container>
+    <Container data-testid="general-info-card">
       {/* <ProfileProgress
             filledPersonalData={filledPersonalData}
             filledSocialData={filledSocialData}
