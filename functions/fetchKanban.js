@@ -115,32 +115,43 @@ async function fetchAllProjectsData(organization, projects, token, mode) {
   const allIssues = []
 
   function transformIssueData(issue, projectName, projectId, projectType) {
+    const content = issue.content || {}
+    let status = null
     return {
       github_id: issue.id,
       project_id: projectId,
       project_name: projectName,
       project_type: projectType,
-      title: issue.content.title,
-      body: issue.content.body,
+      title: content.title,
+      body: content.body || '',
       assignees:
-        issue.content.assignees && issue.content.assignees.nodes
-          ? issue.content.assignees.nodes
-              .filter((assignee) => assignee && assignee.login) // Filter out empty strings or invalid assignees
+        content.assignees && content.assignees.nodes
+          ? content.assignees.nodes
+              .filter((assignee) => assignee && assignee.login)
               .map((assignee) => assignee.login)
           : [],
-      createdAt: issue.content.createdAt,
-      updatedAt: issue.content.updatedAt,
-      closedAt: issue.content.closedAt,
-      state: issue.content.state,
+      createdAt: content.createdAt || null,
+      updatedAt: content.updatedAt || null,
+      closedAt: content.closedAt || null,
+      state: content.state || 'unknown',
       fields:
         issue.fieldValues && issue.fieldValues.nodes
           ? issue.fieldValues.nodes
-              .filter((node) => node.field && (node.text || node.number || node.date || node.name)) // Filter out empty strings or invalid nodes
-              .map((node) => ({
-                field: node.field.name,
-                value: node.text || node.number || node.date || node.name,
-              }))
+              .filter((node) => node.field && (node.text || node.number || node.date || node.name))
+              .filter((node) => node.field.name !== 'Title')
+              .map((node) => {
+                if (node.field.name === 'Status') {
+                  status = node.text || node.name
+                  return null
+                }
+                return {
+                  field: node.field.name,
+                  value: node.text || node.number || node.date || node.name,
+                }
+              })
+              .filter(Boolean)
           : [],
+      status: status,
     }
   }
 
@@ -159,11 +170,10 @@ async function fetchAllProjectsData(organization, projects, token, mode) {
   return allIssues
 }
 
-async function storeIssuesInFirestore(issues) {
+async function storeIssuesInFirestore(issues, mode) {
   const validIssues = issues.filter((issue) => issue.title !== undefined)
 
   const promises = validIssues.map(async (issue) => {
-    // Filtrar campos undefined
     const filteredIssue = {}
     for (const key in issue) {
       if (issue[key] !== undefined) {
@@ -172,27 +182,47 @@ async function storeIssuesInFirestore(issues) {
     }
 
     try {
+      if (mode === 'updated') {
+        // Buscar o documento existente pelo github_id
+        const querySnapshot = await db
+          .collection('tasks')
+          .where('github_id', '==', issue.github_id)
+          .get()
+
+        if (!querySnapshot.empty) {
+          // Se o documento existir, atualize-o
+          const docRef = querySnapshot.docs[0].ref
+          await docRef.update(filteredIssue)
+          return { github_id: issue.github_id, result: 'updated' }
+        }
+      }
+
+      // Se o modo não for 'updated' ou se o documento não existir, crie um novo
       const issueDoc = db.collection('tasks').doc()
       await issueDoc.set(filteredIssue)
       return { github_id: issue.github_id, result: 'stored' }
     } catch (error) {
-      console.error(`Error storing issue with github_id ${issue.github_id}:`, error)
+      console.error(`Error handling issue with github_id ${issue.github_id}:`, error)
       return { github_id: issue.github_id, result: 'failed', reason: error.message }
     }
   })
 
-  await Promise.all(promises)
+  return Promise.all(promises)
 }
 
 exports.fetchAndStoreIssues = functions.https.onRequest(async (req, res) => {
-  const organization = 'w3b3d3v' // Replace with your organization name
-  const mode = req.query.mode === 'history' ? 'history' : 'updated' // Default to 'updated' if not specified
+  const organization = 'w3b3d3v'
+  const mode = req.query.mode === 'history' ? 'history' : 'updated'
 
   try {
     const allIssues = await fetchAllProjectsData(organization, projects, GITHUB_TOKEN, mode)
     if (!allIssues) return res.status(500).send('Error fetching issues')
-    await storeIssuesInFirestore(allIssues)
-    res.status(200).send(`Fetched and stored all projects issues successfully in ${mode} mode.`)
+    const results = await storeIssuesInFirestore(allIssues, mode)
+    res.status(200).json({
+      message: `Fetched and ${
+        mode === 'updated' ? 'updated' : 'stored'
+      } all projects issues successfully in ${mode} mode.`,
+    })
   } catch (error) {
     console.error('Error:', error)
     res.status(500).send('An error occurred while fetching and storing issues.')
