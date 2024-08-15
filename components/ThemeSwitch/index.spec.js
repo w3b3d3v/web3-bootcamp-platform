@@ -6,9 +6,8 @@ import '@testing-library/jest-dom'
 import ThemeSwitch from '.'
 
 describe('<Navbar />', () => {
-  it('should render Navbar', () => {
-    render(<ThemeSwitch />)
-    expect(screen.getByTestId('ThemeSwitch')).toBeInTheDocument()
-  })
-  // I couldn't test the button click
+    it('should render Navbar', () => {
+        render(<ThemeSwitch />)
+        expect(screen.getByTestId('ThemeSwitch')).toBeInTheDocument()
+    })
 })
