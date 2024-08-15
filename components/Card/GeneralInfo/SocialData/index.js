@@ -30,7 +30,7 @@ export default function SocialData({ Controller, control, errors, user }) {
   }
   return (
     <Container>
-      <Content>
+      <Content data-testid="social-data">
         <h1 className="text-center" id="socialLinks">
           {t('profile.socialNetworks')}
         </h1>
