@@ -5,17 +5,21 @@ import Image from 'next/image'
 import { Text } from '@nextui-org/react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
+import { useRouter } from 'next/router'
 
 export default function Footer() {
   const { t } = useTranslation()
-  const { theme, resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+
+  const router = useRouter()
+  const isCoursesPage = router.pathname.startsWith('/courses')
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const isLight = mounted && (theme === 'light' || resolvedTheme === 'light')
+  const isLight = mounted && resolvedTheme === 'light'
 
   return (
     <div
@@ -51,6 +55,23 @@ export default function Footer() {
           )
         )}
       </div>
+      {isCoursesPage && (
+        <p className="flex-row pt-4">
+          {t('developedBy')}{' '}
+          <Link href="https://links.w3d.community/">
+            <a data-testid="web3dev-link" target="_blank" className="font-bold">
+              WEB3DEV
+            </a>
+          </Link>{' '}
+          {t('inspiredBy')}{' '}
+          <Link href="https://buildspace.so/">
+            <a data-testid="buildspace-link" target="_blank" className="font-bold">
+              Buildspace
+            </a>
+          </Link>{' '}
+          ✨
+        </p>
+      )}
     </div>
   )
 }

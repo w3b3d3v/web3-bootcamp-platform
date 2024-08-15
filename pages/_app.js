@@ -29,11 +29,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   const { i18n, t } = useTranslation()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -83,29 +78,27 @@ function MyApp({ Component, pageProps }) {
         enableSystem={true}
         disableTransitionOnChange
       >
-        {mounted && (
-          <NextUIProvider>
-            <AuthProvider>
-              <ThirdwebProvider
-                supportedChainIds={supportedChainIds}
-                desiredChainId={ChainId.Mainnet}
-                connectors={connectors}
-              >
-                <SessionProvider session={pageProps.session}>
-                  <Head>
-                    <title>{t('createFirstProject')}</title>
-                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                    <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
-                  </Head>
-                  <NavbarComponent />
-                  <Component {...pageProps} />
-                  <Footer />
-                  <ToastContainer />
-                </SessionProvider>
-              </ThirdwebProvider>
-            </AuthProvider>
-          </NextUIProvider>
-        )}
+        <NextUIProvider>
+          <AuthProvider>
+            <ThirdwebProvider
+              supportedChainIds={supportedChainIds}
+              desiredChainId={ChainId.Mainnet}
+              connectors={connectors}
+            >
+              <SessionProvider session={pageProps.session}>
+                <Head>
+                  <title>{t('createFirstProject')}</title>
+                  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                  <link rel="icon" href="/assets/img/w3d-logo-symbol-ac.svg" />
+                </Head>
+                <NavbarComponent />
+                <Component {...pageProps} />
+                <Footer />
+                <ToastContainer />
+              </SessionProvider>
+            </ThirdwebProvider>
+          </AuthProvider>
+        </NextUIProvider>
       </NextThemesProvider>
     </SSRProvider>
   )

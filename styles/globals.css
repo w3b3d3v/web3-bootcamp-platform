@@ -46,18 +46,7 @@ body {
   flex-direction: column;
 }
 
-<<<<<<< HEAD ======= body {
-  background-image: var(--background-image);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  transition: background-image 0.3s ease;
-  flex: 1;
-}
-
->>>>>>>c9187cb (chore: footer links style and theme management) * {
+* {
   box-sizing: border-box;
   color: inherit;
 }
