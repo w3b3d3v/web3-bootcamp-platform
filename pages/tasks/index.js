@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -10,12 +10,26 @@ import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/IssueCard'
 import { useFilterState } from '../../components/Filter/utils'
+import { getUserFromFirestore } from '../../lib/user'
+import useAuth from '../../hooks/useAuth'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
+  const [userProps, setUserProps] = useState(null)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        const userData = await getUserFromFirestore(user)
+        setUserProps(userData)
+      }
+    }
+    fetchUserData()
+  }, [user])
 
   const {
     filters,
@@ -77,8 +91,8 @@ const TaskPage = ({ issues }) => {
                           <span className="text-white text-[18px] md:text-[24px]">
                             Good first issues
                           </span>
-                          <div className="flex w-[20px] items-center justify-center rounded-[10px] bg-[#99e24d] bg-opacity-30 md:w-[30px] md:rounded-[20px]">
-                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">1</p>
+                          <div className="flex gap-1 md:w-[auto] w-[auto] items-center justify-center px-2 md:rounded-[10px] rounded-[10px] bg-[#99e24d] bg-opacity-30">
+                            <span>Your context level is:</span> <p className="text-[#99e24d] text-[12px] md:text-[16px]"> {userProps?.contextLevel}</p>
                           </div>
                         </div>
                         <div className="flex w-full">
