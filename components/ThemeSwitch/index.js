@@ -22,6 +22,7 @@ export default function ThemeSwitch() {
       checked={isDark}
       icon={isDark ? <CgMoon className="text-white" /> : <CgSun className="text-black" />}
       onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+      data-testid="ThemeSwitch"
     />
   )
 }
