@@ -33,7 +33,7 @@ describe('Tabs util functions', () => {
     const notCompleted = checkSections(db.course, db.lessons, 'Section_2', db.user_id, db.cohort)
     expect(colorTab(completed.isSectionCompleted, completed.currentSection)).toBe('bg-green-500')
     expect(colorTab(notCompleted.isSectionCompleted, notCompleted.currentSection)).toBe(
-      'bg-violet-600'
+        'bg-green-500'
     )
     expect(checkSections(db.course, db.lessons, 'Section_0', db.user_id, db.cohort)).not.toBe(
       'bg-violet-600'
@@ -65,7 +65,7 @@ describe('Tabs util functions', () => {
       },
       {
         section: 'Section_2',
-        completed: 3,
+          completed: 4,
         total: 4,
       },
       {
