@@ -1,4 +1,4 @@
-import { Card, Input, Grid,Container } from '@nextui-org/react'
+import { Card, Input, Grid, Container } from '@nextui-org/react'
 import React from 'react'
 import Select from 'react-select'
 import { builderEmojis, builderOptions, langOptions } from '../../../../lib/utils/constants'
@@ -123,17 +123,16 @@ export default function ProfessionalData({
         </Container>
 
         <div className="m-auto max-w-5xl py-2 ">
-          Que tipo de <bold>builder</bold> {''}
+          Que tipo de <strong>builder</strong> {''}
           é você? Selecione até 3 opções
           <br />
           <Grid.Container gap={2} justify="center">
             <div className="flex flex-wrap items-center justify-center">
               {builderOptions.map((option, index) => (
-                <Grid xs>
+                <Grid xs key={option}>
                   <Card isHoverable variant="bordered">
                     <div
                       {...register('builder')}
-                      key={option}
                       onClick={() => updateUserData(option)}
                       className={`m-2 flex cursor-pointer flex-col items-center justify-center rounded-lg text-center hover:bg-indigo-400 ${
                         getValues('builder')?.includes(option) ? 'bg-indigo-400' : 'bg-transparent'
