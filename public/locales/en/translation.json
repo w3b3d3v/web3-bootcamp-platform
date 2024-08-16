@@ -155,5 +155,17 @@
     "or": "OR"
   },
   "link_github_account": "Do you want to link GitHub to your already registered account?",
-  "peopleBuilding": "people building in this section"
+  "peopleBuilding": "people building in this section",
+  "createStudyGroup": "Create Study Group",
+  "title": "Title",
+  "description": "Description",
+  "difficulty": "Difficulty",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+  "language": "Language",
+  "scheduledAt": "Scheduled At",
+  "leaderDiscordId": "Leader Discord ID",
+  "imageUrl": "Image URL",
+  "index": "Index"
 }
