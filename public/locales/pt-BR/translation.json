@@ -155,5 +155,16 @@
     "verify_password": "Verifique sua senha",
     "or": "OU"
   },
-  "peopleBuilding": "pessoas construindo nessa seção"
+  "peopleBuilding": "pessoas construindo nessa seção",
+  "createStudyGroup": "Criar Grupo de Estudo",
+  "description": "Descrição",
+  "difficulty": "Dificuldade",
+  "beginner": "Iniciante",
+  "intermediate": "Intermediário",
+  "advanced": "Avançado",
+  "language": "Idioma",
+  "scheduledAt": "Agendado Para",
+  "leaderDiscordId": "ID do Discord do Líder",
+  "imageUrl": "URL da Imagem",
+  "index": "Índice"
 }
