@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useEffect, useState } from 'react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -13,12 +13,16 @@ import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
+import { getUserFromFirestore } from '../../lib/user'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebase/initFirebase'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
+  const [userAuth, setUserAuth] = useState(null)
   const [userAuth, setUserAuth] = useState(null)
 
   const {
@@ -32,6 +36,23 @@ const TaskPage = ({ issues }) => {
     availableAmounts,
     getFilterComponentProps,
   } = useFilterState(issues)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        setUserAuth(userSession)
+      } else {
+        setUserAuth(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
