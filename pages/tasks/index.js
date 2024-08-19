@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -10,12 +10,16 @@ import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/IssueCard'
 import { useFilterState } from '../../components/Filter/utils'
+import { getUserFromFirestore } from '../../lib/user'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebase/initFirebase'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
+  const [userAuth, setUserAuth] = useState(null)
 
   const {
     filters,
@@ -28,6 +32,23 @@ const TaskPage = ({ issues }) => {
     availableAmounts,
     getFilterComponentProps,
   } = useFilterState(issues)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        setUserAuth(userSession)
+      } else {
+        setUserAuth(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
@@ -91,7 +112,7 @@ const TaskPage = ({ issues }) => {
                     </div>
                     <div className="flex flex-col gap-4">
                       {filteredIssues.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} />
+                        <IssueCard key={issue.github_id} issue={issue} t={t} user={userAuth} />
                       ))}
                     </div>
                   </div>
