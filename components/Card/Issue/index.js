@@ -12,11 +12,10 @@ const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  const { user } = useAuth()
+  const { user, loginGithub } = useAuth()
   const [message, setMessage] = useState('')
   const [userProps, setUserProps] = useState(null)
   const [showModal, setShowModal] = useState(false)
-  const { loginGithub } = useAuth()
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [initialLoading, setInitialLoading] = useState(true)
@@ -44,15 +43,6 @@ const IssueCard = ({ issue, userInfo }) => {
     fetchUserData()
   }, [user])
 
-  if (error) {
-    return (
-      <div>
-        <p>{error}</p>
-        <button onClick={() => router.back()}>Voltar</button>
-      </div>
-    )
-  }
-
   function canTakeTask(userContext, taskContext) {
     const contextOrder = {
       Beginner: 0,
@@ -78,7 +68,7 @@ const IssueCard = ({ issue, userInfo }) => {
     if (user?.provider !== 'github.com') {
       setShowModal(true)
     } else {
-      toast.success('issue successfully applied')
+      toast.success('Issue successfully applied')
     }
   }
 
@@ -91,11 +81,20 @@ const IssueCard = ({ issue, userInfo }) => {
     loginGithub()
   }
 
+  if (error) {
+    return (
+      <div>
+        <p>{error}</p>
+        <button onClick={() => router.back()}>Voltar</button>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`flex flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg ring-2 ring-white-400 md:flex-row
         ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
-         ${hasPermission ? 'order-0' : 'order-5 ring-black-200'}
+        ${hasPermission ? 'order-0' : 'order-5 ring-black-200'}
       `}
     >
       <div
@@ -103,7 +102,6 @@ const IssueCard = ({ issue, userInfo }) => {
           ${hasPermission ? '' : 'opacity-50'}
         `}
       >
-        {' '}
         <MdGroup size={70} color="white" />
       </div>
       <div className="mb-4 flex w-full flex-col gap-3">
@@ -148,7 +146,6 @@ const IssueCard = ({ issue, userInfo }) => {
             ${hasPermission ? '' : 'opacity-50'}
           `}
         >
-          {' '}
           <p className="text-[16px]">
             <strong>Board:</strong> {issue.project_name}
           </p>
