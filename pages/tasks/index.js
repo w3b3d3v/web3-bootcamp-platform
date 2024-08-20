@@ -8,7 +8,7 @@ import Head from 'next/head'
 import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
-import IssueCard from '../../components/IssueCard'
+import IssueCard from '../../components/Card/Issue'
 import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -99,7 +99,7 @@ const TaskPage = ({ issues }) => {
                             Good first issues
                           </span>
                           <div className="flex w-[20px] items-center justify-center rounded-[10px] bg-[#99e24d] bg-opacity-30 md:w-[30px] md:rounded-[20px]">
-                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">1</p>
+                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">3</p>
                           </div>
                         </div>
                         <div className="flex w-full">
