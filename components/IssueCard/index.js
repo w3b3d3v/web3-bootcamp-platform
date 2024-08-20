@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { MdGroup } from 'react-icons/md'
 
 const IssueCard = ({ issue, user }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
 
@@ -25,6 +25,7 @@ const IssueCard = ({ issue, user }) => {
 
   return (
     <div
+      data-testid="cardIssue"
       className={`flex flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg md:flex-row
         ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
         ${
@@ -33,7 +34,7 @@ const IssueCard = ({ issue, user }) => {
             issue.fields.find((item) => item.field === 'Context Depth')?.value
           )
             ? 'order-0'
-            : 'opacity-50 order-5'
+            : 'order-5 opacity-50'
         }`}
     >
       <div className="flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-[#99e24d] md:h-full md:w-[80px] md:rounded-[20px]">
