@@ -8,7 +8,7 @@ import Head from 'next/head'
 import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
-import IssueCard from '../../components/IssueCard'
+import IssueCard from '../../components/Card/Issue'
 import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -20,16 +20,6 @@ const TaskPage = ({ issues }) => {
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
-
-  /*useEffect(() => {
-    const fetchUserData = async () => {
-      if (user) {
-        const userData = await getUserFromFirestore(user)
-        setUserProps(userData)
-      }
-    }
-    fetchUserData()
-  }, [user])*/
 
   const {
     filters,
@@ -108,8 +98,12 @@ const TaskPage = ({ issues }) => {
                           <span className="text-white text-[18px] md:text-[24px]">
                             Good first issues
                           </span>
-                          <div className="flex gap-1 md:w-[auto] w-[auto] items-center justify-center px-2 md:rounded-[10px] rounded-[10px] bg-[#99e24d] bg-opacity-30">
-                            <span>Your context level is:</span> <p className="text-[#99e24d] text-[12px] md:text-[16px]"> {userAuth?.contextLevel}</p>
+                          <div className="flex w-[auto] items-center justify-center gap-1 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-2 md:w-[auto] md:rounded-[10px]">
+                            <span>Your context level is:</span>{' '}
+                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">
+                              {' '}
+                              {userAuth?.contextLevel}
+                            </p>
                           </div>
                         </div>
                         <div className="flex w-full">

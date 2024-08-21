@@ -2,10 +2,11 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
 import { MdGroup } from 'react-icons/md'
 import React, { useEffect, useState } from 'react'
-import useAuth from '../../hooks/useAuth'
-import { getUserFromFirestore } from '../../lib/user'
-import Modal from '../Modal/ModalTask'
+import useAuth from '../../../hooks/useAuth'
+import { getUserFromFirestore } from '../../../lib/user'
+import Modal from '../../Modal/ModalTask'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
@@ -15,12 +16,11 @@ const IssueCard = ({ issue, userInfo }) => {
   const [message, setMessage] = useState('')
   const [userProps, setUserProps] = useState(null)
   const [showModal, setShowModal] = useState(false)
-  const {loginGithub } = useAuth() 
+  const { loginGithub } = useAuth()
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [initialLoading, setInitialLoading] = useState(true)
   const router = useRouter()
-  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,7 +39,7 @@ const IssueCard = ({ issue, userInfo }) => {
           setLoading(false)
           setInitialLoading(false)
         }
-      } 
+      }
     }
     fetchUserData()
   }, [user])
@@ -53,32 +53,32 @@ const IssueCard = ({ issue, userInfo }) => {
     )
   }
 
-    function canTakeTask(userContext, taskContext) {
-      const contextOrder = {
-        Beginner: 0,
-        Novice: 1,
-        Intermediate: 2,
-        Professional: 3,
-        Expert: 4,
-      }
-  
-      const userContextValue = contextOrder[userContext]
-      const taskContextValue = contextOrder[taskContext]
-
-      return userContextValue >= taskContextValue
+  function canTakeTask(userContext, taskContext) {
+    const contextOrder = {
+      Beginner: 0,
+      Novice: 1,
+      Intermediate: 2,
+      Professional: 3,
+      Expert: 4,
     }
 
-    const hasPermission = canTakeTask(
-      userInfo?.contextLevel,
-      issue.fields.find((item) => item.field === 'Context Depth')?.value
-    )
+    const userContextValue = contextOrder[userContext]
+    const taskContextValue = contextOrder[taskContext]
+
+    return userContextValue >= taskContextValue
+  }
+
+  const hasPermission = canTakeTask(
+    userInfo?.contextLevel,
+    issue.fields.find((item) => item.field === 'Context Depth')?.value
+  )
 
   const handleApply = () => {
     const issueLevel = issue.fields.find((field) => field.field === 'Context Depth')?.value
     if (user?.provider !== 'github.com') {
       setShowModal(true)
     } else {
-        setMessage('Aplicação bem-sucedida!')
+      toast.success('issue successfully applied')
     }
   }
 
@@ -93,16 +93,18 @@ const IssueCard = ({ issue, userInfo }) => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg md:flex-row ring-2 ring-white-400
+      className={`flex flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg ring-2 ring-white-400 md:flex-row
         ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
-         ${hasPermission ? 'order-0' : 'order-5'}
+         ${hasPermission ? 'order-0' : 'order-5 ring-black-200'}
       `}
     >
       <div
         className={`flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-[#99e24d] md:h-full md:w-[80px] md:rounded-[20px]
           ${hasPermission ? '' : 'opacity-50'}
         `}
-      >        <MdGroup size={70} color="white" />
+      >
+        {' '}
+        <MdGroup size={70} color="white" />
       </div>
       <div className="mb-4 flex w-full flex-col gap-3">
         <div className="flex w-full items-center justify-between">
@@ -113,14 +115,24 @@ const IssueCard = ({ issue, userInfo }) => {
           >
             {issue.title}
           </span>
-          <abbr title={!hasPermission ? "You do not have sufficient context level for this task" : ""}>
+          <abbr
+            title={
+              !hasPermission
+                ? 'You do not have sufficient context level for this task'
+                : 'Context level ok'
+            }
+          >
             <button
               onClick={handleApply}
               disabled={!hasPermission}
               style={{ cursor: hasPermission ? 'pointer' : 'not-allowed' }}
               className={`text-white mr-2 rounded bg-[#99e24d] bg-opacity-30 px-2 py-1 text-[10px] 
               ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed bg-opacity-25'}
-              ${user?.provider === 'github.com' ? 'bg-[#99e24d]' : 'bg-red-500 hover:bg-red-800 focus:ring-red-800'}
+              ${
+                user?.provider === 'github.com'
+                  ? 'bg-[#99e24d]'
+                  : 'bg-red-500 hover:bg-red-800 focus:ring-red-800'
+              }
               focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:mr-4 md:text-sm`}
             >
               Apply
@@ -135,7 +147,9 @@ const IssueCard = ({ issue, userInfo }) => {
           className={`flex flex-col gap-3 text-gray-400 md:flex-row
             ${hasPermission ? '' : 'opacity-50'}
           `}
-        >          <p className="text-[16px]">
+        >
+          {' '}
+          <p className="text-[16px]">
             <strong>Board:</strong> {issue.project_name}
           </p>
           <p className="text-[16px]">
@@ -152,9 +166,12 @@ const IssueCard = ({ issue, userInfo }) => {
       {showModal && (
         <Modal onClose={handleCloseModal}>
           <h2>{t('Please log in with GitHub')}</h2>
-          <p>{t('You need to be authenticated with GitHub to apply for this issue.')}</p>
+          <p className="text-[22px]">
+            {t('You need to be authenticated with GitHub to apply for this issue.')}
+          </p>
           <div className="flex gap-4">
             <button
+              className="mt-4 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-4 py-2 text-[22px] text-[#99e24d] hover:ring-2 hover:ring-[#99e24d] focus:ring-2 focus:ring-[#99e24d]"
               onClick={handleLoginGithub}
             >
               Login with GitHub
