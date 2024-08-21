@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -11,17 +11,17 @@ import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/IssueCard'
 import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
-import useAuth from '../../hooks/useAuth'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebase/initFirebase'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
-  const [userProps, setUserProps] = useState(null)
-  const { user } = useAuth()
+  const [userAuth, setUserAuth] = useState(null)
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
         const userData = await getUserFromFirestore(user)
@@ -29,7 +29,7 @@ const TaskPage = ({ issues }) => {
       }
     }
     fetchUserData()
-  }, [user])
+  }, [user])*/
 
   const {
     filters,
@@ -42,6 +42,23 @@ const TaskPage = ({ issues }) => {
     availableAmounts,
     getFilterComponentProps,
   } = useFilterState(issues)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        setUserAuth(userSession)
+      } else {
+        setUserAuth(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
@@ -92,7 +109,7 @@ const TaskPage = ({ issues }) => {
                             Good first issues
                           </span>
                           <div className="flex gap-1 md:w-[auto] w-[auto] items-center justify-center px-2 md:rounded-[10px] rounded-[10px] bg-[#99e24d] bg-opacity-30">
-                            <span>Your context level is:</span> <p className="text-[#99e24d] text-[12px] md:text-[16px]"> {userProps?.contextLevel}</p>
+                            <span>Your context level is:</span> <p className="text-[#99e24d] text-[12px] md:text-[16px]"> {userAuth?.contextLevel}</p>
                           </div>
                         </div>
                         <div className="flex w-full">
@@ -105,7 +122,7 @@ const TaskPage = ({ issues }) => {
                     </div>
                     <div className="flex flex-col gap-4">
                       {filteredIssues.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} />
+                        <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
                       ))}
                     </div>
                   </div>
