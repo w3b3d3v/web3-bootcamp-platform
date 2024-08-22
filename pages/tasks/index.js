@@ -99,11 +99,16 @@ const TaskPage = ({ issues }) => {
                             Good first issues
                           </span>
                           <div className="flex w-[auto] items-center justify-center gap-1 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-2 md:w-[auto] md:rounded-[10px]">
-                            <span>Your context level is:</span>{' '}
-                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">
-                              {' '}
-                              {userAuth?.contextLevel}
-                            </p>
+                            {userAuth?.contextLevel ? (
+                              <>
+                                <span>Your context level is:</span>
+                                <p className="text-[12px] text-[#99e24d] md:text-[16px]">
+                                  {userAuth.contextLevel}
+                                </p>
+                              </>
+                            ) : (
+                              <p>You don't have a level of context</p>
+                            )}
                           </div>
                         </div>
                         <div className="flex w-full">
