@@ -9,6 +9,10 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import rehypePrism from 'rehype-prism-plus'
+import remarkGfm from 'remark-gfm'
 
 const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
@@ -21,6 +25,7 @@ const IssueCard = ({ issue, userInfo }) => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [initialLoading, setInitialLoading] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -66,7 +71,6 @@ const IssueCard = ({ issue, userInfo }) => {
   )
 
   const handleApply = () => {
-    const issueLevel = issue.fields.find((field) => field.field === 'Context Depth')?.value
     if (user?.provider !== 'github.com') {
       setShowModal(true)
     } else {
@@ -83,6 +87,10 @@ const IssueCard = ({ issue, userInfo }) => {
     loginGithub()
   }
 
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+  }
+
   if (error) {
     return (
       <div>
@@ -97,12 +105,12 @@ const IssueCard = ({ issue, userInfo }) => {
       followCursor
       disabled={hasPermission}
       title="You do not have sufficient context level for this task"
+      className={`${hasPermission ? 'order-0' : 'order-5'}`}
     >
       <div
         data-testid="cardIssue"
-        className={`flex flex-col items-center justify-center gap-2 rounded-lg p-4 shadow-lg md:flex-row
+        className={`flex flex-col justify-center gap-2 rounded-lg p-4 shadow-lg md:flex-row
           ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
-          ${hasPermission ? 'order-0' : 'order-5'}
         `}
       >
         <div
@@ -133,9 +141,6 @@ const IssueCard = ({ issue, userInfo }) => {
               Apply
             </button>
           </div>
-          <div className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}>
-            <p className="text-[12px] md:text-[16px]">{issue.body}</p>
-          </div>
           <div
             className={`flex flex-col gap-3 text-gray-400 md:flex-row
               ${hasPermission ? '' : 'opacity-50'}
@@ -153,6 +158,28 @@ const IssueCard = ({ issue, userInfo }) => {
               </p>
             ))}
           </div>
+          <section className="bg-[#3d5527]">
+            <div className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}>
+              <button
+                className="tap-highlight-transparent flex h-full w-full items-center justify-start gap-3 bg-[#3d5527] py-4 !px-4 outline-none transition-opacity"
+                onClick={toggleCollapse}
+              >
+                {isCollapsed ? 'Show Details' : 'Hide Details'}
+              </button>
+            </div>
+            {!isCollapsed && (
+              <div
+                style={{ margin: '0 1rem' }}
+                className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}
+              >
+                <ReactMarkdown
+                  className="d-column w-[95%]"
+                  rehypePlugins={[rehypeRaw, rehypePrism, remarkGfm]}
+                  children={issue.body}
+                />
+              </div>
+            )}
+          </section>
         </div>
       </div>
 
