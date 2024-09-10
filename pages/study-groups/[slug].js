@@ -11,7 +11,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
-import { dateFormat } from '../../lib/dateFormat'
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
 
@@ -22,6 +22,13 @@ function StudyGroup({ studyGroup }) {
   const [loading, setLoading] = useState(true)
   const [userRegisteredInGroup, setUserRegisteredInGroup] = useState(false)
   const { t, i18n } = useTranslation()
+  const language = i18n.resolvedLanguage
+
+  useEffect(() => {
+    if (studyGroup?.metadata && !studyGroup.metadata.hasOwnProperty(language)) {
+      toast.error(t('messages.language_not_available'))
+    }
+  }, [language])
 
   useEffect(() => {
     const fetchUser = async () => {
