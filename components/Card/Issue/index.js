@@ -37,10 +37,10 @@ const IssueCard = ({ issue, userInfo }) => {
             setUserProps(userData)
             setError(null)
           } else {
-            setError('Usuário não encontrado.')
+            setError(t('issue.userNotFound'))
           }
         } catch (err) {
-          setError('Erro ao buscar dados do usuário.')
+          setError(t('issue.ErrorFetchingUser'))
         } finally {
           setLoading(false)
           setInitialLoading(false)
@@ -74,7 +74,7 @@ const IssueCard = ({ issue, userInfo }) => {
     if (user?.provider !== 'github.com') {
       setShowModal(true)
     } else {
-      toast.success('Issue successfully applied')
+      toast.success(t('issue.successfullyApplied'))
     }
   }
 
@@ -95,7 +95,7 @@ const IssueCard = ({ issue, userInfo }) => {
     return (
       <div>
         <p>{error}</p>
-        <button onClick={() => router.back()}>Voltar</button>
+        <button onClick={() => router.back()}>{t('back')}</button>
       </div>
     )
   }
@@ -104,7 +104,7 @@ const IssueCard = ({ issue, userInfo }) => {
     <Tooltip
       followCursor
       disabled={hasPermission}
-      title="You do not have sufficient context level for this task"
+      title={t('issue.contextLevelTask')}
       className={`${hasPermission ? 'order-0' : 'order-5'}`}
     >
       <div
@@ -138,7 +138,7 @@ const IssueCard = ({ issue, userInfo }) => {
                 ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed bg-opacity-25'}
                 focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:mr-4 md:text-sm`}
             >
-              Apply
+              {t('issue.apply')}
             </button>
           </div>
           <div
@@ -150,7 +150,8 @@ const IssueCard = ({ issue, userInfo }) => {
               <strong>Board:</strong> {issue.project_name}
             </p>
             <p className="text-[16px]">
-              <strong>Created At:</strong> {new Date(issue.createdAt).toLocaleDateString()}
+              <strong>{t('issue.createdAt')}:</strong>{' '}
+              {new Date(issue.createdAt).toLocaleDateString()}
             </p>
             {issue.fields.map((field, index) => (
               <p key={index} className="text-[16px]">
@@ -164,7 +165,7 @@ const IssueCard = ({ issue, userInfo }) => {
                 className="tap-highlight-transparent flex h-full w-full items-center justify-start gap-3 bg-[#3d5527] py-4 !px-4 outline-none transition-opacity"
                 onClick={toggleCollapse}
               >
-                {isCollapsed ? 'Show Details' : 'Hide Details'}
+                {isCollapsed ? t('issue.showDetails') : t('issue.hideDetails')}
               </button>
             </div>
             {!isCollapsed && (
@@ -185,16 +186,14 @@ const IssueCard = ({ issue, userInfo }) => {
 
       {showModal && (
         <Modal onClose={handleCloseModal}>
-          <h2>{t('Please log in with GitHub')}</h2>
-          <p className="text-[22px]">
-            {t('You need to be authenticated with GitHub to apply for this issue.')}
-          </p>
+          <h2>{t('issue.login')}</h2>
+          <p className="text-[22px]">{t('issue.authenticated')}</p>
           <div className="flex gap-4">
             <button
               className="mt-4 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-4 py-2 text-[22px] text-[#99e24d] hover:ring-2 hover:ring-[#99e24d] focus:ring-2 focus:ring-[#99e24d]"
               onClick={handleLoginGithub}
             >
-              Login with GitHub
+              {t('issue.loginGitHub')}
             </button>
           </div>
         </Modal>

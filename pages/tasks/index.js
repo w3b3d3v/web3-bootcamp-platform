@@ -113,25 +113,24 @@ const TaskPage = ({ issues }) => {
                       <div className="flex w-full flex-col gap-0">
                         <div className="flex w-full items-center justify-between">
                           <span className="text-white text-[18px] md:text-[24px]">
-                            Good first issues
+                            {t("issue.goodFirst")}
                           </span>
                           <div className="flex w-[auto] items-center justify-center gap-1 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-2 md:w-[auto] md:rounded-[10px]">
                             {userAuth?.contextLevel ? (
                               <>
-                                <span>Your context level is:</span>
+                                <span>{t('issue.yourContextLevel')}:</span>
                                 <p className="text-[12px] text-[#99e24d] md:text-[16px]">
                                   {userAuth.contextLevel}
                                 </p>
                               </>
                             ) : (
-                              <p>You don't have a level of context</p>
+                              <p>{t('issue.noContextLevel')}</p>
                             )}
                           </div>
                         </div>
                         <div className="flex w-full">
                           <p className="text-[12px] md:text-[16px]">
-                            Apply to a list of curated issues well suited for those new to the
-                            project to kickstart your journey.
+                            {t('issue.applyListIssue')}
                           </p>
                         </div>
                       </div>
