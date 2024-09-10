@@ -2,23 +2,27 @@ import React, { useState } from 'react'
 import { withProtected } from '../../hooks/route'
 import { useRouter } from 'next/router'
 import { db, storage } from '../../firebase/initFirebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { useTranslation } from 'react-i18next'
 import Head from 'next/head'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 function CreateStudyGroup({ user }) {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    difficulty: 'Beginner',
-    language: 'pt',
-    scheduled_at: '',
+    language: '',
     leader_discord_id: '',
+    scheduled_at: '',
     image_url: '',
+    difficulty: 'beginner',
     active: true,
     index: 0,
   })
+
+  const [tempLanguageData, setTempLanguageData] = useState({
+    title: '',
+    description: '',
+  })
+
   const router = useRouter()
   const { t } = useTranslation()
 
@@ -35,6 +39,11 @@ function CreateStudyGroup({ user }) {
           }))
         })
       })
+    } else if (name === 'title' || name === 'description') {
+      setTempLanguageData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }))
     } else {
       setFormData((prevData) => ({
         ...prevData,
@@ -44,18 +53,42 @@ function CreateStudyGroup({ user }) {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const slug = formData.title.toLowerCase().replace(/ /g, '-')
+    e.preventDefault() // Garante que isso seja chamado primeiro
+
+    if (!formData.language) {
+      alert(t('pleaseSelectLanguage'))
+      return
+    }
+
+    if (!formData.image_url) {
+      alert(t('pleaseWaitForImageUpload'))
+      return
+    }
+
+    const slug = tempLanguageData.title.toLowerCase().replace(/ /g, '-')
+
     try {
-      const docRef = await addDoc(collection(db, 'study_groups'), {
+      const finalFormData = {
         ...formData,
-        scheduled_at: new Date(formData.scheduled_at),
+        scheduled_at: Timestamp.fromDate(new Date(formData.scheduled_at)),
         slug: slug,
-      })
+        index: parseInt(formData.index, 10),
+        title: tempLanguageData.title,
+        description: tempLanguageData.description,
+        metadata: {
+          [formData.language]: {
+            title: tempLanguageData.title,
+            description: tempLanguageData.description,
+          },
+        },
+      }
+      const docRef = await addDoc(collection(db, 'study_groups'), finalFormData)
       console.log('Study group added with ID: ', docRef.id)
+      alert(t('studyGroupCreatedSuccessfully')) // Adiciona feedback de sucesso
       router.push(`/study-groups/${slug}`)
     } catch (error) {
       console.error('Error adding study group: ', error)
+      alert(t('errorCreatingStudyGroup')) // Adiciona feedback de erro
     }
   }
 
@@ -68,6 +101,24 @@ function CreateStudyGroup({ user }) {
         <h1 className="mb-4 text-2xl font-bold">{t('createStudyGroup')}</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
+            <label htmlFor="language" className="block">
+              {t('language')}
+            </label>
+            <select
+              id="language"
+              name="language"
+              value={formData.language}
+              onChange={handleChange}
+              required
+              className="w-full rounded border p-2"
+            >
+              <option value="">{t('selectLanguage')}</option>
+              <option value="en">English</option>
+              <option value="pt-BR">Português</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+          <div>
             <label htmlFor="title" className="block">
               {t('title')}
             </label>
@@ -75,7 +126,7 @@ function CreateStudyGroup({ user }) {
               type="text"
               id="title"
               name="title"
-              value={formData.title}
+              value={tempLanguageData.title}
               onChange={handleChange}
               required
               className="w-full rounded border p-2"
@@ -88,7 +139,7 @@ function CreateStudyGroup({ user }) {
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={tempLanguageData.description}
               onChange={handleChange}
               required
               className="w-full rounded border p-2"
@@ -105,24 +156,10 @@ function CreateStudyGroup({ user }) {
               onChange={handleChange}
               className="w-full rounded border p-2"
             >
-              <option value="Beginner">{t('beginner')}</option>
-              <option value="Intermediate">{t('intermediate')}</option>
-              <option value="Advanced">{t('advanced')}</option>
+              <option value="beginner">{t('beginner')}</option>
+              <option value="intermediate">{t('intermediate')}</option>
+              <option value="advanced">{t('advanced')}</option>
             </select>
-          </div>
-          <div>
-            <label htmlFor="language" className="block">
-              {t('language')}
-            </label>
-            <input
-              type="text"
-              id="language"
-              name="language"
-              value={formData.language}
-              onChange={handleChange}
-              required
-              className="w-full rounded border p-2"
-            />
           </div>
           <div>
             <label htmlFor="scheduled_at" className="block">
@@ -181,6 +218,7 @@ function CreateStudyGroup({ user }) {
           <button
             type="submit"
             className="text-white rounded bg-blue-500 px-4 py-2 hover:bg-blue-600"
+            disabled={formData.language === ''} // Desabilita o botão se nenhuma linguagem for selecionada
           >
             {t('createStudyGroup')}
           </button>
