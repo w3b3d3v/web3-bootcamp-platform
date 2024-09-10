@@ -34,7 +34,7 @@ yarn-error.log*
 .env.production.local
 
 firebase/firebase-config.json
-.env
+*.env
 *.log
 
 .env-developement
