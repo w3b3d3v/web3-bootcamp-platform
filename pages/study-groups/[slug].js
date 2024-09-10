@@ -95,12 +95,13 @@ function StudyGroup({ studyGroup }) {
             </p>
           </div>
           <div className="mx-auto h-full lg:mx-0">
-            <Image
-              src={studyGroup?.image_url}
-              width="300px"
-              height="300px"
-              style={{ borderRadius: '10px' }}
-            ></Image>
+            {studyGroup?.image_url && (
+              <img
+                src={studyGroup.image_url}
+                alt={`Image of ${getFieldContent(studyGroup, 'title', i18n)}`}
+                style={{ width: '300px', height: '300px', borderRadius: '10px' }}
+              />
+            )}
           </div>
         </div>
 
