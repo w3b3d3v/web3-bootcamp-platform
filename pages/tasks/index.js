@@ -125,7 +125,7 @@ const TaskPage = ({ issues }) => {
                     </div>
                     <div className="flex flex-col gap-4">
                       {filteredIssues.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
+                        <IssueCard key={issue.github_id} issue={issue} userInfo={userAuth} />
                       ))}
                     </div>
                   </div>
