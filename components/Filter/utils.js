@@ -20,14 +20,17 @@ export const getUniqueFieldValues = (issues) => {
 }
 
 // Filter issues based on selected filters
-export const filterIssuesBySelectedFilters = (issues, selectedFilters) => {
+export const filterIssuesBySelectedFilters = (issues, selectedFilters, searchQuery) => {
   return issues.filter((issue) =>
     Object.entries(selectedFilters).every(
       ([filterName, selectedValue]) =>
         !selectedValue ||
         issue.fields.some((field) => field.field === filterName && field.value === selectedValue)
+    ) &&
+    issue.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (issue.body && issue.body.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (issue.fields.some(field => field.field === 'Context Depth' && field.value.toLowerCase().includes(searchQuery.toLowerCase())))
     )
-  )
 }
 
 // Get options for the Amount filter based on selected Reward
@@ -53,11 +56,12 @@ export const getAmountFilterOptions = (issues, filters, selectedReward) => {
 }
 
 // Custom hook to manage filter state
-export const useFilterState = (issues) => {
+export const useFilterState = (issues, searchQuery) => {
   const router = useRouter()
   const [filters, setFilters] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({})
   const [isOpen, setIsOpen] = useState({})
+  
 
   // Initialize filters and open state
   useEffect(() => {
@@ -170,7 +174,7 @@ export const useFilterState = (issues) => {
   }, [filters, updateUrlWithFilters])
 
   // Apply filters to issues
-  const filteredIssues = filterIssuesBySelectedFilters(issues, selectedFilters)
+  const filteredIssues = filterIssuesBySelectedFilters(issues, selectedFilters, searchQuery)
   const { isAmountFilterDisabled, amountFilterTitle, availableAmounts } = getAmountFilterOptions(
     issues,
     filters,

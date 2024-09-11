@@ -31,7 +31,7 @@ const TaskPage = ({ issues }) => {
     filteredIssues,
     availableAmounts,
     getFilterComponentProps,
-  } = useFilterState(issues)
+  } = useFilterState(issues, searchQuery)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -57,7 +57,11 @@ const TaskPage = ({ issues }) => {
       </Head>
       <div className="flex w-full items-center justify-center">
         <div className="flex w-full flex-col xl:w-[80%]">
-          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <SearchBar 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery} 
+          placeholder="Search by title, description, or context depth"
+          />
           <div className="flex">
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
               <Filter

@@ -837,8 +837,8 @@
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
       "status": "Todo",
       "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
+      "title": "Other title",
+      "body": "Task to create a new online shopping app via whatsapp",
       "closedAt": null,
       "fields": [
         {
@@ -851,7 +851,7 @@
         },
         {
           "field": "Context Depth",
-          "value": "Novice"
+          "value": "Beginner"
         },
         {
           "field": "Importance",
