@@ -91,10 +91,10 @@ Deploy this project on Vercel in one click:
 
 #### Windows
 
-1. Download and install Java from the official [Oracle website](https://www.java.com/en/download/ie_manual.jsp). Make sure to choose the version suitable for your system.
+1. Download and install SDK Java 20 from the official [Oracle website](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html). Make sure to choose the version suitable for your system.
 2. Open Command Prompt and set the `JAVA_HOME` environment variable:
    ```cmd
-   set JAVA_HOME=C:\Program Files\Java\jdk-22
+   set JAVA_HOME=C:\Program Files\Java\jdk-20
    ```
 3. Add Java to your `PATH`:
    ```cmd
