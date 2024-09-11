@@ -45,24 +45,7 @@ const TaskPage = ({ issues }) => {
 
     return () => unsubscribe()
   }, [])
-
-  if (userAuth === undefined) {
-    return <p>Loading...</p>
-  }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userSession = await getUserFromFirestore(user)
-        setUserAuth(userSession)
-      } else {
-        setUserAuth(null)
-      }
-    })
-
-    return () => unsubscribe()
-  }, [])
-
+  
   if (userAuth === undefined) {
     return <p>Loading...</p>
   }
