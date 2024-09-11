@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
+import { contextOrder } from '../../../lib/utils/constants'
 
 const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
@@ -51,14 +52,6 @@ const IssueCard = ({ issue, userInfo }) => {
   }, [user])
 
   function canTakeTask(userContext, taskContext) {
-    const contextOrder = {
-      Beginner: 0,
-      Novice: 1,
-      Intermediate: 2,
-      Professional: 3,
-      Expert: 4,
-    }
-
     const userContextValue = contextOrder[userContext]
     const taskContextValue = contextOrder[taskContext]
 
@@ -130,7 +123,7 @@ const IssueCard = ({ issue, userInfo }) => {
               {issue.title}
             </span>
             <button
-              title={`${hasPermission ? 'Apply for task' : ''}`}
+              title={`${hasPermission ? t('issue.applyForTask') : ''}`}
               onClick={handleApply}
               disabled={!hasPermission}
               style={{ cursor: hasPermission ? 'pointer' : 'not-allowed' }}
