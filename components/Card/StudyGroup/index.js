@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next'
 import RenderField from '../../RenderField'
 
 export function StudyGroupCard({ studyGroup }) {
+  if (!studyGroup.active) return null
+
   const [showMore, setShowMore] = useState(false)
   const { t } = useTranslation()
 
@@ -88,6 +90,3 @@ export function StudyGroupCard({ studyGroup }) {
     </Card>
   )
 }
-
-
-              
