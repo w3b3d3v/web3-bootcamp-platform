@@ -8,7 +8,7 @@ import Head from 'next/head'
 import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
-import IssueCard from '../../components/IssueCard'
+import IssueCard from '../../components/Card/Issue'
 import { useFilterState } from '../../components/Filter/utils'
 
 const TaskPage = ({ issues }) => {

@@ -65,17 +65,17 @@ describe('IssueCard', () => {
     expect(screen.getByText('2500')).toBeInTheDocument()
   })
 
-  it('should have the opacity-50 class when the user has a context smaller than the task', () =>{
+  it('should have the opacity-50 class when the user has a context smaller than the task', () => {
     userAuth.contextLevel = 'Beginner'
-    const {container} = render(<IssueCard key={issue.github_id} issue={issue} user={userAuth} />)
-    const divElement = container.querySelector('div')    
-    expect(divElement).toHaveClass('order-5 opacity-50');
+    const { container } = render(<IssueCard key={issue.github_id} issue={issue} user={userAuth} />)
+    const divElement = container.querySelector('div')
+    expect(divElement).toHaveClass('order-5 opacity-50')
   })
 
-  it('should not have the opacity-50 class when the user has a context smaller than the task', () =>{
+  it('should not have the opacity-50 class when the user has a context smaller than the task', () => {
     userAuth.contextLevel = 'Expert'
-    const {container} = render(<IssueCard key={issue.github_id} issue={issue} user={userAuth} />)
-    const divElement = container.querySelector('div')    
-    expect(divElement).not.toHaveClass('order-5 opacity-50');
+    const { container } = render(<IssueCard key={issue.github_id} issue={issue} user={userAuth} />)
+    const divElement = container.querySelector('div')
+    expect(divElement).not.toHaveClass('order-5 opacity-50')
   })
 })
