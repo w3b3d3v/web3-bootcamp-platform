@@ -181,5 +181,24 @@
   "reward": "Reward",
   "selectRewardFirst": "Select a reward first",
   "sortBy": "Sort by",
-  "projects": "PROJECTS"
+  "projects": "PROJECTS",
+  "back": "Back",
+  "issue": {
+    "userNotFound": "User not found",
+    "ErrorFetchingUser": "Error fetching user data",
+    "successfullyApplied": "Issue successfully applied",
+    "contextLevelTask": "You do not have sufficient context level for this task",
+    "apply": "Apply",
+    "createdAt": "Created At",
+    "login": "Please log in with GitHub",
+    "authenticated": "You need to be authenticated with GitHub to apply for this issue.",
+    "loginGitHub": "Login with GitHub",
+    "showDetails": "Show Details",
+    "hideDetails": "Hide Details",
+    "goodFirst": "Good first issues",
+    "yourContextLevel": "Your context level is",
+    "noContextLevel": "You don't have a level of context",
+    "applyListIssue": "Apply to a list of curated issues well suited for those new to the project to kickstart your journey",
+    "applyForTask": "Apply for task"
+  }
 }
