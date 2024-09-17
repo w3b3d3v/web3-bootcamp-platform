@@ -166,5 +166,24 @@
   "reward": "Recompensa",
   "selectRewardFirst": "Selecione uma recompensa primeiro",
   "sortBy": "Ordenar por",
-  "projects": "PROJETOS"
+  "projects": "PROJETOS",
+  "back": "Voltar",
+  "issue": {
+    "userNotFound": "Usuário não encontrado",
+    "ErrorFetchingUser": "Erro ao buscar dados do usuário",
+    "successfullyApplied": "Aplicado com sucesso",
+    "contextLevelTask": "Você não tem nível de contexto suficiente para essa tarefa",
+    "apply": "Aplicar",
+    "createdAt": "Criado em",
+    "login": "Faça login com o GitHub",
+    "authenticated": "Você precisa estar autenticado no GitHub para se candidatar.",
+    "loginGitHub": "Faça login com o GitHub",
+    "showDetails": "Mostrar detalhes",
+    "hideDetails": "Ocultar detalhes",
+    "goodFirst": "Boas primeiras issues",
+    "yourContextLevel": "Seu nível de contexto é",
+    "noContextLevel": "Você não tem um nível de contexto",
+    "applyListIssue": "Inscreva-se em uma lista de issue selecionadas, adequadas para aqueles que são novos no projeto, para dar o pontapé inicial em sua jornada",
+    "applyForTask": "Candidatar-se a tarefa"
+  }
 }
