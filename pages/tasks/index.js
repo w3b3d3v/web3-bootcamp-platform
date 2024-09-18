@@ -13,6 +13,7 @@ import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
+import { sortFilter } from '../../components/SortBar/utils'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
@@ -20,7 +21,11 @@ const TaskPage = ({ issues }) => {
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
+  const [dataSortBar, setDataSortBar] = useState('ContextDepth')
 
+  const filterSortbar = (data) => {
+    setDataSortBar(data)
+  }
   const {
     filters,
     selectedFilters,
@@ -32,6 +37,25 @@ const TaskPage = ({ issues }) => {
     availableAmounts,
     getFilterComponentProps,
   } = useFilterState(issues)
+
+  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        setUserAuth(userSession)
+      } else {
+        setUserAuth(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
@@ -54,18 +78,18 @@ const TaskPage = ({ issues }) => {
                 getFilterProps={getFilterComponentProps}
               />
               <div className="flex-1 p-2 ">
-                {filteredIssues.length === 0 ? (
+                {sortedIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                      <Sortbar filters={selectedFilters} setFilters={handleFilterSelection} t={t} />
+                      <Sortbar filters={filters} sendFilterSortbar={filterSortbar} t={t} />
                       <label
                         className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
-                        {filteredIssues.length} {t('projects')}
+                        {sortedIssues.length} {t('projects')}
                       </label>
                     </div>
                     <div
@@ -79,23 +103,20 @@ const TaskPage = ({ issues }) => {
                       <div className="flex w-full flex-col gap-0">
                         <div className="flex w-full items-center justify-between">
                           <span className="text-white text-[18px] md:text-[24px]">
-                            Good first issues
+                            {t('issue.goodFirst')}
                           </span>
                           <div className="flex w-[20px] items-center justify-center rounded-[10px] bg-[#99e24d] bg-opacity-30 md:w-[30px] md:rounded-[20px]">
                             <p className="text-[12px] text-[#99e24d] md:text-[16px]">1</p>
                           </div>
                         </div>
                         <div className="flex w-full">
-                          <p className="text-[12px] md:text-[16px]">
-                            Apply to a list of curated issues well suited for those new to the
-                            project to kickstart your journey.
-                          </p>
+                          <p className="text-[12px] md:text-[16px]">{t('issue.applyListIssue')}</p>
                         </div>
                       </div>
                     </div>
                     <div className="flex flex-col gap-4">
-                      {filteredIssues.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} />
+                      {sortedIssues.map((issue) => (
+                        <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
                       ))}
                     </div>
                   </div>

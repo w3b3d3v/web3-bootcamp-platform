@@ -179,6 +179,7 @@
   "clear": "Clear",
   "amount": "Amount",
   "reward": "Reward",
+  "contextDepth": "Context Depth",
   "selectRewardFirst": "Select a reward first",
   "sortBy": "Sort by",
   "projects": "PROJECTS",

@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
+import { filteredSortbar } from './utils'
 
-const Sortbar = ({ filters, setFilters }) => {
+const Sortbar = ({ filters, sendFilterSortbar }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
+  const [filterName, setFilterName] = useState('')
 
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    })
+  const handleFilterChange = (event) => {
+    const selectedFilter = event.target.value
+    setFilterName(selectedFilter)
+    sendFilterSortbar(selectedFilter)
   }
+
   return (
     <div className="text-white h-10 w-full sm:w-64">
       <div
@@ -20,7 +22,7 @@ const Sortbar = ({ filters, setFilters }) => {
           isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
         } `}
       >
-        <span className=" text-[14px]">{t('sortBy')}</span>
+        <span className="text-[14px]">{t('sortBy')}</span>
         <label>
           <select
             name="status"
@@ -29,8 +31,15 @@ const Sortbar = ({ filters, setFilters }) => {
               isLight ? 'text-black-400' : 'text-[#99e24d]'
             }`}
           >
-            <option value="">{t('context depth')}</option>
-            <option value="">{t('reward')}</option>
+            {Object.entries(filteredSortbar(filters, ['Amount', 'Context Depth'])).map(
+              ([filterName]) => {
+                return (
+                  <option key={filterName} value={filterName.replace(/\s+/g, '')}>
+                    {filterName}
+                  </option>
+                )
+              }
+            )}
           </select>
         </label>
       </div>
