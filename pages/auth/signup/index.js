@@ -9,13 +9,23 @@ import { withPublic } from '../../../hooks/route'
 import { Button } from '@nextui-org/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
+import { useRouter } from 'next/router'
 
 function signUpPage() {
   const { signup, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
+  const router = useRouter()
 
   const { register, handleSubmit } = useForm()
-  const onSignUpSubmit = (data) => signup(data)
+  const onSignUpSubmit = async (data) => {
+    try {
+      await signup(data)
+      const destination = router.query.from || '/courses'
+      router.push(destination)
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
   const onSignUpError = (errors, e) => {
     toast.error(errors, e, {
       position: 'top-right',

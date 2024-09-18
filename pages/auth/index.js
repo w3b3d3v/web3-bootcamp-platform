@@ -83,7 +83,7 @@ function authPage() {
               >
                 {t('form.no_account')}{' '}
                 <Link
-                  href="/auth/signup"
+                  href={{ pathname: "/auth/signup", query: { from: Router.asPath } }} // Added Router.asPath to the signup URL
                   className="cursor-pointer text-sm font-medium leading-none text-primary-300 hover:text-gray-500 hover:no-underline focus:text-gray-500 focus:no-underline focus:outline-none dark:text-primary-300"
                 >
                   <span className="cursor-pointer text-primary-300 transition duration-150 ease-in-out hover:text-primary-400 dark:text-primary-300">

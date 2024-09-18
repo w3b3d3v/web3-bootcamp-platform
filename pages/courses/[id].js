@@ -22,6 +22,7 @@ import { dateFormat } from '../../lib/dateFormat'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -38,6 +39,8 @@ function Course({ course, currentDate }) {
   const courseTitle = course?.metadata?.[language]?.title || course?.title
   const courseDescription = course?.metadata?.[language]?.description || course?.description
   const courseSections = course?.metadata?.[language]?.sections || course?.sections
+  const router = useRouter()
+  const { auto_subscribe } = router.query
 
   useEffect(() => {
     if (course?.metadata && !course.metadata.hasOwnProperty(language)) {
@@ -55,7 +58,8 @@ function Course({ course, currentDate }) {
   }, [user, cohort])
   useEffect(async () => {
     if (cohorts) {
-      setCohort(getCurrentCohort(user, cohorts, course, currentDate))
+      let currentCohort = getCurrentCohort(user, cohorts, course, currentDate)
+      setCohort(currentCohort)
     }
   }, [cohorts, user])
 
@@ -92,6 +96,7 @@ function Course({ course, currentDate }) {
   const registerUserInCohort = async () => {
     await registerUserInCohortInFirestore(cohort.id, auth.currentUser.uid)
     setRegisterOnCohort(true)
+    toast.success(t('messages.course_registration_success'))
   }
   const userIsRegisteredInCurrentCohort = () => {
     return !!user?.cohorts.find(
@@ -240,6 +245,21 @@ function Course({ course, currentDate }) {
         )
       })
   }
+
+  useEffect(() => {
+    const autoSubscribe = async () => {
+      if (auto_subscribe === 'true' && user && cohort && !userIsRegisteredInCurrentCohort()) {
+        try {
+          await registerUserInCohort()
+          router.replace(`/courses/${course.id}`, undefined, { shallow: true })
+        } catch (error) {
+          console.error('Error when auto_subscribing:', error)
+        }
+      }
+    }
+
+    autoSubscribe()
+  }, [user, cohort, auto_subscribe])
 
   return (
     <>
