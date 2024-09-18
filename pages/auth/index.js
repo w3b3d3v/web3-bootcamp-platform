@@ -12,9 +12,11 @@ import { Button } from '@nextui-org/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
 import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
 
 function authPage() {
-  const { login, loginGoogle, loginGithub } = useAuth()
+  const router = useRouter()
+  const { loginGoogle, loginGithub, login } = useAuth()
   const [showpass, setShowPass] = useState(false)
   const { t } = useTranslation()
 
@@ -22,7 +24,44 @@ function authPage() {
   const { register, handleSubmit } = useForm()
   const [email, setEmail] = useState('')
 
-  const onLoginSubmit = (data) => login(data)
+  const handleAuth = async (data, authMethod) => {
+    try {
+      await authMethod(data)
+      toast.success(t('messages.login_success'), {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+
+      // Retrieve the saved redirect URL from localStorage
+      const savedRedirectUrl = localStorage.getItem('redirectUrl')
+      if (savedRedirectUrl) {
+        localStorage.removeItem('redirectUrl') // Clear the saved URL
+        window.location.href = savedRedirectUrl // Use window.location.href for redirection
+      } else {
+        router.push('/courses')
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+  }
+
+  const onSignUpSubmit = (data) => handleAuth(data, login)
+  const onGoogleLogin = () => handleAuth(null, loginGoogle)
+  const onGithubLogin = () => handleAuth(null, loginGithub)
+
   const onLoginError = (errors, e) => {
     toast.error(errors, e, {
       position: 'top-right',
@@ -60,13 +99,13 @@ function authPage() {
       </Head>
       <div>
         <div className="items-center justify-center px-4 py-9 sm:px-6 md:flex md:px-10 md:py-12 xl:px-20 2xl:container 2xl:mx-auto">
-          {sessionStorage.getItem('credential') ? (
+        {typeof window !== 'undefined' && sessionStorage.getItem('credential') ? (
             <>
               <div className="w-full rounded bg-white-100 px-6 py-6 shadow-lg dark:bg-black-200 sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
                 <h3>{t('link_github_account')}</h3>
                 <div className="flex w-full justify-around">
                   <Button customClass={'bg-slate-300'} onClick={() => denyLogin()}>
-                  {t('buttons.no')}
+                    {t('buttons.no')}
                   </Button>
                   <Button onClick={() => loginGoogle()}>{t('buttons.yes')}</Button>
                 </div>
@@ -87,12 +126,12 @@ function authPage() {
                   className="cursor-pointer text-sm font-medium leading-none text-primary-300 hover:text-gray-500 hover:no-underline focus:text-gray-500 focus:no-underline focus:outline-none dark:text-primary-300"
                 >
                   <span className="cursor-pointer text-primary-300 transition duration-150 ease-in-out hover:text-primary-400 dark:text-primary-300">
-                  {t('buttons.register_now')}
+                    {t('buttons.register_now')}
                   </span>
                 </Link>
               </p>
               {!isDisable ? (
-                <form onSubmit={handleSubmit(onLoginSubmit, onLoginError)}>
+                <form onSubmit={handleSubmit(onSignUpSubmit, onLoginError)}>
                   <div className="pt-6">
                     <label
                       htmlFor="email"
@@ -232,13 +271,15 @@ function authPage() {
 
               <div className="flex w-full items-center justify-between py-5">
                 <hr className="w-full bg-gray-400" />
-                <p className="px-2.5 text-base font-medium leading-4 text-gray-500">{t('form.or')}</p>
+                <p className="px-2.5 text-base font-medium leading-4 text-gray-500">
+                  {t('form.or')}
+                </p>
                 <hr className="w-full bg-gray-400" />
               </div>
               <div className="flex flex-col gap-3">
                 <Button
                   id={'sign-in-with-github'}
-                  onClick={() => loginGithub()}
+                  onClick={onGithubLogin}
                   icon={<GrGithub />}
                   size={'lg'}
                   color={''}
@@ -251,7 +292,7 @@ function authPage() {
                   id={'sign-in-with-google'}
                   icon={<FcGoogle />}
                   alt="Google-Login-Icon"
-                  onClick={() => loginGoogle()}
+                  onClick={onGoogleLogin}
                   size={'lg'}
                   color={''}
                   bordered

@@ -9,13 +9,47 @@ import { withPublic } from '../../../hooks/route'
 import { Button } from '@nextui-org/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GrGithub } from 'react-icons/gr'
+import { useRouter } from 'next/router'
 
 function signUpPage() {
   const { signup, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
+  const router = useRouter()
 
   const { register, handleSubmit } = useForm()
-  const onSignUpSubmit = (data) => signup(data)
+  const onSignUpSubmit = async (data) => {
+    try {
+      await signup(data)
+      toast.success('Cadastro realizado com sucesso!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+      // Retrieve the saved redirect URL from localStorage
+      const savedRedirectUrl = localStorage.getItem('redirectUrl')
+      if (savedRedirectUrl) {
+        localStorage.removeItem('redirectUrl') // Remove the saved URL before redirection
+        window.location.href = savedRedirectUrl // Use window.location.href for redirection
+      } else {
+        router.push('/courses')
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+  }
+
   const onSignUpError = (errors, e) => {
     toast.error(errors, e, {
       position: 'top-right',
@@ -26,6 +60,29 @@ function signUpPage() {
       draggable: true,
       progress: undefined,
     })
+  }
+
+  const handleSocialLogin = async (loginFunction) => {
+    try {
+      await loginFunction()
+      const savedRedirectUrl = localStorage.getItem('redirectUrl')
+      if (savedRedirectUrl) {
+        localStorage.removeItem('redirectUrl') // Remove the saved URL before redirection
+        window.location.href = savedRedirectUrl // Use window.location.href for redirection
+      } else {
+        router.push('/courses')
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
   }
 
   return (
@@ -154,7 +211,7 @@ function signUpPage() {
             <div className="flex flex-col gap-3">
               <Button
                 id={'sign-in-with-github'}
-                onClick={() => loginGithub()}
+                onClick={() => handleSocialLogin(loginGithub)}
                 icon={<GrGithub />}
                 size={'lg'}
                 color={''}
@@ -166,7 +223,7 @@ function signUpPage() {
                 id={'sign-in-with-google'}
                 icon={<FcGoogle />}
                 alt="Google-Login-Icon"
-                onClick={() => loginGoogle()}
+                onClick={() => handleSocialLogin(loginGoogle)}
                 size={'lg'}
                 color={''}
                 bordered
