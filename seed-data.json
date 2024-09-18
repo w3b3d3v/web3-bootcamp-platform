@@ -25,6 +25,32 @@
         "subject": "Your journey to learn Rust and Build your First Blockchain"
       },
       "discord_role": "1264936029769564211"
+    },
+    "RU5mLpQrZZWlmftNSB2w": {
+      "discord_channel": "rust-state-machine-explorers",
+      "course_id": "Rust_State_Machine",
+      "endDate": {
+        "_seconds": 1729724400,
+        "_nanoseconds": 0
+      },
+      "kickoffEndTime": {
+        "_seconds": 1728068400,
+        "_nanoseconds": 0
+      },
+      "nft_title": "Rust State Machine",
+      "email_content": {
+        "subject": "Your journey to learn Rust and Build your First Blockchain"
+      },
+      "name": "EXPLORERS",
+      "kickoffStartTime": {
+        "_seconds": 1728064800,
+        "_nanoseconds": 0
+      },
+      "discord_role": "1278014669625495562",
+      "startDate": {
+        "_seconds": 1728064800,
+        "_nanoseconds": 0
+      }
     }
   },
   "courses": {
@@ -33,7 +59,12 @@
       "active": true,
       "index": 1,
       "home": true,
-      "tags": ["rust", "blockchain", "polkadot", "substrate"],
+      "tags": [
+        "rust",
+        "blockchain",
+        "polkadot",
+        "substrate"
+      ],
       "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
       "nft_title": "Rust State Machine",
       "metadata": {
@@ -610,7 +641,9 @@
           "section": "Section_3"
         },
         {
-          "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
+          "photoUrls": [
+            "https://avatars.githubusercontent.com/u/77552?v=4"
+          ],
           "students": 1,
           "section": "Section_5"
         }
@@ -626,7 +659,10 @@
           "projectId": "web3dev-development"
         },
         "_path": {
-          "segments": ["cohorts", "lloRUGwzJAG4Lj2B3bmJ"]
+          "segments": [
+            "cohorts",
+            "lloRUGwzJAG4Lj2B3bmJ"
+          ]
         },
         "_converter": {}
       },
@@ -636,7 +672,10 @@
           "projectId": "web3dev-development"
         },
         "_path": {
-          "segments": ["users", "qpluj9zA4Idmvoxj1XEG8MmPpN72"]
+          "segments": [
+            "users",
+            "qpluj9zA4Idmvoxj1XEG8MmPpN72"
+          ]
         },
         "_converter": {}
       },
@@ -682,7 +721,10 @@
             "projectId": "web3dev-development"
           },
           "_path": {
-            "segments": ["courses", "NFT_Collection"]
+            "segments": [
+              "courses",
+              "NFT_Collection"
+            ]
           },
           "_converter": {}
         },
@@ -716,7 +758,10 @@
         ],
         "discord": null,
         "wallet": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
-        "cohort_ids": ["LNYQZCn5p9amT9VUJVhs", "y6AUPXpfj1L6jfhAlTzl"],
+        "cohort_ids": [
+          "LNYQZCn5p9amT9VUJVhs",
+          "y6AUPXpfj1L6jfhAlTzl"
+        ],
         "name": "Rômulo",
         "bio": "",
         "cohorts": [
@@ -739,7 +784,10 @@
                 "projectId": "web3dev-development"
               },
               "_path": {
-                "segments": ["cohorts", "y6AUPXpfj1L6jfhAlTzl"]
+                "segments": [
+                  "cohorts",
+                  "y6AUPXpfj1L6jfhAlTzl"
+                ]
               },
               "_converter": {}
             },
@@ -776,7 +824,9 @@
       "leader_discord_id": "548618495383044129",
       "title": "Rust",
       "analytics": {
-        "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
+        "photoUrls": [
+          "https://avatars.githubusercontent.com/u/77552?v=4"
+        ],
         "students": 1
       },
       "active": true,
@@ -793,7 +843,9 @@
       "project_type": "Core",
       "createdAt": "2024-06-25T17:29:09Z",
       "project_id": 23,
-      "assignees": ["helenafreitas5"],
+      "assignees": [
+        "helenafreitas5"
+      ],
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxwc",
       "state": "OPEN",
       "project_name": "Stellar Study Group [Core]",
@@ -839,7 +891,7 @@
       "name": null,
       "bio": "",
       "cohorts": [],
-      "email": "alan.franzin2011@gmail.com",
+      "email": "teste@teste.com",
       "cohort_ids": [],
       "discord": "1234"
     }
