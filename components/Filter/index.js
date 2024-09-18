@@ -119,7 +119,7 @@ const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChang
     {filterValues.map((subItem, index) => (
       <li
         key={index}
-        className="bg-opacity-15 flex cursor-pointer items-center justify-between rounded bg-black-300 px-1 py-1 text-[12px]"
+        className="bg-opacity-15 mb-0 flex cursor-pointer items-center justify-between rounded bg-black-300 px-1 py-1 text-[12px]"
         onClick={() => handleFilterChange(filterName, subItem)}
       >
         <span className={selectedValue === subItem ? 'font-bold text-[#99e24d]' : ''}>

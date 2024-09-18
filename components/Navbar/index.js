@@ -130,7 +130,7 @@ export default function NavbarComponent() {
             {i18n.options.whitelist
               .filter((l) => l !== i18n.resolvedLanguage)
               .map((l) => (
-                <Dropdown.Item>
+                <Dropdown.Item key={l}>
                   <Link href={'?lang=' + l}>
                     <Text weight={'bold'}>{l}</Text>
                   </Link>
