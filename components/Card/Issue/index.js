@@ -39,6 +39,7 @@ const IssueCard = ({ issue, userInfo }) => {
   return (
     <Tooltip
       followCursor
+      key={issue.id}
       disabled={hasPermission}
       title={t('issue.contextLevelTask')}
       className={`${hasPermission ? 'order-0' : 'order-5'}`}
