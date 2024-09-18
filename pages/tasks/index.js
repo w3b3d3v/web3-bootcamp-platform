@@ -22,7 +22,6 @@ const TaskPage = ({ issues }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
   const [dataSortBar, setDataSortBar] = useState('ContextDepth')
-  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
   const filterSortbar = (data) => {
     setDataSortBar(data)
   }
@@ -37,7 +36,8 @@ const TaskPage = ({ issues }) => {
     availableAmounts,
     getFilterComponentProps,
   } = useFilterState(issues)
-  
+  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
+ 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -54,7 +54,6 @@ const TaskPage = ({ issues }) => {
   if (userAuth === undefined) {
     return <p>Loading...</p>
   }
-
 
   return (
     <>
