@@ -129,7 +129,8 @@
     "already_on_first_lesson": "You are already on the first lesson.",
     "data_updated_success": "Data updated successfully!",
     "error_updating_data": "Error updating data",
-    "language_not_available": "Content not available for the selected language. Using the default language."
+    "language_not_available": "Content not available for the selected language. Using the default language.",
+    "course_registration_success": "Successfully registered for the course!"
   },
   "twitter-share": "Networking is everything, how about sharing your progress with your friends on Twitter?",
   "buttons": {
