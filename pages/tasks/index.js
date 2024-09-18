@@ -22,7 +22,6 @@ const TaskPage = ({ issues }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
   const [dataSortBar, setDataSortBar] = useState('ContextDepth')
-
   const filterSortbar = (data) => {
     setDataSortBar(data)
   }
