@@ -145,7 +145,8 @@
     "log_in": "Log in",
     "recover_password": "Recover password",
     "login_with_github": "Login with GitHub",
-    "login_with_google": "Login with Google"
+    "login_with_google": "Login with Google",
+    "register": "Register"
   },
   "form": {
     "no_account": "Don't have an account?",
@@ -154,7 +155,8 @@
     "password": "Password",
     "enter_password": "Please enter your password",
     "verify_password": "Verify your password",
-    "or": "OR"
+    "or": "OR",
+    "already_have_account": "Already have an account?"
   },
   "link_github_account": "Do you want to link GitHub to your already registered account?",
   "peopleBuilding": "people building in this section",
