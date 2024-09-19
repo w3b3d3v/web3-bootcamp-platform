@@ -18,15 +18,15 @@ function authPage() {
   const [showpass, setShowPass] = useState(false)
   const { t } = useTranslation()
 
-  const [isSignUp, setIsSignUp] = useState(false) // Toggle for sign-up
+  const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data) => {
     if (isSignUp) {
-      signup(data) // Handle sign-up
+      signup(data)
     } else {
-      login(data) // Handle login
+      login(data)
     }
   }
 
@@ -70,7 +70,7 @@ function authPage() {
             >
               {isSignUp ? t('form.already_have_account') : t('form.no_account')}{' '}
               <span
-                onClick={() => setIsSignUp(!isSignUp)} // Toggle between sign-in and sign-up
+                onClick={() => setIsSignUp(!isSignUp)}
                 className="cursor-pointer text-sm font-medium leading-none text-primary-300 hover:text-gray-500"
               >
                 {isSignUp ? t('buttons.sign_in') : t('buttons.register_now')}
@@ -93,7 +93,8 @@ function authPage() {
                   {...register('email', {
                     required: t('form.enter_email'),
                     message: t('form.invalid_email'),
-                    pattern: /.../, // Your email regex pattern
+                    pattern:
+                      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i,
                   })}
                 />
               </div>
@@ -109,6 +110,7 @@ function authPage() {
                     id="password"
                     type={showpass ? 'text' : 'password'}
                     className="mt-2 w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800"
+                    placeholder=""
                     {...register('password', {
                       required: t('form.enter_password'),
                       message: t('form.verify_password'),
@@ -119,8 +121,11 @@ function authPage() {
                     onClick={() => setShowPass(!showpass)}
                     className="absolute right-0 mt-2 mr-3 cursor-pointer"
                   >
-                    {showpass ? <span>Hide</span> : <span>Show</span>}{' '}
-                    {/* Ensure the text is displayed */}
+                    <img
+                      src="/assets/img/eye.svg"
+                      alt={showpass ? 'Hide Password' : 'Show Password'}
+                      className="h-4 w-4"
+                    />
                   </div>
                 </div>
               </div>
@@ -142,7 +147,7 @@ function authPage() {
                 ></p>
               </div>
             )}
-            {!isSignUp && ( // Ensure this shows only during login
+            {!isSignUp && (
               <div className="mt-8">
                 <p
                   className="w-fit cursor-pointer text-xs text-indigo-300 hover:underline"
