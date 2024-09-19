@@ -146,7 +146,8 @@
     "log_in": "Entrar",
     "recover_password": "Recuperar senha",
     "login_with_github": "Login com o Github",
-    "login_with_google": "Login com o Google"
+    "login_with_google": "Login com o Google",
+    "register": "Registre-se"
   },
   "form": {
     "no_account": "Não tem uma conta?",
@@ -155,7 +156,8 @@
     "password": "Senha",
     "enter_password": "Por favor, insira sua senha",
     "verify_password": "Verifique sua senha",
-    "or": "OU"
+    "or": "OU",
+    "already_have_account": "Já tem uma conta?"
   },
   "peopleBuilding": "pessoas construindo nessa seção",
   "createStudyGroup": "Criar Grupo de Estudo",
