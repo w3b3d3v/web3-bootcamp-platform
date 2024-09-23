@@ -21,12 +21,12 @@ export const getUniqueFieldValues = (issues) => {
 
 export const filterIssuesBySearchAndFilters  = (issues, selectedFilters, searchQuery) => {
   return issues.filter((issue) => {
-    const matchesFilters = Object.entries(selectedFilters).every(
+    const issuesFilters = Object.entries(selectedFilters).every(
       ([filterName, selectedValue]) =>
         !selectedValue ||
         issue.fields.some((field) => field.field === filterName && field.value === selectedValue)
     )
-    const matchesSearchQuery = searchQuery
+    const issuesSearchQuery = searchQuery
       ? issue.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (issue.body && issue.body.toLowerCase().includes(searchQuery.toLowerCase())) ||
         issue.fields.some(
@@ -36,7 +36,7 @@ export const filterIssuesBySearchAndFilters  = (issues, selectedFilters, searchQ
         )
       : true
 
-    return matchesFilters && matchesSearchQuery
+    return issuesFilters && issuesSearchQuery
   })
 }
 
