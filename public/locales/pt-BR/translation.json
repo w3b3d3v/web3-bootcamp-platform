@@ -91,6 +91,9 @@
     "description1": "Projetados para atender a desenvolvedores de todos os níveis, nossos grupos de estudo oferecem um ambiente colaborativo onde você pode explorar diversos tópicos de Web3, incluindo blockchain, finanças descentralizadas, segurança de contratos inteligentes e muito mais. Orientados por especialistas da indústria, cada sessão oferece experiência prática e conhecimento aplicável, garantindo que você possa usar o que aprende em cenários do mundo real.",
     "description2": "Nossa missão é tornar o Web3 acessível a todos, independentemente da localização ou da preferência de idioma. Ao se juntar aos nossos grupos de estudo, você conectará com colegas interessados, participará de projetos envolventes e se tornará parte de uma comunidade vibrante, dedicada à inovação e ao crescimento no espaço Web3. Explore nossa programação e comece sua jornada para se tornar um especialista em Web3 hoje mesmo"
   },
+  "task":{
+    "taskPlaceholder": "Pesquise por título, descrição ou profundidade de contexto"
+  },
   "validation": {
     "required": "Este campo é obrigatório",
     "email": {

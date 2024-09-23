@@ -60,7 +60,7 @@ const TaskPage = ({ issues }) => {
           <SearchBar 
           searchQuery={searchQuery} 
           setSearchQuery={setSearchQuery} 
-          placeholder="Search by title, description, or context depth"
+          placeholder={t('task.taskPlaceholder')}
           />
           <div className="flex">
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">

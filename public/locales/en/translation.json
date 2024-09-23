@@ -91,6 +91,9 @@
     "description1": "Designed to cater to developers of all skill levels, our study groups provide a collaborative environment where you can dive deep into various Web3 topics, including blockchain, decentralized finance, smart contract security, and more. Guided by industry experts, each session offers hands-on experience and practical knowledge, ensuring you can apply what you learn in real-world scenarios.",
     "description2": "Our mission is to make Web3 accessible to everyone, regardless of location or language preference. By joining our study groups, you’ll connect with like-minded peers, participate in engaging projects, and become part of a thriving community dedicated to innovation and growth in the Web3 space. Explore our schedule and start your journey towards becoming a Web3 expert today!,"
   },
+  "task":{
+    "taskPlaceholder": "Search by title, description, or context depth"
+  },
   "validation": {
     "required": "This field is required",
     "email": {

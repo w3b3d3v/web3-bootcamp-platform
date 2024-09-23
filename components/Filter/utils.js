@@ -19,18 +19,25 @@ export const getUniqueFieldValues = (issues) => {
   )
 }
 
-// Filter issues based on selected filters
-export const filterIssuesBySelectedFilters = (issues, selectedFilters, searchQuery) => {
-  return issues.filter((issue) =>
-    Object.entries(selectedFilters).every(
+export const filterIssuesBySearchAndFilters  = (issues, selectedFilters, searchQuery) => {
+  return issues.filter((issue) => {
+    const matchesFilters = Object.entries(selectedFilters).every(
       ([filterName, selectedValue]) =>
         !selectedValue ||
         issue.fields.some((field) => field.field === filterName && field.value === selectedValue)
-    ) &&
-    issue.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (issue.body && issue.body.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (issue.fields.some(field => field.field === 'Context Depth' && field.value.toLowerCase().includes(searchQuery.toLowerCase())))
     )
+    const matchesSearchQuery = searchQuery
+      ? issue.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (issue.body && issue.body.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        issue.fields.some(
+          (field) =>
+            typeof field.value === 'string' &&
+            field.value.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : true
+
+    return matchesFilters && matchesSearchQuery
+  })
 }
 
 // Get options for the Amount filter based on selected Reward
@@ -61,7 +68,6 @@ export const useFilterState = (issues, searchQuery) => {
   const [filters, setFilters] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({})
   const [isOpen, setIsOpen] = useState({})
-  
 
   // Initialize filters and open state
   useEffect(() => {
@@ -174,7 +180,11 @@ export const useFilterState = (issues, searchQuery) => {
   }, [filters, updateUrlWithFilters])
 
   // Apply filters to issues
-  const filteredIssues = filterIssuesBySelectedFilters(issues, selectedFilters, searchQuery)
+  const filteredAndSearchedIssues = filterIssuesBySearchAndFilters (
+    issues,
+    selectedFilters,
+    searchQuery
+  )
   const { isAmountFilterDisabled, amountFilterTitle, availableAmounts } = getAmountFilterOptions(
     issues,
     filters,
@@ -198,7 +208,7 @@ export const useFilterState = (issues, searchQuery) => {
     toggleFilterDropdown,
     handleFilterSelection,
     clearAllFilters,
-    filteredIssues,
+    filteredIssues: filteredAndSearchedIssues,
     availableAmounts,
     getFilterComponentProps,
   }
