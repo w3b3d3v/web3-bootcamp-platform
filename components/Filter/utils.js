@@ -145,6 +145,10 @@ export const useFilterState = (issues) => {
         }
         if (filterName === 'Reward') {
           updatedFilters['Amount'] = null
+          setIsOpen((currentOpenState) => ({
+            ...currentOpenState,
+            Amount: updatedFilters['Reward'] !== null,
+          }))
         }
         updateUrlWithFilters(updatedFilters)
         return updatedFilters
