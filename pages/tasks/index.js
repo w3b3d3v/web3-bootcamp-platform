@@ -31,7 +31,7 @@ const TaskPage = ({ issues }) => {
     filteredIssues,
     availableAmounts,
     getFilterComponentProps,
-  } = useFilterState(issues)
+  } = useFilterState(issues, searchQuery, 'issue')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -57,7 +57,11 @@ const TaskPage = ({ issues }) => {
       </Head>
       <div className="flex w-full items-center justify-center">
         <div className="flex w-full flex-col xl:w-[80%]">
-          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            placeholder="Search by title, description"
+          />
           <div className="flex">
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
               <Filter
@@ -78,15 +82,17 @@ const TaskPage = ({ issues }) => {
                     <div className="flex h-10 flex-row items-center justify-between">
                       <Sortbar filters={selectedFilters} setFilters={handleFilterSelection} t={t} />
                       <label
-                        className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
-                          }`}
+                        className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
+                          isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
+                        }`}
                       >
                         {filteredIssues.length} {t('projects')}
                       </label>
                     </div>
                     <div
-                      className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${isLightTheme ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-                        }`}
+                      className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${
+                        isLightTheme ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+                      }`}
                     >
                       <div className="flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-white-100 bg-opacity-25">
                         <AiOutlineLike size={30} color="#99e24d" />
@@ -94,7 +100,7 @@ const TaskPage = ({ issues }) => {
                       <div className="flex w-full flex-col gap-0">
                         <div className="flex w-full items-center justify-between">
                           <span className="text-white text-[18px] md:text-[24px]">
-                            {t("issue.goodFirst")}
+                            {t('issue.goodFirst')}
                           </span>
                           <div className="flex w-[auto] items-center justify-center gap-1 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-2 md:w-[auto] md:rounded-[10px]">
                             {userAuth?.contextLevel ? (
@@ -110,9 +116,7 @@ const TaskPage = ({ issues }) => {
                           </div>
                         </div>
                         <div className="flex w-full">
-                          <p className="text-[12px] md:text-[16px]">
-                            {t('issue.applyListIssue')}
-                          </p>
+                          <p className="text-[12px] md:text-[16px]">{t('issue.applyListIssue')}</p>
                         </div>
                       </div>
                     </div>

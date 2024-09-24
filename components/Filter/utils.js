@@ -3,35 +3,63 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 // Extract unique field values from issues
-export const getUniqueFieldValues = (issues) => {
+export const getUniqueFieldValues = (data) => {
   const uniqueFieldValues = {}
-  issues.forEach((issue) => {
-    issue.fields.forEach(({ field, value }) => {
-      if (!uniqueFieldValues[field]) {
-        uniqueFieldValues[field] = new Set()
-      }
-      uniqueFieldValues[field].add(value)
-    })
+
+  data.forEach((issue) => {
+    // Checks if 'fields' exists and is an array
+    if (Array.isArray(issue.fields)) {
+      issue.fields.forEach(({ field, value }) => {
+        if (!uniqueFieldValues[field]) {
+          uniqueFieldValues[field] = new Set()
+        }
+        uniqueFieldValues[field].add(value)
+      })
+    }
   })
+
   // Convert Sets to Arrays for each field
   return Object.fromEntries(
     Object.entries(uniqueFieldValues).map(([field, values]) => [field, Array.from(values)])
   )
 }
 
-// Filter issues based on selected filters
-export const filterIssuesBySelectedFilters = (issues, selectedFilters) => {
-  return issues.filter((issue) =>
-    Object.entries(selectedFilters).every(
+const getAllTitlesFromMetadata = (metadata) => {
+  if (!metadata) return []
+  const titleObjects = Object.values(metadata).filter((meta) => meta?.title)
+  const titles = titleObjects.map(titleObj => titleObj.title)
+  return titles
+}
+
+export const filterItems = (items, selectedFilters, searchQuery, searchFields = []) => {
+  return items.filter((item) => {
+    // Filtering by selected values
+    const filtersPass = Object.entries(selectedFilters).every(
       ([filterName, selectedValue]) =>
-        !selectedValue ||
-        issue.fields.some((field) => field.field === filterName && field.value === selectedValue)
+        !selectedValue || (item[filterName] && item[filterName] === selectedValue)
     )
-  )
+
+    // Search specified fields
+    const searchPass = searchFields.some((field) => {
+      let content = ''
+      if (field === 'title' && item.metadata) {
+        // Get all titles from the metadata
+        const titles = getAllTitlesFromMetadata(item.metadata)
+        // Check if any of the titles includes the search query
+        return titles.some(title => title.toLowerCase().includes(searchQuery.toLowerCase()))
+      } else {
+        content = item[field]
+      }
+
+      return content && content.toLowerCase().includes(searchQuery.toLowerCase())
+    })
+
+    return filtersPass && searchPass
+  })
 }
 
 // Get options for the Amount filter based on selected Reward
-export const getAmountFilterOptions = (issues, filters, selectedReward) => {
+export const getAmountFilterOptions = (data, filters, selectedReward) => {
   const { t } = useTranslation()
   const isAmountFilterDisabled = !selectedReward
   const amountFilterTitle = isAmountFilterDisabled ? t('selectRewardFirst') : ''
@@ -39,7 +67,7 @@ export const getAmountFilterOptions = (issues, filters, selectedReward) => {
     ? []
     : filters['Amount']
         .filter((amount) =>
-          issues.some(
+          data.some(
             (issue) =>
               issue.fields.some((field) => field.field === 'Amount' && field.value === amount) &&
               issue.fields.some(
@@ -53,7 +81,7 @@ export const getAmountFilterOptions = (issues, filters, selectedReward) => {
 }
 
 // Custom hook to manage filter state
-export const useFilterState = (issues) => {
+export const useFilterState = (data, searchQuery, dataType = 'issue') => {
   const router = useRouter()
   const [filters, setFilters] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({})
@@ -61,7 +89,7 @@ export const useFilterState = (issues) => {
 
   // Initialize filters and open state
   useEffect(() => {
-    const availableFilterOptions = getUniqueFieldValues(issues)
+    const availableFilterOptions = getUniqueFieldValues(data, dataType) // Usar tipo de dado genérico aqui
     setFilters(availableFilterOptions)
     setIsOpen(
       Object.keys(availableFilterOptions).reduce((openState, filterName) => {
@@ -69,7 +97,7 @@ export const useFilterState = (issues) => {
         return openState
       }, {})
     )
-  }, [issues])
+  }, [data, dataType])
 
   // Update selected filters based on URL query parameters
   useEffect(() => {
@@ -169,10 +197,20 @@ export const useFilterState = (issues) => {
     updateUrlWithFilters(resetFilters)
   }, [filters, updateUrlWithFilters])
 
-  // Apply filters to issues
-  const filteredIssues = filterIssuesBySelectedFilters(issues, selectedFilters)
+  // Apply filters to issues and courses
+  const searchFieldsI = ['title', 'body'] // Fields to search for issues
+  const filteredIssues = filterItems(data, selectedFilters, searchQuery, searchFieldsI)
+
+  const searchFieldsC = ['title', 'description'] // Filter course by title
+  const filteredCourses = filterItems(
+    Object.values(data),
+    selectedFilters,
+    searchQuery,
+    searchFieldsC
+  )
+
   const { isAmountFilterDisabled, amountFilterTitle, availableAmounts } = getAmountFilterOptions(
-    issues,
+    data,
     filters,
     selectedFilters['Reward']
   )
@@ -195,6 +233,7 @@ export const useFilterState = (issues) => {
     handleFilterSelection,
     clearAllFilters,
     filteredIssues,
+    filteredCourses,
     availableAmounts,
     getFilterComponentProps,
   }
