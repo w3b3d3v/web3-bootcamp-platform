@@ -7,11 +7,9 @@ const Sortbar = ({ filters, sendFilterSortbar }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  const [filterName, setFilterName] = useState('')
 
   const handleFilterChange = (event) => {
     const selectedFilter = event.target.value
-    setFilterName(selectedFilter)
     sendFilterSortbar(selectedFilter)
   }
 
