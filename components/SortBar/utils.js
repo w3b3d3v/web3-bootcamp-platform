@@ -22,11 +22,11 @@ export const sortFilter = (sortBy, issues) => {
       case 'Amount':
         const amountA = a.fields.find((f) => f.field === 'Amount')?.value || 0
         const amountB = b.fields.find((f) => f.field === 'Amount')?.value || 0
-        return amountA - amountB
+        return amountB - amountA // This will sort from highest to lowest
       case 'ContextDepth':
         const contextA = contextOrder[a.fields.find((f) => f.field === 'Context Depth')?.value] || 0
         const contextB = contextOrder[b.fields.find((f) => f.field === 'Context Depth')?.value] || 0
-        return contextA - contextB
+        return contextA - contextB // This will sort from lowest to highest
       default:
         return 0
     }
