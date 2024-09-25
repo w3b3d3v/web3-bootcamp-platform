@@ -26,7 +26,6 @@ exports.createUser = async function (user) {
     const result = await mailchimp.lists.addListMember('b578d43584', {
       email_address: user.email,
       status: 'subscribed',
-      full_name: user.name,
       merge_fields: { WALLET: user.wallet_address, NAME: user.name },
     })
     console.log('User added to Mailchimp successfully:')

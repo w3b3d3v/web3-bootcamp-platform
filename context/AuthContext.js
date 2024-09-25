@@ -16,6 +16,7 @@ import {
 import { auth } from '../firebase/initFirebase.js'
 import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'
 import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
 
 const AuthContext = createContext()
 
@@ -39,6 +40,7 @@ const toastParameters = {
 }
 
 export function AuthProvider({ children }) {
+  const router = useRouter()
   const { t } = useTranslation()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -118,7 +120,29 @@ export function AuthProvider({ children }) {
   }
 
   const loginGoogle = async () => {
-    return loginWithProvider(GoogleAuthProvider)
+    setLoading(true)
+    try {
+      const result = await signInWithPopup(auth, new GoogleAuthProvider())
+      await handleUser(result.user)
+      const redirectPath = router.query.from || '/courses'
+      router.push(redirectPath)
+      toast.success(t('messages.login_success'), {
+        toastParameters,
+      })
+    } catch (error) {
+      console.error('Google login error:', error)
+      if (error.code === 'auth/popup-closed-by-user') {
+        toast.info(t('messages.login_cancelled'), {
+          toastParameters,
+        })
+      } else {
+        toast.error(t('messages.something_wrong_try_again'), {
+          toastParameters,
+        })
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   const loginGithub = async () => {
@@ -126,11 +150,22 @@ export function AuthProvider({ children }) {
     try {
       const result = await signInWithPopup(auth, new GithubAuthProvider())
       await handleGithubLogin(result.user)
-    } catch (error) {
-      console.error('GitHub login error:', error)
-      toast.error(t('messages.something_wrong_try_again'), {
+      const redirectPath = router.query.from || '/courses'
+      router.push(redirectPath)
+      toast.success(t('messages.login_success'), {
         toastParameters,
       })
+    } catch (error) {
+      console.error('GitHub login error:', error)
+      if (error.code === 'auth/popup-closed-by-user') {
+        toast.info(t('messages.login_cancelled'), {
+          toastParameters,
+        })
+      } else {
+        toast.error(t('messages.something_wrong_try_again'), {
+          toastParameters,
+        })
+      }
     } finally {
       setLoading(false)
     }
@@ -155,7 +190,28 @@ export function AuthProvider({ children }) {
 
   const loginWithProvider = async (Provider) => {
     setLoading(true)
-    await signInWithPopup(auth, new Provider())
+    try {
+      const result = await signInWithPopup(auth, new Provider())
+      await handleUser(result.user)
+      const redirectPath = router.query.from || '/courses'
+      router.push(redirectPath)
+      toast.success(t('messages.login_success'), {
+        toastParameters,
+      })
+    } catch (error) {
+      console.error('Provider login error:', error)
+      if (error.code === 'auth/popup-closed-by-user') {
+        toast.info(t('messages.login_cancelled'), {
+          toastParameters,
+        })
+      } else {
+        toast.error(t('messages.something_wrong_try_again'), {
+          toastParameters,
+        })
+      }
+    } finally {
+      setLoading(false)
+    }
   }
   let githubUrl = ''
 

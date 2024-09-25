@@ -130,7 +130,8 @@
     "data_updated_success": "Dados atualizados com sucesso!",
     "error_updating_data": "Erro ao atualizar dados",
     "language_not_available": "Conteúdo não disponível para o idioma selecionado. Usando o idioma padrão.",
-    "course_registration_success": "Registrado no curso com sucesso!"
+    "course_registration_success": "Registrado no curso com sucesso!",
+    "login_cancelled": "Login cancelado"
   },
   "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
   "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",
