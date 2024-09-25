@@ -15,7 +15,7 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/initFirebase.js'
 import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 
 const AuthContext = createContext()
 
@@ -71,9 +71,9 @@ export function AuthProvider({ children }) {
   const signup = (data) => {
     setLoading(true)
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         setUser(userCredential.user)
-        createUserinFirestore(userCredential.user)
+        await createUserinFirestore(userCredential.user)
         Router.push('/courses')
         toast.success(t('messages.registration_success'), {
           toastParameters,
@@ -122,7 +122,35 @@ export function AuthProvider({ children }) {
   }
 
   const loginGithub = async () => {
-    return loginWithProvider(GithubAuthProvider)
+    setLoading(true)
+    try {
+      const result = await signInWithPopup(auth, new GithubAuthProvider())
+      await handleGithubLogin(result.user)
+    } catch (error) {
+      console.error('GitHub login error:', error)
+      toast.error(t('messages.something_wrong_try_again'), {
+        toastParameters,
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGithubLogin = async (user) => {
+    const userData = await getUserFromFirestore(user)
+    if (!userData) {
+      await createUserinFirestore(user)
+    }
+    setUser(user)
+    const providerData = user.providerData.find((provider) => provider.providerId === 'github.com')
+    if (providerData) {
+      const githubUrl = `https://github.com/${providerData.uid}`
+      await updateUserGithub(githubUrl, user.uid)
+    }
+    Router.push('/courses')
+    toast.success(t('messages.login_success'), {
+      toastParameters,
+    })
   }
 
   const loginWithProvider = async (Provider) => {
@@ -133,34 +161,19 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     async function fetchUser() {
-      await getRedirectResult(auth)
-        .then(async (result) => {
-          const user = result?.user
-          if (!user) return
-          const cred = JSON.parse(sessionStorage.getItem('credential'))
-
-          if (cred?.providerId == 'github.com') {
-            await linkGithub(cred, user)
-          }
-          const providerObj = user.reloadUserInfo.providerUserInfo[0]
-          if (providerObj.providerId !== 'github.com') return
-          await getUserFromFirestore(user)
-          githubUrl = `https://${providerObj.providerId}/${providerObj.screenName}`
-          await updateUserGithub(githubUrl, user.uid)
-          sessionStorage.clear()
-
-          toast.success(t('messages.login_success'), {
-            toastParameters,
-          })
-        })
-        .catch((error) => {
-          console.log(error)
-          if (error.code === 'auth/account-exists-with-different-credential') {
-            const credential = OAuthProvider.credentialFromResult(error.customData)
-            sessionStorage.setItem('credential', JSON.stringify(credential))
-            Router.push('/auth')
-          }
-        })
+      try {
+        const result = await getRedirectResult(auth)
+        if (result?.user) {
+          await handleGithubLogin(result.user)
+        }
+      } catch (error) {
+        console.error('Redirect result error:', error)
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          const credential = OAuthProvider.credentialFromResult(error.customData)
+          sessionStorage.setItem('credential', JSON.stringify(credential))
+          Router.push('/auth')
+        }
+      }
     }
     fetchUser()
     if (user) {
@@ -168,16 +181,6 @@ export function AuthProvider({ children }) {
       mixpanel.people.set(user)
     }
   }, [auth.currentUser])
-
-  async function linkGithub(cred, user) {
-    if (user) {
-      const credential = GithubAuthProvider.credential(cred.accessToken)
-      const userCredential = await linkWithCredential(user, credential)
-      githubUrl = JSON.parse(userCredential._tokenResponse.rawUserInfo).html_url
-      await updateUserGithub(githubUrl, user.uid)
-      await getUserFromFirestore(user, user.providerData)
-    }
-  }
   const logout = async () => {
     try {
       sessionStorage.clear()
