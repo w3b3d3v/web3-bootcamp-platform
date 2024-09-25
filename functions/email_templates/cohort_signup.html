@@ -1,0 +1,199 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=640" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style type="text/css">
+      body,
+      td {
+        font-family: 'Barlow', sans-serif;
+        font-size: 14px;
+        color: #000000;
+      }
+
+      p {
+        line-height: 22px;
+        color: #000000;
+      }
+
+      .small {
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .button {
+        background-color: #7864fa;
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0;
+        cursor: pointer;
+        border-radius: 5px;
+        font-family: 'Barlow', sans-serif;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #96e150;
+      }
+
+      .footer-image {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: underline;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .button {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: 0 auto;
+        color: #000000;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #dddddd;
+        margin: 20px 0;
+      }
+
+      .footer-links {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .footer-links a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-links span {
+        margin: 0 5px;
+        color: #999999;
+      }
+    </style>
+  </head>
+
+  <body bgcolor="#F2F2F2">
+    <div class="container">
+      <p>
+        Hello builder 👷👷‍♀️!! Yan Luiz (@nomadbitcoin) from WEB3DEV here.<br /><br />
+        You have been enrolled in the build "<strong>{{course_title}}</strong>". The build starts
+        with the kickoff live session on <strong>{{kickoff_start_time}}</strong> BRT. To join, just
+        head over to <a href="https://www.youtube.com/@web3dev">our YouTube channel</a>.<br /><br />
+        <b>This project is almost entirely asynchronous.</b> The only live moment will be our
+        kickoff session. If you can't attend, don't worry. It will be recorded and made available
+        for you to watch!<br /><br />
+        The build material will be officially released at 7 PM, along with the live session
+        <a href="https://build.w3d.community/courses/{{course_id}}">here</a>.<br />
+      </p>
+
+      <h3>Some important information</h3>
+      <ol>
+        <li>
+          If you finish the project by <strong>{{end_date}}</strong> BRT, you will be eligible to
+          receive an <b>exclusive NFT</b>. We will grant you the #graduated role on our Discord, and
+          you'll have access to web3 job opportunities from our partners.
+        </li>
+        <li>
+          Don't forget to connect your Discord on the
+          <a href="https://build.w3d.community/courses/{{course_id}}">builds platform</a>, as we
+          need to add you to the channel "✦ Builds ✦" so you can chat with other students.
+        </li>
+      </ol>
+
+      <p>
+        If you have any questions, post them in the #chat-builds channel.<br /><br />
+        I'm excited to see everyone's project 💜💜💜.<br /><br />
+        Yan Luiz (@nomadbitcoin)
+      </p>
+
+      <hr />
+
+      <p>
+        Fala builder 👷👷‍♀️!! Yan Luiz (@nomadbitcoin) da WEB3DEV aqui.<br /><br />
+        Sua inscrição foi feita no build "<strong>{{course_title}}</strong>". O build começa com a
+        live de kickoff em <strong>{{kickoff_start_time}}</strong> BRT. Para acompanhar é só entrar
+        no <a href="https://www.youtube.com/@web3dev">nosso YouTube</a>.<br /><br />
+        <b>Esse projeto é praticamente todo assíncrono.</b> O único momento ao vivo será nossa live.
+        Se não puder participar, não se preocupe. Ela também será gravada e disponibilizada para
+        você assistir!<br /><br />
+        O material do build será aberto oficialmente às 19h, junto com a live
+        <a href="https://build.w3d.community/courses/{{course_id}}">aqui</a>.<br />
+      </p>
+
+      <h3>Algumas informações importantes</h3>
+      <ol>
+        <li>
+          Se você terminar o projeto até <strong>{{end_date}}</strong> BRT, você terá direito a
+          receber um <b>NFT exclusivo</b>. Vamos dar para você o cargo de #graduad@ no nosso Discord
+          e terá acesso a vagas de trabalho web3 em nossos parceiros.
+        </li>
+        <li>
+          Não se esqueça de conectar seu Discord na
+          <a href="https://build.w3d.community/courses/{{course_id}}">plataforma de builds</a>, pois
+          precisamos adicionar você no canal "✦ Builds ✦" para você poder conversar com as outras
+          pessoas que estão estudando junto com você.
+        </li>
+      </ol>
+
+      <p>
+        Se tiver perguntas, mande no canal #chat-builds.<br /><br />
+        Estou animado para ver o projeto de todo mundo 💜💜💜.<br /><br />
+        Yan Luiz (@nomadbitcoin)
+      </p>
+
+      <div class="footer-links">
+        <a href="https://twitter.com/web3dev_" target="_blank">Twitter</a>
+        <span>|</span>
+        <a href="https://pt.discord.w3d.community" target="_blank">Discord</a>
+        <span>|</span>
+        <a href="https://github.com/w3b3d3v" target="_blank">GitHub</a>
+        <span>|</span>
+        <a href="https://www.linkedin.com/company/w3d-community" target="_blank">LinkedIn</a>
+        <span>|</span>
+        <a href="https://www.youtube.com/@web3dev" target="_blank">YouTube</a>
+        <span>|</span>
+        <a href="https://pt.w3d.community/" target="_blank">Forum</a>
+        <span>|</span>
+        <a href="https://pt.glossario.w3d.community/" target="_blank">Glossary</a>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0; clear: both" />
+
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/w3d-logo-hor.png?alt=media&token=6e334502-8535-46e9-84df-ffb0412b460b"
+        alt="WEB3DEV Logo"
+        class="footer-image"
+      />
+    </div>
+  </body>
+</html>
