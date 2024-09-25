@@ -26,19 +26,11 @@ exports.createUser = async function (user) {
     const result = await mailchimp.lists.addListMember('b578d43584', {
       email_address: user.email,
       status: 'subscribed',
-      merge_fields: objectWithUppercasedKeys(user),
+      full_name: user.name,
+      merge_fields: { WALLET: user.wallet_address, NAME: user.name },
     })
+    console.log('User added to Mailchimp successfully:')
   } catch (error) {
     console.error(error)
   }
-}
-
-function objectWithUppercasedKeys(object) {
-  const newObject = {}
-  Object.keys(object).forEach((key) => {
-    if(object[key]) {
-      newObject[key.toUpperCase()] = object[key]
-    }
-  })
-  return newObject
 }
