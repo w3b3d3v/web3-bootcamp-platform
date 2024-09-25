@@ -366,7 +366,7 @@ function Course({ course, currentDate }) {
                   onClick={() => registerUserInCohort()}
                   className="item flex w-full cursor-pointer justify-center rounded-lg bg-gradient-to-r from-green-400 to-violet-500 p-6"
                 >
-                  ${t('subscribeNow')}
+                  {t('subscribeNow')}
                 </button>
                 <div className="flex pt-6">
                   <ComingSoonCard />
