@@ -168,5 +168,6 @@
   "scheduledAt": "Agendado Para",
   "leaderDiscordId": "ID do Discord do Líder",
   "imageUrl": "URL da Imagem",
-  "index": "Índice"
+  "index": "Índice",
+  "searchBuild": "Pesquisar por título"
 }

@@ -169,5 +169,6 @@
   "scheduledAt": "Scheduled At",
   "leaderDiscordId": "Leader Discord ID",
   "imageUrl": "Image URL",
-  "index": "Index"
+  "index": "Index",
+  "searchBuild": "Search by title"
 }

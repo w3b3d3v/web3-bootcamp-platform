@@ -37,7 +37,7 @@ function Courses({ allCourses }) {
           <SearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="Search by title"
+            placeholder={t('searchBuild')}
           />
           {filteredCourses.map((c) => {
             return (
