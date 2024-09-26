@@ -18,7 +18,7 @@ async function sendEmail(template_name, subject, to, params = {}) {
   const template = require(`./email_templates/${template_name}`)
 
   const mailOptions = {
-    from: `Yan Luiz <contact@${process.env.MANDRILL_DOMAIN}>`,
+    from: `Yan Luiz <yan@${process.env.MANDRILL_DOMAIN}>`,
     subject,
     html: template(params),
   }
