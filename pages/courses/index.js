@@ -5,13 +5,12 @@ import { Container } from '@nextui-org/react'
 import { CourseCard } from '../../components/Card/Course'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '../../components/SearchBar'
-import { useFilterState } from '../../components/Filter/utils'
+import { useFilterState } from '../../hooks/useFilterState'
 
 function Courses({ allCourses }) {
   const { t } = useTranslation()
-  const [showMore, setShowMore] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const { filteredCourses } = useFilterState(allCourses, searchQuery, 'course')
+  const { filteredData } = useFilterState(allCourses, searchQuery)
 
   return (
     <>
@@ -39,7 +38,7 @@ function Courses({ allCourses }) {
             setSearchQuery={setSearchQuery}
             placeholder={t('searchBuild')}
           />
-          {filteredCourses.map((c) => {
+          {filteredData.map((c) => {
             return (
               <>
                 <CourseCard course={c} />
