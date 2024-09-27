@@ -13,7 +13,7 @@ import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
-import { sortFilter } from '../../components/SortBar/utils'
+import { sortItems } from '../../utils/sortItems'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
@@ -37,7 +37,7 @@ const TaskPage = ({ issues }) => {
     getFilterComponentProps,
   } = useFilterState(issues)
 
-  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
+  const sortedIssues = sortItems(dataSortBar, filteredIssues)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
