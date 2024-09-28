@@ -13,7 +13,7 @@ import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
-import { sortFilter } from '../../components/SortBar/utils'
+import { useSortItems } from '../../hooks/useSortItems'
 
 const TaskPage = ({ issues }) => {
   const { t } = useTranslation()
@@ -21,10 +21,6 @@ const TaskPage = ({ issues }) => {
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
-  const [dataSortBar, setDataSortBar] = useState('ContextDepth')
-  const filterSortbar = (data) => {
-    setDataSortBar(data)
-  }
   const {
     filters,
     selectedFilters,
@@ -37,7 +33,14 @@ const TaskPage = ({ issues }) => {
     getFilterComponentProps,
   } = useFilterState(issues)
 
-  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
+  const sortFields = ['contextDepth', 'Amount']
+  const initialSortBy = 'contextDepth' // Definimos o valor inicial aqui
+
+  const { sortedItems, sortBy, setSortBy, sortOptions } = useSortItems(
+    filteredIssues,
+    sortFields,
+    initialSortBy
+  )
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -86,18 +89,23 @@ const TaskPage = ({ issues }) => {
               />
               </div>
               <div className="flex-1 p-2 ">
-                {sortedIssues.length === 0 ? (
+                {sortedItems.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                      <Sortbar filters={filters} sendFilterSortbar={filterSortbar} t={t} />
+                      <Sortbar
+                        sortOptions={sortOptions}
+                        sortBy={sortBy}
+                        onSortChange={setSortBy}
+                        t={t}
+                      />
                       <label
                         className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
-                        {sortedIssues.length} {t('projects')}
+                        {sortedItems.length} {t('projects')}
                       </label>
                     </div>
                     <div
@@ -123,7 +131,7 @@ const TaskPage = ({ issues }) => {
                       </div>
                     </div>
                     <div className="flex flex-col gap-4">
-                      {sortedIssues.map((issue) => (
+                      {sortedItems.map((issue) => (
                         <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
                       ))}
                     </div>
