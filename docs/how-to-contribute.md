@@ -6,13 +6,6 @@
 
 - Ensure that you have Node.js version 20 installed on your system. You can download it from [Node.js official website](https://nodejs.org/).
 
-### Firebase CLI
-
-- To manage Firebase services and deploy to Firebase Hosting, you need to install the Firebase CLI. Run the following command to install the latest version of `firebase-tools`:
-  ```bash
-  npm install -g firebase-tools
-  ```
-
 ### Java (OpenJDK)
 
 - Java is required for certain build processes. Follow the instructions below to install OpenJDK on your system.
