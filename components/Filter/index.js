@@ -20,7 +20,7 @@ const Filter = ({
 
   return (
     <div
-      className={`text-black w-[100%] rounded-lg p-2 lg:w-[20%] ${
+      className={`text-black w-[100%] rounded-lg p-2 ${
         isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
       }`}
     >
