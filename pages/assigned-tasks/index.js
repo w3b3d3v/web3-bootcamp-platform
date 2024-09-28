@@ -15,7 +15,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
 import { sortFilter } from '../../components/SortBar/utils'
 
-const TaskPage = ({ issues }) => {
+const AssignedTaskPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
@@ -52,10 +52,6 @@ const TaskPage = ({ issues }) => {
     return () => unsubscribe()
   }, [])
 
-  if (userAuth === undefined) {
-    return <p>Loading...</p>
-  }
-
   return (
     <>
       <Head>
@@ -66,15 +62,7 @@ const TaskPage = ({ issues }) => {
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
-              <div className='flex flex-col w-[20%]'>
-                <div className='flex my-3 w-full justify-center'>
-                  <button
-                    className='text-white w-full rounded-[8px] bg-[#99e24d] bg-opacity-30 py-2 text-[10px] hover:bg-[#649e26] 
-                    focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:text-sm'>
-                    My tasks assigned
-                  </button>
-                </div>
-                <Filter
+              <Filter
                 filters={filters}
                 selectedFilters={selectedFilters}
                 isOpen={isOpen}
@@ -84,7 +72,6 @@ const TaskPage = ({ issues }) => {
                 filteredAmounts={availableAmounts}
                 getFilterProps={getFilterComponentProps}
               />
-              </div>
               <div className="flex-1 p-2 ">
                 {sortedIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
@@ -152,4 +139,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default withProtected(TaskPage)
+export default withProtected(AssignedTaskPage)
