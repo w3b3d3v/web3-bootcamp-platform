@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from '@nextui-org/react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
@@ -71,11 +72,13 @@ const TaskPage = ({ issues }) => {
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
               <div className='flex flex-col w-[20%]'>
                 <div className='flex my-3 w-full justify-center'>
+                <Link href="/assigned-tasks">
                   <button
                     className='text-white w-full rounded-[8px] bg-[#99e24d] bg-opacity-30 py-2 text-[10px] hover:bg-[#649e26] 
                     focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:text-sm'>
                     My tasks assigned
                   </button>
+                  </Link>
                 </div>
                 <Filter
                 filters={filters}

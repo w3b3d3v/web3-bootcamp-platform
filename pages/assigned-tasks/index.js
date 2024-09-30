@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from '@nextui-org/react'
 import { withProtected } from '../../hooks/route'
 import { getAllTasks } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
-import { AiOutlineLike } from 'react-icons/ai'
 import Head from 'next/head'
 import SearchBar from '../../components/SearchBar'
 import Filter from '../../components/Filter'
@@ -13,18 +13,14 @@ import { useFilterState } from '../../components/Filter/utils'
 import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
-import { sortFilter } from '../../components/SortBar/utils'
+import { useSortItems } from '../../hooks/useSortItems'
 
-const AssignedTaskPage = ({ issues }) => {
+const AssignedTasksPage = ({ issues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
-  const [dataSortBar, setDataSortBar] = useState('ContextDepth')
-  const filterSortbar = (data) => {
-    setDataSortBar(data)
-  }
   const {
     filters,
     selectedFilters,
@@ -37,7 +33,14 @@ const AssignedTaskPage = ({ issues }) => {
     getFilterComponentProps,
   } = useFilterState(issues)
 
-  const sortedIssues = sortFilter(dataSortBar, filteredIssues)
+  const sortFields = ['contextDepth', 'Amount']
+  const initialSortBy = 'contextDepth' // Definimos o valor inicial aqui
+
+  const { sortedItems, sortBy, setSortBy, sortOptions } = useSortItems(
+    filteredIssues,
+    sortFields,
+    initialSortBy
+  )
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -52,6 +55,10 @@ const AssignedTaskPage = ({ issues }) => {
     return () => unsubscribe()
   }, [])
 
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
+  }
+
   return (
     <>
       <Head>
@@ -62,7 +69,8 @@ const AssignedTaskPage = ({ issues }) => {
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
             <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
-              <Filter
+              <div className='flex flex-col w-[20%]'>
+                <Filter
                 filters={filters}
                 selectedFilters={selectedFilters}
                 isOpen={isOpen}
@@ -72,45 +80,29 @@ const AssignedTaskPage = ({ issues }) => {
                 filteredAmounts={availableAmounts}
                 getFilterProps={getFilterComponentProps}
               />
+              </div>
               <div className="flex-1 p-2 ">
-                {sortedIssues.length === 0 ? (
+                {sortedItems.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
-                      <Sortbar filters={filters} sendFilterSortbar={filterSortbar} t={t} />
+                      <Sortbar
+                        sortOptions={sortOptions}
+                        sortBy={sortBy}
+                        onSortChange={setSortBy}
+                        t={t}
+                      />
                       <label
                         className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
-                        {sortedIssues.length} {t('projects')}
+                        {sortedItems.length} {t('projects')}
                       </label>
                     </div>
-                    <div
-                      className={`flex flex-row gap-2 rounded-lg p-2 shadow-lg ${
-                        isLightTheme ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
-                      }`}
-                    >
-                      <div className="flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-white-100 bg-opacity-25">
-                        <AiOutlineLike size={30} color="#99e24d" />
-                      </div>
-                      <div className="flex w-full flex-col gap-0">
-                        <div className="flex w-full items-center justify-between">
-                          <span className="text-white text-[18px] md:text-[24px]">
-                            {t('issue.goodFirst')}
-                          </span>
-                          <div className="flex w-[20px] items-center justify-center rounded-[10px] bg-[#99e24d] bg-opacity-30 md:w-[30px] md:rounded-[20px]">
-                            <p className="text-[12px] text-[#99e24d] md:text-[16px]">1</p>
-                          </div>
-                        </div>
-                        <div className="flex w-full">
-                          <p className="text-[12px] md:text-[16px]">{t('issue.applyListIssue')}</p>
-                        </div>
-                      </div>
-                    </div>
                     <div className="flex flex-col gap-4">
-                      {sortedIssues.map((issue) => (
+                      {sortedItems.map((issue) => (
                         <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
                       ))}
                     </div>
@@ -139,4 +131,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default withProtected(AssignedTaskPage)
+export default withProtected(AssignedTasksPage)
