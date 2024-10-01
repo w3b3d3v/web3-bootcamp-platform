@@ -62,4 +62,6 @@ describe('Test login button', () => {
     fireEvent.click(screen.getByRole('button'))
     expect(loginGithub).toHaveBeenCalledTimes(1)
   })
+
+  it('register', () => {})
 })
