@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { fireEvent, render, screen } from '@testing-library/react'
-import LoginButton from '.'
+import LoginButton from './index'
 import '@testing-library/jest-dom'
 
 describe('Test login button', () => {
@@ -62,6 +62,4 @@ describe('Test login button', () => {
     fireEvent.click(screen.getByRole('button'))
     expect(loginGithub).toHaveBeenCalledTimes(1)
   })
-
-  it('register', () => {})
 })
