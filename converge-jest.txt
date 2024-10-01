@@ -1,0 +1,67 @@
+yarn run v1.22.19
+$ /home/viniblack/www/web3dev/web3-bootcamp-platform/node_modules/.bin/jest --coverage
+---------------------------------------------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------
+File                                                                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                              
+---------------------------------------------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------
+All files                                                            |    36.2 |    26.78 |    34.8 |   36.21 |                                                                                
+ web3-bootcamp-platform                                              |      20 |        0 |       0 |      20 |                                                                                
+  i18n.js                                                            |      20 |        0 |       0 |      20 | 11-29                                                                          
+ web3-bootcamp-platform/components/Button                            |     100 |      100 |     100 |     100 |                                                                                
+  index.js                                                           |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/components/Card                              |     100 |      100 |     100 |     100 |                                                                                
+  index.js                                                           |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/components/Card/Discord                      |      50 |    26.66 |      60 |   52.94 |                                                                                
+  index.js                                                           |      50 |    26.66 |      60 |   52.94 | 19-24,54-71                                                                    
+ web3-bootcamp-platform/components/Card/GeneralInfo                  |    56.6 |    18.86 |   38.46 |   56.86 |                                                                                
+  index.js                                                           |    56.6 |    18.86 |   38.46 |   56.86 | 58-75,83-89,94-118,169                                                         
+ web3-bootcamp-platform/components/Card/GeneralInfo/PersonalData     |   86.66 |       25 |   81.81 |   85.71 |                                                                                
+  index.js                                                           |   86.66 |       25 |   81.81 |   85.71 | 34,45                                                                          
+ web3-bootcamp-platform/components/Card/GeneralInfo/ProfessionalData |   61.11 |     7.69 |   63.63 |   58.82 |                                                                                
+  index.js                                                           |   61.11 |     7.69 |   63.63 |   58.82 | 23,35-45,136                                                                   
+ web3-bootcamp-platform/components/Card/GeneralInfo/ProfileFooter    |   17.64 |        0 |   33.33 |   17.64 |                                                                                
+  index.js                                                           |   17.64 |        0 |   33.33 |   17.64 | 14-20,24-30                                                                    
+ web3-bootcamp-platform/components/Card/GeneralInfo/ProfileProgress  |     100 |      100 |     100 |     100 |                                                                                
+  index.js                                                           |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/components/Card/GeneralInfo/SocialData       |    37.5 |       50 |   36.36 |    37.5 |                                                                                
+  index.js                                                           |    37.5 |       50 |   36.36 |    37.5 | 12-28,89                                                                       
+ web3-bootcamp-platform/components/Card/Wallet                       |   41.37 |    21.42 |   33.33 |   44.44 |                                                                                
+  index.js                                                           |   41.37 |    21.42 |   33.33 |   44.44 | 28-41,45-47,51-52,71-82                                                        
+ web3-bootcamp-platform/components/Footer                            |      50 |        0 |   33.33 |      50 |                                                                                
+  index.js                                                           |      50 |        0 |   33.33 |      50 | 18-44                                                                          
+ web3-bootcamp-platform/components/Loading                           |       0 |      100 |       0 |       0 |                                                                                
+  index.js                                                           |       0 |      100 |       0 |       0 | 4                                                                              
+ web3-bootcamp-platform/components/LoginButton                       |     100 |      100 |     100 |     100 |                                                                                
+  index.js                                                           |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/components/Tabs                              |   19.04 |        0 |       0 |      20 |                                                                                
+  tabFunctions.js                                                    |   19.04 |        0 |       0 |      20 | 5-13,17-21,25-26,31-36                                                         
+ web3-bootcamp-platform/components/ThemeSwitch                       |   88.88 |       50 |   66.66 |    87.5 |                                                                                
+  index.js                                                           |   88.88 |       50 |   66.66 |    87.5 | 24                                                                             
+ web3-bootcamp-platform/context                                      |    3.14 |        0 |       0 |    3.22 |                                                                                
+  AuthContext.js                                                     |    3.14 |        0 |       0 |    3.22 | 43-264                                                                         
+ web3-bootcamp-platform/firebase                                     |      50 |       25 |       0 |      50 |                                                                                
+  initFirebase.js                                                    |      50 |       25 |       0 |      50 | 30-34,39                                                                       
+ web3-bootcamp-platform/hooks                                        |   46.42 |    22.22 |   57.14 |   44.44 |                                                                                
+  route.js                                                           |    42.3 |    22.22 |      50 |    42.3 | 14,30-53                                                                       
+  useAuth.js                                                         |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/lib                                          |   23.62 |     4.34 |   17.64 |   23.83 |                                                                                
+  constants.js                                                       |      40 |        0 |       0 |      50 | 17-18                                                                          
+  course.js                                                          |   18.75 |        0 |      20 |   18.75 | 10-32,52-73                                                                    
+  lessons.js                                                         |   23.52 |    16.66 |   21.05 |   25.53 | 7,25-26,31-100                                                                 
+  sections.js                                                        |   22.22 |        0 |       0 |      25 | 2-4,11-15                                                                      
+  user.js                                                            |      20 |        0 |    6.25 |   19.48 | 18-24,29-77,81-84,88-91,94-116,119-128,131-134,137-150,161-174,180-188,192-208 
+  yup.js                                                             |     100 |       50 |     100 |     100 | 21-29                                                                          
+ web3-bootcamp-platform/lib/utils                                    |     100 |     87.5 |     100 |     100 |                                                                                
+  constants.js                                                       |     100 |      100 |     100 |     100 |                                                                                
+  countdown.js                                                       |     100 |      100 |     100 |     100 |                                                                                
+  github.js                                                          |     100 |       75 |     100 |     100 | 15                                                                             
+  mixpanel.js                                                        |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/pages/auth                                   |   58.33 |       85 |   38.46 |   58.33 |                                                                                
+  index.js                                                           |   58.33 |       85 |   38.46 |   58.33 | 29,34-52,92-154                                                                
+ web3-bootcamp-platform/styles/components/Card/GenerealInfo          |     100 |      100 |     100 |     100 |                                                                                
+  PersonalData.js                                                    |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/styles/components/Card/SocialData            |     100 |      100 |     100 |     100 |                                                                                
+  index.js                                                           |     100 |      100 |     100 |     100 |                                                                                
+ web3-bootcamp-platform/tests/lib                                    |    62.5 |      100 |     100 |    62.5 |                                                                                
+  fetchDB.js                                                         |    62.5 |      100 |     100 |    62.5 | 12-14                                                                          
+---------------------------------------------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
