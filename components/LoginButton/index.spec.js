@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { fireEvent, render, screen } from '@testing-library/react'
-import LoginButton from '../../components/LoginButton'
+import LoginButton from './index'
 import '@testing-library/jest-dom'
 
 describe('Test login button', () => {
