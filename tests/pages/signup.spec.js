@@ -9,7 +9,7 @@ import { faker } from '@faker-js/faker';
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 
-// Mock das dependências
+// Mock dependencies
 jest.mock('../../hooks/useAuth')
 jest.mock('react-toastify')
 jest.mock('next/router', () => ({
@@ -47,14 +47,14 @@ describe('Testing the signup page', () => {
     const email = faker.internet.email()
     const password = faker.internet.password()
 
-    // Muda para o modo de registro
+    // Switches to recording mode
     fireEvent.click(screen.getByText('buttons.register_now'))
 
-    // Preenche o formulário
+    // Fill in the form
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: email } })
     fireEvent.change(screen.getByLabelText('form.password'), { target: { value: password  } })
 
-    // Submete o formulário
+    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: 'buttons.register' }))
 
     await waitFor(() => {
@@ -68,7 +68,7 @@ describe('Testing the signup page', () => {
   it('Call the Google login function', () => {
     render(<AuthPage />)
 
-    // Muda para o modo de registro
+    // Switches to recording mode
     fireEvent.click(screen.getByText('buttons.register_now'))
 
     fireEvent.click(screen.getByText('buttons.login_with_google'))
@@ -79,7 +79,7 @@ describe('Testing the signup page', () => {
   it('Call the GitHub login function', () => {
     render(<AuthPage />)
 
-    // Muda para o modo de registro
+    // Switches to recording mode
     fireEvent.click(screen.getByText('buttons.register_now'))
 
     fireEvent.click(screen.getByText('buttons.login_with_github'))
@@ -91,7 +91,7 @@ describe('Testing the signup page', () => {
     const { t } = useTranslation();
     render(<AuthPage />)
     
-    // Muda para o modo de registro
+    // Switches to recording mode
     fireEvent.click(screen.getByText(t('buttons.register_now')))
 
     expect(screen.getByRole('button', { name: t('buttons.register') })).toBeInTheDocument()
@@ -99,17 +99,18 @@ describe('Testing the signup page', () => {
     expect(screen.getByLabelText(t('form.password'))).toBeInTheDocument()
   })
 
+  // TODO: The toastify when we try to register an invalid email not showing up
   // it('Display error message for invalid email', async () => {
   //   render(<AuthPage />)
 
-  //   // Muda para o modo de registro
+  //   // Switches to recording mode
   //   fireEvent.click(screen.getByText('buttons.register_now'))
 
-  //   // Preenche o formulário com email inválido
+  //   // Fill in the form with an invalid email address
   //   fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'emailInvalid' } })
   //   fireEvent.change(screen.getByLabelText('form.password'), { target: { value: 'password123' } })
 
-  //   // Submete o formulário
+  //   // Submit the form
   //   fireEvent.click(screen.getByRole('button', { name: 'buttons.register' }))
 
   //   await waitFor(() => {
