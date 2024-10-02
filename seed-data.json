@@ -793,9 +793,9 @@
       "project_type": "Codebase",
       "createdAt": "2024-06-25T17:29:09Z",
       "project_id": 23,
-      "assignees": ["mountain_orange"],
+      "assignees": ["peach_olive"],
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw0",
-      "status": "Todo",
+      "status": "inProgress",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
@@ -832,9 +832,9 @@
       "project_type": "Codebase",
       "createdAt": "2024-06-25T17:29:09Z",
       "project_id": 23,
-      "assignees": ["nomadbitcoin"],
+      "assignees": ["peach_olive"],
       "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw1",
-      "status": "Todo",
+      "status": "inProgress",
       "project_name": "Stellar Study Group [Core]",
       "title": "Start here",
       "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
@@ -889,7 +889,7 @@
         },
         {
           "field": "Context Depth",
-          "value": "Intermediate"
+          "value": "Beginner"
         },
         {
           "field": "Importance",

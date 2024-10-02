@@ -9,7 +9,7 @@ import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import { contextOrder } from '../../../lib/utils/constants'
 
-const IssueCard = ({ issue, userInfo }) => {
+const IssueCard = ({ issue, userInfo, isAssignedView }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
@@ -22,11 +22,10 @@ const IssueCard = ({ issue, userInfo }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = true // TODO: this context level validation is being postponed temporarily
-  // const hasPermission = canTakeTask(
-  //   userInfo?.contextLevel,
-  //   issue.fields.find((item) => item.field === 'Context Depth')?.value
-  // )
+  const hasPermission = isAssignedView || canTakeTask(
+    userInfo?.contextLevel,
+    issue.fields.find((item) => item.field === 'Context Depth')?.value
+  )
 
   const handleApply = () => {
     alert('Apply')
@@ -67,6 +66,21 @@ const IssueCard = ({ issue, userInfo }) => {
             >
               {issue.title}
             </span>
+            <button
+              hidden={isAssignedView}
+              title={`${hasPermission ? t('issue.applyForTask') : ''}`}
+              onClick={handleApply}
+              disabled={!hasPermission}
+              style={{ cursor: hasPermission ? 'pointer' : 'not-allowed' }}
+              className={`text-white mr-2 rounded bg-[#99e24d] bg-opacity-30 px-2 py-1 text-[10px] 
+                ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed bg-opacity-25'}
+                focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:mr-4 md:text-sm`}
+            >
+              Apply
+            </button>
+          </div>
+          <div className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}>
+            <p className="text-[12px] md:text-[16px]">{issue.body}</p>
           </div>
           <div
             className={`flex flex-col gap-3 text-gray-400 md:flex-row
