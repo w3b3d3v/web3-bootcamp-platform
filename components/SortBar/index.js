@@ -26,9 +26,10 @@ const Sortbar = ({ sortOptions, sortBy, onSortChange }) => {
           name="status"
           onChange={handleFilterChange}
           value={sortBy}
-          className={`text-white w-full border-none bg-transparent text-[14px] ${
-            isLight ? 'text-black-400' : 'text-[#99e24d]'
+          className={`text-white w-full border-none text-[12px] md:text-[14px] px-2  ${
+            isLight ? 'text-black-400' : 'text-[#99e24d] bg-black-200'
           }`}
+
         >
           {Object.keys(sortOptions).map((key) => (
             <option key={key} value={key}>

@@ -200,6 +200,7 @@
     "yourContextLevel": "Your context level is",
     "noContextLevel": "You don't have a level of context",
     "applyListIssue": "Apply to a list of curated issues well suited for those new to the project to kickstart your journey",
-    "applyForTask": "Apply for task"
+    "applyForTask": "Apply for task",
+    "myTasksAssigned": "My tasks assigned"
   }
 }

@@ -10,7 +10,7 @@ import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import { contextOrder } from '../../../lib/utils/constants'
 
-const IssueCard = ({ issue, userInfo }) => {
+const IssueCard = ({ issue, userInfo, isAssignedView }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
@@ -23,7 +23,7 @@ const IssueCard = ({ issue, userInfo }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = canTakeTask(
+  const hasPermission = isAssignedView || canTakeTask(
     userInfo?.contextLevel,
     issue.fields.find((item) => item.field === 'Context Depth')?.value
   )
@@ -67,6 +67,7 @@ const IssueCard = ({ issue, userInfo }) => {
               {issue.title}
             </span>
             <button
+              hidden={isAssignedView}
               title={`${hasPermission ? t('issue.applyForTask') : ''}`}
               onClick={handleApply}
               disabled={!hasPermission}

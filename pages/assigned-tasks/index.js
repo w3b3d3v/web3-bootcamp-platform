@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from '@nextui-org/react'
 import { withProtected } from '../../hooks/route'
-import { getAllTasks } from '../../lib/tasks'
+import { getAllTasksProgress } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
@@ -10,7 +9,6 @@ import Filter from '../../components/Filter'
 import Sortbar from '../../components/SortBar'
 import IssueCard from '../../components/Card/Issue'
 import { useFilterState } from '../../components/Filter/utils'
-import { getUserFromFirestore } from '../../lib/user'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
 import { useSortItems } from '../../hooks/useSortItems'
@@ -20,7 +18,7 @@ const AssignedTasksPage = ({ issues }) => {
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
-  const [userAuth, setUserAuth] = useState(null)
+  const [userScreenName, setUserScreenName] = useState(null)
   const {
     filters,
     selectedFilters,
@@ -34,7 +32,7 @@ const AssignedTasksPage = ({ issues }) => {
   } = useFilterState(issues)
 
   const sortFields = ['contextDepth', 'Amount']
-  const initialSortBy = 'contextDepth' // Definimos o valor inicial aqui
+  const initialSortBy = 'contextDepth'
 
   const { sortedItems, sortBy, setSortBy, sortOptions } = useSortItems(
     filteredIssues,
@@ -45,47 +43,48 @@ const AssignedTasksPage = ({ issues }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const userSession = await getUserFromFirestore(user)
-        setUserAuth(userSession)
+        const screenName = user?.reloadUserInfo?.screenName
+        setUserScreenName(screenName)
       } else {
-        setUserAuth(null)
+        setUserScreenName(null)
       }
     })
-
     return () => unsubscribe()
   }, [])
 
-  if (userAuth === undefined) {
+  const userAssignedIssues = sortedItems.filter((issue) => issue.assignees.includes(userScreenName))
+
+  if (userScreenName === null) {
     return <p>Loading...</p>
   }
 
   return (
     <>
       <Head>
-        <title>Tasks - WEB3DEV</title>
+        <title>My Tasks - WEB3DEV</title>
       </Head>
       <div className="flex w-full items-center justify-center">
         <div className="flex w-full flex-col xl:w-[80%]">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
-            <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
-              <div className='flex flex-col w-[20%]'>
+            <div className="flex w-full flex-col items-center md:mx-4 lg:flex-row lg:items-start">
+              <div className="flex w-[80%] flex-col items-center lg:w-[25%]">
                 <Filter
-                filters={filters}
-                selectedFilters={selectedFilters}
-                isOpen={isOpen}
-                toggleOpen={toggleFilterDropdown}
-                handleFilterChange={handleFilterSelection}
-                clearFilters={clearAllFilters}
-                filteredAmounts={availableAmounts}
-                getFilterProps={getFilterComponentProps}
-              />
+                  filters={filters}
+                  selectedFilters={selectedFilters}
+                  isOpen={isOpen}
+                  toggleOpen={toggleFilterDropdown}
+                  handleFilterChange={handleFilterSelection}
+                  clearFilters={clearAllFilters}
+                  filteredAmounts={availableAmounts}
+                  getFilterProps={getFilterComponentProps}
+                />
               </div>
-              <div className="flex-1 p-2 ">
-                {sortedItems.length === 0 ? (
+              <div className="flex-1 p-2 w-full">
+                {userAssignedIssues.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
                 ) : (
-                  <div className="flex flex-col gap-2">
+                  <div className="flex w-[100%] flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
                       <Sortbar
                         sortOptions={sortOptions}
@@ -94,16 +93,21 @@ const AssignedTasksPage = ({ issues }) => {
                         t={t}
                       />
                       <label
-                        className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
+                        className={`flex h-10 w-[80px] items-center justify-center text-[12px] md:w-[100px] md:text-[16px] ${
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
-                        {sortedItems.length} {t('projects')}
+                        {userAssignedIssues.length} {t('projects')}
                       </label>
                     </div>
                     <div className="flex flex-col gap-4">
-                      {sortedItems.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
+                      {userAssignedIssues.map((issue) => (
+                        <IssueCard
+                          key={issue.github_id}
+                          issue={issue}
+                          userInfo={userScreenName}
+                          isAssignedView={true}
+                        />
                       ))}
                     </div>
                   </div>
@@ -119,7 +123,7 @@ const AssignedTasksPage = ({ issues }) => {
 
 export async function getServerSideProps() {
   try {
-    const issues = await getAllTasks()
+    const issues = await getAllTasksProgress()
     return {
       props: { issues },
     }

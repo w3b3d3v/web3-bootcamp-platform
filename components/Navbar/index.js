@@ -69,7 +69,7 @@ export default function NavbarComponent() {
         <Navbar.Brand css={{ gap: '$5' }}>
           <Link href="/">
             <Image width={40} height={40} src="/assets/img/w3d-logo-symbol-ac.svg" />
-            <Text weight={'bold'} size={'25px'}>
+            <Text className='font-bold md:text-2xl'>
               WEB<span style={{ color: '#99e24d' }}>3</span>DEV
             </Text>
           </Link>
