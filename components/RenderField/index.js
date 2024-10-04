@@ -16,7 +16,7 @@ export default function RenderField({ object, field, isHtml, maxSize }) {
   }
 
   if (isHtml) {
-    return <div dangerouslySetInnerHTML={{ __html: content }} />
+    return <span dangerouslySetInnerHTML={{ __html: content }} />
   }
 
   return <>{content}</>
