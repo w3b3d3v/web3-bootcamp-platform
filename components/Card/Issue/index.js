@@ -23,10 +23,12 @@ const IssueCard = ({ issue, userInfo, isAssignedView }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = isAssignedView || canTakeTask(
-    userInfo?.contextLevel,
-    issue.fields.find((item) => item.field === 'Context Depth')?.value
-  )
+  const hasPermission =
+    isAssignedView ||
+    canTakeTask(
+      userInfo?.contextLevel,
+      issue.fields.find((item) => item.field === 'Context Depth')?.value
+    )
 
   const handleApply = () => {
     alert('Apply')
@@ -88,7 +90,8 @@ const IssueCard = ({ issue, userInfo, isAssignedView }) => {
               <strong>Board:</strong> {issue.project_name}
             </p>
             <p className="text-[16px]">
-              <strong>{t('issue.createdAt')}:</strong> {new Date(issue.createdAt).toLocaleDateString()}
+              <strong>{t('issue.createdAt')}:</strong>{' '}
+              {new Date(issue.createdAt).toLocaleDateString()}
             </p>
             {issue.fields.map((field, index) => (
               <p key={index} className="text-[16px]">
