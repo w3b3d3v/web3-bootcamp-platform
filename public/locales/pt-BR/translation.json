@@ -173,6 +173,7 @@
   "index": "Índice",
   "searchBuild": "Pesquisar por título",
   "no-issues-found": "Nenhuma Issue encontrado",
+  "no-signed-issue":"Você ainda não assinou nenhuma tarefa!",
   "all": "Todos",
   "open": "Aberto",
   "closed": "Fechado",

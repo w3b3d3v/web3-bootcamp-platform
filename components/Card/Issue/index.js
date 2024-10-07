@@ -22,10 +22,12 @@ const IssueCard = ({ issue, userInfo, isAssignedView }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = isAssignedView || canTakeTask(
-    userInfo?.contextLevel,
-    issue.fields.find((item) => item.field === 'Context Depth')?.value
-  )
+  const hasPermission =
+    isAssignedView ||
+    canTakeTask(
+      userInfo?.contextLevel,
+      issue.fields.find((item) => item.field === 'Context Depth')?.value
+    )
 
   const handleApply = () => {
     alert('Apply')

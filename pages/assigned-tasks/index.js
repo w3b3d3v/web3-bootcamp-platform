@@ -80,9 +80,9 @@ const AssignedTasksPage = ({ issues }) => {
                   getFilterProps={getFilterComponentProps}
                 />
               </div>
-              <div className="flex-1 p-2 w-full">
+              <div className="w-full flex-1 p-2">
                 {userAssignedIssues.length === 0 ? (
-                  <p>{t('no-issues-found')}.</p>
+                  <p>{t('no-signed-issue')}.</p>
                 ) : (
                   <div className="flex w-[100%] flex-col gap-2">
                     <div className="flex h-10 flex-row items-center justify-between">
