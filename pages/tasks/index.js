@@ -66,7 +66,7 @@ const TaskPage = ({ issues }) => {
   }
 
   const showToastConectGit = () => {
-    toast.error('Você precisa estar logado com GitHub para acessar suas tarefas!')
+    toast.error(t('messages.toast-conect-git'))
   }
 
   return (
