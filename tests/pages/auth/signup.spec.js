@@ -3,14 +3,14 @@
  */
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import AuthPage from '../../pages/auth'
-import useAuth from '../../hooks/useAuth'
-import { faker } from '@faker-js/faker';
+import AuthPage from '../../../pages/auth'
+import useAuth from '../../../hooks/useAuth'
+import { faker } from '@faker-js/faker'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 // Mock dependencies
-jest.mock('../../hooks/useAuth')
+jest.mock('../../../hooks/useAuth')
 jest.mock('react-toastify')
 jest.mock('next/router', () => ({
   useRouter() {
@@ -33,7 +33,7 @@ jest.mock('react-i18next', () => ({
   },
 }))
 
-describe('Testing the signup page', () => {
+describe('Testing the signUp page', () => {
   beforeEach(() => {
     useAuth.mockReturnValue({
       signup: jest.fn(),
@@ -52,7 +52,7 @@ describe('Testing the signup page', () => {
 
     // Fill in the form
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: email } })
-    fireEvent.change(screen.getByLabelText('form.password'), { target: { value: password  } })
+    fireEvent.change(screen.getByLabelText('form.password'), { target: { value: password } })
 
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: 'buttons.register' }))
@@ -72,7 +72,7 @@ describe('Testing the signup page', () => {
     fireEvent.click(screen.getByText('buttons.register_now'))
 
     fireEvent.click(screen.getByText('buttons.login_with_google'))
-    
+
     expect(useAuth().loginGoogle).toHaveBeenCalled()
   })
 
@@ -83,38 +83,39 @@ describe('Testing the signup page', () => {
     fireEvent.click(screen.getByText('buttons.register_now'))
 
     fireEvent.click(screen.getByText('buttons.login_with_github'))
-    
+
     expect(useAuth().loginGithub).toHaveBeenCalled()
   })
 
   it('Render the registration form', () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
     render(<AuthPage />)
-    
+
     // Switches to recording mode
     fireEvent.click(screen.getByText(t('buttons.register_now')))
 
+    expect(screen.getByText('buttons.sign_in')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: t('buttons.register') })).toBeInTheDocument()
     expect(screen.getByLabelText('E-mail')).toBeInTheDocument()
     expect(screen.getByLabelText(t('form.password'))).toBeInTheDocument()
   })
 
-  // TODO: The toastify when we try to register an invalid email not showing up
-  // it('Display error message for invalid email', async () => {
-  //   render(<AuthPage />)
+  // BUG: The toastify when we try to register an invalid email not showing up
+  it.skip('Display error message for invalid email', async () => {
+    render(<AuthPage />)
 
-  //   // Switches to recording mode
-  //   fireEvent.click(screen.getByText('buttons.register_now'))
+    // Switches to recording mode
+    fireEvent.click(screen.getByText('buttons.register_now'))
 
-  //   // Fill in the form with an invalid email address
-  //   fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'emailInvalid' } })
-  //   fireEvent.change(screen.getByLabelText('form.password'), { target: { value: 'password123' } })
+    // Fill in the form with an invalid email address
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'emailInvalid' } })
+    fireEvent.change(screen.getByLabelText('form.password'), { target: { value: 'password123' } })
 
-  //   // Submit the form
-  //   fireEvent.click(screen.getByRole('button', { name: 'buttons.register' }))
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: 'buttons.register' }))
 
-  //   await waitFor(() => {
-  //     expect(toast.error).toHaveBeenCalled()
-  //   })
-  // })
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalled()
+    })
+  })
 })
