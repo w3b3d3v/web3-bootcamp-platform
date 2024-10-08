@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 import { faker } from '@faker-js/faker'
 import { act } from 'react'
 import { toast } from 'react-toastify'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth' // Certifique-se de que estas funções estão corretas
 
-// Mock das dependências
 jest.mock('../../../hooks/useAuth')
 jest.mock('react-toastify')
 jest.mock('next/router', () => ({
@@ -32,6 +32,10 @@ jest.mock('react-i18next', () => ({
       },
     }
   },
+}))
+jest.mock('firebase/auth', () => ({
+  getAuth: jest.fn(),
+  sendPasswordResetEmail: jest.fn(),
 }))
 
 describe('Testing the signIn page', () => {
@@ -96,5 +100,41 @@ describe('Testing the signIn page', () => {
     fireEvent.click(screen.getByText('buttons.sign_in'))
 
     expect(screen.getByText('buttons.register_now')).toBeInTheDocument()
+  })
+
+  // BUG: In pages/auth/index.js I can't find the button buttons.recover_password and nowhere in the codebase but in production this text appears
+  it.skip('Testing the password recovery', async () => {
+    sendPasswordResetEmail.mockResolvedValue()
+    render(<AuthPage />)
+    const emailTest = 'teste@exemplo.com'
+
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: emailTest } })
+    expect(screen.getByText('buttons.forgot_password')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('buttons.forgot_password'))
+
+    expect(screen.getByText('buttons.recover_password')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(sendPasswordResetEmail).toHaveBeenCalledWith(expect.anything(), emailTest)
+    })
+
+    // FIX: Toastify isn't showing up
+    expect(toast.success).toHaveBeenCalledWith('messages.email_sent_success')
+  })
+
+  // BUG: Toastify isn't showing up
+  it.skip('Displays error message if password recovery fails', async () => {
+    sendPasswordResetEmail.mockRejectedValue(new Error('Erro de teste'))
+    const { getByText, getByLabelText } = render(<AuthPage />)
+    const emailTest = 'teste@exemplo.com'
+
+    fireEvent.change(getByLabelText('E-mail'), { target: { value: emailTest } })
+    fireEvent.click(getByText('buttons.forgot_password'))
+
+    await waitFor(() => {
+      expect(sendPasswordResetEmail).toHaveBeenCalledWith(expect.anything(), emailTest)
+    })
+
+    expect(toast.error).toHaveBeenCalledWith('Erro de teste')
   })
 })
