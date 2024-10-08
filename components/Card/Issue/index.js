@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
-import { MdGroup } from 'react-icons/md'
 import React, { useState } from 'react'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
@@ -36,6 +35,14 @@ const IssueCard = ({ issue, userInfo }) => {
     setIsCollapsed(!isCollapsed)
   }
 
+  const buttonClasses = `search-bar text-white py-2 px-4 text-left ${
+    isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200'
+  }`
+
+  const applyButtonClasses = `${buttonClasses} ${
+    isLight ? 'bg-[#99e24d] bg-opacity-75' : 'bg-[#649e26]'
+  } ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed opacity-50'}`
+
   return (
     <Tooltip
       followCursor
@@ -46,18 +53,11 @@ const IssueCard = ({ issue, userInfo }) => {
     >
       <div
         data-testid="cardIssue"
-        className={`flex flex-col justify-center gap-2 rounded-lg p-4 shadow-lg md:flex-row
+        className={`flex flex-col justify-center gap-2 rounded-lg p-4 shadow-lg
           ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
         `}
       >
-        <div
-          className={`flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-[#99e24d] md:h-full md:w-[80px] md:rounded-[20px]
-            ${hasPermission ? '' : 'opacity-50'}
-          `}
-        >
-          <MdGroup size={70} color="white" />
-        </div>
-        <div className="mb-4 flex w-full flex-col gap-3">
+        <div className="flex w-full flex-col gap-3">
           <div className="flex w-full items-center justify-between">
             <span
               className={`text-[18px] text-[#99e24d] md:text-[24px]
@@ -66,17 +66,6 @@ const IssueCard = ({ issue, userInfo }) => {
             >
               {issue.title}
             </span>
-            <button
-              title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-              onClick={handleApply}
-              disabled={!hasPermission}
-              style={{ cursor: hasPermission ? 'pointer' : 'not-allowed' }}
-              className={`text-white mr-2 rounded bg-[#99e24d] bg-opacity-30 px-2 py-1 text-[10px] 
-                ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed bg-opacity-25'}
-                focus:outline-none focus:ring-2 focus:ring-[#99e24d] md:mr-4 md:text-sm`}
-            >
-              {t('issue.apply')}
-            </button>
           </div>
           <div
             className={`flex flex-col gap-3 text-gray-400 md:flex-row
@@ -87,7 +76,8 @@ const IssueCard = ({ issue, userInfo }) => {
               <strong>Board:</strong> {issue.project_name}
             </p>
             <p className="text-[16px]">
-              <strong>{t('issue.createdAt')}:</strong> {new Date(issue.createdAt).toLocaleDateString()}
+              <strong>{t('issue.createdAt')}:</strong>{' '}
+              {new Date(issue.createdAt).toLocaleDateString()}
             </p>
             {issue.fields.map((field, index) => (
               <p key={index} className="text-[16px]">
@@ -95,16 +85,28 @@ const IssueCard = ({ issue, userInfo }) => {
               </p>
             ))}
           </div>
-          <section className="bg-[#3d5527]">
-            <div className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}>
+          {isCollapsed && (
+            <div className={`flex w-full justify-end gap-2 ${hasPermission ? '' : 'opacity-50'}`}>
               <button
-                className="tap-highlight-transparent flex h-full w-full items-center justify-start gap-3 bg-[#3d5527] py-4 !px-4 outline-none transition-opacity"
+                className={buttonClasses}
                 onClick={toggleCollapse}
+                style={{ width: 'fit-content' }}
               >
-                {isCollapsed ? t('issue.showDetails') : t('issue.hideDetails')}
+                {t('issue.showDetails')}
+              </button>
+              <button
+                title={`${hasPermission ? t('issue.applyForTask') : ''}`}
+                onClick={handleApply}
+                disabled={!hasPermission}
+                className={applyButtonClasses}
+                style={{ width: 'fit-content' }}
+              >
+                {t('issue.apply')}
               </button>
             </div>
-            {!isCollapsed && (
+          )}
+          {!isCollapsed && (
+            <>
               <div
                 style={{ margin: '0 1rem' }}
                 className={`flex w-full ${hasPermission ? '' : 'opacity-50'}`}
@@ -115,8 +117,30 @@ const IssueCard = ({ issue, userInfo }) => {
                   children={issue.body}
                 />
               </div>
-            )}
-          </section>
+              <div
+                className={`mt-4 flex w-full justify-end gap-2 ${
+                  hasPermission ? '' : 'opacity-50'
+                }`}
+              >
+                <button
+                  className={buttonClasses}
+                  onClick={toggleCollapse}
+                  style={{ width: 'fit-content' }}
+                >
+                  {t('issue.hideDetails')}
+                </button>
+                <button
+                  title={`${hasPermission ? t('issue.applyForTask') : ''}`}
+                  onClick={handleApply}
+                  disabled={!hasPermission}
+                  className={applyButtonClasses}
+                  style={{ width: 'fit-content' }}
+                >
+                  {t('issue.apply')}
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Tooltip>
