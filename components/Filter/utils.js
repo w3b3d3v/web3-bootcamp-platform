@@ -37,7 +37,7 @@ export const getAmountFilterOptions = (issues, filters, selectedReward) => {
   const amountFilterTitle = isAmountFilterDisabled ? t('selectRewardFirst') : ''
   const availableAmounts = isAmountFilterDisabled
     ? []
-    : filters['Amount']
+    : (filters['Amount'] || []) // Add a fallback to an empty array
         .filter((amount) =>
           issues.some(
             (issue) =>
