@@ -21,6 +21,7 @@ async function fetchKanbanProjectsGraphQL(organization, projectNumber, token, mo
                   ... on Issue {
                     title
                     body
+                    url
                     assignees(first: 10) {
                       nodes {
                         login
@@ -115,6 +116,7 @@ async function fetchAllProjectsData(organization, projects, token, mode) {
   const allIssues = []
 
   function transformIssueData(issue, projectName, projectId, projectType) {
+    console.log('issue: ', issue)
     const content = issue.content || {}
     let status = null
     return {
@@ -124,6 +126,7 @@ async function fetchAllProjectsData(organization, projects, token, mode) {
       project_type: projectType,
       title: content.title,
       body: content.body || '',
+      url: content.url || '',
       assignees:
         content.assignees && content.assignees.nodes
           ? content.assignees.nodes
@@ -158,10 +161,12 @@ async function fetchAllProjectsData(organization, projects, token, mode) {
   for (const project of projects) {
     try {
       const nodes = await fetchKanbanProjectsGraphQL(organization, project.id, token, mode)
-      const transformedNodes = nodes.map((issue) =>
-        transformIssueData(issue, project.name, project.id, project.type)
-      )
-      allIssues.push(...transformedNodes)
+      if (nodes && nodes.length > 0) {
+        const transformedNodes = nodes.map((issue) =>
+          transformIssueData(issue, project.name, project.id, project.type)
+        )
+        allIssues.push(...transformedNodes)
+      }
     } catch (error) {
       console.error(`Failed to fetch data for project ${project.name} (ID: ${project.id}):`, error)
     }
