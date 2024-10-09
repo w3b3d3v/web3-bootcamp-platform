@@ -132,7 +132,7 @@
     "language_not_available": "Content not available for the selected language. Using the default language.",
     "course_registration_success": "Successfully registered for the course!",
     "login_cancelled": "Login cancelled",
-    "toast-conect-git":"You need to be logged in with GitHub to access your tasks!"
+    "toast-conect-git": "You need to be logged in with GitHub to access your tasks!"
   },
   "twitter-share": "Networking is everything, how about sharing your progress with your friends on Twitter?",
   "buttons": {
@@ -175,7 +175,7 @@
   "index": "Index",
   "searchBuild": "Search by title",
   "no-issues-found": "No issues found",
-  "no-signed-issue":"You haven't signed any tasks yet!",
+  "no-signed-issue": "You haven't signed any tasks yet!",
   "all": "All",
   "open": "Open",
   "closed": "Closed",
@@ -205,7 +205,8 @@
     "noContextLevel": "You don't have a level of context",
     "applyListIssue": "Apply to a list of curated issues well suited for those new to the project to kickstart your journey",
     "applyForTask": "Apply for task",
-    "myTasksAssigned": "My tasks assigned",
-    "titleMyTasksInProgress":"My Tasks in Progress."
+    "viewMyTasks": "View My Tasks",
+    "myTasks": "My Tasks List",
+    "viewAllTasks": "View All Tasks"
   }
 }

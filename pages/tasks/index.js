@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from '@nextui-org/react'
 import { withProtected } from '../../hooks/route'
-import { getAllTasks } from '../../lib/tasks'
+import { getAllTasks, getAllTasksProgress } from '../../lib/tasks'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
@@ -16,13 +16,59 @@ import { auth } from '../../firebase/initFirebase'
 import { useSortItems } from '../../hooks/useSortItems'
 import { toast } from 'react-toastify'
 
-const TaskPage = ({ issues }) => {
+const TaskPage = ({ initialIssues }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLightTheme = theme === 'light'
   const [searchQuery, setSearchQuery] = useState('')
   const [userAuth, setUserAuth] = useState(null)
   const [userProvider, setUserProvider] = useState(null)
+  const [issues, setIssues] = useState(initialIssues)
+  const [showAssigned, setShowAssigned] = useState(false)
+  const [userScreenName, setUserScreenName] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userSession = await getUserFromFirestore(user)
+        const userProvider = user?.providerData?.[0]?.providerId
+        setUserProvider(userProvider)
+        setUserAuth(userSession)
+        setUserScreenName(user?.reloadUserInfo?.screenName)
+      } else {
+        setUserAuth(null)
+        setUserProvider(null)
+        setUserScreenName(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    const fetchAssignedTasks = async () => {
+      if (showAssigned) {
+        try {
+          const assignedIssues = await getAllTasksProgress()
+          setIssues(assignedIssues)
+        } catch (error) {
+          console.error('Error fetching assigned issues:', error)
+          toast.error(t('messages.error-fetching-issues'))
+        }
+      } else {
+        setIssues(initialIssues)
+      }
+    }
+
+    fetchAssignedTasks()
+  }, [showAssigned, initialIssues])
+
+  const filteredIssues = useMemo(() => {
+    if (!showAssigned) {
+      return issues.filter((issue) => issue.status === 'Todo')
+    }
+    return issues.filter((issue) => issue.assignees.includes(userScreenName))
+  }, [issues, showAssigned, userScreenName])
 
   const {
     filters,
@@ -31,42 +77,30 @@ const TaskPage = ({ issues }) => {
     toggleFilterDropdown,
     handleFilterSelection,
     clearAllFilters,
-    filteredIssues,
+    filteredIssues: filterStateIssues,
     availableAmounts,
     getFilterComponentProps,
-  } = useFilterState(issues)
+  } = useFilterState(filteredIssues)
 
   const sortFields = ['contextDepth', 'Amount']
   const initialSortBy = 'contextDepth'
 
   const { sortedItems, sortBy, setSortBy, sortOptions } = useSortItems(
-    filteredIssues,
+    filterStateIssues,
     sortFields,
     initialSortBy
   )
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userSession = await getUserFromFirestore(user)
-        const userProvider = user?.providerData?.[0]?.providerId
-        setUserProvider(userProvider)
-        console.log(userProvider)
-        setUserAuth(userSession)
-      } else {
-        setUserAuth(null)
-      }
-    })
-
-    return () => unsubscribe()
-  }, [])
-
-  if (userAuth === undefined) {
-    return <p>Loading...</p>
+  const toggleShowAssigned = () => {
+    setShowAssigned((prev) => !prev)
   }
 
   const showToastConectGit = () => {
     toast.error(t('messages.toast-conect-git'))
+  }
+
+  if (userAuth === undefined) {
+    return <p>Loading...</p>
   }
 
   return (
@@ -82,20 +116,18 @@ const TaskPage = ({ issues }) => {
               <div className="flex w-[80%] flex-col items-center lg:w-[25%]">
                 <div className="my-3 flex w-[100%] justify-center">
                   {userProvider === 'github.com' ? (
-                    <Link href="/assigned-tasks">
-                      <button
-                        className={`rounded-[8px] bg-opacity-30 py-2 px-1 text-xs lg:px-8 lg:text-sm ${
-                          isLightTheme
-                            ? 'bg-[#99e24d] bg-opacity-70 text-black-400 hover:bg-[#649e26]'
-                            : 'bg-[#99e24d] text-white-400 hover:bg-[#649e26]'
-                        }`}
-                      >
-                        {t('issue.myTasksAssigned')}
-                      </button>
-                    </Link>
+                    <button
+                      onClick={toggleShowAssigned}
+                      className={`rounded-[8px] bg-opacity-30 py-2 px-1 text-xs lg:px-8 lg:text-sm ${
+                        isLightTheme
+                          ? 'bg-[#99e24d] bg-opacity-70 text-black-400 hover:bg-[#649e26]'
+                          : 'bg-[#99e24d] text-white-400 hover:bg-[#649e26]'
+                      }`}
+                    >
+                      {showAssigned ? t('issue.viewAllTasks') : t('issue.myTasks')}
+                    </button>
                   ) : (
                     <div className="cursor-not-allowed opacity-50">
-                      {' '}
                       <button
                         onClick={showToastConectGit}
                         className={`rounded-[8px] bg-opacity-30 py-2 px-1 text-xs lg:px-8 lg:text-sm ${
@@ -104,7 +136,7 @@ const TaskPage = ({ issues }) => {
                             : 'bg-[#99e24d] text-white-400'
                         }`}
                       >
-                        {t('issue.myTasksAssigned')}
+                        {t('issue.viewMyTasks')}
                       </button>
                     </div>
                   )}
@@ -140,13 +172,18 @@ const TaskPage = ({ issues }) => {
                         {sortedItems.length} {t('projects')}
                       </label>
                     </div>
+                    {showAssigned && (
+                      <div className="flex justify-center text-sm font-bold text-[#99e24d] md:text-2xl">
+                        {t('issue.myTasks')}
+                      </div>
+                    )}
                     <div className="flex flex-col gap-4">
                       {sortedItems.map((issue) => (
                         <IssueCard
                           key={issue.github_id}
                           issue={issue}
                           userInfo={userAuth}
-                          isAssignedView={false}
+                          isAssignedView={showAssigned}
                         />
                       ))}
                     </div>
@@ -163,14 +200,14 @@ const TaskPage = ({ issues }) => {
 
 export async function getServerSideProps() {
   try {
-    const issues = await getAllTasks()
+    const initialIssues = await getAllTasks()
     return {
-      props: { issues },
+      props: { initialIssues },
     }
   } catch (error) {
     console.error('Error fetching issues:', error)
     return {
-      props: { issues: [] },
+      props: { initialIssues: [] },
     }
   }
 }

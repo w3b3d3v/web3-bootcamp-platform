@@ -132,8 +132,7 @@
     "language_not_available": "Conteúdo não disponível para o idioma selecionado. Usando o idioma padrão.",
     "course_registration_success": "Registrado no curso com sucesso!",
     "login_cancelled": "Login cancelado",
-    "toast-conect-git":"Você precisa estar logado com GitHub para acessar suas tarefas!"
-
+    "toast-conect-git": "Você precisa estar logado com GitHub para acessar suas tarefas!"
   },
   "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
   "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",
@@ -175,7 +174,7 @@
   "index": "Índice",
   "searchBuild": "Pesquisar por título",
   "no-issues-found": "Nenhuma Issue encontrado",
-  "no-signed-issue":"Você ainda não assinou nenhuma tarefa!",
+  "no-signed-issue": "Você ainda não assinou nenhuma tarefa!",
   "all": "Todos",
   "open": "Aberto",
   "closed": "Fechado",
@@ -205,8 +204,8 @@
     "noContextLevel": "Você não tem um nível de contexto",
     "applyListIssue": "Inscreva-se em uma lista de issue selecionadas, adequadas para aqueles que são novos no projeto, para dar o pontapé inicial em sua jornada",
     "applyForTask": "Candidatar-se a tarefa",
-    "myTasksAssigned": "Minhas tarefas atribuídas",
-    "titleMyTasksInProgress":"Minhas Tarefas em Progresso."
-
+    "viewMyTasks": "Ver Minhas Tarefas",
+    "myTasks": "Lista de Minhas Tarefas",
+    "viewAllTasks": "Ver Tudo"
   }
 }
