@@ -28,8 +28,8 @@ const IssueCard = ({ issue, userInfo }) => {
   //   issue.fields.find((item) => item.field === 'Context Depth')?.value
   // )
 
-  const handleApply = () => {
-    alert('Apply')
+  const handleApply = (issue_url) => {
+    window.open(issue_url, '_blank')
   }
 
   const toggleCollapse = () => {
@@ -97,7 +97,7 @@ const IssueCard = ({ issue, userInfo }) => {
               </button>
               <button
                 title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                onClick={handleApply}
+                onClick={() => handleApply(issue.url)}
                 disabled={!hasPermission}
                 className={applyButtonClasses}
                 style={{ width: 'fit-content' }}
@@ -132,7 +132,7 @@ const IssueCard = ({ issue, userInfo }) => {
                 </button>
                 <button
                   title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                  onClick={handleApply}
+                  onClick={() => handleApply(issue.url)}
                   disabled={!hasPermission}
                   className={applyButtonClasses}
                   style={{ width: 'fit-content' }}
