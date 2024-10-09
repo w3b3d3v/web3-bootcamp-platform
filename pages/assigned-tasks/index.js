@@ -100,6 +100,9 @@ const AssignedTasksPage = ({ issues }) => {
                         {userAssignedIssues.length} {t('projects')}
                       </label>
                     </div>
+                    <div className='flex justify-center font-bold text-sm md:text-2xl text-[#99e24d]'>
+                    {t('issue.titleMyTasksInProgress')}
+                    </div>
                     <div className="flex flex-col gap-4">
                       {userAssignedIssues.map((issue) => (
                         <IssueCard

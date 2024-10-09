@@ -205,6 +205,8 @@
     "noContextLevel": "Você não tem um nível de contexto",
     "applyListIssue": "Inscreva-se em uma lista de issue selecionadas, adequadas para aqueles que são novos no projeto, para dar o pontapé inicial em sua jornada",
     "applyForTask": "Candidatar-se a tarefa",
-    "myTasksAssigned": "Minhas tarefas atribuídas"
+    "myTasksAssigned": "Minhas tarefas atribuídas",
+    "titleMyTasksInProgress":"Minhas Tarefas em Progresso."
+
   }
 }
