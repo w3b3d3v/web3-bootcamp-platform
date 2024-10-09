@@ -37,7 +37,7 @@ export const getAmountFilterOptions = (issues, filters, selectedReward) => {
   const amountFilterTitle = isAmountFilterDisabled ? t('selectRewardFirst') : ''
   const availableAmounts = isAmountFilterDisabled
     ? []
-    : (filters['Amount'] || []) // Add a fallback to an empty array
+    : (filters['Amount'] || [])
         .filter((amount) =>
           issues.some(
             (issue) =>
@@ -69,6 +69,7 @@ export const useFilterState = (issues) => {
         return openState
       }, {})
     )
+    console.log('filtered issues: ', issues)
   }, [issues])
 
   // Update selected filters based on URL query parameters

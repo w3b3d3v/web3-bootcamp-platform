@@ -41,23 +41,6 @@ const TaskPage = ({ issues }) => {
     initialSortBy
   )
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userSession = await getUserFromFirestore(user)
-        setUserAuth(userSession)
-      } else {
-        setUserAuth(null)
-      }
-    })
-
-    return () => unsubscribe()
-  }, [])
-
-  if (userAuth === undefined) {
-    return <p>Loading...</p>
-  }
-
   return (
     <>
       <Head>
@@ -100,7 +83,7 @@ const TaskPage = ({ issues }) => {
                     </div>
                     <div className="flex flex-col gap-4">
                       {sortedItems.map((issue) => (
-                        <IssueCard key={issue.github_id} issue={issue} t={t} userInfo={userAuth} />
+                        <IssueCard key={issue.id} issue={issue} t={t} userInfo={userAuth} />
                       ))}
                     </div>
                   </div>

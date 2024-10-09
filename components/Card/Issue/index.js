@@ -22,10 +22,11 @@ const IssueCard = ({ issue, userInfo }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = canTakeTask(
-    userInfo?.contextLevel,
-    issue.fields.find((item) => item.field === 'Context Depth')?.value
-  )
+  const hasPermission = true // TODO: this context level validation is being postponed temporarily
+  // const hasPermission = canTakeTask(
+  //   userInfo?.contextLevel,
+  //   issue.fields.find((item) => item.field === 'Context Depth')?.value
+  // )
 
   const handleApply = () => {
     alert('Apply')
