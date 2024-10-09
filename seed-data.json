@@ -1,849 +1,605 @@
 {
-  "cohorts": {
-    "gN8lNI52TPpLNUuy4oSM": {
-      "discord_channel": "builds",
-      "endDate": {
-        "_seconds": 1724104800,
-        "_nanoseconds": 0
-      },
-      "kickoffEndTime": {
-        "_seconds": 1722898800,
-        "_nanoseconds": 0
-      },
-      "nft_title": "Rust State Machine",
-      "name": "PIONEERS",
-      "kickoffStartTime": {
-        "_seconds": 1622895200,
-        "_nanoseconds": 0
-      },
-      "startDate": {
-        "_seconds": 1622895200,
-        "_nanoseconds": 0
-      },
-      "course_id": "Rust_State_Machine",
-      "email_content": {
-        "subject": "Your journey to learn Rust and Build your First Blockchain"
-      },
-      "discord_role": "1264936029769564211"
-    }
-  },
-  "courses": {
-    "Rust_State_Machine": {
-      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-bootcamp.appspot.com/o/courses_cover%2FRust_State_Machine.png?alt=media&token=502f8693-237b-47fd-a8e1-73d3375b0f3f",
-      "active": true,
-      "index": 1,
-      "home": true,
-      "tags": ["rust", "blockchain", "polkadot", "substrate"],
-      "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
-      "nft_title": "Rust State Machine",
-      "metadata": {
-        "pt-BR": {
-          "difficulty": "Intermediário",
-          "duration": "2 semanas",
-          "description": "<p>Olá, futuro mago do blockchain! 🌟</p>   <p>Pronto para mergulhar no mundo do Rust e blockchain, e dominar o SDK do Polkadot como um profissional? Este tutorial guiado é o seu ingresso de ouro. Sabemos que o maior obstáculo para construir seu primeiro blockchain com o SDK do Polkadot é lidar com os recursos avançados do Rust e decifrar a mágica por trás daqueles macros bacanas do Substrate. Mas não se preocupe, estamos aqui para ajudar!</p>   <p>Neste tutorial, você vai arregaçar as mangas e construir um projeto puro em Rust do zero. Você vai replicar todos os truques legais que o SDK do Polkadot usa, dando a você uma visão clara do mago por trás da cortina. Ao final, você terá uma compreensão sólida do que está acontecendo nos bastidores.</p>   <p><strong>Para quem é isso?</strong></p>  <ul>    <li>Novatos totais em Rust 🌱</li>    <li>Iniciantes em blockchain 💡</li>    <li>Mentes curiosas querendo desmistificar o SDK do Polkadot 🔍</li>  </ul>   <p>Não se preocupe se você ainda não é um guru de Rust ou blockchain. No entanto, um pouco de preparação ajuda bastante. Recomendamos fortemente que você dê uma olhada nos primeiros 11 capítulos do Livro do Rust (<a href='https://doc.rust-lang.org/book/' target='_blank'>https://doc.rust-lang.org/book/</a>). Não se preocupe em dominar todos os detalhes; apenas familiarize-se com conceitos como propriedade, tipos de dados básicos, structs, enums, crates, tratamento de erros, traits, genéricos e testes.</p>   <p>E então, você está dentro? Vamos embarcar juntos nesta aventura de codificação e desvendar os segredos da mágica do Rust e do SDK do Polkadot. Inscreva-se agora e comece sua jornada!</p>",
-          "title": "Domine Rust e Blockchain",
-          "sections": {
-            "Section_6": [
-              {
-                "file": "Lesson_1_Rust_Macros.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de macros Rust e faça o upload abaixo.",
-                "title": "Lição 1: Rust Macros",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Adding_Call_Macro_to_Balances.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de macros de chamada aos balances e faça o upload abaixo.",
-                "title": "Lição 2: Adicionando Macro de Chamada aos Balances",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Adding_Call_Macro_to_PoE.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de macros de chamada ao PoE e faça o upload abaixo.",
-                "title": "Lição 3: Adicionando Macro de Chamada ao PoE",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Use_the_Runtime_Macro.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o uso do macro runtime e faça o upload abaixo.",
-                "title": "Lição 4: Usando a Macro Runtime",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "twitter": "Acabei de concluir o curso completo sobre a construção de uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora domino macros Rust, adicionei macros de chamada aos balances e PoE, e utilizei o macro runtime. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Course_Completed.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando seu projeto final e faça o upload abaixo.",
-                "title": "Lição 5: Curso completo",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_3": [
-              {
-                "file": "Lesson_1_Generic_Types.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de tipos Genéricos e faça o upload abaixo.",
-                "title": "Lição 1: Tipos Genéricos",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Num_Crate.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Num Crate e faça o upload abaixo.",
-                "title": "Lição 2: Num Crate",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Make_Balances_Pallet_Generic.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o Balances Pallet genérico e faça o upload abaixo.",
-                "title": "Lição 3: Tornar o Balances Pallet Genérico",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Make_System_Pallet_Generic.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o System Pallet genérico e faça o upload abaixo.",
-                "title": "Lição 4: Tornar o System Pallet Genérico",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_5_Make_System_Configurable.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o System configurável e faça o upload abaixo.",
-                "title": "Lição 5: Tornar o System Configurável",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_6_Make_Balances_Configurable.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você tornou o Balances configurável e faça o upload abaixo.",
-                "title": "Lição 6: Tornar o Balances Configurável",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "twitter": "Acabei de concluir a terceira seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como implementar Generic Types, usar o Num Crate, tornar os pallets Balances e System genéricos e configuráveis, e entender o Tight Coupling. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_7_Tight_Coupling.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando seu entendimento sobre Tight Coupling e faça o upload abaixo.",
-                "title": "Lição 7: Tight Coupling",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_2": [
-              {
-                "file": "Lesson_1_System_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do System Pallet e faça o upload abaixo.",
-                "title": "Lição 1: System Pallet",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Block_Number_and_Nonce.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de Block Number e Nonce e faça o upload abaixo.",
-                "title": "Lição 2: Block Number e Nonce",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Runtime e faça o upload abaixo.",
-                "title": "Lição 3: Runtime",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Executing_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução do Runtime e faça o upload abaixo.",
-                "title": "Lição 4: Executing Runtime",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "twitter": "Acabei de concluir a segunda seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como implementar o System Pallet, lidar com Block Number e Nonce, criar e gerenciar Runtime, executar o Runtime e depurar o Runtime. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Runtime_Debug.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o processo de depuração do Runtime e faça o upload abaixo.",
-                "title": "Lição 5: Runtime Debug",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_5": [
-              {
-                "file": "Lesson_1_The_Proof_of_Existence_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do Proof of Existence Pallet e faça o upload abaixo.",
-                "title": "Lição 1: O Pallet de Prova de Existência",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Proof_Of_Existence_Functions.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação das funções Proof of Existence e faça o upload abaixo.",
-                "title": "Lição 2: Funções de Prova de Existência",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Proof_of_Existence_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação do despacho Proof of Existence e faça o upload abaixo.",
-                "title": "Lição 3: Despacho de Prova de Existência",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Integrate_Into_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a integração no runtime e faça o upload abaixo.",
-                "title": "Lição 4: Integrando ao Runtime",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_5_Add_Extrinsic_To_Block.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando como você adicionou um extrínseco ao bloco e faça o upload abaixo.",
-                "title": "Lição 5: Adicionando Extrínseco ao Bloco",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_4": [
-              {
-                "file": "Lesson_1_Executing_Blocks_and_Dispatching_Calls.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de blocos e o despacho de chamadas e faça o upload abaixo.",
-                "title": "Lição 1: Executando Blocos e Despachando Chamadas",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Block_Type.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a implementação de tipos de bloco e faça o upload abaixo.",
-                "title": "Lição 2: Block Type",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Executing_Blocks.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de blocos e faça o upload abaixo.",
-                "title": "Lição 3: Executando Blocos",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Dispatching_Calls.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho de chamadas e faça o upload abaixo.",
-                "title": "Lição 4: Despachando Chamadas",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_5_Execute_Block_With_Extrinsics.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução de um bloco com extrínsecos e faça o upload abaixo.",
-                "title": "Lição 5: Executando Bloco com Extrínsecos",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_6_Pallet_Level_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho no nível de pallet e faça o upload abaixo.",
-                "title": "Lição 6: Despacho no Nível de Pallet",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "twitter": "Acabei de concluir a quarta seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como executar blocos, despachar chamadas, trabalhar com tipos de blocos, executar blocos com extrínsecos, e lidar com despacho no nível de pallet e despacho aninhado. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_7_Nested_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o despacho aninhado e faça o upload abaixo.",
-                "title": "Lição 7: Nested Dispatch",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_1": [
-              {
-                "file": "Lesson_1_Balances_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução bem-sucedida do Balances Pallet e faça o upload abaixo.",
-                "title": "Lição 1: Balances Pallet",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_2_Add_State.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a adição de estado e faça o upload abaixo.",
-                "title": "Lição 2: Adicionar Estado",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_3_Store_And_Read.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando o armazenamento e leitura de estado e faça o upload abaixo.",
-                "title": "Lição 3: Armazenar e Ler",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "file": "Lesson_4_Basic_Tests.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a execução bem-sucedida de testes básicos e faça o upload abaixo.",
-                "title": "Lição 4: Testes Básicos",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              },
-              {
-                "twitter": "Acabei de concluir a primeira seção do aprendizado de como construir uma blockchain do zero com Rust, guiado por @web3dev_! 🚀 Agora sei como criar e gerenciar um pallet de saldos, adicionar e gerenciar estado, armazenar e ler dados, escrever testes básicos e implementar transferências de saldo. Junte-se a mim em https://build.w3d.community/ e vamos construir o futuro juntos! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Transfer_Balance.md",
-                "submission_type": "upload",
-                "submission_text": "Tire uma captura de tela do seu terminal mostrando a transferência bem-sucedida de saldo e faça o upload abaixo.",
-                "title": "Lição 5: Transferência de Saldo",
-                "submission_title": "Faça o upload de uma captura de tela do seu terminal"
-              }
-            ],
-            "Section_0": [
-              {
-                "file": "Lesson_1_What_Are_We_Building.md",
-                "submission_type": "text",
-                "submission_text": "Você está pronto para começar? Por favor, digite como você está se sentindo antes de iniciar o curso.",
-                "title": "Lição 1: O que estamos construindo",
-                "submission_title": "Comece Agora!"
-              },
-              {
-                "twitter": "Acabei de começar a aprender Rust com @web3dev_ - junte-se a mim em https://build.w3d.community/",
-                "file": "Lesson_2_Requirements.md",
-                "submission_type": "text",
-                "submission_text": "Você instalou o software necessário?",
-                "title": "Lição 2: Requisitos",
-                "submission_title": "Requisitos Instalados!"
-              }
-            ]
-          }
-        },
-        "en": {
-          "description": "<p>Hey there, future blockchain wizard! 🌟</p>  <p>Ready to dive into the world of Rust and blockchain, and tackle the Polkadot SDK like a pro? This guided tutorial is your golden ticket. We know the biggest hurdle in building your first blockchain with the Polkadot SDK is wrestling with advanced Rust features and deciphering the magic behind those nifty Substrate macros. But don’t worry, we’ve got your back!</p>  <p>In this tutorial, you’ll roll up your sleeves and build a pure Rust project from scratch. You'll replicate all the cool tricks the Polkadot SDK uses, giving you a clear view of the wizard behind the curtain. By the end of it, you'll have a solid grasp of what's happening under the hood.</p>  <p><strong>Who’s this for?</strong></p> <ul>   <li>Total Rust rookies 🌱</li>   <li>Blockchain beginners 💡</li>   <li>Curious minds wanting to demystify the Polkadot SDK 🔍</li> </ul>  <p>No worries if you're not a Rust or blockchain guru yet. However, a little prep work goes a long way. We highly recommend skimming through the first 11 chapters of the Rust Book (<a href=\"https://doc.rust-lang.org/book/\" target=\"_blank\">https://doc.rust-lang.org/book/</a>). Don't stress about mastering every detail; just get a feel for concepts like ownership, basic data types, structs, enums, crates, error handling, traits, generics, and tests.</p>  <p>So, are you in? Let's embark on this coding adventure together and unlock the secrets of Rust and Polkadot SDK magic. Subscribe now and start your journey!</p>",
-          "difficulty": "Intermediate",
-          "duration": "2 weeks",
-          "title": "Master Rust and Blockchain",
-          "sections": {
-            "Section_6": [
-              {
-                "file": "Lesson_1_Rust_Macros.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of Rust macros and upload it below.",
-                "title": "Lesson 1: Rust Macros",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Adding_Call_Macro_to_Balances.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the addition of call macros to balances and upload it below.",
-                "title": "Lesson 2: Adding Call Macro to Balances",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Adding_Call_Macro_to_PoE.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the addition of call macros to PoE and upload it below.",
-                "title": "Lesson 3: Adding Call Macro to PoE",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Use_the_Runtime_Macro.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the use of the runtime macro and upload it below.",
-                "title": "Lesson 4: Use the Runtime Macro",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "twitter": "I just completed the entire course on building a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I have mastered Rust macros, added call macros to balances and PoE, and used the runtime macro. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Course_Completed.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing your final project and upload it below.",
-                "title": "Lesson 5: Course Completed",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_3": [
-              {
-                "file": "Lesson_1_Generic_Types.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of generic types and upload it below.",
-                "title": "Lesson 1: Generic Types",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Num_Crate.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of the Num crate and upload it below.",
-                "title": "Lesson 2: Num Crate",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Make_Balances_Pallet_Generic.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing how you made the balances pallet generic and upload it below.",
-                "title": "Lesson 3: Make Balances Pallet Generic",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Make_System_Pallet_Generic.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing how you made the system pallet generic and upload it below.",
-                "title": "Lesson 4: Make System Pallet Generic",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_5_Make_System_Configurable.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing how you made the system configurable and upload it below.",
-                "title": "Lesson 5: Make System Configurable",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_6_Make_Balances_Configurable.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing how you made the balances configurable and upload it below.",
-                "title": "Lesson 6: Make Balances Configurable",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "twitter": "I just finished the third section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to implement generic types, use the Num crate, make the balances and system pallets generic and configurable, and understand tight coupling. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_7_Tight_Coupling.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing your understanding of tight coupling and upload it below.",
-                "title": "Lesson 7: Tight Coupling",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_2": [
-              {
-                "file": "Lesson_1_System_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of the system pallet and upload it below.",
-                "title": "Lesson 1: System Pallet",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Block_Number_and_Nonce.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the block number and nonce implementation and upload it below.",
-                "title": "Lesson 2: Block Number and Nonce",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the runtime implementation and upload it below.",
-                "title": "Lesson 3: Runtime",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Executing_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the execution of the runtime and upload it below.",
-                "title": "Lesson 4: Executing Runtime",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "twitter": "I just finished the second section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to implement the system pallet, handle block numbers and nonce, create and manage runtime, execute the runtime, and debug runtime. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Runtime_Debug.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the runtime debug process and upload it below.",
-                "title": "Lesson 5: Runtime Debug",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_5": [
-              {
-                "file": "Lesson_1_The_Proof_of_Existence_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of the Proof of Existence pallet and upload it below.",
-                "title": "Lesson 1: The Proof of Existence Pallet",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Proof_Of_Existence_Functions.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of Proof of Existence functions and upload it below.",
-                "title": "Lesson 2: Proof Of Existence Functions",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Proof_of_Existence_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the Proof of Existence dispatch implementation and upload it below.",
-                "title": "Lesson 3: Proof of Existence Dispatch",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Integrate_Into_Runtime.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the integration into the runtime and upload it below.",
-                "title": "Lesson 4: Integrate Into Runtime",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_5_Add_Extrinsic_To_Block.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing how you added an extrinsic to the block and upload it below.",
-                "title": "Lesson 5: Add Extrinsic To Block",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_4": [
-              {
-                "file": "Lesson_1_Executing_Blocks_and_Dispatching_Calls.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the execution of blocks and dispatching of calls and upload it below.",
-                "title": "Lesson 1: Executing Blocks and Dispatching Calls",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Block_Type.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the implementation of block types and upload it below.",
-                "title": "Lesson 2: Block Type",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Executing_Blocks.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the execution of blocks and upload it below.",
-                "title": "Lesson 3: Executing Blocks",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Dispatching_Calls.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the dispatching of calls and upload it below.",
-                "title": "Lesson 4: Dispatching Calls",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_5_Execute_Block_With_Extrinsics.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the execution of a block with extrinsics and upload it below.",
-                "title": "Lesson 5: Execute Block With Extrinsics",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_6_Pallet_Level_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing pallet level dispatch and upload it below.",
-                "title": "Lesson 6: Pallet Level Dispatch",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "twitter": "I just finished the fourth section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to execute blocks, dispatch calls, work with block types, execute blocks with extrinsics, and handle pallet level and nested dispatch. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_7_Nested_Dispatch.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing nested dispatch and upload it below.",
-                "title": "Lesson 7: Nested Dispatch",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_1": [
-              {
-                "file": "Lesson_1_Balances_Pallet.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the successful execution of the Balances Pallet and upload it below.",
-                "title": "Lesson 1: Balances Pallet",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_2_Add_State.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the addition of state and upload it below.",
-                "title": "Lesson 2: Add State",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_3_Store_And_Read.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the storing and reading of state and upload it below.",
-                "title": "Lesson 3: Store And Read",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "file": "Lesson_4_Basic_Tests.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the successful execution of basic tests and upload it below.",
-                "title": "Lesson 4: Basic Tests",
-                "submission_title": "Upload a screenshot of your terminal"
-              },
-              {
-                "twitter": "I just finished the first section of learning how to build a blockchain from scratch with Rust, guided by @web3dev_! 🚀 Now I know how to create and manage a balances pallet, add and manage state, store and read data, write basic tests, and implement balance transfers. Join me at https://build.w3d.community/ and let's build the future together! #RustLang #Polkadot #Blockchain #Web3",
-                "file": "Lesson_5_Transfer_Balance.md",
-                "submission_type": "upload",
-                "submission_text": "Take a screenshot of your terminal showing the successful transfer of balance and upload it below.",
-                "title": "Lesson 5: Transfer Balance",
-                "submission_title": "Upload a screenshot of your terminal"
-              }
-            ],
-            "Section_0": [
-              {
-                "file": "Lesson_1_What_Are_We_Building.md",
-                "submission_type": "text",
-                "submission_text": "Are you ready to start? Please type how are you feelind before you start the course.",
-                "title": "Lesson 1: What are we building",
-                "submission_title": "Star Now!"
-              },
-              {
-                "twitter": "I just started to learn Rust with @web3dev_ - join me at https://build.w3d.community/",
-                "file": "Lesson_2_Requirements.md",
-                "submission_type": "text",
-                "submission_text": "Have you installed the required software?",
-                "title": "Lesson 2: Requirements",
-                "submission_title": "Requirements Installed!"
-              }
-            ]
-          }
-        }
-      },
-      "analytics": [
-        {
-          "photoUrls": [],
-          "students": 4,
-          "section": "Section_1"
-        },
-        {
-          "photoUrls": [],
-          "students": 1,
-          "section": "Section_3"
-        },
-        {
-          "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
-          "students": 1,
-          "section": "Section_5"
-        }
-      ]
-    }
-  },
-  "lessons_submissions": {
-    "01278cf8-dedf-45b6-abbe-4acb702b5344": {
-      "user_id": "qpluj9zA4Idmvoxj1XEG8MmPpN72",
-      "lesson": "Lesson_2_Write_Your_First_Smart_Contract.md",
-      "cohort": {
-        "_firestore": {
-          "projectId": "web3dev-development"
-        },
-        "_path": {
-          "segments": ["cohorts", "lloRUGwzJAG4Lj2B3bmJ"]
-        },
-        "_converter": {}
-      },
-      "section": "Section_1",
-      "user": {
-        "_firestore": {
-          "projectId": "web3dev-development"
-        },
-        "_path": {
-          "segments": ["users", "qpluj9zA4Idmvoxj1XEG8MmPpN72"]
-        },
-        "_converter": {}
-      },
-      "cohort_id": "lloRUGwzJAG4Lj2B3bmJ",
-      "content": {
-        "type": "upload",
-        "value": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/lessons_submissions%2Fd65f4457-5764-484d-b25f-b055430e5e65?alt=media&token=0b96e3d4-1ccf-45c8-85bb-40f3a01bd07c"
-      }
-    }
-  },
-  "nft_mints": {
-    "JZ8R1avhVnjeK0U9Z2F4": {
-      "nft_contract": "",
-      "wallet_address": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
-      "user_id": "tFOYKWIm6OMlKHtmxarRfVY77W63",
-      "nft_id": 1,
-      "course_title": "Smart Contract Solidity",
-      "created_at": {
-        "_seconds": 1655725052,
-        "_nanoseconds": 306000000
-      },
-      "cohort": {
-        "discord_channel": "nft-collection-pioneiros",
-        "course_id": "NFT_Collection",
-        "kickoffEndTime": {
-          "_seconds": 1655506800,
-          "_nanoseconds": 0
-        },
-        "endDate": {
-          "_seconds": 1655348400,
-          "_nanoseconds": 90000000
-        },
-        "email_content": {
-          "subject": "Construa sua própria coleção NFT"
-        },
-        "name": "pioneiros",
-        "kickoffStartTime": {
-          "_seconds": 1655153940,
-          "_nanoseconds": 3000000
-        },
-        "course": {
-          "_firestore": {
-            "projectId": "web3dev-development"
-          },
-          "_path": {
-            "segments": ["courses", "NFT_Collection"]
-          },
-          "_converter": {}
-        },
-        "discord_role": "981217157046226995",
-        "startDate": {
-          "_seconds": 1654898400,
-          "_nanoseconds": 0
-        }
-      },
-      "cohort_name": "pioneiros",
-      "user": {
-        "photoUrl": null,
-        "uid": "tFOYKWIm6OMlKHtmxarRfVY77W63",
-        "socialLinks": [
-          {
-            "name": "github",
-            "url": "https://github.com/romulorod"
-          },
-          {
-            "name": "twitter",
-            "url": ""
-          },
-          {
-            "name": "personalWebsite",
-            "url": ""
-          },
-          {
-            "name": "linkedin",
-            "url": ""
-          }
-        ],
-        "discord": null,
-        "wallet": "0xc8DfC3924909EccCBA4E59f19AEc5cB419b83417",
-        "cohort_ids": ["LNYQZCn5p9amT9VUJVhs", "y6AUPXpfj1L6jfhAlTzl"],
-        "name": "Rômulo",
-        "bio": "",
-        "cohorts": [
-          {
-            "subscriptionDate": {
-              "_seconds": 1655233116,
-              "_nanoseconds": 21000000
-            },
-            "course_id": "Solidity_And_Smart_Contracts",
-            "cohort_id": "LNYQZCn5p9amT9VUJVhs"
-          },
-          {
-            "subscriptionDate": {
-              "_seconds": 1655233122,
-              "_nanoseconds": 90000000
-            },
-            "course_id": "NFT_Collection",
-            "cohort": {
-              "_firestore": {
-                "projectId": "web3dev-development"
-              },
-              "_path": {
-                "segments": ["cohorts", "y6AUPXpfj1L6jfhAlTzl"]
-              },
-              "_converter": {}
-            },
-            "id": "NFT_Collection",
-            "cohort_id": "y6AUPXpfj1L6jfhAlTzl"
-          }
-        ],
-        "email": "teste@teste.com"
-      },
-      "cohort_id": "y6AUPXpfj1L6jfhAlTzl"
-    }
-  },
-  "study_group_presence": {
-    "04Gsc3Qyvcgz65Ew0ptj": {
-      "channel_name": "📚・Study groups",
-      "study_group_id": "UI0UxzS0zfWKsHVwu1pc",
-      "guild_name": "WEB3DEV",
-      "guild_id": "898706705779687435",
-      "channel_id": "971893080410185728",
-      "discord_id": "734586381598457976",
-      "timestamp": {
-        "_seconds": 1717712705,
-        "_nanoseconds": 261000000
-      }
-    }
-  },
-  "study_groups": {
-    "0bthjscLIYI3YZEF7jY4": {
-      "scheduled_at": {
-        "_seconds": 1712160000,
-        "_nanoseconds": 741000000
-      },
-      "language": "pt",
-      "leader_discord_id": "548618495383044129",
-      "title": "Rust",
-      "analytics": {
-        "photoUrls": ["https://avatars.githubusercontent.com/u/77552?v=4"],
-        "students": 1
-      },
-      "active": true,
-      "slug": "Rust_PT",
-      "tags": [],
-      "difficulty": "Intermediate",
-      "description": "Write here your description",
-      "index": 4,
-      "image_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/groups_cover%2F1.png?alt=media&token=376e3547-4c4d-4afa-8ef9-e925355da771"
-    }
-  },
   "tasks": {
-    "0EvX0FUJSsK8kl4fb8YZ": {
+    "15A8yOGhuCXbOd31E2wT": {
       "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw0",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Fix the study groups on the platform",
+      "body": "## Description:\n\nEnhance the study group management system on the platform so that administrator members can easily edit, add, and remove study groups.\n\n**Tasks:**\n- [ ] Ensure administrators can easily edit existing study groups, including images, schedule, and descriptions.\n- [ ] Implement functionality allowing administrators to add new study groups to the platform.\n- [ ] Provide an option for administrators to remove study groups that have ended within the community.\n- [ ] Remove the option ❌ Connect your ETH wallet\n- [ ] Add a new function: After the member connects to discord, direct them to the server. \n\n![Image](https://github.com/user-attachments/assets/e30cc5d7-78e7-411f-b6ad-c87be75723f8)\n\n- [ ] Test the updated study group management system for usability and functionality.\n- [ ] Update the documentation to reflect the new management capabilities for study groups.\n- [ ] Notify administrators about the new functionalities and provide a guide if necessary.\n\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/243",
+      "createdAt": "2024-09-18T18:58:46Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgSv2yI",
+      "state": "OPEN",
       "closedAt": null,
       "fields": [
         {
-          "field": "Skill",
-          "value": "react"
+          "field": "Business Unity",
+          "value": "STUDY-GROUPS"
         },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Importance",
+          "value": "Low"
+        }
+      ],
+      "updatedAt": "2024-09-18T18:58:46Z",
+      "status": "Backlog"
+    },
+    "2frvwfnzjWxvhmXcPFw8": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Mitish98"
+      ],
+      "project_name": "Community Board",
+      "title": "Create a report to analyze inside datas and KPIs",
+      "body": "Analyze data from report [#13](https://github.com/w3b3d3v/web3-community-insights/issues/13) and propose KPIs to monitor the performance of different sectors of the community",
+      "url": "https://github.com/w3b3d3v/web3-community-insights/issues/14",
+      "createdAt": "2024-09-25T12:42:19Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTUyWM",
+      "state": "CLOSED",
+      "fields": [],
+      "closedAt": "2024-09-25T12:42:32Z",
+      "updatedAt": "2024-09-25T12:42:32Z",
+      "status": "Done"
+    },
+    "5iWaOnDEYJEpp22NYX8d": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Task description with Markdown",
+      "body": "We're aiming to enhance the Task card component with the following updates:\n\n1. **Image Display:** \n   - Ensure that the image is properly displayed and aligned on the Task card.\n\n2. **Description Formatting:**\n   - Implement `react-markdown` to render the task description, allowing for rich text formatting.\n\n3. **Short Description View:**\n   - Introduce a \"Short Description\" field on the Task card. This will provide a brief overview of the task.\n   - When the user clicks on the task, expand the view to reveal the full description.\n\n![Task Card Image](https://github.com/user-attachments/assets/e4718244-68b1-4c06-9891-ce6a76f39d12)\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/230",
+      "createdAt": "2024-08-20T17:20:55Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgSA9fc",
+      "state": "CLOSED",
+      "closedAt": "2024-09-17T15:23:38Z",
+      "fields": [
         {
           "field": "Business Unity",
           "value": "WEB3TASK"
         },
         {
-          "field": "Context Depth",
-          "value": "Beginner"
+          "field": "Skill",
+          "value": "react"
         },
         {
           "field": "Importance",
           "value": "high"
         },
         {
-          "field": "Reward",
-          "value": "USD"
+          "field": "Context Depth",
+          "value": "Intermediate"
         },
         {
-          "field": "Amount",
-          "value": 10
+          "field": "Reward",
+          "value": "XP"
         }
       ],
-      "updatedAt": "2024-06-25T18:04:34Z"
+      "updatedAt": "2024-09-17T15:23:38Z",
+      "status": "Done"
     },
-    "0EvX0FUJSsK8kl4fb8YU": {
+    "673C8C6HuDEq7SO4r1nH": {
       "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw1",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Tests for Build Registration When Cohort Ends",
+      "body": "## Description:\n\nDevelop integration tests for the Build registration process when the cohort ends, specifically focusing on the NFT minting process. This test involves validating the integration between pubsub and cloud functions to ensure the NFT is correctly minted.\n\n**Tasks:**\n- [ ] Set up a test environment to simulate the end of a cohort.\n- [ ] Create integration tests to verify that the pubsub triggers the correct cloud functions for minting the NFT.\n- [ ] Validate that the cloud function executes the minting process without errors.\n- [ ] Ensure the NFT minting process includes all required metadata and follows the expected format.\n- [ ] Test the entire integration flow from cohort completion to successful NFT minting.\n- [ ] Document the testing process and include instructions for running the integration tests.\n- [ ] Address any issues or bugs found during the testing process.\n- [ ] Review the integration tests with the team to ensure accuracy and completeness.\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/261",
+      "createdAt": "2024-10-08T13:38:43Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTsfEw",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "testing"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-10-28"
+        },
+        {
+          "field": "End date",
+          "value": "2024-11-01"
+        }
+      ],
+      "updatedAt": "2024-10-08T13:53:57Z",
+      "status": "Todo"
+    },
+    "8hloqrFtr3xT2LcwMryf": {
+      "project_type": "Codebase",
+      "assignees": [
+        "nomadbitcoin"
+      ],
+      "project_name": "Community Board",
+      "title": "FIX: Cloud function is storing duplicated Issues with different ids",
+      "body": "- [x] Fetch Only WEB3TASK V2 Board Issues/Tasks\n- [x] Update task metadata on db.\n- [ ] Update task metadata on seed-data and ensure nothing is broken.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/183",
+      "createdAt": "2024-07-18T22:33:34Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRCup8",
+      "state": "CLOSED",
+      "closedAt": "2024-08-15T22:47:28Z",
+      "fields": [
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Skill",
+          "value": "cloud-functions"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        }
+      ],
+      "updatedAt": "2024-08-15T22:47:28Z",
+      "status": "Done"
+    },
+    "8sdk3epSK2ZmNE6MHB63": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "FIX: Application crashes when mouse hovers over fields in task card",
+      "body": "Task metadata should work dynamically but it is currently expecting some fields to be present.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/214",
+      "createdAt": "2024-08-06T23:29:16Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRlfIw",
+      "state": "CLOSED",
+      "closedAt": "2024-08-15T14:33:48Z",
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Importance",
+          "value": "Critical"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-08-15T14:33:48Z",
+      "status": "Done"
+    },
+    "EBvdsVpbnsLKvIrh0109": {
+      "project_type": "Codebase",
+      "assignees": [
+        "lucasarchangelo"
+      ],
+      "project_name": "Community Board",
+      "title": "Profile Dynamic NFT",
+      "body": "- [ ] Get metadata from api\n- [ ] Access Control Fields based on Fellowship Levels.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/208",
+      "createdAt": "2024-08-01T02:25:22Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRZdr4",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Skill",
+          "value": "smart-contracts"
+        },
+        {
+          "field": "Business Unity",
+          "value": "PROFILE"
+        }
+      ],
+      "updatedAt": "2024-08-01T02:26:36Z",
+      "status": "Review"
+    },
+    "GbsnCuh4PlZ1um5JsZPF": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Refactor Code to Use Utility Function for Course Metadata Retrieval",
+      "body": "#### Description:\nWith the recent update to source course metadata from language-specific metadata fields, there are multiple instances in our codebase where this retrieval logic is repeated. This redundancy can lead to maintenance challenges and potential bugs. We need to refactor the code to use a dynamic utility function that centralizes this logic and retrieves all available fields.\n\n#### Tasks:\n1. **Create a Dynamic Utility Function**:\n   - Develop a utility function that dynamically retrieves all metadata fields from `course.metadata` based on the specified language.\n   - The function should fall back to the root object fields if the metadata fields are not available.\n\n   ```javascript\n   const getCourseMetadata = (course, language) => {\n     const metadata = course?.metadata?.[language] || {};\n     const rootFields = course || {};\n     \n     // Combine metadata and root fields, giving priority to metadata\n     return Object.keys(rootFields).reduce((fields, key) => {\n       fields[key] = metadata[key] || rootFields[key];\n       return fields;\n     }, {});\n   };\n   ```\n\n2. **Refactor Existing Code**:\n   - Identify all instances in the codebase where metadata fields are being fetched from `course.metadata`.\n   - Replace these instances with calls to the new utility function.\n\n   Example refactor:\n   ```javascript\n   const courseMetadata = getCourseMetadata(course, language);\n   ```\n\n3. **Update Components and Functions**:\n   - Ensure that all components and functions that rely on these fields use the utility function to fetch the metadata.\n\n4. **Test the Refactor**:\n   - Test thoroughly to ensure that the utility function works correctly across different parts of the application.\n   - Validate that features depending on these metadata fields are functioning correctly.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/211",
+      "createdAt": "2024-08-05T16:30:14Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRic1I",
+      "state": "OPEN",
       "closedAt": null,
       "fields": [
         {
           "field": "Skill",
           "value": "react"
         },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        }
+      ],
+      "updatedAt": "2024-08-05T16:30:14Z",
+      "status": "Todo"
+    },
+    "Hgp8YAOZzOSQsPUWGUNl": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Hardsys-Andre"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Page to Display User's Current Assigned Tasks",
+      "body": "We need to create a dedicated page that displays the user's currently assigned tasks. This can be based on the existing tasks page but should call a different database function to retrieve only the tasks assigned to the logged-in user.\n\n- **Page Layout:**\n  - [ ] Use the existing tasks page layout for consistency.\n  - [ ] Ensure that the page only displays tasks that are currently assigned to the user based on his Github handle.\n\n- **Database Function:**\n  - [ ] Implement a new database function that retrieves tasks assigned to the specific user.\n\n- **Navigation:**\n  - [ ] Add a link or button for easy access to the user's assigned tasks page.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/232",
+      "createdAt": "2024-08-21T00:39:30Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgSCs0w",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-10-07T14:21:25Z",
+      "status": "Todo"
+    },
+    "HxTttF76V6ShvQq8GsC9": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Delete and clear SPAM Accounts",
+      "body": "We need to verify a list of users who may be scam accounts such as:\n\n\n![Image](https://github.com/user-attachments/assets/238e460c-6dbc-4370-b656-156371eb76cc)\nand\n![Image](https://github.com/user-attachments/assets/366bfbcb-cb46-499b-a346-fa70f69e0ec1)\n\n\nThe list of all possible scam accounts until the date of 05-sep-2024 is: https://docs.google.com/spreadsheets/d/1jIlUooZ7YQT9p8AEiMqVLpf8FG6ooc5RNbYaPBrSFng\n\nDeliverables:\nVerify each suspect account and type \"False\" at `is_valid` column",
+      "url": "https://github.com/w3b3d3v/community-management/issues/176",
+      "createdAt": "2024-08-03T20:04:28Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRgDAQ",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "FOREM-CONTENT"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Skill",
+          "value": "execution"
+        },
+        {
+          "field": "Importance",
+          "value": "Low"
+        }
+      ],
+      "updatedAt": "2024-09-05T20:43:20Z",
+      "status": "Backlog"
+    },
+    "ISm2zd01ykbt9DwNVkxS": {
+      "project_type": "Codebase",
+      "assignees": [
+        "andersonlthome"
+      ],
+      "project_name": "Community Board",
+      "title": "Inspect WalletConnect Kits",
+      "body": "#### Objective\nAssess the ease of accessing contact information for users who log in with social accounts and determine if users can access the private key of the auto-generated account using the Connect Wallet App Kit plugin.\n\n#### Scope\n1. **Access to Contact Information:**\n   - Investigate how the plugin handles login via social accounts.\n   - Evaluate the process and ease of accessing user contact information (e.g., email, name) after login.\n\n2. **Private Key Access:**\n   - Determine if the plugin allows users to access the private key of their auto-generated account.\n   - Assess the security implications and user experience related to accessing the private key.\n\n#### Deliverables\n1. **Testing and Evaluation:**\n   - Implement a test setup to evaluate the plugin's functionalities.\n   - Document or share the steps and outcomes of accessing contact information and private keys.\n\n2. **Report:**\n   - Provide a report on the ease of accessing user contact information.\n   - Outline the method for users to access their private keys and any associated security concerns.\n\n### Conclusion\nThis task aims to evaluate the Connect Wallet App Kit plugin's capabilities regarding social login contact information access and private key management to ensure it meets our requirements and security standards.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/194",
+      "createdAt": "2024-07-25T17:06:28Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRM76U",
+      "state": "CLOSED",
+      "closedAt": "2024-09-10T19:48:28Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "research"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Beginner"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-09-10T19:48:28Z",
+      "status": "Done"
+    },
+    "JwlbwRLSttpK36R0sBfj": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Tests for Build Registration When Cohort Has Already Started",
+      "body": "## Description:\n\nDevelop automated tests to validate the registration process for a Build when the cohort has already started. Ensure that key functionalities, such as integration buttons, session and lesson lists, lesson content display, and submission features, are properly displayed and working.\n\n**Tasks:**\n- [ ] Create automated tests to ensure the Discord connection button appears and functions properly.\n- [ ] Create automated tests to ensure the Metamask connection button appears and functions properly.\n- [ ] Validate that the list of sessions and lessons is displayed correctly.\n- [ ] Create tests to verify that the content of each lesson appears as expected.\n- [ ] Ensure the \"Submit Lesson\" button is visible and functions correctly.\n- [ ] Test these functionalities across multiple browsers and devices for compatibility.\n- [ ] Document the testing process and include instructions for running the tests.\n- [ ] Address any issues or bugs found during the testing process.\n- [ ] Share test results with the development team and implement improvements if needed.\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/260",
+      "createdAt": "2024-10-08T13:35:41Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTseiY",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "testing"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-10-21"
+        },
+        {
+          "field": "End date",
+          "value": "2024-10-25"
+        }
+      ],
+      "updatedAt": "2024-10-08T13:53:49Z",
+      "status": "Todo"
+    },
+    "MQ0gYQkuQlciC5ELtsMd": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Mitish98"
+      ],
+      "project_name": "Community Board",
+      "title": "Create a report to analyze competition for Rust education, events and jobs",
+      "body": "Analyze competitors SEO performance to better understand domain overview, organic traffic, and backlinks on Rust teaching",
+      "url": "https://github.com/w3b3d3v/web3-community-insights/issues/15",
+      "createdAt": "2024-09-25T12:45:54Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTUy0Q",
+      "state": "OPEN",
+      "fields": [],
+      "closedAt": null,
+      "updatedAt": "2024-09-25T12:45:54Z",
+      "status": "In Progress"
+    },
+    "ORIma9P6gyhjo00z2pvH": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Hardsys-Andre"
+      ],
+      "project_name": "Community Board",
+      "title": "Apply Button -> Github Integration",
+      "body": "When a user clicks \"Apply,\" the following actions should take place:\n\n**Check GitHub Connection:**\n  - [ ] Verify if the user has connected their GitHub account.\n    - [ ] If not, redirect them to the GitHub connection URL.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/217",
+      "createdAt": "2024-08-07T01:03:32Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRllk0",
+      "state": "CLOSED",
+      "closedAt": "2024-09-10T22:10:51Z",
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Skill",
+          "value": "api-integration"
+        }
+      ],
+      "updatedAt": "2024-09-10T22:10:51Z",
+      "status": "Done"
+    },
+    "SSrS3AZTW5mlZAE7jBAT": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Replace Thirdweb for WalletConnect",
+      "body": "![Image](https://github.com/user-attachments/assets/e99675f2-1693-425b-a9f1-4cbb1bb03ec9)\n\nWe are currently using MetaMask as the sole wallet option for connecting via ThirdWeb, which introduces unnecessary complexity for a simple task like retrieving a user's address to mint an NFT. This approach limits our flexibility and adds a heavy dependency on MetaMask and ThirdWeb.\n\nWe should replace MetaMask with WalletConnect directly, which will enable us to support a wider range of wallets, including those in ecosystems like Solana and Polkadot. This change will not only simplify the user experience but also broaden the scope of wallet compatibility for our platform.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/236",
+      "createdAt": "2024-09-10T20:01:49Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgS6amk",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-09-10T20:01:49Z",
+      "status": "Todo"
+    },
+    "UD7ZbyTgOxx9dKBZ1iEy": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "SortBar Should work for any metadata. Such as from Builds and StudyGroups",
+      "body": "Could this be a individual component to be reused such as Filter and Search?\r\n\r\n_Originally posted by @nomadbitcoin in https://github.com/w3b3d3v/web3-bootcamp-platform/pull/196#discussion_r1697623479_\r\n            ",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/201",
+      "createdAt": "2024-07-31T20:37:45Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRZKGI",
+      "state": "CLOSED",
+      "closedAt": "2024-09-24T23:29:21Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-09-17"
+        }
+      ],
+      "updatedAt": "2024-09-24T23:29:21Z",
+      "status": "Done"
+    },
+    "UatraisStRRndjGL3Yvz": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Update node and dependencies",
+      "body": "We currently have a few dependencies that are known to be outdated.\n\n- Our React version is 17.\n- Firebase requires Node.js 16.\n- The current Firebase version needs to be installed globally because the latest versions conflict with the dependencies of React 17.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/203",
+      "createdAt": "2024-08-01T01:00:10Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRXEiE",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Importance",
+          "value": "Low"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        }
+      ],
+      "updatedAt": "2024-08-01T20:43:28Z",
+      "status": "Backlog"
+    },
+    "WAX3YvQPorRKgM4jFZZz": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Hardsys-Andre"
+      ],
+      "project_name": "Community Board",
+      "title": "Implement Functional SearchBar Generic",
+      "body": "Our current search bar on the tasks page is static and needs to be upgraded to support dynamic searching across various string fields, including description, body, and title. This functionality should not be limited to tasks alone but should also extend to other content types on the platform, such as study groups and builds. ",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/216",
+      "createdAt": "2024-08-07T00:46:05Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRlkaM",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
         {
           "field": "Business Unity",
           "value": "WEB3TASK"
@@ -854,38 +610,186 @@
         },
         {
           "field": "Importance",
-          "value": "high"
+          "value": "Medium"
         },
-        {
-          "field": "Reward",
-          "value": "USD"
-        },
-        {
-          "field": "Amount",
-          "value": 30
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX0FUJSsK8kl4Xb8YZ": {
-      "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw2",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
         {
           "field": "Skill",
           "value": "react"
         },
         {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-08-28T00:27:22Z",
+      "status": "Review"
+    },
+    "WS35pDfZuyUFIgKdkoCO": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Generate short description using GPT Api",
+      "body": "Enhance the `fetchAndStoreIssues` function by integrating the GPT API to automatically generate short descriptions for tasks. The function should:\n\n1. **API Integration:**\n   - During the execution of `fetchAndStoreIssues`, call the OpenAI endpoint.\n   - Pass the task description along with a prompt to generate a concise \"short description\" that captures essential details in a single phrase.\n\n2. **Database Update:**\n   - Store the generated short description in the \"task\" collection.\n   - Ensure the `seed-data.json` is updated to reflect this new data structure.\n\n3. **Testing:**\n   - Test the implementation using the emulator.\n   - Verify that short descriptions are accurately generated and stored in the \"task\" collection.\n\n**Acceptance Criteria:**\n- [ ] The `fetchAndStoreIssues` function successfully integrates with the GPT API.\n- [ ] Short descriptions are generated and stored in the \"task\" collection without losing key information.\n- [ ] `seed-data.json` is updated accordingly.\n- [ ] All functionalities are tested and verified in the emulator.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/233",
+      "createdAt": "2024-08-21T00:45:19Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgSC7fs",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
           "field": "Business Unity",
           "value": "WEB3TASK"
+        },
+        {
+          "field": "Skill",
+          "value": "api-integration"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-08-21T00:45:19Z",
+      "status": "Todo"
+    },
+    "X5dTl37jnn5hmpj2jxzn": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Mitish98"
+      ],
+      "project_name": "Community Board",
+      "title": "Fetch User Analytics for Repository Interactions",
+      "body": "#### Objective\nDevelop a cloud function to fetch user interaction data from our repositories using GraphQL APIs and generate the report.\n\n#### Scope\n1. **Data Collection:**\n   - Fetch interaction data (forks, pull requests, commits, comments) from repositories using GraphQL APIs.\n   - Ensure secure handling of authentication tokens.\n\n2. **Report Generation:**\n   - Analyze the fetched data and generate a report ranking users based on their interactions.",
+      "url": "https://github.com/w3b3d3v/web3-community-insights/issues/8",
+      "createdAt": "2024-07-25T16:57:46Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgROlj8",
+      "state": "CLOSED",
+      "closedAt": "2024-09-17T14:52:25Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "cloud-functions"
+        },
+        {
+          "field": "Importance",
+          "value": "Low"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Beginner"
+        },
+        {
+          "field": "Business Unity",
+          "value": "PROFILE"
+        }
+      ],
+      "updatedAt": "2024-09-17T14:52:26Z",
+      "status": "Done"
+    },
+    "XCBbxjrcU7p8FNJyUyvj": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Build Endpoint to serve Profile Data for Page and NFT",
+      "body": "",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/204",
+      "createdAt": "2024-08-01T01:06:44Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRZYTc",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "cloud-functions"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Business Unity",
+          "value": "PROFILE"
+        }
+      ],
+      "updatedAt": "2024-08-01T01:06:44Z",
+      "status": "Todo"
+    },
+    "Z6UAmNH9rV5VP5Mcw68B": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Adding the search bar on the builds page",
+      "body": "",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/250",
+      "createdAt": "2024-09-24T19:43:55Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTTOsI",
+      "state": "CLOSED",
+      "closedAt": "2024-10-08T13:08:42Z",
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-09-18"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-10-08T13:08:42Z",
+      "status": "Done"
+    },
+    "Z9lucZOE2d0fT8YCle2r": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "User-Specific Task Visibility",
+      "body": "- [x] Implement logic to show tasks based on the user’s level of context.\n- [x] Apply shadow effects to tasks that are not available for the specific user.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/205",
+      "createdAt": "2024-08-01T01:15:10Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgP-t_U",
+      "state": "CLOSED",
+      "closedAt": "2024-09-10T22:52:23Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "react"
         },
         {
           "field": "Context Depth",
@@ -893,85 +797,253 @@
         },
         {
           "field": "Importance",
-          "value": "low"
-        },
-        {
-          "field": "Reward",
-          "value": "XP"
-        },
-        {
-          "field": "Amount",
-          "value": 500
-        }
-      ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    },
-    "0EvX123UJSsK8kl4Xb8YZ": {
-      "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw3",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
-      "closedAt": null,
-      "fields": [
-        {
-          "field": "Skill",
-          "value": "react"
+          "value": "Medium"
         },
         {
           "field": "Business Unity",
           "value": "WEB3TASK"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-09-10T22:52:23Z",
+      "status": "Done"
+    },
+    "aLuLllYdYErM4NRmLH6w": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Guboehm"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Firebase Function Endpoint to Move Task to \"In Progress\"",
+      "body": "We need a Firebase function endpoint that automatically adds the user who applied as assignee and move the issue in our Kanban board.\n\n1. **Move Task to \"In Progress\":**\n   - [ ] If all checks are passed (User has Github connected and context required) update the task status in the Kanban board by moving it to the \"In Progress\" column.\n\n2. **Update task list\":**\n   - [ ] Call the fetchAndStoreIssues function and ensure the task is no longer being showed as \"ToDo\"",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/231",
+      "createdAt": "2024-08-21T00:21:26Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgSCqbg",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Skill",
+          "value": "cloud-functions"
+        },
+        {
+          "field": "Importance",
+          "value": "Critical"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-08-21T00:21:26Z",
+      "status": "In Progress"
+    },
+    "c03YJ4EZcdwdnHXdZk5M": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Tests for Build Registration When Not Yet Started",
+      "body": "## Description:\n\nDevelop automated tests to validate the registration process for a Build when it has not yet started. Ensure the key functionalities, such as the start date button and integration buttons, are properly displayed and working.\n\n**Tasks:**\n- [ ] Create automated tests to check that the start date button with a calendar appears and functions correctly.\n- [ ] Validate that clicking the calendar button allows users to select a date.\n- [ ] Create automated tests to ensure the Discord connection button appears and functions properly.\n- [ ] Create automated tests to ensure the Metamask connection button appears and functions properly.\n- [ ] Test these functionalities across multiple browsers and devices for compatibility.\n- [ ] Document the testing process and include instructions for running the tests.\n- [ ] Address any issues or bugs found during the testing process.\n- [ ] Share test results with the development team and implement improvements if needed.\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/259",
+      "createdAt": "2024-10-08T13:31:41Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTsdw8",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "testing"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
         },
         {
           "field": "Context Depth",
           "value": "Professional"
         },
         {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-10-10"
+        },
+        {
+          "field": "End date",
+          "value": "2024-10-18"
+        }
+      ],
+      "updatedAt": "2024-10-08T13:53:32Z",
+      "status": "Todo"
+    },
+    "dIWlp2NAZyDudc4TKEnL": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Guboehm"
+      ],
+      "project_name": "Community Board",
+      "title": "Fix production problem with XP Filter",
+      "body": "url: https://w3d-development-web3task.vercel.app/tasks?Reward=XP\n\n![Image](https://github.com/user-attachments/assets/7d380d9d-75b8-46f4-b181-9e60bb092f7d)\n\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/227",
+      "createdAt": "2024-08-17T01:22:00Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgR6Z6k",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
           "field": "Importance",
-          "value": "medium"
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
         },
         {
           "field": "Reward",
           "value": "XP"
         },
         {
-          "field": "Amount",
-          "value": 2500
+          "field": "Skill",
+          "value": "react"
         }
       ],
-      "updatedAt": "2024-06-25T18:04:34Z"
+      "updatedAt": "2024-09-23T20:00:29Z",
+      "status": "Review"
     },
-    "0EvX0FUJSsK8kl4fb123": {
+    "e0JH6gfxt6Z0w73eUpBP": {
       "project_type": "Codebase",
-      "createdAt": "2024-06-25T17:29:09Z",
-      "project_id": 23,
-      "assignees": ["nomadbitcoin"],
-      "github_id": "PVTI_lADOBSkJcc4AiejKzgQYxw4",
-      "status": "Todo",
-      "project_name": "Stellar Study Group [Core]",
-      "title": "Start here",
-      "body": "Our practical learning platform, located at build.w3d.community, offers courses focused on blockchain and web3 technologies",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Create Tests for validate Sign-in/Signup",
+      "body": "# Description:\n\nDevelop automated tests to validate the functionality of the Sign-in and Signup processes on the platform, ensuring a smooth and error-free user experience.\n\n**Tasks:**\n1. - [x] Create automated tests for the Sign-in process, covering various scenarios\n(e.g., valid credentials, invalid credentials, password reset).\n2. - [x] Create automated tests for the Signup process, including scenarios like new user registration, form validation ~and duplicate email checks~\n3. - [ ] ~Validate the tests on multiple devices and browsers to ensure compatibility.~\n4. - [x] Document the testing process and include instructions for running the tests.\n5. - [ ] Fix any issues or bugs identified during the testing process.\n6. - [ ] Share test results with the development team and implement improvements if necessary.\n\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/258",
+      "createdAt": "2024-10-08T13:24:39Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTsbug",
+      "state": "OPEN",
       "closedAt": null,
       "fields": [
         {
           "field": "Skill",
-          "value": "node"
+          "value": "testing"
         },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Start date",
+          "value": "2024-10-08"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "End date",
+          "value": "2024-10-11"
+        },
+        {
+          "field": "Delivery date",
+          "value": "2024-10-09"
+        }
+      ],
+      "updatedAt": "2024-10-09T14:45:49Z",
+      "status": "Review"
+    },
+    "eN79Wi8aIuhnZybyDQKX": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Fix Github Apply Button",
+      "body": "**Issue 1: Button Color**\n- **Bug:** The \"Apply\" button remains red, indicating insufficient context, even if the user has the required context level.\n- **Expected Behavior:** The \"Apply\" button should change color (to green or another appropriate color) once the user meets the necessary context level.\n\n**Issue 2: GitHub Session Switching**\n- **Bug:** When connecting a GitHub account, the user session changes to the email linked with GitHub. For example:\n   - If my GitHub email is `yan@nomadbitcoin.xyz` and my login email on the platform is `yan@teste.com`, after connecting GitHub, my session changes to `yan@nomadbitcoin.xyz`.\n- **Expected Behavior:** The session should remain associated with the original platform login (`yan@teste.com`) and should not switch to the GitHub email.\n- **Root Cause:** The current implementation uses `loginGithub`, which initiates a login instead of simply connecting GitHub. It should be refactored to avoid altering the session.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/239",
+      "createdAt": "2024-09-11T23:47:27Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgS9BRo",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
         {
           "field": "Business Unity",
           "value": "WEB3TASK"
         },
         {
-          "field": "Context Depth",
-          "value": "Expert"
+          "field": "Skill",
+          "value": "react"
         },
         {
           "field": "Importance",
           "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        }
+      ],
+      "updatedAt": "2024-09-11T23:47:27Z",
+      "status": "Todo"
+    },
+    "hm980pgXuBgUyXnM34nM": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Guboehm",
+        "nomadbitcoin",
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "Testing",
+      "body": "We need to finalize the configuration and refinement of the testing environment for our project to ensure that all functionalities and UI components work as expected. Significant progress has been made in fixing broken tests, but additional steps are required to complete the setup. The tasks completed and remaining are outlined below:\r\n\r\n### Completed Tasks:\r\n- [x] Fix broken tests.\r\n  - [x] ThemeSwitch tests\r\n  - [x] Tabs tests\r\n  - [x] Login tests\r\n  - [x] Social data tests\r\n  - [x] Lessons and sections tests\r\n  - [x] General info tests\r\n  - [x] Profile footer tests\r\n  - [x] Professional data warnings\r\n  - [x] Personal data tests",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/207",
+      "createdAt": "2024-08-01T01:25:57Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgP-uJc",
+      "state": "CLOSED",
+      "closedAt": "2024-09-10T18:48:52Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "testing"
+        },
+        {
+          "field": "Importance",
+          "value": "Critical"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
         },
         {
           "field": "Reward",
@@ -979,42 +1051,360 @@
         },
         {
           "field": "Amount",
-          "value": 100
+          "value": 33
         }
       ],
-      "updatedAt": "2024-06-25T18:04:34Z"
-    }
-  },
-  "users": {
-    "23WEoArqzRf4ORh4cdvadaVsYtj1": {
-      "photoUrl": null,
-      "contextLevel": "Intermediate",
-      "uid": "23WEoArqzRf4ORh4cdvadaVsYtj1",
-      "socialLinks": [
+      "updatedAt": "2024-09-10T18:48:52Z",
+      "status": "Done"
+    },
+    "iUOyX64gsXBBo347BShe": {
+      "project_type": "Codebase",
+      "assignees": [
+        "viniblack"
+      ],
+      "project_name": "Community Board",
+      "title": "General check of the project's unit tests",
+      "body": "- [x] Verify the project's unit tests\n- [x] Check that they are all working\n- [x] Check the quality of the tests\n- [x] Check the test competency\n",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/256",
+      "createdAt": "2024-10-01T15:16:58Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTfvjA",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
         {
-          "name": "github",
-          "url": null
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
         },
         {
-          "name": "linkedin",
-          "url": null
+          "field": "Skill",
+          "value": "react"
         },
         {
-          "name": "twitter",
-          "url": null
+          "field": "Start date",
+          "value": "2024-10-01"
         },
         {
-          "name": "personalWebsite",
-          "url": null
+          "field": "End date",
+          "value": "2024-10-07"
         }
       ],
-      "wallet": null,
-      "name": null,
-      "bio": "",
-      "cohorts": [],
-      "email": "teste@teste.com",
-      "cohort_ids": [],
-      "discord": "1234"
+      "updatedAt": "2024-10-08T13:52:38Z",
+      "status": "Review"
+    },
+    "lJgP0elf0qg8wm5L5Zbe": {
+      "project_type": "Codebase",
+      "assignees": [
+        "nomadbitcoin",
+        "annabida"
+      ],
+      "project_name": "Community Board",
+      "title": "Build Campaign",
+      "body": "## Geral\n- [x] Conferir link dos CTAs\n> garantir que leve para o login no google e de lá pra página de confirmação da inscrição e não para se inscrever.\n- [x] Otimizar Google ADS\n- [ ] Ativar campanhas pagas no Youtube\n\n## Email\n* Informes ~semanais~ mensal\n- [x] 17/09 - webinar Fullstack - Português - Anna + CTA Inscrição Builds\n> base total ativa\n- [x] ~24/09 - webinar Vamoss - Português - Anna + CTA Inscrição Builds~\n> base Brasil\n- [ ] 01/10 - base total ativa\n- 01/10 - webinar Computação Quantica - Português - Yan\n- 07/10 - webinar Arte digital - Português - Anna\n- 10/10 - webinar Dani - JAM - Inglês - Yan\n- 16/10 - kickoff Build - Inglês e Português - Yan\n- 21-25/10 - webinar Thiago DAOs - Português - Anna\n- 28-01/11 - webinar Becker Carreira Dev - Inglês - Yan\n\n- [ ] Aviso da Live (08/10)\n> só para inscritos\n\n- [ ] Lembrete é hoje (16/10)\n> só para inscritos\n\n- [ ] Ativar compartilhamento e programa mentores com alunos concluintes (03/10)\n- [ ] Ativar continuidade com os alunos não concluintes \n\n## Social Media\n- [ ] Post Instagram\n- [ ] Post Linkedin\n- [ ] Whatsapp\n> Ativar nos grupos de criadores links postagens para compartilhamento\n* Canal de avisos\n- [ ] Telegram\n> Compartilhar nos grupos @nomadbitcoin \n- [ ] Discord (Interno e outros)\n\n## Forem\n- [ ] Banner na Home\n- [x] Banner no rodapé dos artigos\n- [x] Artigo fixado\n> Inglês e Português\n\n## Build Platform\n- [ ] Corrigir o copy do kickoff\n> undifined - autor - revisar\n- [ ] Short description na página de inscrição \n> Garantir que o botão apareça sem scroll\n- [ ] Toast \n> Em todos os builds ativos\n\n## StreamYard\n- [ ] agendar kickoff\n\n## Videos\n- [ ] Shorts\n- [ ] 'Sobre o Curso'\n> Confirmar com @danicuki \n* 5 - 10 minutos \n* Colocar na Homepage\n* Testar tráfego pago\n* Inglês com legenda português\n- [ ] Anúncios\n> tráfego youtube",
+      "url": "https://github.com/w3b3d3v/community-management/issues/181",
+      "createdAt": "2024-09-18T19:01:22Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTG2i8",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "execution"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Business Unity",
+          "value": "BUILDS"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-09-27T23:04:33Z",
+      "status": "In Progress"
+    },
+    "mzrwDLywcv21pZ5uVkXg": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Guboehm"
+      ],
+      "project_name": "Community Board",
+      "title": "Task Filters ",
+      "body": "Enhance the filtering functionality of the platform to improve user experience and data accessibility.\n\n**Tasks:**\n\n1. **Update URL with Applied Filters:**\n   - [ ] Ensure the URL dynamically updates to reflect the filters applied by the user for easy sharing and bookmarking.\n\n2. **Improve Filters:**\n     - [ ] Make filters dynamic based on present metadata.\n     - [ ] Remove this previous three from hardcoded subItems\n   - **Has Reward:**\n     - [ ] Create a filter to display items that offer rewards.\n     - [ ] Implement a reward amount slider to allow users to specify the range of reward amounts when the \"Has Reward\" filter is active.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/182",
+      "createdAt": "2024-07-18T20:52:55Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRClYc",
+      "state": "CLOSED",
+      "closedAt": "2024-08-15T14:30:57Z",
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        }
+      ],
+      "updatedAt": "2024-08-15T14:30:57Z",
+      "status": "Done"
+    },
+    "oH8Ex0ZBrJTmp2Ui1yyK": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Chore: Icons on Footer links",
+      "body": "",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/215",
+      "createdAt": "2024-08-07T00:42:34Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRlkOg",
+      "state": "CLOSED",
+      "closedAt": "2024-08-15T14:34:03Z",
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        },
+        {
+          "field": "Skill",
+          "value": "react"
+        },
+        {
+          "field": "Importance",
+          "value": "Low"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Beginner"
+        }
+      ],
+      "updatedAt": "2024-08-15T14:34:03Z",
+      "status": "Done"
+    },
+    "oW5NAJVWKx1aaMwrbBfY": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Create GPT Agent for the project",
+      "body": "we may want to use https://www.wordware.ai/ for that",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/206",
+      "createdAt": "2024-08-01T01:25:10Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgP_Gvo",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "documentation"
+        },
+        {
+          "field": "Importance",
+          "value": "Low"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Intermediate"
+        },
+        {
+          "field": "Business Unity",
+          "value": "COMMUNITY"
+        }
+      ],
+      "updatedAt": "2024-08-15T22:24:37Z",
+      "status": "Backlog"
+    },
+    "qp0sax2MC6m5lDsUTzOy": {
+      "project_type": "Codebase",
+      "assignees": [
+        "nomadbitcoin"
+      ],
+      "project_name": "Community Board",
+      "title": "Move email templates from platform and use Mailchimp templates",
+      "body": "Currently, our platform sends event-based emails (e.g., course registration, live session notifications) using hardcoded templates with dynamic parameters via Mandrill and JavaScript. To improve email management, we need to:\n\n1. **Create and design email templates directly in Mailchimp.**\n2. **Use Mailchimp’s API to trigger these emails based on platform events.**\n\n### Tasks:\n- [ ] Create email templates in Mailchimp for all necessary notifications.\n- [ ] Store and use the Mailchimp Template IDs.\n- [ ] Update API calls to Mandrill in the platform to trigger these templates.\n- [ ] Pass dynamic parameters (e.g., user name, course details) to the Mailchimp API.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/221",
+      "createdAt": "2024-08-13T17:41:26Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRzUMI",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Skill",
+          "value": "api-integration"
+        },
+        {
+          "field": "Business Unity",
+          "value": "COMMUNITY"
+        }
+      ],
+      "updatedAt": "2024-08-13T17:42:16Z",
+      "status": "Todo"
+    },
+    "r22gms4MeIQbuBjE6cYf": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Guboehm"
+      ],
+      "project_name": "Community Board",
+      "title": "Fix the Amount filter when the Reward field is deselected",
+      "body": "### Issue Type\r\n\r\nBug\r\n\r\n### Custom Code\r\n\r\nYes\r\n\r\n### OS Platform and Distribution\r\n\r\n_No response_\r\n\r\n### Mobile device\r\n\r\n_No response_\r\n\r\n### Node Version\r\n\r\n_No response_\r\n\r\n### What happened?\r\n\r\n```shell\r\nThe Amount filter is not operate correctly when the Reward field is deselected\r\n```\r\n![image](https://github.com/user-attachments/assets/c8dd6161-ad32-41ea-a580-bea46c20b668)\r\n\r\n\r\n### Code to reproduce the issue\r\n\r\n```shell\r\nif (filterName === 'Reward') {\r\n  updatedFilters['Amount'] = null\r\n  updateUrlWithFilters(updatedFilters)\r\n}\r\n```\r\n\r\n\r\n### Relevant log output\r\n\r\n_No response_",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/247",
+      "createdAt": "2024-09-23T20:25:28Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgTQ-ns",
+      "state": "OPEN",
+      "fields": [],
+      "closedAt": null,
+      "updatedAt": "2024-09-23T22:17:43Z",
+      "status": "Review"
+    },
+    "rOhypNTuHCQpeCbdiWDg": {
+      "project_type": "Codebase",
+      "assignees": [
+        "nomadbitcoin"
+      ],
+      "project_name": "Community Board",
+      "title": "Build Youtube Courses Layout Prototype",
+      "body": "We need to enhance our course management system by implementing several new features, including course creation based on YouTube videos, improved metadata handling, and the development of course-related pages and support functionalities.\n\n### Tasks:\n\n- **Content and Metadata Handling:**\n  - [ ] Read Markdown for Content.\n    - [ ] Investigate whether we can also read metadata from markdown to leverage github to adding new content.\n  - [ ] Create an easy way to generate Metadata for each new course.\n\n- **Course Creation and Management:**\n  - [ ] Create an agent that generates courses based on YouTube videos.\n  - [ ] Export the course as Markdown.\n  - [ ] Save this Markdown in the appropriate repository.\n  - [ ] Create the course listing page.\n  - [ ] Fetch all courses and populate filters, list courses.\n  - [ ] Create a course page with modules and a final test.\n\n- **Support and Engagement:**\n  - [ ] Add a support chat button; send language parameter and connect with video transcripts and external resources to assist users.\n  - [ ] Provide options to invite users to events or offer exclusive support.\n\n- **Assignment Event Page:**\n  - [ ] Develop a page for managing assignment events.\n\n### Expected Outcome:\nA fully functional course creation workflow that leverages YouTube content, streamlined metadata handling, and robust support and engagement features, enhancing both the user and admin experience.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/218",
+      "createdAt": "2024-08-07T22:59:03Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgRoK6Y",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "LEARNING-PLATFORM"
+        },
+        {
+          "field": "Importance",
+          "value": "Medium"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Professional"
+        }
+      ],
+      "updatedAt": "2024-08-13T17:50:32Z",
+      "status": "Todo"
+    },
+    "tQdIkNb4TeCwflEuCRLC": {
+      "project_type": "Codebase",
+      "assignees": [
+        "Mitish98"
+      ],
+      "project_name": "Community Board",
+      "title": "Create a snapshot report to centralize data",
+      "body": "Create a document in Figma to analyze data from the following platforms:\r\n\r\n- Learning Plataform\r\n- GitHub\r\n- Discord\r\n- LinkedIn\r\n- Instagram\r\n- Youtube\r\n- Forem\r\n- Google Search Console\r\n- Google Analytics\r\n- SEMRush\r\n- E-mail\r\n\r\n",
+      "url": "https://github.com/w3b3d3v/web3-community-insights/issues/13",
+      "createdAt": "2024-09-10T13:39:45Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgS6PHM",
+      "state": "CLOSED",
+      "closedAt": "2024-09-25T12:02:39Z",
+      "fields": [
+        {
+          "field": "Start date",
+          "value": "2024-09-09"
+        },
+        {
+          "field": "Skill",
+          "value": "documentation"
+        }
+      ],
+      "updatedAt": "2024-09-25T12:02:39Z",
+      "status": "Done"
+    },
+    "wzILfic231c5EnOaO00O": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Update Roadmap Designs to match W3D Brand.",
+      "body": "We are considering leveraging the OnlyDust interface to bootstrap our functionality, with some necessary adaptations. We only have a sketch by now, so the next step is to build it on Figma and apply the web3dev brand colors and styles to the existing screens.\n\n* [Figma Section of OnlyDust -> Web3Task Interface](https://www.figma.com/board/27S5enxUJePGwjADVJ6rNT/WEB3TASK-v2-Roadmap?node-id=292-143&t=mCvfaS80UfQqfxPt-4)\n* [WEB3DEV Brandig Book](https://www.figma.com/design/MP1W4qEhzLAyOrd1QZTiZH/Brand-Book-v1?node-id=0-1&t=iXfpUR6AZhmD8fXT-1)\n\n**Deliverables:**\n\n1. **Build on Figma**\n   - [ ] Create Figma designs based on the initial sketch.\n\n2. **Apply Brand Colors**\n   - [ ] Update all screens with the primary, secondary, and accent colors from the brand guidelines.\n\n3. **Update Typography**\n   - [ ] Apply brand-specific fonts to headings, body text, and other text elements following brand’s design guidelines.\n\n4. **Style Components**\n   - [ ] Ensure all UI components (buttons, inputs, cards, modals, tables, etc.) follow the brand's look and feel.\n\n5. **Responsive Design**\n   - [ ] Verify and adjust the design to ensure it looks good on different screen sizes and devices.\n\n6. **Additional Figma Tasks**\n   - [ ] Create a prototype with interactive elements to demonstrate the flow and user interactions.\n   - [ ] Document any deviations from the initial mockup and provide reasoning for changes.",
+      "url": "https://github.com/w3b3d3v/web3-bootcamp-platform/issues/178",
+      "createdAt": "2024-07-16T22:57:43Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgP-vLc",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Skill",
+          "value": "ui-ux"
+        },
+        {
+          "field": "Importance",
+          "value": "high"
+        },
+        {
+          "field": "Context Depth",
+          "value": "Novice"
+        },
+        {
+          "field": "Business Unity",
+          "value": "WEB3TASK"
+        },
+        {
+          "field": "Reward",
+          "value": "XP"
+        }
+      ],
+      "updatedAt": "2024-08-07T16:48:09Z",
+      "status": "Todo"
+    },
+    "y9hC2sWcuy1ld5RSK5Wh": {
+      "project_type": "Codebase",
+      "assignees": [],
+      "project_name": "Community Board",
+      "title": "Remove super-admin access for members who are not part of the organization",
+      "body": "## Description:\n\nReview and remove admin access for members who are no longer part of the organization to maintain security and ensure proper access control.\n\n- [ ] [Identify all members with super-admin access across platforms](https://pt.w3d.community/admin/member_manager/users?utf8=%E2%9C%93&roles%5B%5D=Admin&roles%5B%5D=Tech+Admin&roles%5B%5D=Super+Admin&roles%5B%5D=Resource+Admin%3A+Article&roles%5B%5D=Resource+Admin%3A+Badge&roles%5B%5D=Resource+Admin%3A+BadgeAchievement&joining_start=&joining_end=&date_format=DD%2FMM%2FYYYY).\n- [ ] Cross-check the list of super-admins with current active members of the organization.\n- [ ] Remove super-admin access for members who are no longer part of the organization.\n- [ ] Notify relevant stakeholders of the changes.\n- [ ] Document the process and update internal access control policies.\n\n> [!NOTE]  \n> @annabida  doesn't have permission to edit access even though I'm super admin\n![Image](https://github.com/user-attachments/assets/97b8a153-e84b-47a3-8c7a-ccd99e2ff984)\n\nThe members who are no longer part of the organization and are with super-admin are:\n* @caiovmatos \n* @allluz ",
+      "url": "https://github.com/w3b3d3v/community-management/issues/180",
+      "createdAt": "2024-09-18T19:01:05Z",
+      "project_id": 24,
+      "github_id": "PVTI_lADOBSkJcc4AiiAKzgS6gFY",
+      "state": "OPEN",
+      "closedAt": null,
+      "fields": [
+        {
+          "field": "Business Unity",
+          "value": "FOREM-CONTENT"
+        }
+      ],
+      "updatedAt": "2024-09-18T19:01:05Z",
+      "status": "Backlog"
     }
   }
 }

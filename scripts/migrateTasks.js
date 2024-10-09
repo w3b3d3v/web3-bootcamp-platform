@@ -63,17 +63,26 @@ async function writeTaskToDevelopment(taskData) {
   }
 }
 
-async function saveTaskToJSON(taskData, taskId) {
+async function saveTasksToJSON(tasks) {
   try {
     // Caminho do arquivo onde os dados serão salvos
-    const filePath = `./scripts/${taskId}.json`
+    const filePath = './seed-data.json'
 
-    // Salva os dados da tarefa em um arquivo JSON
-    await fs.writeFile(filePath, JSON.stringify(taskData, null, 2), 'utf8')
+    // Prepara os dados das tarefas no formato correto
+    const tasksObject = {
+      tasks: {},
+    }
 
-    console.log(`Task data saved to ${filePath}`)
+    tasks.forEach((task) => {
+      tasksObject.tasks[task.id] = task.data
+    })
+
+    // Salva todos os dados das tarefas em um único arquivo JSON
+    await fs.writeFile(filePath, JSON.stringify(tasksObject, null, 2), 'utf8')
+
+    console.log(`All task data saved to ${filePath}`)
   } catch (error) {
-    console.error('Error saving task to JSON:', error)
+    console.error('Error saving tasks to JSON:', error)
   }
 }
 
@@ -82,8 +91,8 @@ async function transferAllTasks() {
     const tasks = await readAllTasks()
     for (const task of tasks) {
       await writeTaskToDevelopment(task.data)
-      await saveTaskToJSON(task.data, task.id)
     }
+    await saveTasksToJSON(tasks)
   } catch (error) {
     console.error('Error transferring tasks:', error)
   }
