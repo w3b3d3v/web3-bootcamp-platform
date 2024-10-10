@@ -17,10 +17,10 @@ function authPage() {
   const { login, signup, loginGoogle, loginGithub } = useAuth()
   const [showpass, setShowPass] = useState(false)
   const { t } = useTranslation()
-
   const [isSignUp, setIsSignUp] = useState(false)
-  const [email, setEmail] = useState('')
-  const { register, handleSubmit } = useForm()
+
+  const { register, handleSubmit, watch } = useForm()
+  const email = watch('email')
 
   const onSubmit = (data) => {
     if (isSignUp) {
@@ -30,27 +30,19 @@ function authPage() {
     }
   }
 
-  const onError = (errors, e) => {
-    toast.error(errors, e, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
-
-  function handleResetPassword(auth, email) {
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast.success(t('messages.email_sent_success'))
-      })
-      .catch((error) => {
-        const errorMessage = error.message
-        toast.error(errorMessage)
-      })
+  function handleResetPassword() {
+    if (email) {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          toast.success(t('messages.email_sent_success'))
+        })
+        .catch((error) => {
+          const errorMessage = error.message
+          toast.error(errorMessage)
+        })
+    } else {
+      toast.error(t('form.enter_email'))
+    }
   }
 
   return (
@@ -76,7 +68,7 @@ function authPage() {
                 {isSignUp ? t('buttons.sign_in') : t('buttons.register_now')}
               </span>
             </p>
-            <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="pt-6">
                 <label
                   htmlFor="email"
@@ -89,12 +81,12 @@ function authPage() {
                   type="email"
                   className="mt-2 w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800 placeholder-gray-800"
                   placeholder="ex: silva@gmail.com"
-                  onInputCapture={(e) => setEmail(e.target.value)}
                   {...register('email', {
                     required: t('form.enter_email'),
-                    message: t('form.invalid_email'),
-                    pattern:
-                      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i,
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: t('form.invalid_email'),
+                    },
                   })}
                 />
               </div>
@@ -143,7 +135,7 @@ function authPage() {
               <div className="mt-8">
                 <p
                   className="w-fit cursor-pointer text-xs text-indigo-300 hover:underline"
-                  onClick={() => handleResetPassword(auth, email)}
+                  onClick={() => handleResetPassword(email)}
                 ></p>
               </div>
             )}
@@ -151,7 +143,7 @@ function authPage() {
               <div className="mt-8">
                 <p
                   className="w-fit cursor-pointer text-xs text-indigo-300 hover:underline"
-                  onClick={() => handleResetPassword(auth, email)}
+                  onClick={handleResetPassword}
                 >
                   {t('buttons.forgot_password')}
                 </p>
