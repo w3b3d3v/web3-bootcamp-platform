@@ -8,11 +8,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom' // Provides custom matchers for Jest
 import AuthPage from '../../../pages/auth' // Importing the AuthPage component
 import useAuth from '../../../hooks/useAuth' // Custom authentication hook
-import { useTranslation } from 'react-i18next' // For handling translations
 import { faker } from '@faker-js/faker' // Library for generating fake data
-import { act } from 'react' // Importing React act for async operations
 import { toast } from 'react-toastify' // For displaying toast notifications
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth' // Firebase authentication methods
+import { auth } from '../../../firebase/initFirebase'
 
 // Mocking external dependencies
 jest.mock('../../../hooks/useAuth') // Mock the useAuth hook
@@ -34,8 +33,10 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 jest.mock('firebase/auth', () => ({
-  getAuth: jest.fn(), // Mock getAuth function
-  sendPasswordResetEmail: jest.fn(), // Mock sendPasswordResetEmail function
+  getAuth: jest.fn(() => ({
+    /* mock auth object */
+  })),
+  sendPasswordResetEmail: jest.fn(),
 }))
 
 describe('Testing the signIn page', () => {
@@ -97,52 +98,57 @@ describe('Testing the signIn page', () => {
     expect(screen.getByText('buttons.register_now')).toBeInTheDocument() // Check that register now button is visible again
   })
 
-  // BUG: In pages/auth/index.js I can't find the button buttons.recover_password and nowhere in the codebase but in production this text appears
-  it.skip('Displays error message for empty fields', async () => {
-    render(<AuthPage />) // Render the AuthPage component
+  it('Tests the password recovery functionality', async () => {
+    // Mock the sendPasswordResetEmail function
+    sendPasswordResetEmail.mockResolvedValue()
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('buttons.log_in')) // Click the login button with empty fields
+    getAuth.mockReturnValue(auth)
+
+    render(<AuthPage />)
+    const emailTest = 'teste@exemplo.com'
+
+    // Get the email input field
+    const emailInput = screen.getByLabelText('E-mail')
+
+    // Fill in the email field
+    fireEvent.change(emailInput, { target: { value: emailTest } })
+
+    // Verify that the email input has the correct value
+    expect(emailInput).toHaveValue(emailTest)
+
+    // Check for forgot password button and click it
+    const forgotPasswordButton = screen.getByText('buttons.forgot_password')
+    expect(forgotPasswordButton).toBeInTheDocument()
+    fireEvent.click(forgotPasswordButton)
+
+    await waitFor(() => {
+      expect(sendPasswordResetEmail).toHaveBeenCalledWith(auth, emailTest)
     })
 
-    expect(toast.error).toHaveBeenCalled() // Verify that the error toast is displayed
+    // Verify success toast is displayed
+    expect(toast.success).toHaveBeenCalledWith('messages.email_sent_success')
   })
 
-  it.skip('Tests the password recovery functionality', async () => {
-    sendPasswordResetEmail.mockResolvedValue() // Mock resolved value for the password reset email
+  // Add a new test for the error case
+  it('Displays error message if password recovery fails', async () => {
+    // Mock the sendPasswordResetEmail function to reject with an error
+    const errorMessage = 'Test error'
+    sendPasswordResetEmail.mockRejectedValue(new Error(errorMessage))
 
-    render(<AuthPage />) // Render the AuthPage component
-    const emailTest = 'teste@exemplo.com' // Sample email for testing password recovery
+    getAuth.mockReturnValue(auth)
+
+    render(<AuthPage />)
+    const emailTest = 'teste@exemplo.com'
 
     // Fill in the email field
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: emailTest } })
-    expect(screen.getByText('buttons.forgot_password')).toBeInTheDocument() // Check for forgot password button
-    fireEvent.click(screen.getByText('buttons.forgot_password')) // Click forgot password button
 
-    expect(screen.getByText('buttons.recover_password')).toBeInTheDocument() // Check for recover password button
-
-    await waitFor(() => {
-      expect(sendPasswordResetEmail).toHaveBeenCalledWith(expect.anything(), emailTest) // Verify sendPasswordResetEmail is called with email
-    })
-
-    // FIX: Toastify isn't showing up
-    expect(toast.success).toHaveBeenCalledWith('messages.email_sent_success') // Verify success toast is displayed
-  })
-
-  // BUG: Toastify isn't showing up
-  it.skip('Displays error message if password recovery fails', async () => {
-    sendPasswordResetEmail.mockRejectedValue(new Error('Erro de teste')) // Mock rejection for password reset email
-
-    render(<AuthPage />) // Render the AuthPage component
-    const emailTest = 'teste@exemplo.com' // Sample email for testing password recovery
-
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: emailTest } }) // Fill in the email field
-    fireEvent.click(screen.getByText('buttons.forgot_password')) // Click forgot password button
+    // Click forgot password button
+    fireEvent.click(screen.getByText('buttons.forgot_password'))
 
     await waitFor(() => {
-      expect(sendPasswordResetEmail).toHaveBeenCalledWith(expect.anything(), emailTest) // Verify email is sent
+      expect(sendPasswordResetEmail).toHaveBeenCalledWith(auth, emailTest)
+      expect(toast.error).toHaveBeenCalledWith(errorMessage)
     })
-
-    expect(toast.error).toHaveBeenCalledWith('Erro de teste') // Verify error toast is displayed
   })
 })
