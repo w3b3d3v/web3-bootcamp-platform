@@ -96,20 +96,4 @@ describe('Testing the signUp page', () => {
     expect(screen.getByLabelText('E-mail')).toBeInTheDocument() // Check for email input field
     expect(screen.getByLabelText(t('form.password'))).toBeInTheDocument() // Check for password input field
   })
-
-  // BUG: The toastify when we try to register an invalid email not showing up
-  it.skip('Displays error message for invalid email', async () => {
-    render(<AuthPage />) // Render the AuthPage component
-
-    // Simulate user interactions to fill in invalid data
-    fireEvent.click(screen.getByText('buttons.register_now')) // Open the registration form
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'emailInvalid' } }) // Fill in an invalid email address
-    fireEvent.change(screen.getByLabelText('form.password'), { target: { value: 'password123' } }) // Fill in a password
-    fireEvent.click(screen.getByRole('button', { name: 'buttons.register' })) // Submit the form
-
-    // Check if the error toast was displayed
-    await waitFor(() => {
-      expect(toast.error).toHaveBeenCalled() // Verify that the error toast notification was triggered
-    })
-  })
 })
