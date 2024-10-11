@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import useAuth from '../../hooks/useAuth'
-import { checkSections, colorTab } from './tabFunctions'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Tabs({ course, lessonsSubmitted, cohort }) {
