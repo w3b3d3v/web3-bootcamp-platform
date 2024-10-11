@@ -2,11 +2,8 @@ name: Jest Test
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   test:
@@ -25,7 +22,7 @@ jobs:
         run: |
           cd functions
           npm install
-      
+
       - name: Install Jest
         run: |
           npm install --global jest
