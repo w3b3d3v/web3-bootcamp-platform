@@ -14,6 +14,7 @@ import {
   Avatar,
   Image,
 } from '@nextui-org/react'
+
 import { GiExitDoor } from 'react-icons/gi'
 import { useTranslation } from 'react-i18next'
 import { FaEthereum } from 'react-icons/fa'

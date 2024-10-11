@@ -15,6 +15,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase/initFirebase'
 import { useSortItems } from '../../hooks/useSortItems'
 import { toast } from 'react-toastify'
+import Modal from '../../components/Modal/ModalTask'
 
 const TaskPage = ({ initialIssues }) => {
   const { t } = useTranslation()
@@ -26,6 +27,7 @@ const TaskPage = ({ initialIssues }) => {
   const [issues, setIssues] = useState(initialIssues)
   const [showAssigned, setShowAssigned] = useState(false)
   const [userScreenName, setUserScreenName] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -96,7 +98,11 @@ const TaskPage = ({ initialIssues }) => {
   }
 
   const showToastConectGit = () => {
-    toast.error(t('messages.toast-conect-git'))
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   if (userAuth === undefined) {
@@ -183,6 +189,7 @@ const TaskPage = ({ initialIssues }) => {
                           key={issue.github_id}
                           issue={issue}
                           userInfo={userAuth}
+                          userProvider={userProvider}
                           isAssignedView={showAssigned}
                         />
                       ))}
@@ -194,6 +201,20 @@ const TaskPage = ({ initialIssues }) => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal onClose={handleCloseModal}>
+          <h2>{t('messages.title-connect-git')}</h2>
+          <p>{t('messages.modal-connect-git')}</p>
+          <div className="flex gap-4">
+            <button
+              className="mt-4 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-4 py-2 text-[22px] text-[#99e24d] hover:ring-2 hover:ring-[#99e24d] focus:ring-2 focus:ring-[#99e24d]"
+              onClick={() => {}}
+            >
+              {t('buttons.git-connect')}
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   )
 }
