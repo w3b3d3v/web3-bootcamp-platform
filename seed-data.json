@@ -25,6 +25,32 @@
         "subject": "Your journey to learn Rust and Build your First Blockchain"
       },
       "discord_role": "1264936029769564211"
+    },
+    "RU5mLpQrZZWlmftNSB2w": {
+      "discord_channel": "rust-state-machine-explorers",
+      "course_id": "Rust_State_Machine",
+      "endDate": {
+        "_seconds": 1729724400,
+        "_nanoseconds": 0
+      },
+      "nft_title": "Rust State Machine",
+      "email_content": {
+        "subject": "Your journey to learn Rust and Build your First Blockchain"
+      },
+      "name": "EXPLORERS",
+      "discord_role": "1278014669625495562",
+      "startDate": {
+        "_seconds": 1729080000,
+        "_nanoseconds": 569000000
+      },
+      "kickoffStartTime": {
+        "_seconds": 1729080000,
+        "_nanoseconds": 46000000
+      },
+      "kickoffEndTime": {
+        "_seconds": 1729083600,
+        "_nanoseconds": 483000000
+      }
     }
   },
   "courses": {
