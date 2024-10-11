@@ -132,7 +132,9 @@
     "language_not_available": "Content not available for the selected language. Using the default language.",
     "course_registration_success": "Successfully registered for the course!",
     "login_cancelled": "Login cancelled",
-    "toast-conect-git": "You need to be logged in with GitHub to access your tasks!"
+    "modal-connect-git": "You need to be connected in with GitHub to access your tasks!",
+    "modal-apply-connect-task":"You need to be signed in to Github to request this task.",
+    "title-connect-git":"Connect to your Github account"
   },
   "twitter-share": "Networking is everything, how about sharing your progress with your friends on Twitter?",
   "buttons": {
@@ -147,7 +149,8 @@
     "recover_password": "Recover password",
     "login_with_github": "Login with GitHub",
     "login_with_google": "Login with Google",
-    "register": "Register"
+    "register": "Register",
+    "git-connect":"Connect with Github"
   },
   "form": {
     "no_account": "Don't have an account?",

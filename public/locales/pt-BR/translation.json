@@ -132,7 +132,9 @@
     "language_not_available": "Conteúdo não disponível para o idioma selecionado. Usando o idioma padrão.",
     "course_registration_success": "Registrado no curso com sucesso!",
     "login_cancelled": "Login cancelado",
-    "toast-conect-git": "Você precisa estar logado com GitHub para acessar suas tarefas!"
+    "modal-connect-git": "Você precisa estar conectado ao GitHub para acessar suas tarefas!",
+    "modal-apply-connect-task":"Você precisa estar conectado com o Github para solicitar esta tarefa.",
+    "title-connect-git":"Conecte-se a sua conta do Github"
   },
   "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
   "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",
@@ -148,7 +150,8 @@
     "recover_password": "Recuperar senha",
     "login_with_github": "Login com o Github",
     "login_with_google": "Login com o Google",
-    "register": "Registre-se"
+    "register": "Registre-se",
+    "git-connect":"Conectar com Github"
   },
   "form": {
     "no_account": "Não tem uma conta?",

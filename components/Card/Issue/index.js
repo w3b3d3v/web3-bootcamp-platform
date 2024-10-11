@@ -8,12 +8,14 @@ import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import { contextOrder } from '../../../lib/utils/constants'
+import Modal from '../../Modal/ModalTask'
 
-const IssueCard = ({ issue, userInfo, isAssignedView }) => {
+const IssueCard = ({ issue, userInfo, userProvider, isAssignedView }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
   const [isCollapsed, setIsCollapsed] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   function canTakeTask(userContext, taskContext) {
     const userContextValue = contextOrder[userContext]
@@ -22,13 +24,23 @@ const IssueCard = ({ issue, userInfo, isAssignedView }) => {
     return userContextValue >= taskContextValue
   }
 
-  const hasPermission = isAssignedView || canTakeTask(
-    userInfo?.contextLevel,
-    issue.fields.find((item) => item.field === 'Context Depth')?.value
-  )
+  const hasPermission =
+    isAssignedView ||
+    canTakeTask(
+      userInfo?.contextLevel,
+      issue.fields.find((item) => item.field === 'Context Depth')?.value
+    )
 
   const handleApply = () => {
-    alert('Apply')
+    if (userProvider !== 'github.com') {
+      setShowModal(true)
+    } else {
+      alert('Aplicação bem-sucedida!')
+    }
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   const toggleCollapse = () => {
@@ -144,6 +156,20 @@ const IssueCard = ({ issue, userInfo, isAssignedView }) => {
             </>
           )}
         </div>
+        {showModal && (
+          <Modal onClose={handleCloseModal}>
+            <h2>{t('messages.title-connect-git')}</h2>
+            <p>{t('messages.modal-apply-connect-task')}</p>
+            <div className="flex gap-4">
+              <button
+                className="mt-4 rounded-[10px] bg-[#99e24d] bg-opacity-30 px-4 py-2 text-[22px] text-[#99e24d] hover:ring-2 hover:ring-[#99e24d] focus:ring-2 focus:ring-[#99e24d]"
+                onClick={() => {}}
+              >
+                {t('buttons.git-connect')}
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </Tooltip>
   )

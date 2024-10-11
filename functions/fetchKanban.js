@@ -227,4 +227,4 @@ exports.fetchAndStoreIssues = functions.https.onRequest(async (req, res) => {
     console.error('Error:', error)
     res.status(500).send('An error occurred while fetching and storing issues.')
   }
-})
+})}
