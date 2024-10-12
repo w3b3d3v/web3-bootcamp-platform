@@ -1,53 +1,41 @@
 <!-- Please fill in the following information to help us review your PR more efficiently. -->
 
-## Brief Information
+## Pull Request Summary
 
-The type of this pull request is:
+### Type of Change
 
-- [ ] bug fixing
-- [ ] new feature
-- [ ] others
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Performance improvement
+- [ ] Code refactoring
+- [ ] Other (please specify):
 
+### Description
 
+<!-- Provide a clear and concise description of the changes made in this PR. -->
 
-### What does this PR do?
+### Testing Performed
 
-<!-- Describe briefly what does your PR do. -->
+<!-- Describe the tests you've run to verify your changes. Include details of your testing environment, specific test cases, and the results. -->
 
+1.
+2.
+3.
 
+### Related Issues
 
-### Fixed issues
-
-<!--
-- #User could not log in
+<!-- List any related issues or tickets that this PR addresses. Use the format: Closes #123, Addresses #456 -->
+<!-- Examples:
+- Closes #123
+- Addresses #456
 -->
 
+### Checklist
 
-## Details
-
-### Before: What was the problem?
-
-<!-- DESCRIBE THE BUG OR REQUIREMENT HERE. -->
-
-<!-- ADD SCREENSHOT HERE IF APPLICABLE. -->
-
-
-
-### After: How does it behave after the fixing?
-
-<!-- THE RESULT AFTER FIXING AND A SIMPLE EXPLANATION ABOUT HOW IT IS FIXED. -->
-
-<!-- ADD SCREENSHOT HERE IF APPLICABLE. -->
-
-### Test: How did you test the issue?
-
-<!-- A TEST CASE CATCHING THE ISSUE MENTIONED -->
-
-
-## Others
-
-### Merging options
-
-- [ ] Please squash the commits into a single one when merging.
-
-### Other information
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] My changes generate no new warnings
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] My code follows the project's coding standards
