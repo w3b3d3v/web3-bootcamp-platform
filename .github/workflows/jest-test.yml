@@ -1,4 +1,4 @@
-name: Jest Test
+name: Jest Tests
 
 on:
   push:
@@ -16,17 +16,30 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
 
-      - name: Install Dependencies
+      - name: Install Frontend Dependencies
+        run: yarn install
+
+      - name: Run Emulator
+        run: yarn emulator & echo $! > emulator_pid.txt
+
+      - name: Seed Database
+        run: yarn seed
+
+      - name: Run Frontend Tests
+        run: yarn test --ci --watchAll=false --silent
+
+      - name: Stop Emulator
+        run: kill $(cat emulator_pid.txt)
+        if: always()
+
+      - name: Install Backend Dependencies
         run: |
           cd functions
-          npm install
+          yarn install
 
-      - name: Install Jest
+      - name: Run Backend Tests
         run: |
-          npm install --global jest
-
-      - name: Run Jest Test
-        run: |
-          cd functions && jest test
+          cd functions
+          yarn test --ci --watchAll=false
