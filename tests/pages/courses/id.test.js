@@ -1,52 +1,46 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import '@testing-library/jest-dom'
-import Course from '../../../pages/courses/[id]'
-import { useTranslation } from 'react-i18next'
-import { useRouter } from 'next/router'
-import { getCourse, getFieldContent } from '../../../lib/course'
-import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts'
-import { getLessonsSubmissions } from '../../../lib/lessons'
-import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user'
-import { auth } from '../../../firebase/initFirebase'
-import { SessionProvider } from 'next-auth/react'
 
+import React from 'react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react' // Utilities for rendering and interacting with the component
+import '@testing-library/jest-dom' // Provides custom matchers for asserting the presence of DOM elements
+import Course from '../../../pages/courses/[id]' // Import the Course page component
+import { useTranslation } from 'react-i18next' // Import translation hook for localization
+import { useRouter } from 'next/router' // Next.js router hook for handling navigation
+import { getCourse, getFieldContent } from '../../../lib/course' // Import course-related functions from the course library
+import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts' // Import cohort-related functions from the cohort library
+import { getLessonsSubmissions } from '../../../lib/lessons' // Import lesson submission-related functions
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user' // Import user-related functions for Firestore operations
+import { auth } from '../../../firebase/initFirebase' // Import Firebase authentication
+import { SessionProvider } from 'next-auth/react' // Import the SessionProvider from next-auth for handling authentication state
+
+// Mock external dependencies to isolate and control their behavior during tests
 jest.mock('react-i18next', () => ({
-  useTranslation: jest.fn(),
+  useTranslation: () => ({
+    t: (key) => key, // Mock translation function that returns the translation key
+    i18n: { resolvedLanguage: 'en' }, // Mock i18n object with the resolved language
+  }),
 }))
 
 jest.mock('next/router', () => ({
-  useRouter: jest.fn(),
+  useRouter: () => ({ query: {} }), // Mock the Next.js router hook with an empty query object
 }))
 
-jest.mock('../../../lib/course', () => ({
-  getCourse: jest.fn(),
-  getFieldContent: jest.fn(),
-}))
+// Mocking external libraries for backend operations and components
+jest.mock('../../../lib/course')
+jest.mock('../../../lib/cohorts')
+jest.mock('../../../lib/lessons')
+jest.mock('../../../lib/user')
 
-jest.mock('../../../lib/cohorts', () => ({
-  getAllCohorts: jest.fn(),
-  getCurrentCohort: jest.fn(),
-}))
-
-jest.mock('../../../lib/lessons', () => ({
-  getLessonsSubmissions: jest.fn(),
-}))
-
-jest.mock('../../../lib/user', () => ({
-  getUserFromFirestore: jest.fn(),
-  registerUserInCohortInFirestore: jest.fn(),
-}))
-
+// Mocking the Next.js <Head> component
 jest.mock('next/head', () => ({
   __esModule: true,
-  default: ({ children }) => <>{children}</>,
+  default: ({ children }) => <>{children}</>, // Mock the <Head> component to avoid issues with it in the tests
 }))
 
 describe('Course Component', () => {
+  // Mock data representing a course and a cohort
   const mockCourse = {
     id: 'Rust_State_Machine',
     active: true,
@@ -62,83 +56,143 @@ describe('Course Component', () => {
 
   const mockCohort = {
     id: 'RU5mLpQrZZWlmftNSB2w',
-    startDate: 1729080000,
-    endDate: 1729724400,
-    kickoffStartTime: 1729080000,
-    kickoffEndTime: 1729083600,
+    startDate: new Date(Date.now() + 86400000 * 7).getTime(), // Mock cohort starting date 7 days from now
+    endDate: new Date(Date.now() + 86400000 * 7 + 3600000).getTime(), // Mock cohort end date 1 hour after start
+    kickoffStartTime: new Date(Date.now() + 86400000 * 7).getTime(), // Mock cohort kickoff start time
+    kickoffEndTime: new Date(Date.now() + 86400000 * 7 + 3600000).getTime(), // Mock cohort kickoff end time
   }
 
   const mockUser = {
     uid: 'user-123',
-    cohort_ids: [],
+    cohort_ids: [], // User initially not part of any cohort
     cohorts: [],
   }
 
+  // Before each test, reset all mock functions and set the default mock values
   beforeEach(() => {
     jest.clearAllMocks()
-    useTranslation.mockReturnValue({
-      t: (key) => key,
-      i18n: { resolvedLanguage: 'en' },
-    })
-    useRouter.mockReturnValue({ query: {} })
-    getCourse.mockResolvedValue(mockCourse)
-    getFieldContent.mockImplementation((obj, field) => obj[field])
-    getAllCohorts.mockResolvedValue([mockCohort])
-    getCurrentCohort.mockReturnValue(mockCohort)
-    getLessonsSubmissions.mockResolvedValue([])
-    getUserFromFirestore.mockResolvedValue(mockUser)
-    auth.currentUser = { uid: 'user-123' }
+    getCourse.mockResolvedValue(mockCourse) // Mock getCourse function to return mock course data
+    getFieldContent.mockImplementation((obj, field) => obj[field]) // Mock field content retrieval
+    getAllCohorts.mockResolvedValue([mockCohort]) // Mock getAllCohorts function to return a list of cohorts
+    getCurrentCohort.mockReturnValue(mockCohort) // Mock getCurrentCohort function to return the current cohort
+    getLessonsSubmissions.mockResolvedValue([]) // Mock lesson submissions
+    getUserFromFirestore.mockResolvedValue(mockUser) // Mock user data retrieval from Firestore
+    auth.currentUser = { uid: 'user-123' } // Mock the current user
 
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve({ data: 'fake data' }),
+        json: () => Promise.resolve({ data: 'fake data' }), // Mock fetch API to return dummy data
       })
     )
   })
 
-  it('renders the course title and description', async () => {
-    render(<Course course={mockCourse} currentDate={new Date().toISOString()} />)
+  // Helper function to render the Course component with default or provided props
+  const renderCourse = (props = {}) => {
+    return render(
+      <SessionProvider session={null}>
+        {' '}
+        {/* Wrap the component in SessionProvider for authentication context */}
+        <Course course={mockCourse} currentDate={new Date().getTime()} {...props} />{' '}
+        {/* Pass mock course data */}
+      </SessionProvider>
+    )
+  }
 
-    expect(screen.getByText('Test Course')).toBeInTheDocument()
-    expect(screen.getByText('A test course description')).toBeInTheDocument()
+  it('shows NotFound component if course is not active', async () => {
+    renderCourse({ course: { ...mockCourse, active: false } }) // Render with an inactive course
+    await waitFor(() => {
+      expect(screen.getByText('Oops!')).toBeInTheDocument() // Expect the "Oops!" message to be shown
+    })
+  })
+
+  it('renders the course title and description', async () => {
+    renderCourse() // Render the course component
+    expect(screen.getByText('Test Course')).toBeInTheDocument() // Expect course title to be displayed
+    expect(screen.getByText('A test course description')).toBeInTheDocument() // Expect course description to be displayed
   })
 
   it('allows user to register for the course', async () => {
-    render(<Course course={mockCourse} currentDate={new Date().toISOString()} />)
-
-    const registerButton = await screen.findByText('subscribeNow')
-    expect(registerButton).toBeInTheDocument()
-    fireEvent.click(registerButton)
-
-    expect(registerUserInCohortInFirestore).toHaveBeenCalledWith('RU5mLpQrZZWlmftNSB2w', 'user-123')
+    renderCourse() // Render the course component
+    const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
+    expect(registerButton).toBeInTheDocument() // Ensure the subscription button is present
+    fireEvent.click(registerButton) // Simulate a click on the registration button
+    expect(registerUserInCohortInFirestore).toHaveBeenCalledWith('RU5mLpQrZZWlmftNSB2w', 'user-123') // Ensure user registration is triggered
   })
 
-  it('shows calendar buttons after subscribing to the course', async () => {
-    // Initial render without user registered
-    render(
-      <SessionProvider session={null}>
-        <Course course={mockCourse} currentDate={1729015296} />
-      </SessionProvider>
-    )
+  it('shows Calendar buttons after subscribing to the course', async () => {
+    renderCourse() // Render the course component
 
-    const registerButton = await screen.findByText('subscribeNow')
-    expect(registerButton).toBeInTheDocument()
-    fireEvent.click(registerButton)
+    const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
+    expect(registerButton).toBeInTheDocument() // Ensure the subscription button is present
+    fireEvent.click(registerButton) // Simulate a click on the registration button
 
     await waitFor(async () => {
       const registeredUser = {
         ...mockUser,
         cohorts: [
           {
-            cohort_id: 'RU5mLpQrZZWlmftNSB2w',
+            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
             course_id: 'Rust_State_Machine',
           },
         ],
       }
 
-      getUserFromFirestore.mockResolvedValue(registeredUser)
-      const calendar = await screen.findByText('liveEvent')
-      expect(calendar).toBeInTheDocument()
+      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
+      const calendar = await screen.findByText('addToCalendar') // Ensure "Add to Calendar" button is present
+      const addToGoogleCalendar = await screen.findByText('addToGoogleCalendar') // Ensure "Add to Google Calendar" button is present
+
+      expect(calendar).toBeInTheDocument() // Check that calendar button is visible
+      expect(addToGoogleCalendar).toBeInTheDocument() // Check that Google Calendar button is visible
+    })
+  })
+
+  it('shows Discord buttons after subscribing to the course', async () => {
+    renderCourse() // Render the course component
+
+    const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
+    expect(registerButton).toBeInTheDocument() // Ensure the subscription button is present
+    fireEvent.click(registerButton) // Simulate a click on the registration button
+
+    await waitFor(async () => {
+      const registeredUser = {
+        ...mockUser,
+        cohorts: [
+          {
+            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
+            course_id: 'Rust_State_Machine',
+          },
+        ],
+      }
+
+      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
+      const discord = await screen.findByText('connectYourDiscord') // Ensure "Connect Your Discord" button is present
+
+      expect(discord).toBeInTheDocument() // Check that Discord button is visible
+    })
+  })
+
+  it('shows Wallet buttons after subscribing to the course', async () => {
+    renderCourse() // Render the course component
+
+    const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
+    expect(registerButton).toBeInTheDocument() // Ensure the subscription button is present
+    fireEvent.click(registerButton) // Simulate a click on the registration button
+
+    await waitFor(async () => {
+      const registeredUser = {
+        ...mockUser,
+        cohorts: [
+          {
+            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
+            course_id: 'Rust_State_Machine',
+          },
+        ],
+      }
+
+      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
+      const wallet = await screen.findByText('connectWalletButton') // Ensure "Connect Wallet" button is present
+
+      expect(wallet).toBeInTheDocument() // Check that Wallet button is visible
     })
   })
 })
