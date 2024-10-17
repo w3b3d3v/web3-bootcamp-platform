@@ -20,14 +20,14 @@ const Filter = ({
 
   return (
     <div
-      className={`text-black w-[100%] rounded-lg p-2 lg:w-[20%] ${
-        isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+      className={`text-black  w-[100%] rounded-lg p-2 ${
+        isLight ? 'bg-[#99e24d] font-semibold' : 'bg-black-200 bg-opacity-75'
       }`}
     >
       {/* Filter header with clear button */}
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-lg font-bold">{t('filters')}</h3>
-        <button onClick={clearFilters} className="text-sm font-bold">
+        <button onClick={clearFilters} className="text-sm font-bold bg-[#649e26] bg-opacity-30 rounded-md px-2">
           {t('clear')}
         </button>
       </div>
@@ -59,6 +59,7 @@ const Filter = ({
                     filterValues={filterValues}
                     selectedValue={selectedFilters[filterName]}
                     handleFilterChange={handleFilterChange}
+                    isLight={isLight}
                   />
                 ))}
             </li>
@@ -75,7 +76,7 @@ const FilterHeader = ({ filterName, isOpen, toggleOpen, isDisabled, title }) => 
   return (
     <button
       onClick={() => toggleOpen(filterName)}
-      className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 ${
+      className={`flex w-full items-center justify-between rounded bg-black-300 bg-opacity-0 px-1 py-1 font-semibold ${
         isDisabled ? 'cursor-not-allowed opacity-50' : ''
       }`}
       disabled={isDisabled}
@@ -114,18 +115,20 @@ const AmountFilter = ({ filteredAmounts, selectedAmount, handleFilterChange }) =
 )
 
 // Component for filter list (for non-Amount filters)
-const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChange }) => (
+const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChange, isLight }) => (
   <ul className="mt-1 max-h-40 space-y-1 overflow-y-auto">
     {filterValues.map((subItem, index) => (
       <li
         key={index}
-        className="bg-opacity-15 mb-0 flex cursor-pointer items-center justify-between rounded bg-black-300 px-1 py-1 text-[12px]"
+        className={`mb-0 flex cursor-pointer items-center justify-between rounded px-1 py-1 text-[14px] ${
+          isLight ? 'bg-[#649e26] bg-opacity-30' : 'bg-black-100 bg-opacity-15'
+        }`}
         onClick={() => handleFilterChange(filterName, subItem)}
       >
-        <span className={selectedValue === subItem ? 'font-bold text-[#99e24d]' : ''}>
+        <span className={`${selectedValue === subItem ? 'font-bold' : ''} ${isLight ? 'text-black' : 'text-[#99e24d]'}`}>
           {subItem}
         </span>
-        {selectedValue === subItem && <FaCheckCircle className="ml-2 text-[#99e24d]" />}
+        {selectedValue === subItem && <FaCheckCircle className={`ml-2 ${isLight ? 'text-black' : 'text-[#99e24d]'}`} />}
       </li>
     ))}
   </ul>
