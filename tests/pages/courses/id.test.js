@@ -1,17 +1,17 @@
 /**
  * @jest-environment jsdom
  */
-
-import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+  
+import { render, screen, fireEvent, waitFor } from '@testing-library/react' // Utilities for rendering and interacting with the component
 import '@testing-library/jest-dom' // Provides custom matchers for asserting the presence of DOM elements
 import Course from '../../../pages/courses/[id]' // Import the Course page component
-import { getCourse, getFieldContent } from '../../../lib/course'
-import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts'
-import { getLessonsSubmissions } from '../../../lib/lessons'
-import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user'
-import { auth } from '../../../firebase/initFirebase'
-import { SessionProvider } from 'next-auth/react'
+import { getCourse, getFieldContent } from '../../../lib/course' // Import course-related functions from the course library
+import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts' // Import cohort-related functions from the cohort library
+import { getLessonsSubmissions } from '../../../lib/lessons' // Import lesson submission-related functions
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user' // Import user-related functions for Firestore operations
+import { auth } from '../../../firebase/initFirebase' // Import Firebase authentication
+import { SessionProvider } from 'next-auth/react' // Import the SessionProvider from next-auth for handling authentication state
+
 
 // Mock external dependencies to isolate and control their behavior during tests
 jest.mock('react-i18next', () => ({
