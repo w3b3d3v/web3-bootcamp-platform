@@ -3,17 +3,15 @@
  */
 
 import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react' // Utilities for rendering and interacting with the component
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom' // Provides custom matchers for asserting the presence of DOM elements
 import Course from '../../../pages/courses/[id]' // Import the Course page component
-import { useTranslation } from 'react-i18next' // Import translation hook for localization
-import { useRouter } from 'next/router' // Next.js router hook for handling navigation
-import { getCourse, getFieldContent } from '../../../lib/course' // Import course-related functions from the course library
-import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts' // Import cohort-related functions from the cohort library
-import { getLessonsSubmissions } from '../../../lib/lessons' // Import lesson submission-related functions
-import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user' // Import user-related functions for Firestore operations
-import { auth } from '../../../firebase/initFirebase' // Import Firebase authentication
-import { SessionProvider } from 'next-auth/react' // Import the SessionProvider from next-auth for handling authentication state
+import { getCourse, getFieldContent } from '../../../lib/course'
+import { getAllCohorts, getCurrentCohort } from '../../../lib/cohorts'
+import { getLessonsSubmissions } from '../../../lib/lessons'
+import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user'
+import { auth } from '../../../firebase/initFirebase'
+import { SessionProvider } from 'next-auth/react'
 
 // Mock external dependencies to isolate and control their behavior during tests
 jest.mock('react-i18next', () => ({
@@ -39,7 +37,7 @@ jest.mock('next/head', () => ({
   default: ({ children }) => <>{children}</>, // Mock the <Head> component to avoid issues with it in the tests
 }))
 
-describe('Course Component', () => {
+describe('Course page when not yet started', () => {
   // Mock data representing a course and a cohort
   const mockCourse = {
     id: 'Rust_State_Machine',
@@ -146,7 +144,7 @@ describe('Course Component', () => {
     })
   })
 
-  it('shows Discord buttons after subscribing to the course', async () => {
+  it('shows Discord and Wallet buttons after subscribing to the course', async () => {
     renderCourse() // Render the course component
 
     const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
@@ -166,32 +164,9 @@ describe('Course Component', () => {
 
       getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
       const discord = await screen.findByText('connectYourDiscord') // Ensure "Connect Your Discord" button is present
-
-      expect(discord).toBeInTheDocument() // Check that Discord button is visible
-    })
-  })
-
-  it('shows Wallet buttons after subscribing to the course', async () => {
-    renderCourse() // Render the course component
-
-    const registerButton = await screen.findByText('subscribeNow') // Find the subscription button
-    expect(registerButton).toBeInTheDocument() // Ensure the subscription button is present
-    fireEvent.click(registerButton) // Simulate a click on the registration button
-
-    await waitFor(async () => {
-      const registeredUser = {
-        ...mockUser,
-        cohorts: [
-          {
-            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
-            course_id: 'Rust_State_Machine',
-          },
-        ],
-      }
-
-      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
       const wallet = await screen.findByText('connectWalletButton') // Ensure "Connect Wallet" button is present
 
+      expect(discord).toBeInTheDocument() // Check that Discord button is visible
       expect(wallet).toBeInTheDocument() // Check that Wallet button is visible
     })
   })
