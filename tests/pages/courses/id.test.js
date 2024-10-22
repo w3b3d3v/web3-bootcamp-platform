@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-  
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react' // Utilities for rendering and interacting with the component
 import '@testing-library/jest-dom' // Provides custom matchers for asserting the presence of DOM elements
 import Course from '../../../pages/courses/[id]' // Import the Course page component
@@ -11,7 +11,6 @@ import { getLessonsSubmissions } from '../../../lib/lessons' // Import lesson su
 import { getUserFromFirestore, registerUserInCohortInFirestore } from '../../../lib/user' // Import user-related functions for Firestore operations
 import { auth } from '../../../firebase/initFirebase' // Import Firebase authentication
 import { SessionProvider } from 'next-auth/react' // Import the SessionProvider from next-auth for handling authentication state
-
 
 // Mock external dependencies to isolate and control their behavior during tests
 jest.mock('react-i18next', () => ({
@@ -96,6 +95,21 @@ describe('Course page when not yet started', () => {
     )
   }
 
+  // Helper function to simulate user registration in the build
+  const registeredUser = () => {
+    const subscription = {
+      ...mockUser,
+      cohorts: [
+        {
+          cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
+          course_id: 'Rust_State_Machine',
+        },
+      ],
+    }
+
+    getUserFromFirestore.mockResolvedValue(subscription) // Mock updated user data retrieval
+  }
+
   it('shows NotFound component if course is not active', async () => {
     renderCourse({ course: { ...mockCourse, active: false } }) // Render with an inactive course
     await waitFor(() => {
@@ -125,17 +139,8 @@ describe('Course page when not yet started', () => {
     fireEvent.click(registerButton) // Simulate a click on the registration button
 
     await waitFor(async () => {
-      const registeredUser = {
-        ...mockUser,
-        cohorts: [
-          {
-            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
-            course_id: 'Rust_State_Machine',
-          },
-        ],
-      }
+      registeredUser() // simulate user registration in the build
 
-      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
       const calendar = await screen.findByText('addToCalendar') // Ensure "Add to Calendar" button is present
       const addToGoogleCalendar = await screen.findByText('addToGoogleCalendar') // Ensure "Add to Google Calendar" button is present
 
@@ -152,17 +157,8 @@ describe('Course page when not yet started', () => {
     fireEvent.click(registerButton) // Simulate a click on the registration button
 
     await waitFor(async () => {
-      const registeredUser = {
-        ...mockUser,
-        cohorts: [
-          {
-            cohort_id: 'RU5mLpQrZZWlmftNSB2w', // Simulate the user being registered in a cohort
-            course_id: 'Rust_State_Machine',
-          },
-        ],
-      }
+      registeredUser() // simulate user registration in the build
 
-      getUserFromFirestore.mockResolvedValue(registeredUser) // Mock updated user data retrieval
       const discord = await screen.findByText('connectYourDiscord') // Ensure "Connect Your Discord" button is present
       const wallet = await screen.findByText('connectWalletButton') // Ensure "Connect Wallet" button is present
 
