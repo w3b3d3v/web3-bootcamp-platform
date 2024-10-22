@@ -96,7 +96,7 @@ describe('Course page when not yet started', () => {
   }
 
   // Helper function to simulate user registration in the build
-  const registeredUser = () => {
+  const simulateUserRegistration = () => {
     const subscription = {
       ...mockUser,
       cohorts: [
@@ -139,7 +139,7 @@ describe('Course page when not yet started', () => {
     fireEvent.click(registerButton) // Simulate a click on the registration button
 
     await waitFor(async () => {
-      registeredUser() // simulate user registration in the build
+      simulateUserRegistration() // simulate user registration in the build
 
       const calendar = await screen.findByText('addToCalendar') // Ensure "Add to Calendar" button is present
       const addToGoogleCalendar = await screen.findByText('addToGoogleCalendar') // Ensure "Add to Google Calendar" button is present
@@ -157,7 +157,7 @@ describe('Course page when not yet started', () => {
     fireEvent.click(registerButton) // Simulate a click on the registration button
 
     await waitFor(async () => {
-      registeredUser() // simulate user registration in the build
+      simulateUserRegistration() // simulate user registration in the build
 
       const discord = await screen.findByText('connectYourDiscord') // Ensure "Connect Your Discord" button is present
       const wallet = await screen.findByText('connectWalletButton') // Ensure "Connect Wallet" button is present
