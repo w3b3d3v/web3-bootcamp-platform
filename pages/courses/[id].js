@@ -233,7 +233,7 @@ function Course({ course, currentDate }) {
                       <Link
                         href={`/courses/${course.id}/${section}/${lesson.file}?lang=${language}`}
                       >
-                        <a id="access-lesson">
+                        <a data-testid={`${course.id}-${section}-${lesson.file}`}>
                           <p className="m-0 p-0">{lesson.title}</p>
                         </a>
                       </Link>
