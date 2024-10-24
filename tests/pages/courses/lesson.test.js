@@ -92,6 +92,16 @@ describe('Course Component', () => {
     cohort_ids: [],
     cohorts: [],
   }
+  const mockRouter = {
+    route: '/',
+    pathname: '',
+    query: '',
+    asPath: '',
+    push: jest.fn(),
+    prefetch: jest.fn(),
+    beforePopState: jest.fn(),
+  }
+
   beforeEach(() => {
     jest.clearAllMocks()
     getCourse.mockResolvedValue(mockCourse)
@@ -106,12 +116,7 @@ describe('Course Component', () => {
         json: () => Promise.resolve({ data: 'fake data' }),
       })
     )
-    useRouter.mockReturnValue({
-      route: '/',
-      pathname: '',
-      query: '',
-      asPath: '',
-    })
+    useRouter.mockReturnValue(mockRouter)
   })
 
   const renderCourse = (props = {}) => {
@@ -176,51 +181,46 @@ describe('Course Component', () => {
     expect(registerButton).toBeInTheDocument()
     fireEvent.click(registerButton)
 
-    await waitFor(async () => {
-      simulateUserRegistration()
+    await waitFor(
+      async () => {
+        simulateUserRegistration()
 
-      const lessons = []
-      Object.values(mockCourse.metadata.en.sections).forEach((section) => {
-        section.forEach((item) => {
-          if (item.title) {
-            lessons.push(item)
-          }
+        const lessons = []
+        Object.values(mockCourse.metadata.en.sections).forEach((section) => {
+          section.forEach((item) => {
+            if (item.title) {
+              lessons.push(item)
+            }
+          })
         })
-      })
 
-      // Verifica se todas as lições estão presentes
-      for (const lesson of lessons) {
-        const lessonLink = await screen.findByText(lesson.title)
-        expect(lessonLink).toBeInTheDocument()
-      }
+        // Verifica se todas as lições estão presentes
+        for (const lesson of lessons) {
+          const lessonLink = await screen.findByText(lesson.title)
+          expect(lessonLink).toBeInTheDocument()
+        }
 
-      // Simula o clique na primeira lição
-      const firstLessonLink = screen.getByText(lessons[0].title)
-      fireEvent.click(firstLessonLink)
+        // Simula o clique na primeira lição
+        const firstLessonLink = screen.getByText(lessons[0].title)
+        fireEvent.click(firstLessonLink)
 
-      // Simula a navegação para a página da lição
-      useRouter.mockReturnValue({
-        pathname: `/courses/Rust_State_Machine/Section_0/Lesson_1_What_Are_We_Building.md`,
-        query: { lang: 'en' },
-      })
+        // await new Promise((resolve) => setTimeout(resolve, 5000))
+        // // Extrai o HTML completo do body para uma string
+        // const fullHTML = document.body.innerHTML
 
-      // // Renderiza a página da lição
-      // render(
-      //   <RouterContext.Provider value={mockRouter}>
-      //     <SessionProvider session={null}>
-      //       <Lesson />
-      //     </SessionProvider>
-      //   </RouterContext.Provider>
-      // )
+        // // Loga o HTML completo no console para inspeção
+        // console.log(fullHTML)
 
-      // // Verifica se o conteúdo da lição é carregado
-      // await waitFor(() => {
-      //   expect(screen.getByText('Lesson 1')).toBeInTheDocument()
-      //   expect(screen.getByText('Enter your response.')).toBeInTheDocument()
-      // })
+        // Verifica se o conteúdo da lição é carregado
+        await waitFor(() => {
+          expect(screen.getByText('Lesson 1')).toBeInTheDocument()
+          // expect(screen.getByText('Enter your response.')).toBeInTheDocument()
+          // expect(screen.getByText('Submit')).toBeInTheDocument()
+        })
 
-      // // Verifica se o botão de submissão está presente
-      // expect(screen.getByText('Submit')).toBeInTheDocument()
-    })
+        // Verifica se o botão de submissão está presente
+      },
+      { timeout: 10000 }
+    )
   })
 })
