@@ -50,46 +50,17 @@ const TaskPage = ({ issues }) => {
         <div className="flex w-full flex-col xl:w-[80%]">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="flex">
-            <div className="flex w-full flex-col items-center md:mx-4 lg:flex-row lg:items-start">
-              <div className="flex w-[80%] flex-col items-center lg:w-[25%]">
-                <div className="my-3 flex w-[100%] justify-center">
-                  {userProvider === 'github.com' ? (
-                    <button
-                      onClick={toggleShowAssigned}
-                      className={`rounded-[8px]  py-2 px-1 text-xs lg:px-8 lg:text-sm ${
-                        isLightTheme
-                          ? 'bg-[#99e24d] text-black-400 hover:bg-[#649e26] hover:bg-opacity-90 font-semibold'
-                          : 'bg-[#99e24d] text-white-400 hover:bg-[#649e26] bg-opacity-30'
-                      }`}
-                    >
-                      {showAssigned ? t('issue.viewAllTasks') : t('issue.myTasks')}
-                    </button>
-                  ) : (
-                    <div className="cursor-not-allowed">
-                      <button
-                        onClick={showToastConectGit}
-                        className={`rounded-[8px] py-2 px-1 text-xs lg:px-8 lg:text-sm ${
-                          isLightTheme
-                            ? 'bg-[#99e24d] text-black-400 font-semibold'
-                            : 'bg-[#99e24d] text-white-400 bg-opacity-30'
-                        }`}
-                      >
-                        {t('issue.viewMyTasks')}
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <Filter
-                  filters={filters}
-                  selectedFilters={selectedFilters}
-                  isOpen={isOpen}
-                  toggleOpen={toggleFilterDropdown}
-                  handleFilterChange={handleFilterSelection}
-                  clearFilters={clearAllFilters}
-                  filteredAmounts={availableAmounts}
-                  getFilterProps={getFilterComponentProps}
-                />
-              </div>
+            <div className="flex w-full flex-col items-start md:mx-4 lg:flex-row">
+              <Filter
+                filters={filters}
+                selectedFilters={selectedFilters}
+                isOpen={isOpen}
+                toggleOpen={toggleFilterDropdown}
+                handleFilterChange={handleFilterSelection}
+                clearFilters={clearAllFilters}
+                filteredAmounts={availableAmounts}
+                getFilterProps={getFilterComponentProps}
+              />
               <div className="flex-1 p-2 ">
                 {sortedItems.length === 0 ? (
                   <p>{t('no-issues-found')}.</p>
@@ -103,7 +74,7 @@ const TaskPage = ({ issues }) => {
                         t={t}
                       />
                       <label
-                        className={`flex h-10 w-[80px] font-semibold items-center justify-center text-[12px] md:w-[100px] md:text-[16px] ${
+                        className={`h-10 w-[80px] text-[10px] md:w-[100px] md:text-[16px] ${
                           isLightTheme ? 'text-black-400' : 'text-[#99e24d]'
                         }`}
                       >
