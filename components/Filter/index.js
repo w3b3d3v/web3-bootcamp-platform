@@ -20,14 +20,15 @@ const Filter = ({
 
   return (
     <div
-      className={`text-black  w-[100%] rounded-lg p-2 ${
-        isLight ? 'bg-[#99e24d] font-semibold' : 'bg-black-200 bg-opacity-75'
+      className={`text-black  w-[100%] lg:w-[20%] rounded-lg p-2 ${
+        isLight ? 'bg-[#96E150] font-semibold' : 'bg-black-200 bg-opacity-75'
       }`}
     >
       {/* Filter header with clear button */}
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-lg font-bold">{t('filters')}</h3>
-        <button onClick={clearFilters} className="text-sm font-bold bg-[#649e26] bg-opacity-30 rounded-md px-2">
+        <button onClick={clearFilters} className={`text-sm font-bold  hover:ring-1 
+          ${isLight ? 'hover:ring-[#1E96FF] bg-[#1E96FF]' : 'hover:ring-[#96E150] bg-[#96E150]'} bg-opacity-50 rounded-md px-2`}>
           {t('clear')}
         </button>
       </div>
@@ -36,7 +37,8 @@ const Filter = ({
         {Object.entries(filters).map(([filterName, filterValues]) => {
           const { isDisabled, title, shouldRenderAmountFilter } = getFilterProps(filterName)
           return (
-            <li key={filterName} className="mb-2 ml-1 w-full text-[12px] lg:text-[14px]">
+            <li key={filterName} className={`mb-2 ml-1 w-full text-[12px] lg:text-[14px] ring-1 rounded-[10px] 
+            ${isLight ? 'ring-[#1E96FF] hover:ring-2' : 'ring-[#96E150] hover:ring-2'}`}>
               {/* Filter header for each filter type */}
               <FilterHeader
                 filterName={filterName}
@@ -120,15 +122,15 @@ const FilterList = ({ filterName, filterValues, selectedValue, handleFilterChang
     {filterValues.map((subItem, index) => (
       <li
         key={index}
-        className={`mb-0 flex cursor-pointer items-center justify-between rounded px-1 py-1 text-[14px] ${
-          isLight ? 'bg-[#649e26] bg-opacity-30' : 'bg-black-100 bg-opacity-15'
+        className={`mb-0 mx-1 flex cursor-pointer items-center justify-between rounded-lg px-1 py-1 text-[14px] ${
+          isLight ? 'bg-[#1E96FF] hover:bg-opacity-100 bg-opacity-50' : 'bg-black-100 bg-opacity-15 hover:ring-1 hover:ring-[#96E150]'
         }`}
         onClick={() => handleFilterChange(filterName, subItem)}
       >
-        <span className={`${selectedValue === subItem ? 'font-bold' : ''} ${isLight ? 'text-black' : 'text-[#99e24d]'}`}>
+        <span className={`${selectedValue === subItem ? 'font-bold' : ''} ${isLight ? 'text-black' : 'text-[#96E150]'}`}>
           {subItem}
         </span>
-        {selectedValue === subItem && <FaCheckCircle className={`ml-2 ${isLight ? 'text-black' : 'text-[#99e24d]'}`} />}
+        {selectedValue === subItem && <FaCheckCircle className={`ml-2 ${isLight ? 'text-black' : 'text-[#96E150]'}`} />}
       </li>
     ))}
   </ul>

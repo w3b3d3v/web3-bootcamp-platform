@@ -42,13 +42,13 @@ const IssueCard = ({ issue, userInfo }) => {
     setIsCollapsed(!isCollapsed)
   }
 
-  const buttonClasses = `search-bar text-white font-semibold py-2 px-4 text-left ${
-    isLight ? 'bg-gray-200 ' : 'bg-black-200'
+  const buttonClasses = `rounded-[15px] ring-1  text-white font-semibold py-2 px-4 ${
+    isLight ? 'bg-[#99e24d] bg-opacity-[50%]  hover:ring-2 ring-[#96E150] ' : 'hover:ring-2 bg-black-200'
   }`
 
-  const applyButtonClasses = `${buttonClasses} ${
-    isLight ? 'bg-[#99e24d] bg-opacity-100' : 'bg-[#649e26]'
-  } ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed opacity-50'}`
+  const applyButtonClasses = `rounded-[15px] ring-1 ring-[#1E96FF] text-white font-semibold py-2 px-4 ${
+    isLight ? 'bg-[#96E150] bg-opacity-[80%]  hover:bg-[#96E150] hover:ring-2' : 'bg-[#649e26] ring-[#96E150] hover:ring-2'
+  } ${hasPermission ? '' : 'cursor-not-allowed opacity-50'}`
 
   return (
     <Tooltip
@@ -67,7 +67,7 @@ const IssueCard = ({ issue, userInfo }) => {
         <div className="flex w-full flex-col gap-3">
           <div className="flex w-full items-center justify-between">
             <span
-              className={`text-[18px] text-[#99e24d] md:text-[24px]
+              className={`text-[18px] font-bold text-[#649e26] md:text-[24px]
                 ${hasPermission ? '' : 'opacity-50'}
               `}
             >

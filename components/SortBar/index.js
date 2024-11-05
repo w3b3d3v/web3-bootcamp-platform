@@ -14,7 +14,7 @@ const Sortbar = ({ sortOptions, sortBy, onSortChange }) => {
   return (
     <div className="text-white inline-flex h-9 max-w-[250px]">
       <div
-        className={`flex items-center font-semibold gap-1 rounded-lg ${
+        className={`flex items-center font-bold gap-1 rounded-lg ${
           isLight ? 'bg-[#99e24d]' : 'bg-black-200 bg-opacity-75'
         } px-2`}
       >
