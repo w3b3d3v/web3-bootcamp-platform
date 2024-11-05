@@ -8,12 +8,18 @@ import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import { contextOrder } from '../../../lib/utils/constants'
+import Modal from '../../../components/Modal/ModalTask'
 
 const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
 
   function canTakeTask(userContext, taskContext) {
     const userContextValue = contextOrder[userContext]
@@ -97,7 +103,8 @@ const IssueCard = ({ issue, userInfo }) => {
               </button>
               <button
                 title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                onClick={() => handleApply(issue.url)}
+                //onClick={() => handleApply(issue.url)}
+                onClick={openModal}
                 disabled={!hasPermission}
                 className={applyButtonClasses}
                 style={{ width: 'fit-content' }}
@@ -143,6 +150,11 @@ const IssueCard = ({ issue, userInfo }) => {
             </>
           )}
         </div>
+        {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <p>Este é o conteúdo do modal.</p>
+        </Modal>
+        )}
       </div>
     </Tooltip>
   )
