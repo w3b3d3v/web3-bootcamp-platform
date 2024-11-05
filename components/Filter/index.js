@@ -21,7 +21,7 @@ const Filter = ({
   return (
     <div
       className={`text-black  w-[100%] lg:w-[20%] rounded-lg p-2 ${
-        isLight ? 'bg-[#96E150] font-semibold' : 'bg-black-200 bg-opacity-75'
+        isLight ? 'bg-[#96E150] font-semibold' : 'bg-black-200 bg-opacity-75 ring-1 ring-[#96E150]'
       }`}
     >
       {/* Filter header with clear button */}

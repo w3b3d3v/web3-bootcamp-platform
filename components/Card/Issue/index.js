@@ -61,7 +61,7 @@ const IssueCard = ({ issue, userInfo }) => {
       <div
         data-testid="cardIssue"
         className={`flex flex-col justify-center gap-2 rounded-lg p-4 shadow-lg
-          ${isLight ? 'bg-[#99e24d] bg-opacity-40' : 'bg-black-200 bg-opacity-75'}
+          ${isLight ? 'bg-[#99e24d] bg-opacity-40' : 'bg-black-200 bg-opacity-75 ring-1 ring-[#96E150]'}
         `}
       >
         <div className="flex w-full flex-col gap-3">
