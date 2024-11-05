@@ -152,8 +152,20 @@ const IssueCard = ({ issue, userInfo }) => {
         </div>
         {isModalOpen && (
         <Modal onClose={closeModal}>
-          <p>Este é o conteúdo do modal.</p>
-        </Modal>
+          <p className='font-semibold md:text-lg font- mx-1 mb-2 text-center leading-none'><span className='text-2xl'>🚨</span>  {t('messages.title-access-git')} </p>
+            <p className='mb-2'> {t('messages.example-msg')} <span className='text-2xl'>👇</span></p>
+            
+            <img src="/assets/img/msg-model-task.png" />
+            <div className="mb-2">
+              <button
+                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 hover:ring-[#96E150] focus:ring-2
+                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150]'} `}
+                onClick={() => handleApply(issue.url)}
+              >
+                {t('issue.apply')}
+              </button>
+            </div>
+          </Modal>
         )}
       </div>
     </Tooltip>

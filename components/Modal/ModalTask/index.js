@@ -1,18 +1,29 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from 'next-themes'
 
 const Modal = ({ children, onClose }) => {
   const { t } = useTranslation()
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black-200 bg-opacity-75">
-      <div className="flex flex-col items-center justify-start rounded-xl bg-black-200 p-4 ring-2 ring-[#99e24d]">
-        {children}
+    <div className={`fixed mx-2 inset-0 flex items-center justify-center 
+    ${isLight ? 'bg-white-200' : 'bg-black-200'} bg-opacity-75 z-50`}>
+      
+      <div className={`flex flex-col items-center justify-start rounded-lg 
+        ${isLight ? 'bg-white-200' : 'bg-black-200'} p-2 ring-2 ring-[#99e24d] z-50`} 
+        style={{boxShadow: isLight ? '0 0 10px rgba(30, 150, 255, 0.7)' : '0 0 10px rgba(153, 226, 77, 0.7)'}}>
+      <div className='flex w-full justify-end'>
         <button
           onClick={onClose}
-          className="mt-4 rounded-[10px] bg-red-500 bg-opacity-30 px-4 py-2 text-[22px] hover:bg-red-800 hover:ring-2 hover:ring-red-500 focus:ring-2 focus:ring-[#99e24d]"
+          className="my-1 mr-1 rounded-[10px] bg-red-500 bg-opacity-30 px-2 text-[18px] font-bold hover:bg-red-500 hover:ring-1 hover:ring-red-500 focus:ring-2 focus:ring-[#99e24d]"
         >
-          {t('close')}
+          X
         </button>
+      </div>
+      
+        {children}
+        
       </div>
     </div>
   )
