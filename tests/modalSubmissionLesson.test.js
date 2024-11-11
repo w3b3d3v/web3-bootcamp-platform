@@ -19,12 +19,9 @@ jest.mock('react-i18next', () => ({
 jest.mock('../lib/user')
 jest.mock('../lib/cohorts')
 
-describe('Check if submit link is calling mintNFT function', () => {
+describe('Modal - NFT Submission', () => {
   const mockOnClose = jest.fn()
   const mockCourse = { id: 'Rust_State_Machine' }
-  const mockSubmissionTitle = 'Upload Assignment'
-  const mockSubmissionText = 'Submit your assignment'
-  const mockSubmissionType = 'text'
   const lessonSubmission = {
     cohort_id: 'RU5mLpQrZZWlmftNSB2w',
     content: { type: 'text', value: 'Conteúdo aleatório para teste' },
@@ -44,6 +41,28 @@ describe('Check if submit link is calling mintNFT function', () => {
     kickoffEndTime: Date.now() + 86400000 * 7 + 3600000,
   }
 
+  const setupMocks = () => {
+    jest.clearAllMocks()
+    getAllCohorts.mockResolvedValue([mockCohort])
+    getCurrentCohort.mockReturnValue(mockCohort)
+    getUserFromFirestore.mockResolvedValue(mockUser)
+  }
+
+  const renderModal = () => {
+    render(
+      <Modal
+        openExternal
+        onClose={mockOnClose}
+        course={mockCourse}
+        lesson={lessonSubmission.lesson}
+        section={lessonSubmission.section}
+        submissionType="text"
+        submissionTitle="Upload Assignment"
+        submissionText="Submit your assignment"
+      />
+    )
+  }
+
   beforeAll(() => {
     global.fetch = jest.fn(() =>
       Promise.resolve({ json: () => Promise.resolve({ data: 'fake data' }) })
@@ -56,35 +75,16 @@ describe('Check if submit link is calling mintNFT function', () => {
   })
 
   beforeEach(() => {
-    jest.clearAllMocks()
-    getAllCohorts.mockResolvedValue([mockCohort])
-    getCurrentCohort.mockReturnValue(mockCohort)
-    getUserFromFirestore.mockResolvedValue(mockUser)
+    setupMocks()
     auth.currentUser = { uid: mockUser.uid }
   })
 
-  const setupModal = () => {
-    render(
-      <Modal
-        openExternal
-        onClose={mockOnClose}
-        course={mockCourse}
-        lesson={lessonSubmission.lesson}
-        section={lessonSubmission.section}
-        submissionType={mockSubmissionType}
-        submissionTitle={mockSubmissionTitle}
-        submissionText={mockSubmissionText}
-      />
-    )
-  }
-
-  it('should submit lesson correctly and create NFT', async () => {
+  it('should submit lesson correctly and call mintNFT function', async () => {
     const submitLessonSpy = jest.spyOn(require('../lib/user'), 'submitLessonInFirestore')
     const change = { data: () => lessonSubmission }
     const context = { params: { lessonId: 'test-lesson-id' } }
 
-    setupModal()
-
+    renderModal()
     await waitFor(async () => {
       const textarea = screen.getByRole('textbox')
       fireEvent.change(textarea, { target: { value: lessonSubmission.content.value } })
@@ -93,7 +93,6 @@ describe('Check if submit link is calling mintNFT function', () => {
       const submitButton = screen.getByText('send')
       fireEvent.click(submitButton)
 
-      // Verificar se submitLessonInFirestore foi chamada com os parâmetros corretos
       expect(submitLessonSpy).toHaveBeenCalledWith(
         lessonSubmission.cohort_id,
         mockUser,
@@ -102,7 +101,6 @@ describe('Check if submit link is calling mintNFT function', () => {
         lessonSubmission.content,
         undefined
       )
-
       await mintNFT(change, context)
       expect(mintNFT).toHaveBeenCalledWith(change, context)
     })
