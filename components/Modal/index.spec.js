@@ -17,10 +17,14 @@ jest.mock('../../lib/cohorts')
 
 describe('Check if submit link is calling mintNFT function', () => {
   const mockOnClose = jest.fn()
-  const mockCourse = { id: 'Rust_State_Machine' }
-  const mockSubmissionTitle = 'Upload Assignment'
-  const mockSubmissionText = 'Submit your assignment'
-  const mockSubmissionType = 'text'
+
+  const mockSubmission = {
+    course: { id: 'Rust_State_Machine' },
+    title: 'Upload Assignment',
+    text: 'Submit your assignment',
+    type: 'text',
+  }
+
   const lessonSubmission = {
     cohort_id: 'RU5mLpQrZZWlmftNSB2w',
     content: { type: 'text', value: 'Conteúdo aleatório para teste' },
@@ -63,20 +67,20 @@ describe('Check if submit link is calling mintNFT function', () => {
       <Modal
         openExternal
         onClose={mockOnClose}
-        course={mockCourse}
+        course={mockSubmission.course}
         lesson={lessonSubmission.lesson}
         section={lessonSubmission.section}
-        submissionType={mockSubmissionType}
-        submissionTitle={mockSubmissionTitle}
-        submissionText={mockSubmissionText}
+        submissionType={mockSubmission.type}
+        submissionTitle={mockSubmission.title}
+        submissionText={mockSubmission.text}
       />
     )
   }
 
   it('should display modal content correctly', () => {
     setupModal()
-    expect(screen.getByText(mockSubmissionTitle)).toBeInTheDocument()
-    expect(screen.getByText(mockSubmissionText)).toBeInTheDocument()
+    expect(screen.getByText(mockSubmission.title)).toBeInTheDocument()
+    expect(screen.getByText(mockSubmission.text)).toBeInTheDocument()
 
     const textarea = screen.getByRole('textbox')
     fireEvent.change(textarea, { target: { value: lessonSubmission.content.value } })
