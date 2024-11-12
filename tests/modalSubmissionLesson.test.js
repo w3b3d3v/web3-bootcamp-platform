@@ -9,10 +9,8 @@ import { serverTimestamp } from 'firebase/firestore'
 import { getUserFromFirestore, submitLessonInFirestore } from '../lib/user'
 import { auth } from '../firebase/initFirebase'
 import { getAllCohorts, getCurrentCohort } from '../lib/cohorts'
-import { mintNFT } from '../functions/index'
 
 jest.mock('uuidv4', () => ({ uuid: jest.fn() }))
-jest.mock('../functions/index', () => ({ mintNFT: jest.fn().mockResolvedValue(undefined) }))
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key, i18n: { resolvedLanguage: 'en' } }),
 }))
@@ -81,8 +79,6 @@ describe('Modal - NFT Submission', () => {
 
   it('should submit lesson correctly and call mintNFT function', async () => {
     const submitLessonSpy = jest.spyOn(require('../lib/user'), 'submitLessonInFirestore')
-    const change = { data: () => lessonSubmission }
-    const context = { params: { lessonId: 'test-lesson-id' } }
 
     renderModal()
     await waitFor(async () => {
@@ -93,16 +89,15 @@ describe('Modal - NFT Submission', () => {
       const submitButton = screen.getByText('send')
       fireEvent.click(submitButton)
 
+      const lessonId = undefined // undefined because these lessons are being created and not updated
       expect(submitLessonSpy).toHaveBeenCalledWith(
         lessonSubmission.cohort_id,
         mockUser,
         lessonSubmission.lesson,
         lessonSubmission.section,
         lessonSubmission.content,
-        undefined
+        lessonId
       )
-      await mintNFT(change, context)
-      expect(mintNFT).toHaveBeenCalledWith(change, context)
     })
   })
 })

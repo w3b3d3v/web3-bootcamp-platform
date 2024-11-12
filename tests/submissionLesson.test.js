@@ -1,14 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { db } from '../firebase/initFirebase'
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore'
-import { mintNFT } from '../functions/index'
-
-jest.mock('../functions/index', () => ({
-  mintNFT: jest.fn().mockResolvedValue(undefined),
-}))
 
 describe('mintNFT Function', () => {
-  let lessonSubmission, change, context
+  let lessonSubmission
 
   beforeEach(() => {
     setupTestData()
@@ -22,13 +17,11 @@ describe('mintNFT Function', () => {
         value: faker.string.alpha(10),
       },
       createdAt: serverTimestamp(),
-      lesson: 'Lesson_2_Add_State.md',
+      lesson: 'Lesson_4_Use_the_Runtime_Macro.md',
       section: 'Section_1',
       user: 'users/23WEoArqzRf4ORh4cdvadaVsYtj1',
       user_id: '23WEoArqzRf4ORh4cdvadaVsYtj1',
     }
-    change = { data: () => lessonSubmission }
-    context = { params: { lessonId: 'test-lesson-id' } }
   }
 
   const createSubmissionDocument = async (submissionId) => {
@@ -55,9 +48,5 @@ describe('mintNFT Function', () => {
       section: lessonSubmission.section,
       user_id: lessonSubmission.user_id,
     })
-
-    // Check if Firestore trigger (mintNFT) is called
-    await mintNFT(change, context)
-    expect(mintNFT).toHaveBeenCalledWith(change, context)
   })
 })
