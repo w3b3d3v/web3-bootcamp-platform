@@ -131,7 +131,10 @@
     "error_updating_data": "Erro ao atualizar dados",
     "language_not_available": "Conteúdo não disponível para o idioma selecionado. Usando o idioma padrão.",
     "course_registration_success": "Registrado no curso com sucesso!",
-    "login_cancelled": "Login cancelado"
+    "login_cancelled": "Login cancelado",
+    "title-access-git": "Se você tem interesse nessa task, deixe um comentário na issue",
+    "example-msg": "Como no exemplo abaixo"
+
   },
   "twitter-share": "Networking é tudo, que tal compartilhar seu progresso com os seus amigos no Twitter?",
   "link_github_account": "Deseja vincular o github à sua conta já cadastrada?",

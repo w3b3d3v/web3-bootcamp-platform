@@ -8,12 +8,18 @@ import rehypeRaw from 'rehype-raw'
 import rehypePrism from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
 import { contextOrder } from '../../../lib/utils/constants'
+import Modal from '../../../components/Modal/ModalTask'
 
 const IssueCard = ({ issue, userInfo }) => {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isLight = theme === 'light'
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
 
   function canTakeTask(userContext, taskContext) {
     const userContextValue = contextOrder[userContext]
@@ -97,7 +103,8 @@ const IssueCard = ({ issue, userInfo }) => {
               </button>
               <button
                 title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                onClick={() => handleApply(issue.url)}
+                //onClick={() => handleApply(issue.url)}
+                onClick={openModal}
                 disabled={!hasPermission}
                 className={applyButtonClasses}
                 style={{ width: 'fit-content' }}
@@ -143,6 +150,23 @@ const IssueCard = ({ issue, userInfo }) => {
             </>
           )}
         </div>
+        {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <p className='font-semibold md:text-lg font- mx-1 mb-2 text-center leading-none'><span className='text-2xl'>🚨</span>  {t('messages.title-access-git')} </p>
+            <p className='mb-2'> {t('messages.example-msg')} <span className='text-2xl'>👇</span></p>
+            
+            <img src="/assets/img/msg-model-task.png" />
+            <div className="mb-2">
+              <button
+                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 hover:ring-[#96E150] focus:ring-2
+                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150]'} `}
+                onClick={() => handleApply(issue.url)}
+              >
+                {t('issue.apply')}
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </Tooltip>
   )
