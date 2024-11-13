@@ -1,4 +1,5 @@
 require('dotenv').config('../.env')
+const courseTags = require('./course_tags.json')
 
 const API_URL = `https://${process.env.ACTIVE_CAMPAIGN_API_URL}.api-us1.com/api/3`
 const API_TOKEN = process.env.ACTIVE_CAMPAIGN_API_KEY
@@ -44,7 +45,6 @@ async function searchContactByEmail(email) {
     const response = await makeRequest(endpoint)
 
     if (response.contacts && response.contacts.length > 0) {
-      console.log('Contact found:', response.contacts[0])
       return response.contacts[0].id
     }
     throw new Error('Contact not found')
@@ -100,7 +100,7 @@ exports.fetchUSer = async function () {
 exports.fetchCustomFieldMeta = async function () {
   console.log('Fetching custom field metadata from ActiveCampaign...')
   try {
-    const endpoint = '/fields'
+    const endpoint = '/tags'
     const params = '?limit=100'
     const response = await makeRequest(endpoint + params)
     console.log('Custom field metadata retrieved successfully')
@@ -147,6 +147,38 @@ exports.updateUserLessonProgress = async function (user, lessonData, cohortData)
     console.error('Error updating lesson progress in ActiveCampaign:', {
       error: error.message,
       userEmail: user.email,
+      stack: error.stack,
+    })
+    throw error
+  }
+}
+
+exports.addCourseTagToUser = async function (email, courseId) {
+  try {
+    // Find contact ID by email
+    const contactId = await searchContactByEmail(email)
+
+    // Get tag ID from the mapping
+    const tagId = courseTags[courseId]
+    if (!tagId) {
+      throw new Error(`Tag ID not found for course: ${courseId}`)
+    }
+
+    // Create tag and add to contact
+    const response = await makeRequest('/contactTags', 'POST', {
+      contactTag: {
+        contact: contactId,
+        tag: tagId,
+      },
+    })
+
+    console.log(`Tag ${courseId} (ID: ${tagId}) added to contact successfully`)
+    return response
+  } catch (error) {
+    console.error('Error adding course tag in ActiveCampaign:', {
+      error: error.message,
+      userEmail: email,
+      tagName,
       stack: error.stack,
     })
     throw error

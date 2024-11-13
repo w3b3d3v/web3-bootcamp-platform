@@ -17,6 +17,7 @@ const {
   createActiveCampaignUser,
   fetchCustomFieldMeta,
   updateUserLessonProgress,
+  addCourseTagToUser,
 } = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
@@ -58,6 +59,14 @@ exports.onCohortSignup = functions.firestore
 
     for (let cohortSnapshot of userNewCohorts) {
       const params = await emailParams(cohortSnapshot)
+
+      // Add course tag to Active Campaign
+      try {
+        await addCourseTagToUser(user.email, params.cohort.course_id)
+      } catch (error) {
+        console.error('Failed to add course tag:', error)
+      }
+
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       const emailRawData = {
         incoming_topic: 'cohort_signup',
