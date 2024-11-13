@@ -30,7 +30,7 @@
       "discord_channel": "rust-state-machine-explorers",
       "course_id": "Rust_State_Machine",
       "endDate": {
-        "_seconds": 1729724400,
+        "_seconds": 1732743757,
         "_nanoseconds": 0
       },
       "nft_title": "Rust State Machine",
@@ -62,6 +62,7 @@
       "tags": ["rust", "blockchain", "polkadot", "substrate"],
       "resized_img_url": "https://firebasestorage.googleapis.com/v0/b/web3dev-development.appspot.com/o/courses_cover%2FRust_State_Machine_Resized.png?alt=media&token=73d4418c-8a0a-4115-9997-512341a0ed82",
       "nft_title": "Rust State Machine NFT",
+      "lastLesson": "Lesson_4_Use_the_Runtime_Macro.md",
       "metadata": {
         "pt-BR": {
           "difficulty": "Intermediário",
@@ -5150,7 +5151,7 @@
           "url": null
         }
       ],
-      "wallet": null,
+      "wallet": "0xf3B669953879Bf8148D21104f4395C235AB93109",
       "name": null,
       "bio": "",
       "cohorts": [],
