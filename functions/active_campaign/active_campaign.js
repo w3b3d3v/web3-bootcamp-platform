@@ -38,6 +38,22 @@ async function addContactToList(contactId, listId) {
   }
 }
 
+async function searchContactByEmail(email) {
+  try {
+    const endpoint = `/contacts?search=${email}`
+    const response = await makeRequest(endpoint)
+
+    if (response.contacts && response.contacts.length > 0) {
+      console.log('Contact found:', response.contacts[0])
+      return response.contacts[0].id
+    }
+    throw new Error('Contact not found')
+  } catch (error) {
+    console.error('Error searching contact:', error)
+    throw error
+  }
+}
+
 exports.createActiveCampaignUser = async function (user) {
   try {
     // Create or update contact
@@ -84,13 +100,55 @@ exports.fetchUSer = async function () {
 exports.fetchCustomFieldMeta = async function () {
   console.log('Fetching custom field metadata from ActiveCampaign...')
   try {
-    const endpoint = '/lists'
+    const endpoint = '/fields'
     const params = '?limit=100'
     const response = await makeRequest(endpoint + params)
     console.log('Custom field metadata retrieved successfully')
     return response
   } catch (error) {
     console.error('Error fetching custom field metadata:', error)
+    throw error
+  }
+}
+
+exports.updateUserLessonProgress = async function (user, lessonData, cohortData) {
+  try {
+    // First find the contact ID
+    const contactId = await searchContactByEmail(user.email)
+
+    // Update the contact with new field values
+    const contactData = {
+      contact: {
+        fieldValues: [
+          {
+            field: '9', // last_course field ID
+            value: cohortData.course_id || '',
+          },
+          {
+            field: '10', // cohort_name field ID
+            value: cohortData.name || '',
+          },
+          {
+            field: '15', // last_section field ID
+            value: lessonData.section || '',
+          },
+        ],
+      },
+    }
+
+    if (user.name) {
+      contactData.contact.firstName = user.name
+    }
+
+    const response = await makeRequest(`/contacts/${contactId}`, 'PUT', contactData)
+
+    return response
+  } catch (error) {
+    console.error('Error updating lesson progress in ActiveCampaign:', {
+      error: error.message,
+      userEmail: user.email,
+      stack: error.stack,
+    })
     throw error
   }
 }

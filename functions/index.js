@@ -16,6 +16,7 @@ const { fetchAndStoreIssues } = require('./fetchKanban')
 const {
   createActiveCampaignUser,
   fetchCustomFieldMeta,
+  updateUserLessonProgress,
 } = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
@@ -436,3 +437,39 @@ exports.fetchACCustomFieldsMeta = functions.https.onRequest(async (req, resp) =>
     resp.status(500).json({ success: false, error: error.message })
   }
 })
+
+exports.onLessonCreated = functions.firestore
+  .document('lessons_submissions/{lessonId}')
+  .onCreate(async (snap, context) => {
+    const lesson = snap.data()
+    const userId = lesson.user_id
+
+    console.log('New lesson submission received:', {
+      lessonId: context.params.lessonId,
+      userId,
+      cohortId: lesson.cohort_id,
+      section: lesson.section,
+    })
+
+    try {
+      const userDoc = await db.collection('users').doc(userId).get()
+      const userData = userDoc.data()
+
+      // Fetch cohort data
+      const cohortRef = await db.collection('cohorts').doc(lesson.cohort_id).get()
+      if (!cohortRef.exists) {
+        throw new Error(`Cohort not found with ID: ${lesson.cohort_id}`)
+      }
+      const cohortData = cohortRef.data()
+
+      // Update Active Campaign with all the data
+      await updateUserLessonProgress(userData, lesson, cohortData)
+    } catch (error) {
+      console.error('Error processing lesson submission:', {
+        error: error.message,
+        userId,
+        lessonId: context.params.lessonId,
+        stack: error.stack,
+      })
+    }
+  })
