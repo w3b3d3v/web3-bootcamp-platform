@@ -13,10 +13,15 @@ const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
 const { usersByStudyGroup, storeUsersPerStudyGroup } = require('./study_group_analytics')
 const { fetchAndStoreIssues } = require('./fetchKanban')
+const { createACUser } = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
   resp.send(await sendEmail(req.query.template, subject, req.query.to))
+})
+
+exports.returnTrue = functions.https.onRequest(async (req, resp) => {
+  return resp.send('true')
 })
 
 async function docData(collection, doc_id) {
@@ -410,3 +415,25 @@ exports.scheduledFetchAndStoreIssues = functions.pubsub
       return false
     }
   })
+
+exports.testCreateActiveCampaignUser = functions.https.onRequest(async (req, resp) => {
+  const fakeUser = {
+    email: 'test@example.com',
+    name: 'Test User',
+    discord: {
+      username: 'testuser#1234',
+      id: '123456789',
+    },
+    wallet: '0x1234567890abcdef',
+    createdAt: new Date(),
+    uid: 'test-uid-123',
+  }
+
+  try {
+    const result = await createACUser(fakeUser)
+    resp.json({ success: true, result })
+  } catch (error) {
+    console.error('Error creating test user:', error)
+    resp.status(500).json({ success: false, error: error.message })
+  }
+})
