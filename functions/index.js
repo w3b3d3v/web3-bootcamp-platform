@@ -13,7 +13,10 @@ const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
 const { usersByStudyGroup, storeUsersPerStudyGroup } = require('./study_group_analytics')
 const { fetchAndStoreIssues } = require('./fetchKanban')
-const { createACUser } = require('./active_campaign/active_campaign.js')
+const {
+  createActiveCampaignUser,
+  fetchCustomFieldMeta,
+} = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
@@ -323,9 +326,17 @@ exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (messag
 
 exports.sendUserToMailchimpOnUserCreation = functions.pubsub
   .topic('user_created')
-  .onPublish((message) => {
+  .onPublish(async (message) => {
     const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    console.log('sending user to AC on user creation', data.user)
     return createUser(data.user)
+  })
+
+exports.sendUserToActiveCampaignOnUserCreation = functions.pubsub
+  .topic('user_created')
+  .onPublish(async (message) => {
+    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    return createActiveCampaignUser(data.user)
   })
 
 exports.onCohortSignupMail = functions.pubsub.topic('cohort_signup').onPublish((message) => {
@@ -416,21 +427,9 @@ exports.scheduledFetchAndStoreIssues = functions.pubsub
     }
   })
 
-exports.testCreateActiveCampaignUser = functions.https.onRequest(async (req, resp) => {
-  const fakeUser = {
-    email: 'test@example.com',
-    name: 'Test User',
-    discord: {
-      username: 'testuser#1234',
-      id: '123456789',
-    },
-    wallet: '0x1234567890abcdef',
-    createdAt: new Date(),
-    uid: 'test-uid-123',
-  }
-
+exports.fetchACCustomFieldsMeta = functions.https.onRequest(async (req, resp) => {
   try {
-    const result = await createACUser(fakeUser)
+    const result = await fetchCustomFieldMeta()
     resp.json({ success: true, result })
   } catch (error) {
     console.error('Error creating test user:', error)

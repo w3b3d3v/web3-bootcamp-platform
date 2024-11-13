@@ -21,15 +21,23 @@ async function makeRequest(endpoint, method = 'GET', body = null) {
   return response.json()
 }
 
-exports.createACUser = async function (user) {
-  //   return fetchCustomFieldMeta()
-  console.log('Saving user on ActiveCampaign...', user)
+exports.createActiveCampaignUser = async function (user) {
   try {
     // Create or update contact
     const { contact } = await makeRequest('/contacts', 'POST', {
       contact: {
         email: user.email,
         firstName: user.name || '',
+        fieldValues: [
+          {
+            field: '2',
+            value: user.photoUrl,
+          },
+          {
+            field: '13',
+            value: 'BUILD_PLATFORM_API',
+          },
+        ],
       },
     })
 
@@ -54,7 +62,7 @@ exports.fetchUSer = async function () {
   }
 }
 
-fetchCustomFieldMeta = async function () {
+exports.fetchCustomFieldMeta = async function () {
   console.log('Fetching custom field metadata from ActiveCampaign...')
   try {
     const endpoint = '/fields'
