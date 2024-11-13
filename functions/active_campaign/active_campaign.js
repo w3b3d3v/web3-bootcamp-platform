@@ -21,6 +21,23 @@ async function makeRequest(endpoint, method = 'GET', body = null) {
   return response.json()
 }
 
+async function addContactToList(contactId, listId) {
+  try {
+    const response = await makeRequest('/contactLists', 'POST', {
+      contactList: {
+        list: listId,
+        contact: contactId,
+        status: 1,
+      },
+    })
+    console.log(`Contact added to list ${listId} successfully`)
+    return response
+  } catch (error) {
+    console.error(`Error adding contact to list ${listId}:`, error)
+    throw error
+  }
+}
+
 exports.createActiveCampaignUser = async function (user) {
   try {
     // Create or update contact
@@ -41,10 +58,12 @@ exports.createActiveCampaignUser = async function (user) {
       },
     })
 
-    console.log('User added to ActiveCampaign successfully')
+    await addContactToList(contact.id, 1) // Add to master list
+
+    console.log('User added to ActiveCampaign and lists successfully')
     return contact
   } catch (error) {
-    console.error('Error creating user in ActiveCampaign:', error)
+    console.error('Error in ActiveCampaign operations:', error)
     throw error
   }
 }
@@ -65,7 +84,7 @@ exports.fetchUSer = async function () {
 exports.fetchCustomFieldMeta = async function () {
   console.log('Fetching custom field metadata from ActiveCampaign...')
   try {
-    const endpoint = '/fields'
+    const endpoint = '/lists'
     const params = '?limit=100'
     const response = await makeRequest(endpoint + params)
     console.log('Custom field metadata retrieved successfully')
