@@ -18,7 +18,6 @@ import { NextUIProvider, createTheme } from '@nextui-org/react'
 import NavbarComponent from '../components/Navbar/index'
 import { useTranslation } from 'react-i18next'
 import { SSRProvider } from '@react-aria/ssr'
-import BoardBackground from '../components/Background/Board.js'
 
 export const event = (event_name, props) => {
   mixpanel.track(event_name, props)
@@ -102,7 +101,6 @@ function MyApp({ Component, pageProps }) {
                     zIndex: 1,
                   }}
                 >
-                  <BoardBackground />
                 </div>
                 <div
                   style={{

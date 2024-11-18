@@ -42,13 +42,13 @@ const IssueCard = ({ issue, userInfo }) => {
     setIsCollapsed(!isCollapsed)
   }
 
-  const buttonClasses = `search-bar text-white py-2 px-4 text-left ${
-    isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200'
+  const buttonClasses = `rounded-[15px] ring-1  text-white font-semibold py-2 px-4 ${
+    isLight ? 'bg-[#99e24d] bg-opacity-[50%]  hover:ring-2 ring-[#1E96FF] ' : 'hover:ring-2 ring-[#99e24d] bg-black-200'
   }`
 
-  const applyButtonClasses = `${buttonClasses} ${
-    isLight ? 'bg-[#99e24d] bg-opacity-75' : 'bg-[#649e26]'
-  } ${hasPermission ? 'hover:bg-[#649e26]' : 'cursor-not-allowed opacity-50'}`
+  const applyButtonClasses = `rounded-[15px] ring-1  text-white font-semibold py-2 px-4 ${
+    isLight ? 'bg-[#96E150] bg-opacity-[80%]  hover:bg-[#96E150] ring-[#1E96FF] hover:ring-2' : 'bg-[#649e26] ring-[#96E150] hover:ring-2'
+  } ${hasPermission ? '' : 'cursor-not-allowed opacity-50'}`
 
   return (
     <Tooltip
@@ -61,13 +61,13 @@ const IssueCard = ({ issue, userInfo }) => {
       <div
         data-testid="cardIssue"
         className={`flex flex-col justify-center gap-2 rounded-lg p-4 shadow-lg
-          ${isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'}
+          ${isLight ? 'bg-[#99e24d] bg-opacity-40' : 'bg-black-200 bg-opacity-75 ring-1 ring-[#96E150]'}
         `}
       >
         <div className="flex w-full flex-col gap-3">
           <div className="flex w-full items-center justify-between">
             <span
-              className={`text-[18px] text-[#99e24d] md:text-[24px]
+              className={`text-[18px] font-bold text-[#649e26] md:text-[24px]
                 ${hasPermission ? '' : 'opacity-50'}
               `}
             >
@@ -75,7 +75,7 @@ const IssueCard = ({ issue, userInfo }) => {
             </span>
           </div>
           <div
-            className={`flex flex-col gap-3 text-gray-400 md:flex-row
+            className={`flex flex-col gap-3 ${isLight ? 'text-black' : 'text-gray-400'} md:flex-row
               ${hasPermission ? '' : 'opacity-50'}
             `}
           >
@@ -103,7 +103,6 @@ const IssueCard = ({ issue, userInfo }) => {
               </button>
               <button
                 title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                //onClick={() => handleApply(issue.url)}
                 onClick={openModal}
                 disabled={!hasPermission}
                 className={applyButtonClasses}
@@ -158,8 +157,8 @@ const IssueCard = ({ issue, userInfo }) => {
             <img src="/assets/img/msg-model-task.png" />
             <div className="mb-2">
               <button
-                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 hover:ring-[#96E150] focus:ring-2
-                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150]'} `}
+                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 focus:ring-2
+                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150] hover:ring-[#96E150]'} `}
                 onClick={() => handleApply(issue.url)}
               >
                 {t('issue.apply')}

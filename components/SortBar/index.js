@@ -12,10 +12,10 @@ const Sortbar = ({ sortOptions, sortBy, onSortChange }) => {
   }
 
   return (
-    <div className="text-white inline-flex h-10 max-w-[250px]">
+    <div className="text-white inline-flex h-9 max-w-[250px]">
       <div
-        className={`flex items-center gap-1 rounded-lg ${
-          isLight ? 'bg-gray-200 bg-opacity-75' : 'bg-black-200 bg-opacity-75'
+        className={`flex items-center font-bold gap-1 rounded-lg ${
+          isLight ? 'bg-[#96E150]' : 'bg-black-200 bg-opacity-75 ring-1 ring-[#96E150]'
         } px-2`}
       >
         <label htmlFor="sortSelect" className="whitespace-nowrap text-[14px]">
@@ -27,11 +27,11 @@ const Sortbar = ({ sortOptions, sortBy, onSortChange }) => {
           onChange={handleFilterChange}
           value={sortBy}
           className={`text-white w-full border-none bg-transparent text-[14px] ${
-            isLight ? 'text-black-400' : 'text-[#99e24d]'
+            isLight ? 'text-black-400' : 'text-[#96E150]'
           }`}
         >
           {Object.keys(sortOptions).map((key) => (
-            <option key={key} value={key}>
+            <option key={key} value={key} className='text-black-400 bg-[#96E150] bg-opacity-50'>
               {t(`${key}`)}
             </option>
           ))}
