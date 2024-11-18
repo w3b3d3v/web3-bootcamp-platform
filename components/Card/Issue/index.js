@@ -43,11 +43,11 @@ const IssueCard = ({ issue, userInfo }) => {
   }
 
   const buttonClasses = `rounded-[15px] ring-1  text-white font-semibold py-2 px-4 ${
-    isLight ? 'bg-[#99e24d] bg-opacity-[50%]  hover:ring-2 ring-[#96E150] ' : 'hover:ring-2 bg-black-200'
+    isLight ? 'bg-[#99e24d] bg-opacity-[50%]  hover:ring-2 ring-[#1E96FF] ' : 'hover:ring-2 ring-[#99e24d] bg-black-200'
   }`
 
-  const applyButtonClasses = `rounded-[15px] ring-1 ring-[#1E96FF] text-white font-semibold py-2 px-4 ${
-    isLight ? 'bg-[#96E150] bg-opacity-[80%]  hover:bg-[#96E150] hover:ring-2' : 'bg-[#649e26] ring-[#96E150] hover:ring-2'
+  const applyButtonClasses = `rounded-[15px] ring-1  text-white font-semibold py-2 px-4 ${
+    isLight ? 'bg-[#96E150] bg-opacity-[80%]  hover:bg-[#96E150] ring-[#1E96FF] hover:ring-2' : 'bg-[#649e26] ring-[#96E150] hover:ring-2'
   } ${hasPermission ? '' : 'cursor-not-allowed opacity-50'}`
 
   return (
@@ -103,7 +103,6 @@ const IssueCard = ({ issue, userInfo }) => {
               </button>
               <button
                 title={`${hasPermission ? t('issue.applyForTask') : ''}`}
-                //onClick={() => handleApply(issue.url)}
                 onClick={openModal}
                 disabled={!hasPermission}
                 className={applyButtonClasses}
@@ -158,8 +157,8 @@ const IssueCard = ({ issue, userInfo }) => {
             <img src="/assets/img/msg-model-task.png" />
             <div className="mb-2">
               <button
-                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 hover:ring-[#96E150] focus:ring-2
-                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150]'} `}
+                className={`mt-4 rounded-[20px] bg-[#96E150] px-4 py-2 md:text-[22px]  hover:ring-2 focus:ring-2
+                  ${theme === 'light' ? 'bg-opacity-100 text-black-400 hover:ring-[#1E96FF]' : 'bg-opacity-30 text-[#96E150] hover:ring-[#96E150]'} `}
                 onClick={() => handleApply(issue.url)}
               >
                 {t('issue.apply')}
