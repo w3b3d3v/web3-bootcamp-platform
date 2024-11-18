@@ -9,8 +9,8 @@
     "seed": "node scripts/seedFirestore.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:e2e": "cypress open",
-    "test:e2e:run": "cypress run"
+    "emulator:cypress:": "cypress open",
+    "test:cypress:": "cypress run"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.18.2",
