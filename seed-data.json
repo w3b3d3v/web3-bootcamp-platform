@@ -336,7 +336,7 @@
               {
                 "twitter": "Acabei de começar a aprender Rust com @web3dev_ - junte-se a mim em https://build.w3d.community/",
                 "file": "Lesson_2_Requirements.md",
-                "submission_type": "text",
+                "submission_type": "upload",
                 "submission_text": "Você instalou o software necessário?",
                 "title": "Lição 2: Requisitos",
                 "submission_title": "Requisitos Instalados!"
@@ -616,7 +616,7 @@
               {
                 "twitter": "I just started to learn Rust with @web3dev_ - join me at https://build.w3d.community/",
                 "file": "Lesson_2_Requirements.md",
-                "submission_type": "text",
+                "submission_type": "upload",
                 "submission_text": "Have you installed the required software?",
                 "title": "Lesson 2: Requirements",
                 "submission_title": "Requirements Installed!"
