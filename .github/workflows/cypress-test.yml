@@ -22,7 +22,7 @@ jobs:
         run: yarn install
         
       - name: Run Frontend Emulator
-        run: yarn dev
+        run: yarn dev & echo $! > frontend_pid.txt
 
       - name: Run Emulator
         run: yarn emulator & echo $! > emulator_pid.txt 
@@ -32,3 +32,13 @@ jobs:
 
       - name: Run Cypress Tests
         run: yarn test:cypress
+
+      - name: Stop Emulator
+        run: kill $(cat emulator_pid.txt)
+        if: always()
+
+      - name: Stop Frontend Server
+        run: kill $(cat frontend_pid.txt)
+        if: always()
+
+        
