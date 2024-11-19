@@ -26,9 +26,15 @@ jobs:
 
       - name: Wait for Frontend to start
         run: |
-          until curl -sf http://localhost:3000/; do
+          timeout=160
+          while ! curl -s http://localhost:3000 > /dev/null; do
             echo "Waiting for frontend to start..."
             sleep 5
+            timeout=$((timeout - 5))
+            if [ $timeout -le 0 ]; then
+              echo "Frontend did not start in time"
+              exit 1
+            fi
           done
 
       - name: Run Emulator
