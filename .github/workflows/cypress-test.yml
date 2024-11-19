@@ -25,7 +25,11 @@ jobs:
         run: yarn dev & echo $! > frontend_pid.txt
 
       - name: Wait for Frontend to start
-        run: sleep 10
+        run: |
+          until curl -sf http://localhost:3000/; do
+            echo "Waiting for frontend to start..."
+            sleep 5
+          done
 
       - name: Run Emulator
         run: yarn emulator & echo $! > emulator_pid.txt
