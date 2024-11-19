@@ -48,6 +48,7 @@ Cypress.Commands.add('submitLesson', ({ text, filePath }) => {
 
   if (filePath) {
     cy.get('#load-file').selectFile(filePath)
+    cy.wait(4000)
     cy.get('#upload-file').click()
   } else if (text) {
     cy.get('.mt-2 > .z-10').type(text)

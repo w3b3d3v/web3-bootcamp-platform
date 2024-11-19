@@ -9,7 +9,7 @@
     "seed": "node scripts/seedFirestore.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "emulator:cypress:": "cypress open",
+    "emulator:cypress": "cypress open",
     "test:cypress": "cypress run"
   },
   "dependencies": {
