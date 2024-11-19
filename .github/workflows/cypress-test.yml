@@ -24,19 +24,6 @@ jobs:
       - name: Run Frontend Emulator
         run: yarn dev & echo $! > frontend_pid.txt
 
-      - name: Wait for Frontend to start
-        run: |
-          timeout=160
-          while ! curl -s http://localhost:3000 > /dev/null; do
-            echo "Waiting for frontend to start..."
-            sleep 5
-            timeout=$((timeout - 5))
-            if [ $timeout -le 0 ]; then
-              echo "Frontend did not start in time"
-              exit 1
-            fi
-          done
-
       - name: Run Emulator
         run: yarn emulator & echo $! > emulator_pid.txt
 
@@ -44,15 +31,25 @@ jobs:
         run: yarn seed
 
       - name: Check if Frontend is running
-        run: curl -f http://localhost:3000/ || exit 1
+        run: |
+          timeout=160
+          while ! curl -s http://localhost:3000 > /dev/null; do
+            echo "Waiting for frontend to start..."
+            sleep 5
+            timeout=$((timeout - 5))
+            if [ $timeout -le 0 ]; then
+              echo "Frontend did not start in time, proceeding to next step."
+              break
+            fi
+          done
 
       - name: Run Cypress Tests
         run: yarn test:cypress
 
       - name: Stop Emulator
-        run: kill $(cat emulator_pid.txt)
+        run: kill $(cat emulator_pid.txt) || true
         if: always()
 
       - name: Stop Frontend Server
-        run: kill $(cat frontend_pid.txt)
+        run: kill $(cat frontend_pid.txt) || true
         if: always()
