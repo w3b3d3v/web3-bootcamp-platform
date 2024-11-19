@@ -1,9 +1,9 @@
 name: Cypress Tests
 
 on:
-  push:            
+  push:
   pull_request:
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   test:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -20,15 +20,21 @@ jobs:
 
       - name: Install Frontend Dependencies
         run: yarn install
-        
+
       - name: Run Frontend Emulator
         run: yarn dev & echo $! > frontend_pid.txt
 
+      - name: Wait for Frontend to start
+        run: sleep 10
+
       - name: Run Emulator
-        run: yarn emulator & echo $! > emulator_pid.txt 
+        run: yarn emulator & echo $! > emulator_pid.txt
 
       - name: Seed Database
         run: yarn seed
+
+      - name: Check if Frontend is running
+        run: curl -f http://localhost:3000/ || exit 1
 
       - name: Run Cypress Tests
         run: yarn test:cypress
@@ -40,5 +46,3 @@ jobs:
       - name: Stop Frontend Server
         run: kill $(cat frontend_pid.txt)
         if: always()
-
-        
