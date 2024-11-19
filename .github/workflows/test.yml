@@ -27,11 +27,24 @@ jobs:
       - name: Seed Database
         run: yarn seed
 
-      - name: Run Frontend Tests
+      - name: Run Jest Tests
         run: yarn test --ci --watchAll=false --silent
+
+      - name: Cypress:Start the development server
+        run: PORT=3000 yarn dev & echo $! > frontend_pid.txt
+
+      - name: Cypress:Wait for Frontend to be Ready
+        run: npx wait-on http://127.0.0.1:3000
+
+      - name: Cypress:Run Tests
+        run: yarn test:cypress
 
       - name: Stop Emulator
         run: kill $(cat emulator_pid.txt)
+        if: always()
+
+      - name: Stop Front
+        run: kill $(cat frontend_pid.txt)
         if: always()
 
       - name: Install Backend Dependencies
