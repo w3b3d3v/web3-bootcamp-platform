@@ -43,10 +43,11 @@ export default function Home({ course }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   return {
     props: {
       course: await getHomeCourse(),
     },
+    revalidate: 3600,
   }
 }
