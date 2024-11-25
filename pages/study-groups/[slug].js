@@ -5,15 +5,13 @@ import { getUserFromFirestore, registerUserInStudyGroupInFirestore } from '../..
 import React, { useState, useEffect } from 'react'
 import DiscordCard from '../../components/Card/Discord'
 import WalletCard from '../../components/Card/Wallet'
-import ShareLinkCard from '../../components/Card/ShareLink'
 import NotFound from '../404'
-import Link from 'next/link'
 import Head from 'next/head'
-import Image from 'next/image'
 import Loading from '../../components/Loading'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
+import { getAllStudyGroups } from '../../lib/study-groups'
 
 function StudyGroup({ studyGroup }) {
   if (!studyGroup.active) return <NotFound />
@@ -175,14 +173,29 @@ function StudyGroup({ studyGroup }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const studyGroup = await getStudyGroup(params.slug)
   const currentDate = new Date().toISOString()
+
   return {
     props: {
       studyGroup,
       currentDate,
     },
+    revalidate: 3600,
+  }
+}
+
+export async function getStaticPaths() {
+  const studyGroups = await getAllStudyGroups()
+
+  const paths = studyGroups.map((group) => ({
+    params: { slug: group.slug },
+  }))
+
+  return {
+    paths,
+    fallback: 'blocking',
   }
 }
 

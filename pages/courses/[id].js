@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { getAllCourses } from '../../lib/courses'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -465,14 +466,29 @@ function Course({ course, currentDate }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const course = await getCourse(params.id)
   const currentDate = new Date().toISOString()
+
   return {
     props: {
       course,
       currentDate,
     },
+    revalidate: 3600,
+  }
+}
+
+export async function getStaticPaths() {
+  const courses = await getAllCourses()
+
+  const paths = courses.map((course) => ({
+    params: { id: course.id },
+  }))
+
+  return {
+    paths,
+    fallback: 'blocking',
   }
 }
 
