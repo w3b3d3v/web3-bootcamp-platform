@@ -9,8 +9,10 @@
     "seed": "node scripts/seedFirestore.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+
     "emulator:cypress": "cypress open",
-    "test:cypress": "cypress run --browser chrome"
+    "test:cypress": "cypress run --browser chrome",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.18.2",
@@ -18,6 +20,7 @@
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.9.7",
+    "@next/bundle-analyzer": "^15.0.3",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@react-aria/ssr": "^3.9.3",
     "@thirdweb-dev/react": "^3.1.2",
