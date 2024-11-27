@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import HomeCards from '../components/Home/Cards'
 import Main from '../components/Home'
-import { getHomeCourse, defaultCourse } from '../lib/course'
+import { getHomeCourse } from '../lib/course'
 import { useTranslation } from 'react-i18next'
 
 export default function Home({ course }) {

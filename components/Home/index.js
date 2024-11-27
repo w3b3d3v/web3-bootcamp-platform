@@ -4,7 +4,7 @@ import Cover from './Cover'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../RenderField'
 export default function Main({ course }) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const ref = React.createRef()
   const [link, setLink] = React.useState(null)
 

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { links, camelize } from '../../lib/constants'
+import { links } from '../../lib/constants'
 import Image from 'next/image'
 import { Text } from '@nextui-org/react'
 import { useTranslation } from 'react-i18next'

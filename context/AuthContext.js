@@ -11,7 +11,6 @@ import {
   GithubAuthProvider,
   getRedirectResult,
   OAuthProvider,
-  linkWithCredential,
 } from 'firebase/auth'
 import { auth } from '../firebase/initFirebase.js'
 import { getUserFromFirestore, createUserinFirestore, updateUserGithub } from '../lib/user.js'

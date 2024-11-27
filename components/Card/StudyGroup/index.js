@@ -1,5 +1,4 @@
 import { Card, Text, Collapse, Button, Link } from '@nextui-org/react'
-import { BiTimeFive } from 'react-icons/bi'
 import { useState } from 'react'
 import { MdExpandMore } from 'react-icons/md'
 import Tabs from '../../Tabs'

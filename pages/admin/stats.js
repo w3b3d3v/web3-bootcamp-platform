@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { withProtected } from '../../hooks/route'
 import Head from 'next/head'
-import Link from 'next/link'
-import { auth, storage } from '../../firebase/initFirebase'
 import { lessonsStatus, lastLesson } from '../../lib/lessons'
 
 function Stats() {
