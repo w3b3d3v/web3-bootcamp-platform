@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import ThemeSwitch from '../ThemeSwitch'
 import { Button as NUButton } from '@nextui-org/react'
-import constants from '../../lib/constants'
 import { Navbar, Text, Dropdown, Button, useModal, Modal, Grid, Avatar, Image } from '@nextui-org/react'
 import { GiExitDoor } from 'react-icons/gi'
 import { useTranslation } from "react-i18next"

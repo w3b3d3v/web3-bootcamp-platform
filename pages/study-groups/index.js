@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useState } from 'react'
 import { getAllStudyGroups } from '../../lib/study-groups'
 import { Container } from '@nextui-org/react'
 import { StudyGroupCard } from '../../components/Card/StudyGroup'

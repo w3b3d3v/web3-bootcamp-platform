@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React from 'react'
 import { Container, Input, Textarea, Button } from '@nextui-org/react'
 import { Content, InputsContainer } from '../../../../styles/components/Card/GenerealInfo/PersonalData'
 import { countries } from 'countries-list'

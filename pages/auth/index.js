@@ -1,6 +1,4 @@
-import Link from 'next/link'
-import Router from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useAuth from '../../hooks/useAuth'
