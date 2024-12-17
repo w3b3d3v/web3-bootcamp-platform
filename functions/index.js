@@ -18,6 +18,7 @@ const {
   fetchCustomFieldMeta,
   updateUserLessonProgress,
   addCourseTagToUser,
+  addTagToUserCertificate,
 } = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
@@ -126,6 +127,14 @@ async function issueCertificate(user_id, cohort) {
     console.log('callback params:')
     console.log(params)
     addDiscordRole(params.user?.discord?.id, GRADUATED_ROLE_ID)
+
+    // Add course certificate tag to Active Campaign
+    try {
+      addTagToUserCertificate(user.email, `Graduado_${cohort.course_id}`)
+    } catch (error) {
+      console.error('Failed to add course tag:', error)
+    }
+
     sendEmail(
       'nft_delivery.js',
       '👷👷‍♀️ WEB3DEV - NFT Certificate Sent: ' + params.course_title,
