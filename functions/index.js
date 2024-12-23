@@ -17,7 +17,6 @@ const {
   createActiveCampaignUser,
   fetchCustomFieldMeta,
   updateUserLessonProgress,
-  addCourseTagToUser,
   addTagToUser,
 } = require('./active_campaign/active_campaign.js')
 
@@ -63,7 +62,7 @@ exports.onCohortSignup = functions.firestore
 
       // Add course tag to Active Campaign
       try {
-        await addCourseTagToUser(user.email, params.cohort.course_id)
+        await addTagToUser(user.email, 'Courses', params.cohort.course_id)
       } catch (error) {
         console.error('Failed to add course tag:', error)
       }
@@ -130,7 +129,7 @@ async function issueCertificate(user_id, cohort) {
 
     // Add course certificate tag to Active Campaign
     try {
-      addTagToUser(user.email, `Graduado_${cohort.course_id}`)
+      addTagToUser(user.email, 'Graduation_Status', `Graduado_${cohort.course_id}`)
     } catch (error) {
       console.error('Failed to add course tag:', error)
     }

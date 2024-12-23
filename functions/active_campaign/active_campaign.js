@@ -22,6 +22,20 @@ async function makeRequest(endpoint, method = 'GET', body = null) {
   return response.json()
 }
 
+async function getTagId(category, tag) {
+  const categoryTags = courseTags[category]
+  if (!categoryTags) {
+    throw new Error(`Category not found: ${category}`)
+  }
+
+  const tagId = categoryTags[tag]
+  if (!tagId) {
+    throw new Error(`Tag ID not found for course: ${tag} in category: ${category}`)
+  }
+
+  return tagId
+}
+
 async function addContactToList(contactId, listId) {
   try {
     const response = await makeRequest('/contactLists', 'POST', {
@@ -153,41 +167,9 @@ exports.updateUserLessonProgress = async function (user, lessonData, cohortData)
   }
 }
 
-exports.addCourseTagToUser = async function (email, courseId) {
-  try {
-    // Find contact ID by email
-    const contactId = await searchContactByEmail(email)
-
-    // Get tag ID from the mapping
-    const tagId = courseTags[courseId]
-    if (!tagId) {
-      throw new Error(`Tag ID not found for course: ${courseId}`)
-    }
-
-    // Create tag and add to contact
-    const response = await makeRequest('/contactTags', 'POST', {
-      contactTag: {
-        contact: contactId,
-        tag: tagId,
-      },
-    })
-
-    console.log(`Tag ${courseId} (ID: ${tagId}) added to contact successfully`)
-    return response
-  } catch (error) {
-    console.error('Error adding course tag in ActiveCampaign:', {
-      error: error.message,
-      userEmail: email,
-      tagName,
-      stack: error.stack,
-    })
-    throw error
-  }
-}
-
-exports.addTagToUser = async function (email, tag) {
-  if (!email || !tag) {
-    throw new Error('Email and tag are required to add a tag to a user.')
+exports.addTagToUser = async function (email, category, tag) {
+  if (!email || !category || !tag) {
+    throw new Error('Email, category, and tag are required to add a tag to a user.')
   }
 
   try {
@@ -198,7 +180,7 @@ exports.addTagToUser = async function (email, tag) {
 
     // Get tag ID from the mapping
     console.log('Fetching tag ID...')
-    const tagId = courseTags[tag]
+    const tagId = await getTagId(category, tag)
     console.log('Tag ID:', tagId)
 
     const payload = {
@@ -217,6 +199,7 @@ exports.addTagToUser = async function (email, tag) {
   } catch (error) {
     console.error('Error details:', {
       userEmail: email,
+      category,
       tag,
       errorMessage: error.message,
       stack: error.stack,
