@@ -18,7 +18,7 @@ const {
   fetchCustomFieldMeta,
   updateUserLessonProgress,
   addCourseTagToUser,
-  addTagToUserCertificate,
+  addTagToUser,
 } = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
@@ -130,7 +130,7 @@ async function issueCertificate(user_id, cohort) {
 
     // Add course certificate tag to Active Campaign
     try {
-      addTagToUserCertificate(user.email, `Graduado_${cohort.course_id}`)
+      addTagToUser(user.email, `Graduado_${cohort.course_id}`)
     } catch (error) {
       console.error('Failed to add course tag:', error)
     }

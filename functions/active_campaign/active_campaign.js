@@ -185,33 +185,40 @@ exports.addCourseTagToUser = async function (email, courseId) {
   }
 }
 
-exports.addTagToUserCertificate = async function (email, courseId) {
+exports.addTagToUser = async function (email, tag) {
+  if (!email || !tag) {
+    throw new Error('Email and tag are required to add a tag to a user.')
+  }
+
   try {
+    // Find contact ID by email
+    console.log('Searching contact by email...')
     const contactId = await searchContactByEmail(email)
-    courseId
+    console.log('Contact found:', contactId)
 
-    console.log('courseId');
-    console.log(courseId);
-    
-    
-    const tagId = courseTags[courseId]
-    if (!tagId) {
-      throw new Error(`Tag ID not found for course: ${courseId}`)
-    }
+    // Get tag ID from the mapping
+    console.log('Fetching tag ID...')
+    const tagId = courseTags[tag]
+    console.log('Tag ID:', tagId)
 
-    const response = await makeRequest('/contactTags', 'POST', {
+    const payload = {
       contactTag: {
         contact: contactId,
         tag: tagId,
       },
-    })
+    }
+    console.log('Sending request with payload:', payload)
 
-    console.log(`Tag ${courseId} (ID: ${tagId}) added to contact successfully`)
+    // Add tag to contact
+    const response = await makeRequest('/contactTags', 'POST', payload)
+    console.log('Response:', response)
+
     return response
   } catch (error) {
-    console.error('Error adding certificate tag to user in ActiveCampaign:', {
-      error: error.message,
+    console.error('Error details:', {
       userEmail: email,
+      tag,
+      errorMessage: error.message,
       stack: error.stack,
     })
     throw error
