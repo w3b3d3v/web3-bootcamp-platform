@@ -13,10 +13,21 @@ const { log_study_group } = require('./lib/log_study_group')
 const { db, firebase } = require('./lib/initDb')
 const { usersByStudyGroup, storeUsersPerStudyGroup } = require('./study_group_analytics')
 const { fetchAndStoreIssues } = require('./fetchKanban')
+const {
+  createActiveCampaignUser,
+  fetchCustomFieldMeta,
+  updateUserLessonProgress,
+  addCourseTagToUser,
+  addTagToUserCertificate,
+} = require('./active_campaign/active_campaign.js')
 
 exports.sendEmail = functions.https.onRequest(async (req, resp) => {
   const subject = req.query.subject || '🏕️ Seu primeiro Smart Contract na Ethereum'
   resp.send(await sendEmail(req.query.template, subject, req.query.to))
+})
+
+exports.returnTrue = functions.https.onRequest(async (req, resp) => {
+  return resp.send('true')
 })
 
 async function docData(collection, doc_id) {
@@ -49,6 +60,14 @@ exports.onCohortSignup = functions.firestore
 
     for (let cohortSnapshot of userNewCohorts) {
       const params = await emailParams(cohortSnapshot)
+
+      // Add course tag to Active Campaign
+      try {
+        await addCourseTagToUser(user.email, params.cohort.course_id)
+      } catch (error) {
+        console.error('Failed to add course tag:', error)
+      }
+
       //todo essas funções deveriam ser enfileiradas num pubsub para evitar falhas
       const emailRawData = {
         incoming_topic: 'cohort_signup',
@@ -108,6 +127,14 @@ async function issueCertificate(user_id, cohort) {
     console.log('callback params:')
     console.log(params)
     addDiscordRole(params.user?.discord?.id, GRADUATED_ROLE_ID)
+
+    // Add course certificate tag to Active Campaign
+    try {
+      addTagToUserCertificate(user.email, `Graduado_${cohort.course_id}`)
+    } catch (error) {
+      console.error('Failed to add course tag:', error)
+    }
+
     sendEmail(
       'nft_delivery.js',
       '👷👷‍♀️ WEB3DEV - NFT Certificate Sent: ' + params.course_title,
@@ -318,9 +345,17 @@ exports.router = functions.pubsub.topic('router-pubsub').onPublish(async (messag
 
 exports.sendUserToMailchimpOnUserCreation = functions.pubsub
   .topic('user_created')
-  .onPublish((message) => {
+  .onPublish(async (message) => {
     const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    console.log('sending user to AC on user creation', data.user)
     return createUser(data.user)
+  })
+
+exports.sendUserToActiveCampaignOnUserCreation = functions.pubsub
+  .topic('user_created')
+  .onPublish(async (message) => {
+    const data = JSON.parse(Buffer.from(message.data, 'base64'))
+    return createActiveCampaignUser(data.user)
   })
 
 exports.onCohortSignupMail = functions.pubsub.topic('cohort_signup').onPublish((message) => {
@@ -408,5 +443,51 @@ exports.scheduledFetchAndStoreIssues = functions.pubsub
     } catch (e) {
       console.log('error: ' + e)
       return false
+    }
+  })
+
+exports.fetchACCustomFieldsMeta = functions.https.onRequest(async (req, resp) => {
+  try {
+    const result = await fetchCustomFieldMeta()
+    resp.json({ success: true, result })
+  } catch (error) {
+    console.error('Error creating test user:', error)
+    resp.status(500).json({ success: false, error: error.message })
+  }
+})
+
+exports.onLessonCreated = functions.firestore
+  .document('lessons_submissions/{lessonId}')
+  .onCreate(async (snap, context) => {
+    const lesson = snap.data()
+    const userId = lesson.user_id
+
+    console.log('New lesson submission received:', {
+      lessonId: context.params.lessonId,
+      userId,
+      cohortId: lesson.cohort_id,
+      section: lesson.section,
+    })
+
+    try {
+      const userDoc = await db.collection('users').doc(userId).get()
+      const userData = userDoc.data()
+
+      // Fetch cohort data
+      const cohortRef = await db.collection('cohorts').doc(lesson.cohort_id).get()
+      if (!cohortRef.exists) {
+        throw new Error(`Cohort not found with ID: ${lesson.cohort_id}`)
+      }
+      const cohortData = cohortRef.data()
+
+      // Update Active Campaign with all the data
+      await updateUserLessonProgress(userData, lesson, cohortData)
+    } catch (error) {
+      console.error('Error processing lesson submission:', {
+        error: error.message,
+        userId,
+        lessonId: context.params.lessonId,
+        stack: error.stack,
+      })
     }
   })
