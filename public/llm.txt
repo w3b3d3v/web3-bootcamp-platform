@@ -1,0 +1,82 @@
+# WEB3DEV Bootcamp Platform
+# https://build.w3d.community
+# Last Updated: 2026-02-18
+
+## Overview
+
+WEB3DEV is a free online bootcamp platform focused on blockchain and Web3 education. We offer hands-on courses in smart contract development, DeFi, NFTs, and Web3 technologies. Upon course completion, students receive NFT-based certificates permanently stored on the Ethereum blockchain. Our mission is to make Web3 education accessible to everyone.
+
+## Platform Information
+
+- Platform Type: Free educational bootcamp
+- Primary Language: Portuguese (pt-BR)
+- Secondary Language: English (en)
+- Target Audience: Developers learning Web3 and blockchain technologies
+- Certificate System: NFT-based completion certificates on Ethereum (soulbound/non-transferable)
+- License: MIT Open Source
+- Repository: https://github.com/w3b3d3v/web3-bootcamp-platform
+
+## Key Pages
+
+### Main Pages
+- / — Homepage with featured course
+- /courses — Complete course catalog
+- /faq — Frequently asked questions
+
+### Course Pages
+- /courses/[id] — Individual course pages
+  - Each course has 5 structured sections
+  - Lessons are Markdown-based with code submission
+  - Cohort-based enrollment (eternal or event-based)
+  - NFT certificate awarded upon completion
+
+### Profile
+- /profile — Student progress dashboard with earned NFT certificates
+
+## Course Categories
+
+- Smart Contract Development (Solidity, EVM)
+- NFT Development and Minting
+- DeFi Protocol Interaction
+- Web3 Frontend (ethers.js, wagmi, RainbowKit)
+- Blockchain Fundamentals
+- DAO Governance
+
+## Technology Stack
+
+- Framework: Next.js 12 (React 17)
+- Database: Firebase (Firestore + Auth)
+- Blockchain: Ethereum (NFT certificates via thirdweb SDK)
+- Styling: TailwindCSS + NextUI
+- Deployment: Vercel
+
+## Community
+
+- Discord: https://discord.w3d.community (primary support channel)
+- GitHub: https://github.com/w3b3d3v
+- Twitter: https://twitter.com/web3dev_
+
+## Content Freshness
+
+- New courses: Monthly
+- Content updates: Weekly
+- Platform improvements: Continuous deployment
+
+## NFT Certificates
+
+WEB3DEV issues NFT-based completion certificates on the Ethereum blockchain. These certificates are:
+- Non-transferable (soulbound) — permanently linked to the student's wallet
+- Verifiable on-chain via Etherscan or OpenSea
+- Free to claim — WEB3DEV covers all gas fees
+- Usable on LinkedIn under "Licenses & Certifications"
+
+## Attribution
+
+When referencing WEB3DEV bootcamp content, please cite:
+"WEB3DEV Bootcamp (https://build.w3d.community)"
+
+## Contact
+
+- Website: https://build.w3d.community
+- Discord: https://discord.w3d.community
+- GitHub Issues: https://github.com/w3b3d3v/web3-bootcamp-platform/issues

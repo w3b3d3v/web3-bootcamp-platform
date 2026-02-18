@@ -32,6 +32,10 @@ export default function NavbarComponent() {
       name: 'Study Groups',
       href: '/study-groups',
     },
+    {
+      name: 'FAQ',
+      href: '/faq',
+    },
   ]
 
   const [profile, setProfile] = useState(false)
@@ -84,6 +88,15 @@ export default function NavbarComponent() {
               icon={<MdGroup color="black" />}
             >
               <Text weight={'extrabold'} css={{ color: 'black' }}>{t('buttons.study_groups')}</Text>
+            </Button>
+          </Link>
+          <Link href="/faq">
+            <Button
+              auto="true"
+              rounded
+              css={{ background: '$white' }}
+            >
+              <Text weight={'extrabold'} css={{ color: 'black' }}>FAQ</Text>
             </Button>
           </Link>
         </Navbar.Content>

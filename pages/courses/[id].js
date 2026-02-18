@@ -13,7 +13,6 @@ import NotFound from '../404'
 import Link from 'next/link'
 import ICalendarLink from 'react-icalendar-link'
 import countdown from '../../lib/utils/countdown'
-import Head from 'next/head'
 import { getAllCohorts, getCurrentCohort } from '../../lib/cohorts'
 import { getLessonsSubmissions } from '../../lib/lessons'
 import Image from 'next/image'
@@ -23,6 +22,10 @@ import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import SEOHead from '../../components/SEO'
+import { buildCourseSchema, buildBreadcrumbSchema } from '../../components/SEO/schemas'
+
+const SITE_URL = 'https://build.w3d.community'
 
 function Course({ course, currentDate }) {
   if (!course.active) return <NotFound />
@@ -261,33 +264,35 @@ function Course({ course, currentDate }) {
     autoSubscribe()
   }, [user, cohort, auto_subscribe])
 
+  const courseImage = course?.resized_img_url || course.image_url || `${SITE_URL}/og/og-course-default.png`
+
+  const schemas = [
+    buildCourseSchema({
+      id: course.id,
+      name: courseTitle,
+      description: courseDescription,
+      image_url: courseImage,
+      tags: course.tags || [],
+      language: i18n.resolvedLanguage || 'pt-BR',
+    }),
+    buildBreadcrumbSchema([
+      { name: 'Home', url: SITE_URL },
+      { name: 'Courses', url: `${SITE_URL}/courses` },
+      { name: courseTitle, url: `${SITE_URL}/courses/${course.id}` },
+    ]),
+  ]
+
   return (
     <>
-      <Head>
-        <meta property="og:title" content={getFieldContent(course, 'title', i18n)} />
-        <meta
-          property="og:description"
-          content={getFieldContent(course, 'description', i18n)}
-        />{' '}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:image" content={course?.resized_img_url || course.image_url} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={`${course.title} `} />
-        <meta property="og:image:width" content="256" />
-        <meta property="og:image:height" content="256" />
-        {/*Twitter Start*/}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={getFieldContent(course, 'title', i18n)} />
-        <meta
-          property="twitter:description"
-          content={getFieldContent(course, 'description', i18n)}
-        />
-        <meta property="twitter:image" content={course.image_url} />
-        {/*Twitter End*/}
-        <title>Build {getFieldContent(course, 'title', i18n)} - WEB3DEV</title>
-      </Head>
+      <SEOHead
+        title={`${courseTitle} - Web3 Bootcamp`}
+        description={courseDescription}
+        canonical={`/courses/${course.id}`}
+        ogType="article"
+        ogImage={courseImage}
+        ogImageAlt={`${courseTitle} - WEB3DEV Bootcamp`}
+        jsonLd={schemas}
+      />
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">

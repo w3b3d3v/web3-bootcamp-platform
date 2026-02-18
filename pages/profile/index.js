@@ -1,15 +1,18 @@
-import Head from 'next/head'
 import { withProtected } from '../../hooks/route'
 import GeneralInfoCard from '../../components/Card/GeneralInfo'
-import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/SEO'
 
 function Profile() {
-  const { t } = useTranslation()
   return (
     <>
-      <Head>
-        <title>{t('myProfile')} - WEB3DEV</title>
-      </Head>
+      <SEOHead
+        title="My Profile"
+        description="Track your progress in WEB3DEV bootcamp. View completed courses, earned NFT certificates, and join the Web3 developer community."
+        canonical="/profile"
+        noindex={true}
+        ogImage="https://build.w3d.community/og/og-profile.png"
+        ogImageAlt="My Profile - WEB3DEV Bootcamp"
+      />
       <GeneralInfoCard />
     </>
   )

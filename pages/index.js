@@ -1,9 +1,10 @@
-import Head from 'next/head'
 import React from 'react'
 import HomeCards from '../components/Home/Cards'
 import Main from '../components/Home'
 import { getHomeCourse, defaultCourse } from '../lib/course'
 import { useTranslation } from 'react-i18next'
+import SEOHead from '../components/SEO'
+import { buildOrganizationSchema } from '../components/SEO/schemas'
 
 export default function Home({ course }) {
   const { t } = useTranslation()
@@ -15,28 +16,18 @@ export default function Home({ course }) {
     t('home.cards.3'),
     t('home.cards.4'),
   ]
+
   return (
     <>
-      <Head>
-        <title>{t('createFirstProject')}</title>
-        <meta property="og:title" content={t('createFirstProject')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:description" content={t('home.description')} />
-        <meta property="og:image" itemProp="image" content={course.image_url} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content="WEB3DEV Logo" />
-        <meta property="og:image:width" content="256" />
-        <meta property="og:image:height" content="256" />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content="WEB3DEV" />
-        <meta property="twitter:description" content={t('home.description')} />
-        <meta property="twitter:image" content={course.image_url} />
-
-        {/* Twitter */}
-      </Head>
+      <SEOHead
+        title="Web3 Bootcamp - Learn Blockchain Development | WEB3DEV"
+        description="Join WEB3DEV bootcamp to learn blockchain, smart contracts, and Web3 technologies. Free courses in Portuguese with NFT certificates. Start your Web3 journey today!"
+        canonical="/"
+        keywords={['web3', 'blockchain', 'bootcamp', 'smart contracts', 'NFT', 'Solidity', 'DeFi', 'curso blockchain', 'web3 gratis', 'ethereum']}
+        ogImage={course.image_url || 'https://build.w3d.community/og/og-home.png'}
+        ogImageAlt="WEB3DEV Bootcamp - Free Web3 and Blockchain Courses"
+        jsonLd={buildOrganizationSchema()}
+      />
       <Main course={course} />
       <HomeCards cards={cards} />
     </>

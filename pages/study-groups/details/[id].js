@@ -4,6 +4,9 @@ import NotFound from '../../404'
 import { Text,Button } from '@nextui-org/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import SEOHead from '../../../components/SEO'
+
+const SITE_URL = 'https://build.w3d.community'
 
 function Course({ course }) {
     const router = useRouter()
@@ -15,6 +18,14 @@ function Course({ course }) {
     if (!course.active) return <NotFound />
     const ref = React.createRef()
     return (
+        <>
+        <SEOHead
+            title={`${course.title} - Course Details`}
+            description={course.description ? course.description.substring(0, 160) : `Learn ${course.title} with WEB3DEV Bootcamp. Free Web3 course with NFT certificate.`}
+            canonical={`/study-groups/details/${course.id}`}
+            ogImage={course.image_url || `${SITE_URL}/og/og-course-default.png`}
+            ogImageAlt={`${course.title} - WEB3DEV Bootcamp`}
+        />
         <div className="max-w-7xl mx-auto mb-14 px-8 mt-4 flex flex-col justify-between lg:mt-16 lg:flex-row items-center gap-0 lg:gap-52">
             <div className="flex flex-col items-center mx-auto flex-1">
                 <div>
@@ -45,6 +56,7 @@ function Course({ course }) {
             </div>
 
         </div>
+        </>
     )
 }
 

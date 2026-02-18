@@ -1,19 +1,30 @@
-import Head from 'next/head'
 import { useState } from 'react'
 import { getAllStudyGroups } from '../../lib/study-groups'
 import { Container } from '@nextui-org/react'
 import { StudyGroupCard } from '../../components/Card/StudyGroup'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/SEO'
+import { buildBreadcrumbSchema } from '../../components/SEO/schemas'
+
+const SITE_URL = 'https://build.w3d.community'
 
 function StudyGroups({ AllStudyGroups }) {
   const { t } = useTranslation()
   return (
     <>
-      <Head>
-        <meta property="og:title" content="Listagem" />
-        <title>Lista de Builds - WEB3DEV</title>
-      </Head>
+      <SEOHead
+        title="Study Groups - Web3 Bootcamp"
+        description="Join WEB3DEV study groups to learn Web3 development collaboratively. Find weekly sessions on blockchain, smart contracts, NFTs, and DeFi. Free and open to all."
+        canonical="/study-groups"
+        keywords={['web3 study groups', 'blockchain learning', 'web3 community', 'smart contracts', 'NFT', 'DeFi']}
+        ogImage={`${SITE_URL}/og/og-study-groups.png`}
+        ogImageAlt="WEB3DEV Study Groups - Learn Web3 Together"
+        jsonLd={buildBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Study Groups', url: `${SITE_URL}/study-groups` },
+        ])}
+      />
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">

@@ -8,12 +8,15 @@ import WalletCard from '../../components/Card/Wallet'
 import ShareLinkCard from '../../components/Card/ShareLink'
 import NotFound from '../404'
 import Link from 'next/link'
-import Head from 'next/head'
 import Image from 'next/image'
 import Loading from '../../components/Loading'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import RenderField from '../../components/RenderField'
+import SEOHead from '../../components/SEO'
+import { buildBreadcrumbSchema } from '../../components/SEO/schemas'
+
+const SITE_URL = 'https://build.w3d.community'
 
 function StudyGroup({ studyGroup }) {
   if (!studyGroup.active) return <NotFound />
@@ -55,33 +58,25 @@ function StudyGroup({ studyGroup }) {
     setLoading(false)
   }
 
+  const groupTitle = getFieldContent(studyGroup, 'title', i18n)
+  const groupDescription = getFieldContent(studyGroup, 'description', i18n)
+  const groupImage = studyGroup?.resized_img_url || studyGroup.image_url || `${SITE_URL}/og/og-study-groups.png`
+
   return (
     <>
-      <Head>
-        <meta property="og:title" content={getFieldContent(studyGroup, 'title', i18n)} />
-        <meta
-          property="og:description"
-          content={getFieldContent(studyGroup, 'description', i18n)}
-        />{' '}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://build.w3d.community/" />
-        <meta property="og:image" content={studyGroup?.resized_img_url || studyGroup.image_url} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:alt" content={getFieldContent(studyGroup, 'title', i18n)} />
-        <meta property="og:image:width" content="256" />
-        <meta property="og:image:height" content="256" />
-        {/*Twitter Start*/}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://build.w3d.community/" />
-        <meta property="twitter:title" content={getFieldContent(studyGroup, 'title', i18n)} />
-        <meta
-          property="twitter:description"
-          content={getFieldContent(studyGroup, 'description', i18n)}
-        />
-        <meta property="twitter:image" content={studyGroup.image_url} />
-        {/*Twitter End*/}
-        <title>Study Group {getFieldContent(studyGroup, 'title', i18n)} - WEB3DEV</title>
-      </Head>
+      <SEOHead
+        title={`${groupTitle} - Study Group`}
+        description={groupDescription ? groupDescription.replace(/<[^>]*>/g, '').substring(0, 160) : 'Join this WEB3DEV study group to learn Web3 development collaboratively with the community.'}
+        canonical={`/study-groups/${studyGroup.slug || studyGroup.id}`}
+        ogType="article"
+        ogImage={groupImage}
+        ogImageAlt={groupTitle}
+        jsonLd={buildBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Study Groups', url: `${SITE_URL}/study-groups` },
+          { name: groupTitle, url: `${SITE_URL}/study-groups/${studyGroup.slug || studyGroup.id}` },
+        ])}
+      />
 
       <div className="container-lessons mx-auto mt-0 max-w-7xl px-6 lg:mt-10">
         <div className="mb-8 flex flex-col justify-between lg:flex-row">

@@ -1,0 +1,72 @@
+# WEB3DEV Bootcamp - robots.txt
+# https://build.w3d.community
+# Updated: 2026-02-18
+
+# ─── Default Rules (All Crawlers) ────────────────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Crawl-delay: 1
+
+# ─── AI Answer Engine Crawlers ────────────────────────────────────────────────
+
+# OpenAI GPTBot (ChatGPT)
+# https://platform.openai.com/docs/gptbot
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+# Anthropic ClaudeBot (Claude)
+# https://support.anthropic.com/en/articles/8896518
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+# Anthropic AI (additional crawler agent)
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+# Google Extended (Bard / Gemini training)
+# https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Crawl-delay: 1
+
+# Perplexity Bot
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+# ChatGPT-User (browsing plugin)
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+# ─── Traditional Search Engines ──────────────────────────────────────────────
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ─── Sitemaps ─────────────────────────────────────────────────────────────────
+Sitemap: https://build.w3d.community/sitemap.xml
+
+# Host
+Host: https://build.w3d.community
