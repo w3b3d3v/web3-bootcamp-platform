@@ -19,6 +19,9 @@ yarn.lock
 # misc
 .DS_Store
 
+# internal docs (planning only, not for repo)
+docs/internal/
+
 # fixtures
 #/tests/fixtures/**
 
